@@ -1,0 +1,7 @@
+{
+  "name": "QueueIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

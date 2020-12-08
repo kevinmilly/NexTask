@@ -1,0 +1,33 @@
+.button-group {
+  button {
+    margin-left: 1em;
+  }
+  #add-goal-child {
+    background-color: #ff9306;
+    color: cornsilk;
+  }
+  #add-milestone {
+    margin-right: 1em;
+    background-color: #ff9306;
+
+    color: black;
+  }
+}
+
+#submit-block {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20em;
+}
+
+.milestone-block {
+  ion-item {
+    font-size: 1em;
+  }
+}
+
+.task-block {
+  ion-item {
+    font-size: 0.8em;
+  }
+}

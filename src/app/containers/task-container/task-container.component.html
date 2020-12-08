@@ -1,0 +1,186 @@
+
+   
+   <mat-accordion 
+    *ngIf="tasks && tasks.length > 0; else noTasks">
+    <mat-expansion-panel
+      *ngFor="let task of tasks" 
+      [ngClass]="classPriority(task.priority, task.difficulty, task.urgency, task.pastDue)"  
+      [tooltip]="HtmlContent" 
+      content-type="template"
+      [options]="toolTipOptions"
+      theme="light"
+      [style.margin-top.em]=".1"
+      [style.padding.em]="1"
+      [expanded]="false" 
+    >
+      <mat-expansion-panel-header 
+      
+         [collapsedHeight]="getHeight(task)" 
+         [expandedHeight]="'auto'" 
+         >
+        <mat-panel-title>
+          {{task.title}}
+        </mat-panel-title>
+        <mat-panel-description class="milestone-info">
+          <ng-container *ngIf="task.mileStoneTitle !== task.parentGoalTitle"> 
+            <div>
+              {{task.parentGoalTitle}} : {{task.milestoneTitle }}
+            </div>
+          </ng-container>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+        <ion-card class="expanded-content">
+          <ion-card-content>
+              <div id="panel-content">
+                <div id="panel-content_1">
+                  <div >
+                    <ion-icon name="bulb" (click)="createIdea(task)"></ion-icon>
+                  </div>
+                   <ion-icon name="create-outline" (click)=" editComplete(task)"></ion-icon>
+                </div>
+              
+                <ng-container >
+                  <!-- <ul>
+                    <li>
+                      <b>Description</b>: &nbsp;&nbsp;{{task.description !== "" ? task.description : "No Description"}}
+                    </li>
+                    <li><b>Urgency:</b> &nbsp;&nbsp; {{importanceDifficultyFormat('urgency',task.urgency)}}</li>
+                    <li><b>Priority:</b>  &nbsp;&nbsp; {{importanceDifficultyFormat('importance',task.priority)}}</li>
+                    <li><b>Difficulty:</b> &nbsp;&nbsp;{{importanceDifficultyFormat('difficulty',task.difficulty)}}</li>
+                    <li><b>Minutes:</b> &nbsp;&nbsp;{{task.minutes}}</li>
+                  </ul> -->
+                  <ion-content fullscreen>
+                    <ion-list>
+                      <ion-item>
+                        <ion-label>
+                          <h2>Description</h2>
+                          <p>{{task.description !== "" ? task.description : "No Description"}}</p>
+                        </ion-label>
+                      </ion-item>
+              
+                      <ion-item>
+                        <ion-label>
+                          <h2>Urgency</h2>
+                          <h3>{{importanceDifficultyFormat('urgency',task.urgency)}}</h3>
+                        </ion-label>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>
+                          <h2>Priority</h2>
+                          <h3> {{importanceDifficultyFormat('importance',task.priority)}}</h3>
+                        </ion-label>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>
+                          <h2>Difficulty</h2>
+                          <h3>{{importanceDifficultyFormat('difficulty',task.difficulty)}}</h3>
+                        </ion-label>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label>
+                          <h2>Minutes</h2>
+                          <h3>{{task.minutes}}</h3>
+                        </ion-label>
+                      </ion-item>
+                    </ion-list>
+                    </ion-content>
+              </ng-container>
+
+              <!-- <ng-template #bigTaskDisplay>
+                <div class="task-description-header">
+                  <b>Description</b>
+                </div>
+                <div class="task-description"> {{task.description !== "" ? task.description : "No Description"}}</div>
+
+                <div>
+                  <ion-list class="list-horizontal">
+                    <ion-item >
+                      <h4 mat-line><b>Urgency</b></h4>
+                      <p mat-line> {{importanceDifficultyFormat('urgency',task.urgency)}} </p>
+                    </ion-item>
+                    <ion-item >
+                      <h4 mat-line><b>Priority</b></h4>
+                      <p mat-line> {{importanceDifficultyFormat('importance',task.priority)}} </p>
+                    </ion-item>
+                    <ion-item >
+                      <h4 mat-line><b>Difficulty</b></h4>
+                      <p mat-line> {{importanceDifficultyFormat('difficulty',task.difficulty)}} </p>
+                    </ion-item>
+                    <ion-item >
+                      <h4 mat-line><b>Minutes</b></h4>
+                      <p mat-line> {{task.minutes}} </p>
+                    </ion-item>
+                  </ion-list>
+                </div>
+              </ng-template> -->
+        
+
+              </div>
+          </ion-card-content>
+        </ion-card>
+  
+      <mat-action-row>
+        <ion-icon name="trash-outline" color="warn" (click)="delete(task)"></ion-icon>
+        <ion-icon name="checkbox-outline" (click)="markComplete(task)" ></ion-icon>
+      </mat-action-row>
+      <ng-template #HtmlContent>
+        <p><strong>Importance:</strong> {{importanceDifficultyFormat('importance', task.priority)}}</p>
+        <p><strong>Difficulty:</strong> {{importanceDifficultyFormat('difficulty', task.difficulty)}}</p>
+        <p><strong>Minutes:</strong> {{task.minutes}}</p>
+      </ng-template>
+    </mat-expansion-panel>
+  
+   
+  
+  </mat-accordion>
+
+  <ng-template #noTasks>
+    <ion-card class="no-task">
+      <ion-card-header>
+        <div ion-card-avatar></div>
+        <ion-card-title>Bruh Bruh, you need to get some things queued up!</ion-card-title>
+      </ion-card-header>
+      <img ion-card-image src="../../../assets/images/squareclock.png" alt="orange-clock">
+      <ion-card-content>
+        <p>
+          Add some tasks, I know you have something you could be doing!
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </ng-template> 
+   
+   
+   <!-- <div cdkDropList class="task-list" (cdkDropListDropped)="drop($event)">
+      <div 
+          *ngFor="let task of tasks" 
+          [ngClass]="classPriority(task.priority, task.difficulty, task.pastDue)"  
+          cdkDrag
+          [tooltip]="HtmlContent" 
+          content-type="template"
+          placement="right" 
+          theme="light"
+          [style.height.em]="(task.difficulty + task.priority)/2"
+        >
+        <div>
+            <ion-icon color="warn" (click)="delete(task)">delete_forever</ion-icon>
+        </div>
+        <div class="task-content" (click)="editComplete(task)">
+          {{task.title}} &nbsp;
+          <ion-icon >search</ion-icon>
+
+        </div>
+        <div>
+        <button mat-raised-button class="close-button" (click)="markComplete(task)">
+            <ion-icon>check_outline</ion-icon>
+          </button> 
+            <ion-icon (click)="markComplete(task)" >check_circle_outline</ion-icon>
+        </div>
+        <ng-template #HtmlContent>
+          <p><strong>Importance:</strong> {{importanceDifficultyFormat('importance', task.priority)}}</p>
+          <p><strong>Difficulty:</strong> {{importanceDifficultyFormat('difficulty', task.difficulty)}}</p>
+          <p><strong>Minutes:</strong> {{task.minutes}}</p>
+        </ng-template>
+      </div>
+        
+    </div> -->

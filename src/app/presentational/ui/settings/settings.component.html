@@ -1,0 +1,6 @@
+<app-task-actions 
+*ngIf="defaultHours"
+(dayHoursEmitter)="updateHours($event)"
+[dayHours]="defaultHours"
+>
+</app-task-actions>

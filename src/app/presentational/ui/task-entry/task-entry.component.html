@@ -1,0 +1,71 @@
+
+ <h2>Add Task</h2>
+
+<form [formGroup]="taskForm" (ngSubmit)="submitTask()">
+    <ion-list>
+        <ion-item>
+          <ion-label>Title</ion-label>
+          <ion-input
+            type="text"
+            formControlName="title"
+            name="title"
+      
+          ></ion-input>
+          <span class="error ion-padding" *ngIf='title.invalid'> Please Enter Title. </span>
+        </ion-item>
+        <ion-item>
+          <ion-label>Further Details?:</ion-label>
+          <ion-input
+            type="text"
+            formControlName="description"
+            name="description"
+          ></ion-input>
+          <span class="error ion-padding" *ngIf='description.invalid'> Your description doesn't look right. </span>
+        </ion-item>
+          <ion-item>        
+                <ion-label>Select Priority:</ion-label>   
+                <ion-select [formControl]="priority">
+                  <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">{{prior.text}}</ion-select-option>
+                </ion-select>
+          </ion-item>
+          <ion-item>        
+              <ion-label>Select Difficulty:</ion-label>   
+              <ion-select [formControl]="priority" color="primary" >
+                <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">{{diff.text}}</ion-select-option>
+              </ion-select>
+        </ion-item>
+        <ion-item>        
+            <ion-label>Select Urgency:</ion-label>   
+            <ion-select [formControl]="priority" color="primary">
+              <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">{{urg.text}}</ion-select-option>
+            </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Categorize:</ion-label>
+      <ion-input
+        type="text"
+        formControlName="tag"
+        name="tag"
+      ></ion-input>
+      <span class="error ion-padding" *ngIf='tag.invalid'> Please Enter Tag. </span>
+    </ion-item>
+      <ion-item>
+        <ion-label>How Long (Min.)?:</ion-label>
+        <ion-input
+          type="number"
+          formControlName="minutes"
+          name="minutes"
+        ></ion-input>
+        <span class="error ion-padding" *ngIf='minutes.invalid'> Please enter how long this will take. </span>
+      </ion-item>
+  
+    </ion-list>
+   
+      
+
+      <div class="decision-buttons">
+        <ion-button class="submit" type="submit" [disabled]="!taskForm.valid">Submit</ion-button>
+        <ion-button  type=ion-button (click)="cancel()">Cancel</ion-button>
+      </div>
+</form>
+   

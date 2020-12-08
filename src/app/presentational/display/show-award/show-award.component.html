@@ -1,0 +1,11 @@
+<div class="awards-list" *ngIf="!noBadges; else noAwards">
+    <div *ngFor="let award of badgeStatus" class="awards-list-item">
+        <span class="awards-list-item-image">{{award.image}}</span>
+        <span class="awards-list-item-header">{{award.title}}</span>
+        <mat-divider></mat-divider>
+    </div>
+</div> 
+
+<ng-template #noAwards>
+    <h1>No Awards Yet!</h1>
+</ng-template>

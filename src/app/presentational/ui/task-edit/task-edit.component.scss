@@ -1,0 +1,74 @@
+::ng-deep .mat-form-field {
+  width:100%;
+  // padding-left: .6em;
+
+}
+::ng-deep .mat-form-field .mat-input-element {
+  color: rgb(55, 64, 73);
+  width:100%;
+  font-size: 1em;
+  // padding-left: .6em;
+
+}
+
+  ::ng-deep .mat-form-field .mat-form-field-label .mat-label {
+    color: slategray !important;
+    font-size: 1em;
+  }
+  ::ng-deep .mat-form-field .mat-form-field-underline {
+    background-color: slategray;
+  }
+  ::ng-deep .mat-form-field .mat-form-field-ripple {
+    background-color: slategray;
+  }
+  ::ng-deep .mat-form-field .mat-form-field-required-marker {
+    color: slategray;
+  }
+  
+  ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: #2857A5 !important;
+    font-size: 1em;
+  }
+  
+  ::ng-deep .mat-form-field.mat-focused .mat-input-element {
+    color: #2857A5;
+  }
+  
+  ::ng-deep .mat-form-field.mat-form-field-invalid .mat-input-element {
+    color: #2857A5;
+  }
+  ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: #2857A5 !important;
+    font-size: 1em;
+  }
+ 
+  ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-ripple {
+    background-color: #2857A5;
+  }
+
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+
+  .radio-button {
+      margin: 5px;
+  }  
+
+  .parent-entry {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+  }
+
+  .submit {
+    background-color: #2b2525;
+    color: whitesmoke
+  }
+
+  .slider {
+    height: 15em;
+
+  }

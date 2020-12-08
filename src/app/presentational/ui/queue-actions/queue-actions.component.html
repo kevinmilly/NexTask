@@ -1,0 +1,104 @@
+<div class="actions" *ngIf="deviceSize !== 'sm' && deviceSize !== 'xs'; else nav">
+    <button 
+        mat-mini-fab 
+        (click)="navigate('queue')"
+        matTooltip="Queue View"
+        matTooltipClass="tooltip-color"
+        
+        >
+        <mat-icon>reorder</mat-icon>
+    </button>
+    <button 
+        mat-mini-fab 
+        (click)="navigate('table-view')"
+        matTooltip="Table View"
+        matTooltipClass="tooltip-color"
+        
+        >
+        <mat-icon>table_view</mat-icon>
+    </button>
+
+     <!-- <button 
+        mat-mini-fab 
+        (click)="navigate('goals')"
+        matTooltip="Goals"
+        matTooltipClass="tooltip-color"
+        
+        >
+        <mat-icon>flag</mat-icon>
+    </button> -->
+    <button 
+        mat-mini-fab 
+        matTooltip="Goals"
+        matTooltipClass="tooltip-color"
+        id="add-goal-button" 
+        (click)="addGoal()"
+    >
+        <mat-icon>flag</mat-icon>
+    </button>
+    
+    <button 
+        mat-raised-button 
+        id="add-button" 
+        (click)="addTask()"
+        matTooltip="Add Task"
+        matTooltipClass="tooltip-color"
+        >
+        <mat-icon>add_task</mat-icon>
+      </button>
+
+</div>
+
+<ng-template #nav>
+    <div fxLayout="column" fxLayoutAlign="center center" class="vert-actions">
+        <button 
+        mat-mini-fab 
+        (click)="navigate('queue')"
+        matTooltip="Queue View"
+        matTooltipClass="tooltip-color"
+        
+        >
+        <mat-icon>reorder</mat-icon>
+    </button>
+    <button 
+        mat-mini-fab 
+        (click)="navigate('table-view')"
+        matTooltip="Table View"
+        matTooltipClass="tooltip-color"
+        
+        >
+        <mat-icon>table_view</mat-icon>
+    </button>
+    
+     <!-- <button 
+        mat-mini-fab 
+        (click)="navigate('goals')"
+        matTooltip="Goals"
+        matTooltipClass="tooltip-color"
+        
+        >
+        <mat-icon>flag</mat-icon>
+    </button> -->
+    <button 
+        mat-mini-fab 
+        matTooltip="Goals"
+        matTooltipClass="tooltip-color"
+        id="add-goal-button" 
+        (click)="addGoal()"
+    >
+        <mat-icon>flag</mat-icon>
+    </button>
+    
+    <button 
+        mat-mini-fab
+        id="add-button" 
+        (click)="addTask()"
+        matTooltip="Add Task"
+        matTooltipClass="tooltip-color"
+        >
+        <mat-icon>add_task</mat-icon>
+      </button>
+    </div>
+    
+</ng-template>
+

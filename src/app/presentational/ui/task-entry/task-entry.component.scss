@@ -1,0 +1,40 @@
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.radio-button {
+  margin: 5px;
+}
+
+.parent-entry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.submit {
+  background-color: #2b2525;
+  color: whitesmoke;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1em;
+}
+
+.decision-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+ion-range {
+  width: 80%;
+}
+
+form {
+  margin-bottom: 10em;
+}

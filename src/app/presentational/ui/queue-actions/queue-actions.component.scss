@@ -1,0 +1,65 @@
+.actions {
+  //  margin-right:40%;
+  margin-bottom: 0.2em;
+
+  // margin-bottom: 2em;
+  // display: flex;
+  // justify-content: space-evenly;
+  margin-right: 2em;
+  display: block;
+  button {
+    margin-top: 1em;
+    margin-right: 1em;
+    background-color: #ffd5af;
+  }
+
+  #add-button {
+    margin-left: 1em;
+    background-color: #ff9306;
+    color: cornsilk;
+  }
+  #add-goal-button {
+    margin-left: 1em;
+    background-color: #ffd000;
+    color: black;
+  }
+}
+
+::ng-deep .tooltip-color {
+  background-color: #f79e02;
+  color: whitesmoke;
+  font-size: 0.9em;
+  margin-top: 0.6em;
+  margin-bottom: 3em;
+}
+
+.vert-actions {
+  //  margin-right:40%;
+  margin-bottom: 0.2em;
+
+  // margin-bottom: 2em;
+  // display: flex;
+  // justify-content: space-evenly;
+
+  display: block;
+  button {
+    margin-top: 2em;
+    margin-left: 0.4em;
+    background-color: #ffd5af;
+  }
+
+  #add-button {
+    background-color: #ff9306;
+    color: cornsilk;
+  }
+  #add-goal-button {
+    background-color: #ffd000;
+    color: black;
+  }
+  ::ng-deep .tooltip-color {
+    background-color: #f79e02;
+    color: whitesmoke;
+    font-size: 0.9em;
+    margin-top: 0.6em;
+  }
+}

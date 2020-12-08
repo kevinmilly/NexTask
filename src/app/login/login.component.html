@@ -1,0 +1,102 @@
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4 child">
+         
+            <div id="login" fxLayout="column" *ngIf="authCheck(); else loggedOut">
+
+                    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+                        <div id="login-form">
+
+
+
+                            <button mat-raised-button class="google" (click)="signOut()" id="center-force">
+                                Log Out?
+                            </button>
+
+
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+                <ng-template class="landing-container" #loggedOut>
+
+                      <ion-card >
+                  
+                        <img ion-card-image src="../../assets/images/lightbulb-idea-mid.jpg">
+                        <ion-card-content >
+                          <ul style="list-style-type:square">
+                            <li> 
+                            <span class="small-login"> Speed of a Paper To-Do List ✓</span> 
+                            </li>
+                            <li><span class="small-login"> Multi-level prioritization ✓ </span></li>
+                            <li><span class="small-login"> Time-blocking ✓</span></li>
+                            <li> <span class="small-login">  More time on your hands! ✓</span></li>
+                          </ul>
+                      
+                        </ion-card-content>
+                        <ion-row>
+                          <ion-col>
+                            <div class="sign-in">
+                              <img src="../../assets/images/signin-med.png" (click)="signIn()">
+                              </div>
+                          </ion-col>
+                         
+                        </ion-row>
+                      </ion-card>
+                
+                  </ng-template>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div *ngIf="auth.user$ | async; then authenticated else guest">
+  
+  </div>
+
+<ng-template #guest>
+
+        <h1>Howdy Guest,</h1>
+          
+            <button mat-raised-button class="login-button" mat-button (click)="auth.googleSignin()">Login</button>
+
+</ng-template>
+
+
+  <ng-template #authenticated>
+    <div *ngIf="auth.user$ | async as user">
+      <h3>Howdy, {{ user.displayName }}</h3>
+      <img  [src]="user.photoURL">
+      <button mat-raised-button class="login-button" (click)="auth.signOut()">Logout</button>
+    </div>
+    </ng-template>
+   -->

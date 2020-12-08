@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "queue-d-cloud": {
+      "hosting": {
+        "app": [
+          "queue-d-cloud"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+mat-card {
+  margin: auto;
+  background-color: #eed7c5;
+  width: 80em;
+  overflow: scroll;
+}
+
+.scroll {
+  width: 20em;
+  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+#task-table .mat-header-cell {
+  background-color: #f3b989;
+  font-size: 1.2em;
+  color: white;
+  padding: 1em;
+  width: auto;
+  border: 1px solid #e59a59;
+  background: -moz-linear-gradient(
+    top,
+    #e59a59 20%,
+    #f3b989 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    #e59a59 20%,
+    #f3b989 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #e59a59 20%,
+    #f3b989 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a90ef', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+table {
+  width: 100%;
+  border-spacing: 0px, 8px !important;
+}
+
+td.mat-cell {
+  padding: 16px 0 16px 0;
+  //  border-bottom:.2px solid #777575;
+  //  border-top:.2px solid #777575;
+  //  border-right: .2px solid #777575;
+  //  border-left:.2px solid #777575;
+  color: black;
+  //  font-weight: bold;
+  padding: 1em;
+  margin: 0.5em;
+  text-align: center;
+}
+
+td.mat-cell:first-child {
+  border-left: 1px solid #f8913d;
+  width: 15em;
+}
+
+td.mat-cell:last-child {
+  border-right: 1px solid #e9984d;
+}
+
+#task-table {
+  background: whitesmoke;
+}
+
+.mat-paginator {
+  background-image: var(--main-toolbar-bg);
+  color: black;
+  background-color: #f3b989;
+}
+
+.delete {
+  color: red;
+  margin-left: 2em;
+  cursor: pointer;
+}
+
+.edit {
+  cursor: pointer;
+}
+
+ion-content {
+  --ion-background-color: #f8f0ec;
+}

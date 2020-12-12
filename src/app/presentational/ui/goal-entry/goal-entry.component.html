@@ -1,7 +1,7 @@
 <ion-content>
 
   <ion-list>
-      <ion-item color="secondary" >
+      <ion-item >
         <ion-label>Goal Title</ion-label>
         <ion-input type="text" [(ngModel)]="goalTitle" name="title"></ion-input>
         
@@ -9,8 +9,8 @@
         <!-- <mat-error *ngIf='title.invalid'> Your title doesn't look right. </mat-error> -->
     </ion-item>
 
-    <ion-item color="secondary"  >
-      <ion-label>Select Priority: </ion-label>
+    <ion-item  >
+      <ion-label>How Crucial?: </ion-label>
       <ion-select placeholder="Priority" [(ngModel)]="goalPriority">
         <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
           {{ prior.text }}
@@ -18,8 +18,8 @@
       </ion-select>
   </ion-item>
 
-  <ion-item color="secondary" >
-    <ion-label>Select Difficulty: </ion-label>
+  <ion-item >
+    <ion-label>How Involved?: </ion-label>
     <ion-select placeholder="Difficulty"  [(ngModel)]="goalDifficulty">
       <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
         {{diff.text}}
@@ -28,8 +28,8 @@
 
   </ion-item> 
 
-  <ion-item color="secondary" >
-    <ion-label>Urgency:</ion-label>
+  <ion-item >
+    <ion-label>How Urgent?:</ion-label>
       <ion-select placeholder="Urgency"  [(ngModel)]="goalUrgency">
         <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
           {{ urg.text }}
@@ -38,7 +38,7 @@
   </ion-item>
     
   
-  <ion-item color="secondary"  >
+  <ion-item  >
     <ion-label>Categorize:</ion-label>
     <ion-input
       type="text"
@@ -49,15 +49,15 @@
     </ion-input>
   </ion-item>
 
-  <ion-item color="secondary" id="goal-date">
+  <ion-item id="goal-date">
     <ion-label>Deadline: </ion-label>
-    <ion-input
-      type="date"
+    <ion-datetime
+      displayFormat="YYYY-MM-DD" 
       [(ngModel)]="goalDeadline"
       name="goal-deadline"
 
     >
-    </ion-input>
+    </ion-datetime>
   </ion-item>
 </ion-list>
 
@@ -66,19 +66,19 @@
 
       <div formArrayName="goalArray">
         <div *ngFor="let goal of goalArray.controls; let i=index" class="form-group">
-            <div [formGroupName]="i" class="milestone-block">
-              <ion-list>
-                    <ion-item color="primary">
+            <div [formGroupName]="i" class="milestone-block" *ngIf="goalArray.controls[i].value.show">
+              <ion-list >
+                    <ion-item>
+                       <ion-note slot="start" color="tertiary">M</ion-note>
                       <ion-label>Milestone Title: </ion-label>
-                      <ion-note slot="end" color="tertiary">M</ion-note>
                         <ion-input type="text" formControlName="title" name="title"></ion-input>
                       
                     </ion-item>
                     
                 
-                    <ion-item color="primary">
-                      <ion-label>Select Priority: </ion-label>
-                      <ion-note slot="end" color="tertiary">M</ion-note>
+                    <ion-item>
+                       <ion-note slot="start" color="tertiary">M</ion-note>
+                      <ion-label>How Crucial?: </ion-label>
                         <ion-select placeholder="Priority" formControlName="priority">
                           <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
                             {{ prior.text }}
@@ -87,9 +87,9 @@
                       
                     </ion-item>
           
-                    <ion-item color="primary">
-                      <ion-label>Select Difficulty: </ion-label>
-                      <ion-note slot="end" color="tertiary">M</ion-note>
+                    <ion-item>
+                       <ion-note slot="start" color="tertiary">M</ion-note>
+                      <ion-label>How Involved?: </ion-label>
                       <ion-select placeholder="Difficulty" formControlName="difficulties">
                         <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
                           {{diff.text}}
@@ -98,9 +98,9 @@
                     
                     </ion-item> 
           
-                    <ion-item color="primary">
-                      <ion-label>Select Urgency:</ion-label>
-                      <ion-note slot="end" color="tertiary">M</ion-note>
+                    <ion-item>
+                       <ion-note slot="start" color="tertiary">M</ion-note>
+                      <ion-label>How Urgent?:</ion-label>
                         <ion-select placeholder="Urgency" formControlName="urgency">
                           <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
                             {{ urg.text }}
@@ -111,44 +111,52 @@
                     
             
                     <ion-item>
-                      <span class="button-group">
-                        <ion-fab slot="fixed">
-                        <ion-fab-button type="button" color="accent" (click)="addGoalChild(goal, -1)">
-                          <ion-icon name="add-circle-outline"></ion-icon>
-                        </ion-fab-button>
-                      </ion-fab>
-                      <ion-fab slot="fixed">
-                        <ion-fab-button *ngIf="i !== 0" type="button" color="warn" (click)="deleteGoal(i)">
-                          <ion-icon name="backspace"></ion-icon>
-                      </ion-fab-button>
-                    </ion-fab >
-                    </span>
+
+                       
+                        <ion-badge slot="end" color="primary" (click)="addGoalChild(goal, -1)">
+                          <ion-icon name="add-circle-outline"></ion-icon> Add Task
+                        </ion-badge>
+                 
+                      
+                        <ion-badge slot="end" *ngIf="i !== 0"  color="warn" (click)="deleteGoal(i)">
+                          <ion-icon name="ban-outline"></ion-icon> 
+                      </ion-badge>
+               
+                    
+                      <ion-badge slot="end" 
+                        *ngIf="goalArray.controls[i].value.title !== '' && goalArray.controls[i].value.show"
+                        color="light" 
+                        (click)="goalArray.controls[i].value.show = !goalArray.controls[i].value.show">
+                        <ion-icon name="eye-off-outline"></ion-icon> 
+                      </ion-badge>
+                
+      
                     </ion-item>
               </ion-list>
-           
+         
                 
               
-             
+               
                 <div formArrayName = "taskChildren">
                   <div *ngFor="let task of getTaskChildren(goal); index as j" class="form-group">
-                    <div [formGroupName]="j" class="milestone-block">
+                    <div [formGroupName]="j" class="milestone-block" *ngIf="getTaskChildren(goal)[j].value.show">
               
-                      <ion-item color="tertiary" >
+                      <ion-item >
                         <ion-label>Task Title: </ion-label>
-                        <ion-note slot="end" color="tertiary">T</ion-note>
+                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
                           <ion-input type="text" formControlName="title" name="title"></ion-input>
-                          <!-- <mat-error *ngIf='title.invalid'> Your title doesn't look right. </mat-error> -->
+                          
                       </ion-item>
 
-                      <ion-item color="tertiary" >
-                        <ion-label>Further Details: </ion-label>
-                        <ion-note slot="end" color="tertiary">T</ion-note>
+                      <ion-item >
+                        <ion-label>More Details: </ion-label>
+                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
                         <ion-input type="text" formControlName="description" name="description"></ion-input>
                     </ion-item>
             
-                      <ion-item color="tertiary">
-                        <ion-label>Select Priority: </ion-label>
-                        <ion-note slot="end" color="tertiary">T</ion-note>
+                      <ion-item>
+                        <ion-label>How Crucial?: </ion-label>
+                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
                           <ion-select placeholder="Priority" formControlName="priority">
                             <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
                               {{ prior.text }}
@@ -156,9 +164,9 @@
                           </ion-select>
                       </ion-item>
                      
-                      <ion-item color="tertiary">
-                        <ion-label>Select Difficulty:</ion-label>
-                        <ion-note slot="end" color="tertiary">T</ion-note>
+                      <ion-item>
+                        <ion-label>How Involved?:</ion-label>
+                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
                         <ion-select placeholder="Difficulty" formControlName="difficulties">
                           <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
                             {{diff.text}}
@@ -166,18 +174,18 @@
                         </ion-select>
                       </ion-item> 
                      
-                      <ion-item color="tertiary">
-                        <ion-label>Select Urgency:</ion-label>
-                        <ion-note slot="end" color="tertiary">T</ion-note>
+                      <ion-item>
+                        <ion-label>How Urgent?:</ion-label>
+                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
                           <ion-select  formControlName="urgency">
                             <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
                               {{ urg.text }}
                             </ion-select-option> 
                           </ion-select>
                         </ion-item>
-                        <ion-item color="tertiary" >
-                          <ion-label>Min.</ion-label>
-                          <ion-note slot="end" color="tertiary">T</ion-note>
+                        <ion-item >
+                          <ion-label>Duration (Min): </ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
                           <ion-input
                            
                             type="number"
@@ -189,26 +197,91 @@
                         </ion-input>
                       
                         </ion-item>
-      
-                        <span class="button-group">
-                           <ion-fab slot="fixed">
-                            <ion-fab-button type="button" color="accent" (click)="addGoalChild(goal, j)"><ion-icon name="add-circle-outline"></ion-icon></ion-fab-button>
-                           </ion-fab>
-                  
-                           <ion-fab slot="fixed">
-                            <ion-fab-button type="button" id="add-M" (click)="addTaskChild(task, j, getTaskChildren(goal))"><ion-icon name="flag-outline"></ion-icon></ion-fab-button>
-                           </ion-fab>
-                         
-                           <ion-fab slot="fixed">
-                            <ion-fab-button type="button" color="warn" (click)="deleteTask(goal,j)"><ion-icon name="backspace"></ion-icon></ion-fab-button>
-                           </ion-fab>
+                        <br/>
+                        <ion-item class="button-group">
+                           
+                            <ion-badge slot="end" color="primary" (click)="addGoalChild(goal, j)">
+                              <ion-icon name="add-circle-outline"></ion-icon> Add Task
+                            </ion-badge>
+                      
 
-                        </span>
-                    </div>
+                            <ion-badge slot="end" id="add-M" color="dark" (click)="addTaskChild(task, j, getTaskChildren(goal))">
+                              <ion-icon name="flag-outline"></ion-icon>Add Goal
+                            </ion-badge>
+                           
+                            <ion-badge slot="end" color="danger" (click)="deleteTask(goal,j)">
+                              <ion-icon name="ban-outline"></ion-icon> 
+                            </ion-badge>
+
+                            <ion-badge 
+                              *ngIf="getTaskChildren(goal)[j].value.title !== '' && getTaskChildren(goal)[j].value.show"
+                              slot="end" 
+                              color="light" 
+                              (click)="getTaskChildren(goal)[j].value.show = !getTaskChildren(goal)[j].value.show">
+                              <ion-icon name="eye-off-outline"></ion-icon> 
+                            </ion-badge>
+                      
+                        </ion-item>
+                    </div> 
+                    <ng-container *ngIf="!getTaskChildren(goal)[j].value.show">
+                      <div class="no-edit-format">
+                        <ion-item>
+                          {{getTaskChildren(goal)[j].value.title}}
+                        </ion-item>
+                        <ion-item>
+                          {{getTaskChildren(goal)[j].value.urgency}}
+                        </ion-item>
+                        <ion-item>
+                          {{getTaskChildren(goal)[j].value.priority}}
+                        </ion-item>
+                        <ion-item>
+                          {{getTaskChildren(goal)[j].value.difficulties}}
+                        </ion-item>
+                        <ion-item>
+                          {{getTaskChildren(goal)[j].value.minutes}} minutes
+                        </ion-item>
+                        <ion-item>
+                          
+                            <ion-badge slot="end" 
+                            *ngIf="goalArray.controls[i].value.title.value !== '' && goalArray.controls[i].value.show"
+                              color="dark" 
+                              (click)="goalArray.controls[i].value.show = !goalArray.controls[i].value.show">
+                              <ion-icon name="eye-outline"></ion-icon>
+                            </ion-badge>
+                      
+                        </ion-item>
+                      </div>
+                    </ng-container>
                   </div>
                 </div>
             </div>
-            
+            <ng-container *ngIf="!goalArray.controls[i].value.show" >
+              <div class="no-edit-format">
+                <ion-item>
+                  {{goalArray.controls[i].value.title.value}}
+                </ion-item>
+                <ion-item>
+                  {{goalArray.controls[i].value.urgency.value}}
+                </ion-item>
+                <ion-item>
+                  {{goalArray.controls[i].value.priority.value}}
+                </ion-item>
+                <ion-item>
+                  {{goalArray.controls[i].value.difficulties.value}}
+                </ion-item>
+             
+                <ion-item>
+                  
+                    <ion-badge slot="end" 
+                       
+                      color="dark" 
+                      (click)="goalArray.controls[i].value.show = !goalArray.controls[i].value.show">
+                      <ion-icon name="eye-outline"></ion-icon>
+                    </ion-badge>
+              
+                </ion-item>
+              </div>
+            </ng-container>
         </div> 
       </div>  
 
@@ -216,7 +289,7 @@
 
     <div id="submit-block">
       <ion-button type="submit" (click)="submitGoals()">Submit Goal</ion-button>
-      <ion-button type="button" color="warn" (click)="cancel()">Cancel</ion-button>
+      <ion-button  color="danger" (click)="cancel()">Cancel</ion-button>
     </div>
     
 </ion-content>

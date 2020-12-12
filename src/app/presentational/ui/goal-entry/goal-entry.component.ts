@@ -81,7 +81,7 @@ export class GoalEntryComponent implements OnInit {
       number: 1
     },
     {
-      text: "Somewhat Urgent", 
+      text: "Kinda Urgent", 
       number: 2
     },
     {
@@ -113,7 +113,7 @@ export class GoalEntryComponent implements OnInit {
         this.createNewGoal()
      ])
    })
-    
+    console.dir(this.getTaskChildren(this.goalArray.controls[0]));
 
 
   }
@@ -273,26 +273,29 @@ export class GoalEntryComponent implements OnInit {
           urgency: [task.get("urgency").value, [Validators.required, Validators.min(0), Validators.max(5)]],
           tag: [task.get("tag").value],
           deadline: [moment().add(1, 'M').format("MM/DD/YYYY"), [Validators.required]],
+          show: true,
           taskChildren: this.fb.array([
             this.fb.group({
-              title: ["", [Validators.required]],
+              title: ['', [Validators.required]],
               description:[''],
               minutes: [10,[Validators.required, Validators.min(0)]],
               priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
               urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
               difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-              tag: ["general", [Validators.required]]
+              tag: ["general", [Validators.required]],
+              show: true
             })
           ]),
         }) 
         :
         this.fb.group({
-          title: ["", [Validators.required]],
+          title: ['', [Validators.required]],
           priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
           urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
           difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
           tag: ["general", [Validators.required]],
           deadline: [moment().add(1, 'M').format("MM/DD/YYYY"), [Validators.required]],
+          show: true,
           taskChildren: this.fb.array([
             this.fb.group({
               title: ["", [Validators.required]],
@@ -301,7 +304,8 @@ export class GoalEntryComponent implements OnInit {
               priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
               urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
               difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-              tag: ["general", [Validators.required]]
+              tag: ["general", [Validators.required]],
+              show: true
             })
           ]),
         })
@@ -311,13 +315,14 @@ export class GoalEntryComponent implements OnInit {
     createNewTask() : FormGroup{
      return (
         this.fb.group({
-          title: ["", [Validators.required]],
+          title: ['', [Validators.required]],
           description: [''],
           minutes: [10,[Validators.required, Validators.min(0)]], 
           priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
           difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
           urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
           tag: ["general", [Validators.required]],
+          show: true
         })
     ); 
     }

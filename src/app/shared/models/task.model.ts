@@ -16,6 +16,7 @@ export class Task {
                     goalId:string;
                     milestoneTitle?:string;
                     parentGoalTitle?:string 
+                    show: boolean;
 
     constructor(
         id, 
@@ -43,5 +44,6 @@ export class Task {
                         this.milestoneTitle = milestoneTitle;
                         this.parentGoalTitle = parentGoalTitle;
                         this.pastDue = 0;
+                        this.show = true;
     }
 }

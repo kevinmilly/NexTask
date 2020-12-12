@@ -14,6 +14,7 @@ export class Goal {
   taskChildren: string[];
   id:string;
   parentGoal: string; //id
+  show: boolean;
 
   constructor(
       title, 
@@ -36,6 +37,7 @@ export class Goal {
     this.taskChildren = children !== null ? children.map(child => child.id) : null;
     this.id = id;
     this.completed = 0;
+    this.show = true;
 
   }
 

@@ -18,7 +18,8 @@ export const tasks:Task[] = [
         tag: 'general',
         goalId: '1a2b3c',
         milestoneTitle: 'Test Milestone 1',
-        parentGoalTitle: 'Test Goal 1'
+        parentGoalTitle: 'Test Goal 1',
+        show:true
     },
     {
         id:'dgdgdsae',
@@ -37,7 +38,8 @@ export const tasks:Task[] = [
         tag: 'general',
         goalId: 'a1b2c3',
         milestoneTitle: 'Test Milestone 2',
-        parentGoalTitle: 'Test Goal 1'
+        parentGoalTitle: 'Test Goal 1',
+        show:true
     },
     {
         id:'sdnhfgrt',
@@ -56,7 +58,8 @@ export const tasks:Task[] = [
         tag: 'general',
         goalId: '',
         milestoneTitle: '',
-        parentGoalTitle: ''
+        parentGoalTitle: '',
+        show:true
     },
     {
         id:'mvghfghf',
@@ -75,7 +78,8 @@ export const tasks:Task[] = [
         tag: 'general',
         goalId: '',
         milestoneTitle: '',
-        parentGoalTitle: ''
+        parentGoalTitle: '',
+        show:true
     },
     {
         id:'dsfdgdgdsae',
@@ -94,6 +98,7 @@ export const tasks:Task[] = [
         tag: 'general',
         goalId: 'aa11bb22',
         milestoneTitle: 'Test Milestone 2',
-        parentGoalTitle: 'Test Goal 1'
+        parentGoalTitle: 'Test Goal 1',
+        show:true
     },
 ]

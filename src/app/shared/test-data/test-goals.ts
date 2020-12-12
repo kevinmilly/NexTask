@@ -13,7 +13,8 @@ export const goals: Goal[] = [
         tag: 'general',
         taskChildren: [],
         id:'dfgerbdgg',
-        parentGoal:''
+        parentGoal:'',
+        show: true
     },
     {
         title:'Test Milestone 1',
@@ -27,7 +28,8 @@ export const goals: Goal[] = [
         tag: 'general',
         taskChildren: ['1a2b3c'],
         id:'fvsddsd',
-        parentGoal:'dfgerbdgg'
+        parentGoal:'dfgerbdgg',
+        show: true
     },
     {
         title:'Test Milestone 2',
@@ -41,6 +43,7 @@ export const goals: Goal[] = [
         tag: 'general',
         taskChildren: ['a1b2c3','aa11bb22'],
         id:'njkjlfgh',
-        parentGoal:'dfgerbdgg'
+        parentGoal:'dfgerbdgg',
+        show: true
     },
 ];

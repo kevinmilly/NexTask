@@ -19,7 +19,7 @@
 #submit-block {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 15em;
+  margin-top: 10em;
 }
 
 .milestone-block {
@@ -51,4 +51,10 @@ ion-badge {
 
 ion-select {
   font-size: 0.9em;
+}
+
+.not-focused {
+  ion-input {
+    font-size: 0.3em;
+  }
 }

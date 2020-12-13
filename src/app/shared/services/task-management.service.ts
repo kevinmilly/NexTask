@@ -13,10 +13,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TaskEntryComponent } from 'src/app/presentational/ui/task-entry/task-entry.component';
 import { ShowAwardComponent } from 'src/app/presentational/display/show-award/show-award.component';
 import { SettingsComponent } from 'src/app/presentational/ui/settings/settings.component';
-import { of } from 'rxjs/internal/observable/of';
-import { constructor } from 'moment';
-import { async } from 'rxjs/internal/scheduler/async';
-import { goals } from '../test-data/test-goals';
+
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
 
 @Injectable({
@@ -34,6 +31,7 @@ export class TaskManagementService {
   ideaSub: Subscription;
 
  private tasks: Task[]= []; 
+ private allTasks: Task[] =[];
  private goals: Goal[]= []; 
  private tasksDay1: Task[] = [];
  private tasksDay2: Task[] = [];
@@ -42,6 +40,7 @@ export class TaskManagementService {
  private tasksDay5: Task[] = [];
 
   private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  private allTasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   private goalsSubject: BehaviorSubject<Goal[]> = new BehaviorSubject([]);
   private tasksDay1Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
   private tasksDay2Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
@@ -49,6 +48,7 @@ export class TaskManagementService {
   private tasksDay4Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
   private tasksDay5Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
 
+  public allTasks$: Observable<Task[]> = this.allTasksSubject.asObservable();
   public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
   public goals$: Observable<Goal[]> = this.goalsSubject.asObservable();
   public tasksDay1$: Observable<Task []> = this.tasksDay1Subject.asObservable();
@@ -85,6 +85,7 @@ export class TaskManagementService {
       this.goalsSub = this.backend.getGoals().valueChanges().subscribe( goals => {
      
          this.tasks = queue;
+         this.allTasks = queue;
          console.dir(this.tasks);
          this.goals = goals;  
          
@@ -120,13 +121,15 @@ export class TaskManagementService {
           this.sortDays(this.defaultHours, [...this.tasks]);
 
           this.sendUpdates( 
+              this.allTasks,
               this.tasks,
               this.goals,
               this.tasksDay1,
               this.tasksDay2,
               this.tasksDay3,
               this.tasksDay4,
-              this.tasksDay5);
+              this.tasksDay5
+              );
           
     
         })
@@ -143,6 +146,7 @@ export class TaskManagementService {
 
   sendUpdates(
     allTasks,
+    tasks,
     allGoals,
     t1,
     t2,
@@ -150,7 +154,8 @@ export class TaskManagementService {
     t4,
     t5
   ) {
-    this.tasksSubject.next(allTasks);
+    this.allTasksSubject.next(allTasks);
+    this.tasksSubject.next(tasks);
     this.goalsSubject.next(allGoals);
     this.tasksDay1Subject.next(t1);
     this.tasksDay2Subject.next(t2);
@@ -184,6 +189,7 @@ export class TaskManagementService {
       this.tasks = [...taskList];
 
       this.sendUpdates( 
+        this.allTasks,
         this.tasks,
         this.goals,
         this.tasksDay1,
@@ -235,6 +241,7 @@ export class TaskManagementService {
     this.tasks.splice(this.tasks.findIndex(task => task.day === event.day),1);
 
     this.sendUpdates( 
+      this.allTasks,
       this.tasks,
       this.goals,
       this.tasksDay1,
@@ -256,6 +263,7 @@ export class TaskManagementService {
         const result = data['data']; 
         if(result) this.backend.addMetric(this.backend.addTask(result), "creation")
         this.sendUpdates( 
+          this.allTasks,
           this.tasks,
           this.goals,
           this.tasksDay1,
@@ -279,6 +287,7 @@ export class TaskManagementService {
         const result = data['data']; 
         if(result) this.backend.addMetric(this.backend.addTask(result), "creation")
         this.sendUpdates( 
+          this.allTasks,
           this.tasks,
           this.goals,
           this.tasksDay1,
@@ -306,6 +315,7 @@ export class TaskManagementService {
           const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
         }
         this.sendUpdates( 
+          this.allTasks,
           this.tasks,
           this.goals,
           this.tasksDay1,
@@ -323,6 +333,7 @@ export class TaskManagementService {
   editTask(event) {
     const returnItem = this.backend.updateTask(event);
     this.sendUpdates( 
+      this.allTasks,
       this.tasks,
       this.goals,
       this.tasksDay1,
@@ -338,6 +349,7 @@ export class TaskManagementService {
      const returnItem = this.backend.delete(event);
 
      this.sendUpdates( 
+      this.allTasks,
       this.tasks,
       this.goals,
       this.tasksDay1,
@@ -352,6 +364,7 @@ export class TaskManagementService {
     this.backend.updateTasks(event || [...this.tasks]);
 
     this.sendUpdates( 
+      this.allTasks,
       this.tasks,
       this.goals,
       this.tasksDay1,
@@ -444,6 +457,7 @@ export class TaskManagementService {
           const result = data['data']; 
           if(result) this.backend.setDayHours(result.hours);
           this.sendUpdates( 
+            this.allTasks,
             this.tasks,
             this.goals,
             this.tasksDay1,

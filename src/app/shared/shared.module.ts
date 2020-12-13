@@ -16,7 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-
+import { DisablePipe } from './pipes/disable.pipe';
+import { ChartsModule } from 'ng2-charts';
 
 
 
@@ -40,12 +41,13 @@ import { IonicModule } from '@ionic/angular';
         MatButtonModule,
         CommonModule,
         IonicModule,
-        FormsModule
+        FormsModule,
+        ChartsModule
     
     ],
     declarations: [
        
-    ],
+    DisablePipe],
     entryComponents: [
         
     ],
@@ -69,6 +71,8 @@ import { IonicModule } from '@ionic/angular';
         CommonModule,
         IonicModule,
         FormsModule,
+        DisablePipe,
+        ChartsModule
 
     ]
 

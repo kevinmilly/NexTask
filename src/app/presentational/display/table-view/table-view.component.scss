@@ -1,10 +1,3 @@
-mat-card {
-  margin: auto;
-  background-color: #eed7c5;
-  width: 80em;
-  overflow: scroll;
-}
-
 .scroll {
   width: 20em;
   overflow: hidden;
@@ -57,7 +50,7 @@ td.mat-cell {
 
 td.mat-cell:first-child {
   border-left: 1px solid #f8913d;
-  width: 15em;
+  width: 3em;
 }
 
 td.mat-cell:last-child {

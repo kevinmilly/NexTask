@@ -126,7 +126,7 @@ export class TaskContainerComponent implements OnInit {
           case 2:
           
             return `Low Priority`;
-          case 3:
+          case 3: 
         
             return `Important`;
           case 4:

@@ -23,7 +23,7 @@ export class GoalEntryComponent implements OnInit {
   goalPriority = 3;
   goalUrgency = 3; 
   goalDifficulty = 3;
-  goalTag = "";
+  goalTag = ""; 
 
 
   goalForm: FormGroup;

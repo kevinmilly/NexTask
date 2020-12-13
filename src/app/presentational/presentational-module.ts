@@ -11,6 +11,7 @@ import { BatchTaskEntryComponent } from './ui/batch-task-entry/batch-task-entry.
 import { ShowAwardComponent } from './display/show-award/show-award.component';
 import { GoalEntryComponent } from './ui/goal-entry/goal-entry.component';
 import { ActionButtonsComponent } from './ui/action-buttons/action-buttons.component';
+import { MetricsComponent } from './display/metrics/metrics.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ActionButtonsComponent } from './ui/action-buttons/action-buttons.compo
         QueueActionsComponent,
         SettingsComponent,
         IdeaEntryComponent,
+        MetricsComponent,
         TableViewComponent,
         BatchTaskEntryComponent,
         ShowAwardComponent,
@@ -45,11 +47,11 @@ import { ActionButtonsComponent } from './ui/action-buttons/action-buttons.compo
         QueueActionsComponent,
         SettingsComponent,
         IdeaEntryComponent,
-        TableViewComponent,
         BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,
-        ActionButtonsComponent
+        ActionButtonsComponent,
+        MetricsComponent
     ]
 
 })

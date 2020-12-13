@@ -2,7 +2,7 @@
 
   <ion-list>
       <ion-item >
-        <ion-label>Goal Title</ion-label>
+        <ion-label>Goal Name</ion-label>
         <ion-input type="text" [(ngModel)]="goalTitle" name="title"></ion-input>
         
       
@@ -68,15 +68,14 @@
         <div *ngFor="let goal of goalArray.controls; let i=index" class="form-group">
             <div [formGroupName]="i" class="milestone-block" *ngIf="goalArray.controls[i].value.show">
               <ion-list >
-                    <ion-item>
+                    <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
-                      <ion-label>Milestone Title: </ion-label>
+                      <ion-label>Milestone Name: </ion-label>
                         <ion-input type="text" formControlName="title" name="title"></ion-input>
                       
                     </ion-item>
-                    
-                
-                    <ion-item>
+                        
+                    <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
                       <ion-label>How Crucial?: </ion-label>
                         <ion-select placeholder="Priority" formControlName="priority">
@@ -87,7 +86,7 @@
                       
                     </ion-item>
           
-                    <ion-item>
+                    <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
                       <ion-label>How Involved?: </ion-label>
                       <ion-select placeholder="Difficulty" formControlName="difficulties">
@@ -98,7 +97,7 @@
                     
                     </ion-item> 
           
-                    <ion-item>
+                    <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
                       <ion-label>How Urgent?:</ion-label>
                         <ion-select placeholder="Urgency" formControlName="urgency">
@@ -110,7 +109,7 @@
                     </ion-item>
                     
             
-                    <ion-item>
+                    <ion-item disabled = "{{goalTitle === ''}}">
 
                        
                         <ion-badge slot="end" color="primary" (click)="addGoalChild(goal, -1)">
@@ -140,65 +139,64 @@
                 <div formArrayName = "taskChildren">
                   <div *ngFor="let task of getTaskChildren(goal); index as j" class="form-group">
                     <div [formGroupName]="j" class="milestone-block" *ngIf="getTaskChildren(goal)[j].value.show">
-              
-                      <ion-item >
-                        <ion-label>Task Title: </ion-label>
-                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
-                          <ion-input type="text" formControlName="title" name="title"></ion-input>
-                          
-                      </ion-item>
+                      <ion-list >
 
-                      <ion-item >
-                        <ion-label>More Details: </ion-label>
-                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
-                        <ion-input type="text" formControlName="description" name="description"></ion-input>
-                    </ion-item>
-            
-                      <ion-item>
-                        <ion-label>How Crucial?: </ion-label>
-                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
-                          <ion-select placeholder="Priority" formControlName="priority">
-                            <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
-                              {{ prior.text }}
-                            </ion-select-option> 
-                          </ion-select>
-                      </ion-item>
-                     
-                      <ion-item>
-                        <ion-label>How Involved?:</ion-label>
-                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
-                        <ion-select placeholder="Difficulty" formControlName="difficulties">
-                          <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
-                            {{diff.text}}
-                          </ion-select-option>
-                        </ion-select>
-                      </ion-item> 
-                     
-                      <ion-item>
-                        <ion-label>How Urgent?:</ion-label>
-                        <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
-                          <ion-select  formControlName="urgency">
-                            <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
-                              {{ urg.text }}
-                            </ion-select-option> 
-                          </ion-select>
-                        </ion-item>
-                        <ion-item >
-                          <ion-label>Duration (Min): </ion-label>
-                          <ion-note slot="start" [style.margin-left.em]="'1'" color="secondary">T</ion-note>
-                          <ion-input
-                           
-                            type="number"
-                            formControlName="minutes"
-                            name="minutes"
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                          <ion-label>Task Name: </ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                            <ion-input type="text" formControlName="title" name="title"></ion-input>
                             
-                      
-                          >
-                        </ion-input>
-                      
                         </ion-item>
+  
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                          <ion-label>More Details: </ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                          <ion-input type="text" formControlName="description" name="description"></ion-input>
+                        </ion-item>
+              
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                          <ion-label>How Crucial?: </ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                            <ion-select placeholder="Priority" formControlName="priority">
+                              <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
+                                {{ prior.text }}
+                              </ion-select-option> 
+                            </ion-select>
+                        </ion-item>
+                       
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                          <ion-label>How Involved?:</ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                          <ion-select placeholder="Difficulty" formControlName="difficulties">
+                            <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
+                              {{diff.text}}
+                            </ion-select-option>
+                          </ion-select>
+                        </ion-item> 
+                       
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                          <ion-label>How Urgent?:</ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                            <ion-select  formControlName="urgency">
+                              <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
+                                {{ urg.text }}
+                              </ion-select-option> 
+                            </ion-select>
+                        </ion-item>
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                            <ion-label>Duration (Min): </ion-label>
+                            <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                            <ion-input
+                              type="number"
+                              formControlName="minutes"
+                              name="minutes"
+                            >
+                          </ion-input>
+                        </ion-item>
+                      </ion-list>
+                    
                         <br/>
-                        <ion-item class="button-group">
+                        <ion-item class="button-group" disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                            
                             <ion-badge slot="end" color="primary" (click)="addGoalChild(goal, j)">
                               <ion-icon name="add-circle-outline"></ion-icon> Add Task
@@ -214,7 +212,7 @@
                             </ion-badge>
 
                             <ion-badge 
-                              *ngIf="getTaskChildren(goal)[j].value.title !== '' && getTaskChildren(goal)[j].value.show"
+                              *ngIf="getTaskChildren(goal)[j].value.title !== '' || getTaskChildren(goal)[j].value.show"
                               slot="end" 
                               color="light" 
                               (click)="getTaskChildren(goal)[j].value.show = !getTaskChildren(goal)[j].value.show">
@@ -225,25 +223,25 @@
                     </div> 
                     <ng-container *ngIf="!getTaskChildren(goal)[j].value.show">
                       <div class="no-edit-format">
-                        <ion-item>
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                           {{getTaskChildren(goal)[j].value.title}}
                         </ion-item>
-                        <ion-item>
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                           {{getTaskChildren(goal)[j].value.urgency}}
                         </ion-item>
-                        <ion-item>
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                           {{getTaskChildren(goal)[j].value.priority}}
                         </ion-item>
-                        <ion-item>
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                           {{getTaskChildren(goal)[j].value.difficulties}}
                         </ion-item>
-                        <ion-item>
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                           {{getTaskChildren(goal)[j].value.minutes}} minutes
                         </ion-item>
-                        <ion-item>
+                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                           
                             <ion-badge slot="end" 
-                            *ngIf="goalArray.controls[i].value.title.value !== '' && goalArray.controls[i].value.show"
+                            *ngIf="goalArray.controls[i].value.title.value !== ''"
                               color="dark" 
                               (click)="goalArray.controls[i].value.show = !goalArray.controls[i].value.show">
                               <ion-icon name="eye-outline"></ion-icon>
@@ -257,20 +255,20 @@
             </div>
             <ng-container *ngIf="!goalArray.controls[i].value.show" >
               <div class="no-edit-format">
-                <ion-item>
+                <ion-item disabled = "{{goalTitle === ''}}">
                   {{goalArray.controls[i].value.title.value}}
                 </ion-item>
-                <ion-item>
+                <ion-item disabled = "{{goalTitle === ''}}">
                   {{goalArray.controls[i].value.urgency.value}}
                 </ion-item>
-                <ion-item>
+                <ion-item disabled = "{{goalTitle === ''}}">
                   {{goalArray.controls[i].value.priority.value}}
                 </ion-item>
-                <ion-item>
+                <ion-item disabled = "{{goalTitle === ''}}">
                   {{goalArray.controls[i].value.difficulties.value}}
                 </ion-item>
              
-                <ion-item>
+                <ion-item disabled = "{{goalTitle === ''}}">
                   
                     <ion-badge slot="end" 
                        
@@ -288,7 +286,7 @@
     </form>
 
     <div id="submit-block">
-      <ion-button type="submit" (click)="submitGoals()">Submit Goal</ion-button>
+      <ion-button type="submit" (click)="submitGoals()" disabled = "{{goalForm.invalid}}">Submit Goal</ion-button>
       <ion-button  color="danger" (click)="cancel()">Cancel</ion-button>
     </div>
     

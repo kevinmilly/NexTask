@@ -1,0 +1,79 @@
+        <!-- (chartHover)="chartHovered($event)" 
+           (chartClick)="chartClicked($event)" -->
+           
+
+
+
+<ion-content>
+  <ion-segment  [(ngModel)]="type">
+    <ion-segment-button value="complete"  >
+      <ion-label>Completed</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="incomplete" >
+      <ion-label>Incomplete</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="type">
+    <ion-list>
+      <ion-item *ngSwitchCase="'complete'">
+  
+        <ion-card  class="graph" *ngIf="pieCompleteChartData.length > 0; else noComplete">
+          <ion-card-header>
+            <ion-card-title>Completed Tasks</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+              <canvas  
+                baseChart 
+                height="3000em"
+                width="1000em"
+                [data]="pieCompleteChartData" 
+                [labels]="pieCompleteLabels" 
+                [chartType]="pieChartType"
+                [legend]="true"
+              >
+            </canvas>
+          </ion-card-content>
+        </ion-card>
+        <ng-template #noComplete> 
+          <ion-card [style.margin-top.em]="4">
+            <ion-card-content>
+              <h2>Not Enough Data For This Metric</h2>
+            </ion-card-content>
+          </ion-card>
+          
+        </ng-template>
+      </ion-item>
+
+      <ion-item *ngSwitchCase="'incomplete'">
+        <ion-card class="graph" *ngIf="pieInCompleteChartData.length > 0; else noInComplete" >
+          <ion-card-header>
+            <ion-card-title>Incomplete Tasks</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+              <canvas  
+                baseChart 
+                height="800em"
+                width="800em"
+                [data]="pieInCompleteChartData" 
+                [labels]="pieInCompleteLabels" 
+                [chartType]="pieChartType"
+                [legend] ="true"
+              >
+            </canvas>
+          </ion-card-content>
+        </ion-card>
+        <ng-template #noInComplete>
+          <ion-card [style.margin-top.em]="4">
+            <ion-card-content>
+              <h2>Not Enough Data For This Metric</h2>
+            </ion-card-content>
+          </ion-card>
+          
+        </ng-template>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+</ion-content>

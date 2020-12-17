@@ -2,8 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Task } from '../../shared/models/task.model';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { TaskEntryComponent } from 'src/app/presentational/ui/task-entry/task-entry.component';
+import { CommentsService } from 'src/app/shared/services/comments.service';
 
 
 
@@ -29,34 +30,59 @@ export class TaskContainerComponent implements OnInit {
     'hide-delay': -300
   }
 
+  quotes;
+
   constructor(
       public dialog: MatDialog,
-      public modalController: ModalController
+      public modalController: ModalController,
+      private commentService: CommentsService,
+      public toastController: ToastController
     ) { }
 
   ngOnInit(): void {
     console.dir(this.tasks);
+    this.quotes = this.commentService.encouragement;
   }
 
 
-  // drop(event: CdkDragDrop<{title: string, poster: string}[]>) {
-  //   this.tasks[event.currentIndex].priority = 0;
-  //   console.log(`Before adding the priority to the ${this.tasks[event.currentIndex].title}`);
-  //   console.dir(this.tasks[event.currentIndex]);
-  //   this.tasks[event.currentIndex].priority = this.tasks[event.previousIndex].priority;
-  //   // this.tasks[event.currentIndex].difficulty = this.tasks[event.previousIndex].difficulty;
-  //   console.log(`After adding the priority to the ${this.tasks[event.currentIndex].title}`);
-  //   console.dir(this.tasks[event.currentIndex]);
-  //   moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
-  //   this.taskUpdate.emit([this.tasks[event.currentIndex]]);
+  getRandomQuote() {
+    this.presentToast(this.quotes[Math.floor(Math.random()*(this.quotes.length))]);
+  }
+
+  // pushToCalendar(day) {
+
+  //   this.auth.insertEvents(this.tasks.filter(t => t.day === day));
+  //   this.presentToast("Added to your Calendar!");
+   
   // }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentTwoPartToast(main, sub) {
+    const toast = await this.toastController.create({
+      header: main,
+      message: sub,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+
   
   markComplete(task: Task) {
+    this.getRandomQuote();
     this.markedComplete.emit(task);
   }
 
   delete(task: Task) {
     if(confirm("Do you legit wanna delete this?")) {
+      this.getRandomQuote();
       this.deleteTask.emit(task);
     }
    

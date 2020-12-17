@@ -9,10 +9,12 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
 import { TaskEntryComponent } from '../../presentational/ui/task-entry/task-entry.component';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastController } from '@ionic/angular';
 import { Goal } from 'src/app/shared/models/goal.model';
 import { ModalController } from '@ionic/angular';
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
+import { CommentsService } from 'src/app/shared/services/comments.service';
+import { Quote } from '@angular/compiler';
 
 
 
@@ -49,14 +51,19 @@ export class QueueContainerComponent implements OnInit {
   tagOptions = new FormControl('general',[]);
   
   addSub: Subscription;
+  quotes;
 
 
 
   constructor(
-      private tmService: TaskManagementService
+      private tmService: TaskManagementService,
+      public toastController: ToastController,
+      private commentsService: CommentsService
     ) { }
 
+
   ngOnInit(): void {  
+    // this.commentsService.initComments();
     this.tmService.init();
     this.tasksDay1$ = this.tmService.tasksDay1$ 
     this.tasksDay2$ = this.tmService.tasksDay2$
@@ -67,8 +74,7 @@ export class QueueContainerComponent implements OnInit {
     this.tmService.tasks$
       .subscribe(tasks => {
         this.tasks = tasks; 
-        console.log("Tasks are ");
-        console.dir(this.tasks);
+
 
         this.tmService.goals$.subscribe(g => {
           this.goals = g;
@@ -77,7 +83,7 @@ export class QueueContainerComponent implements OnInit {
 
       })
       
-
+      this.quotes = this.commentsService.encouragement;
 
     
   }
@@ -97,14 +103,33 @@ createIdea(event) {
      this.tmService.sortDays(this.defaultHours, this.tasks.filter(task => task.tag === this.tagOptions.value));
   }
 
+  getRandomQuote() {
+    this.presentToast(this.quotes[Math.floor(Math.random()*(this.quotes.length))]);
+  }
+
   // pushToCalendar(day) {
 
   //   this.auth.insertEvents(this.tasks.filter(t => t.day === day));
-  //   this.snackBar.open("Added to your Calendar!", `Timeboxing Activated`, {
-  //     duration: 2000,
-  //   });
+  //   this.presentToast("Added to your Calendar!");
    
   // }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentTwoPartToast(main, sub) {
+    const toast = await this.toastController.create({
+      header: main,
+      message: sub,
+      duration: 2000
+    });
+    toast.present();
+  }
 
 
   editTask(event) {
@@ -118,10 +143,13 @@ createIdea(event) {
 
    addInitialTask() {
      this.tmService.addInitialTask();
+     this.getRandomQuote();
    }
 
    markTaskComplete(event) {
      this.tmService.markTaskComplete(event);
+     this.presentToast("Added to your Calendar!");
+     this.getRandomQuote();
    }
 
   updateAllTasks(event) {

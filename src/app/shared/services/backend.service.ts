@@ -162,6 +162,7 @@ export class BackendService  {
                   usageTime: this.metrics.usageTime,
                   id: this.metrics.id
                 }
+                console.log({metric});
       
                 break;
             

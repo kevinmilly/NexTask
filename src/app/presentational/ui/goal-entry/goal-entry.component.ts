@@ -5,7 +5,8 @@ import { Task } from 'src/app/shared/models/task.model';
 import { BackendService } from 'src/app/shared/services/backend.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { CommentsService } from 'src/app/shared/services/comments.service';
 
 @Component({
   selector: 'app-goal-entry',
@@ -13,6 +14,8 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./goal-entry.component.scss']
 })
 export class GoalEntryComponent implements OnInit {
+
+  quotes;
 
   goalsToSubmit: Goal[] =[];
   tasksToSubmit: Task[] = [];
@@ -103,6 +106,8 @@ export class GoalEntryComponent implements OnInit {
     private fb: FormBuilder, 
     private backend: BackendService,
     public modalController: ModalController,
+    private commentService: CommentsService,
+    public toastController: ToastController
     ) { }
 
   ngOnInit(): void {
@@ -113,8 +118,8 @@ export class GoalEntryComponent implements OnInit {
         this.createNewGoal()
      ])
    })
-    console.dir(this.getTaskChildren(this.goalArray.controls[0]));
-
+   
+   this.quotes = this.commentService.encouragement;
 
   }
 
@@ -163,6 +168,34 @@ export class GoalEntryComponent implements OnInit {
 
   }
 
+  getRandomQuote() {
+    this.presentToast(this.quotes[Math.floor(Math.random()*(this.quotes.length))]);
+  }
+
+  // pushToCalendar(day) {
+
+  //   this.auth.insertEvents(this.tasks.filter(t => t.day === day));
+  //   this.presentToast("Added to your Calendar!");
+   
+  // }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentTwoPartToast(main, sub) {
+    const toast = await this.toastController.create({
+      header: main,
+      message: sub,
+      duration: 2000
+    });
+    toast.present();
+  }
+
   submitGoals() {
     let goalId;
     let formattedTaskChildren;
@@ -192,6 +225,8 @@ export class GoalEntryComponent implements OnInit {
         null
       )
     )
+
+    this.getRandomQuote();
 
     this.modalController.dismiss({
       'dismissed':true,

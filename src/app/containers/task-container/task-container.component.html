@@ -50,37 +50,32 @@
                     <li><b>Difficulty:</b> &nbsp;&nbsp;{{importanceDifficultyFormat('difficulty',task.difficulty)}}</li>
                     <li><b>Minutes:</b> &nbsp;&nbsp;{{task.minutes}}</li>
                   </ul> -->
-                  <ion-content fullscreen>
+                  <ion-content class="task-info">
                     <ion-list>
                       <ion-item>
                         <ion-label>
-                          <h2>Description</h2>
-                          <p>{{task.description !== "" ? task.description : "No Description"}}</p>
+                    {{task.description !== "" ? task.description : "No Description"}}
                         </ion-label>
                       </ion-item>
               
                       <ion-item>
                         <ion-label>
-                          <h2>Urgency</h2>
-                          <h3>{{importanceDifficultyFormat('urgency',task.urgency)}}</h3>
+                          <span>Urgency:</span> {{importanceDifficultyFormat('urgency',task.urgency)}}
                         </ion-label>
                       </ion-item>
                       <ion-item>
                         <ion-label>
-                          <h2>Priority</h2>
-                          <h3> {{importanceDifficultyFormat('importance',task.priority)}}</h3>
+                          <span>Priority:</span> {{importanceDifficultyFormat('importance',task.priority)}}
                         </ion-label>
                       </ion-item>
                       <ion-item>
                         <ion-label>
-                          <h2>Difficulty</h2>
-                          <h3>{{importanceDifficultyFormat('difficulty',task.difficulty)}}</h3>
+                          <span>Difficulty:</span> {{importanceDifficultyFormat('difficulty',task.difficulty)}}
                         </ion-label>
                       </ion-item>
                       <ion-item>
                         <ion-label>
-                          <h2>Minutes</h2>
-                          <h3>{{task.minutes}}</h3>
+                          <span>Minutes:</span> {{task.minutes}}
                         </ion-label>
                       </ion-item>
                     </ion-list>

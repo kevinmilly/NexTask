@@ -25,7 +25,7 @@ export class TaskEntryComponent implements AfterViewInit {
       urgency: new FormControl(2,[Validators.required, Validators.min(0), Validators.max(5)]), 
       difficulties: new FormControl(2,[Validators.required, Validators.min(0), Validators.max(5)]), 
       resource: new FormControl("",[]), 
-      title: new FormControl("",[Validators.required]),
+      title: new FormControl("",[Validators.required, Validators.maxLength(37)]),
       tag: new FormControl("general",[Validators.required])
       
     }

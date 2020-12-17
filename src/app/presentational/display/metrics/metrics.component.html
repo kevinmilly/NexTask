@@ -18,7 +18,8 @@
     <ion-list>
       <ion-item *ngSwitchCase="'complete'">
   
-        <ion-card  class="graph" *ngIf="pieCompleteChartData.length > 0; else noComplete">
+        <!-- <ion-card  class="graph" *ngIf="completeVariations.length > 0; else noComplete"> -->
+          <ion-card  class="graph" *ngIf="pieCompleteChartData.length > 0; else noComplete">
           <ion-card-header>
             <ion-card-title>Completed Tasks</ion-card-title>
           </ion-card-header>
@@ -33,6 +34,12 @@
                 [legend]="true"
               >
             </canvas>
+<!-- 
+            <ion-list>
+              <ion-item *ngFor="let data of completeVariations">
+                {{data.label}}: {{data.amount}}
+              </ion-item>
+            </ion-list> -->
           </ion-card-content>
         </ion-card>
         <ng-template #noComplete> 

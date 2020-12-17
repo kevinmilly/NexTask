@@ -184,7 +184,7 @@ ion-card {
 
 ion-card.expanded-content {
   margin-top: 0.5em;
-  background-color: rgb(255, 255, 255);
+  background-color: #f8efe7;
   box-shadow: 1.5px 1.5px rgb(160, 160, 160);
   #panel-content {
     width: 100%;
@@ -220,4 +220,8 @@ mat-list.list-horizontal {
     height: auto;
     width: auto;
   }
+}
+
+.task-info {
+  height: 20em;
 }

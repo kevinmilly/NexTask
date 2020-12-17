@@ -64,6 +64,8 @@ export class MetricsComponent implements OnInit {
   public pieCompleteChartData: number[] = [];
   public pieInCompleteChartData: number[] = [];
 
+  completeVariations: any[] = []
+
 
 
   tasks:Task[] = [];
@@ -92,6 +94,17 @@ export class MetricsComponent implements OnInit {
                           this.pieCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
                         });
+                      const comp = [];
+                      // this.organizeVariations(tasks,'complete')
+                      // .forEach(variation => {
+                      //   comp.push({
+                      //     label: this.stringifyVariations(variation.variant),
+                      //     amount: variation.amount
+                      //   })
+                      // });
+                      this.completeVariations = comp.sort((a,b) => b.amount - a.amount);
+                      console.log("The completions variation is");
+                      console.dir(this.completeVariations);
                       
                         this.organizeVariations(tasks,'incomplete')
                         .forEach(variation => {
@@ -99,7 +112,7 @@ export class MetricsComponent implements OnInit {
                           this.pieInCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
                         });
-                        console.dir(this.pieInCompleteChartData);
+                        
                         this.cdRef.detectChanges();
                     })
   }
@@ -111,30 +124,32 @@ export class MetricsComponent implements OnInit {
       case 'complete':
         const complete = unAlteredTasks.filter(t => t.completed);
         const variations:Variation[] = [];
+        let foundComplete = -1;
 
         complete.forEach( c=> {
-          const [bool, addend] = this.alreadyAddedToVariation(variations, c);
-          console.log({bool});
-          if(!bool) { //didn't find it in there
+           foundComplete = this.alreadyAddedToVariation(variations, c);
+          if(foundComplete === -1) { //didn't find it in there
             variations.push(new Variation(1,[c.difficulty,c.priority,c.urgency]));
           } else {
-               variations[addend].amount++;
+               variations[foundComplete].amount++;
           }
         })
-        console.log({variations});
+
         return variations;
       case 'incomplete':
+        let foundIncomplete = -1;
         const incomplete = unAlteredTasks.filter(t => !t.completed);
         const variationsIncomplete:Variation[] = [];
-        console.log({incomplete});
+      
         incomplete.forEach( c=> {
-          const [bool, addend] = this.alreadyAddedToVariation(variationsIncomplete, c);
-          if(!bool) { //didn't find it in there
+           foundIncomplete = this.alreadyAddedToVariation(variationsIncomplete, c);
+
+          if(foundIncomplete === -1) { //didn't find it in there
          
             variationsIncomplete.push(new Variation(1,[c.difficulty,c.priority,c.urgency]));
           } else {
-               console.log({addend});
-               variationsIncomplete[addend].amount++;
+   
+               variationsIncomplete[foundIncomplete].amount++;
           }
         })
        
@@ -144,15 +159,16 @@ export class MetricsComponent implements OnInit {
   }
 
   //a helper method for organizeVariations, returns true if the task combo has already been added
-  alreadyAddedToVariation(vary:Variation[], task: Task): [boolean, number] {
-   const foundIndex = vary.findIndex(v => {
-      v.variant.toString() ===  `${task.difficulty}${task.priority}${task.urgency}`;
-   });
+  alreadyAddedToVariation(vary:Variation[], task: Task): number {
+   if(vary.length < 1) return -1;
+   
+    const foundIndex = vary.findIndex(v => {
+        return v.variant.toString() ===  `${task.difficulty},${task.priority},${task.urgency}`;
+       
+    });
+    console.log(foundIndex);
 
-   const foundBool = !foundIndex;
-   const found = foundIndex;
-
-    return [foundBool, found];
+    return foundIndex;
 
   }
 

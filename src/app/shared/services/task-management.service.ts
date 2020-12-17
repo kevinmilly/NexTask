@@ -86,7 +86,7 @@ export class TaskManagementService {
      
          this.tasks = queue;
          this.allTasks = queue;
-         console.dir(this.tasks);
+     
          this.goals = goals;  
          
         this.tasks = [...this.tasks.map(t => {

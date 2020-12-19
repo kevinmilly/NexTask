@@ -148,62 +148,65 @@ export class TaskContainerComponent implements OnInit {
         switch(number) {
           case 1:
           
-            return `Not Important`;
+            return `Very Low`;
           case 2:
           
-            return `Low Priority`;
+            return `Low`;
           case 3: 
         
-            return `Important`;
+            return `Moderate`;
           case 4:
       
-            return `Very Important`;
+            return `High`;
           case 5:
     
-            return `Critical`;
+            return `Very High`;
           default:
   
-            return `Critical`;
+            return `Very High`;
         }
       } else if(format === 'difficulty') {
         switch(number) {
           case 1:
           
-            return `Mindless`;
+            return `Very Low`;
           case 2:
           
-            return `Easy`;
-          case 3:
+            return `Low`;
+          case 3: 
         
-            return `Average`;
+            return `Moderate`;
           case 4:
       
-            return `Involved`;
+            return `High`;
           case 5:
     
-            return `Deep Focus`;
+            return `Very High`;
+          default:
+  
+            return `Very High`;
         }
       } else {
          
           switch(number) {
             case 1:
-            
-            return `Not Urgent`;
-          case 2:
           
-            return `Somewhat Urgent`;
-          case 3:
+              return `Very Low`;
+            case 2:
+            
+              return `Low`;
+            case 3: 
+          
+              return `Moderate`;
+            case 4:
         
-            return `Urgent`;
-          case 4:
+              return `High`;
+            case 5:
       
-            return `Very Urgent`;
-          case 5:
+              return `Very High`;
+            default:
     
-            return `Get it Done Now!`;
-          default:
-
-            return 'Get It Done Now!';
+              return `Very High`;
           }
       }
     

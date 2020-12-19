@@ -26,9 +26,9 @@
 }
 
 .decision-buttons {
-  margin-top: 1em;
+  margin-top: 2em;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 ion-range {
@@ -37,4 +37,35 @@ ion-range {
 
 form {
   margin-bottom: 10em;
+}
+
+.high {
+  color: red;
+  font-size: 1.5em;
+  margin-left: 1em;
+}
+.med {
+  color: rgb(255, 136, 0);
+  font-size: 1.2em;
+  margin-left: 1em;
+}
+
+.low {
+  color: rgb(248, 195, 19);
+  font-size: 1em;
+  margin-left: 1em;
+}
+
+ion-item {
+  display: flex;
+  justify-self: center;
+}
+
+.label-prompt {
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+}
+
+.input-sufix {
+  margin-left: 2em;
 }

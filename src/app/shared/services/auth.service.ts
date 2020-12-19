@@ -76,32 +76,33 @@ export class AuthService {
                           uid: user.uid && user.uid 
                          };
                         console.dir(this.user);
+                        if(!this.afs.collection(`users/`).doc(user.uid)) {
+                          this.afs.collection(`users/`)
+                          .add(this.user)
+                          .then((docRef) => {
+                             const addedUser = docRef.set(this.user, { merge: true });
+                             
+                             this.afs
+                              .collection<Metrics>(`users/${this.user.uid}/metrics`)
+                              .add(this.metrics)
+                              .then((docRef) => {
+                                const addedmetric = docRef.set(this.metrics, { merge: true });
+                                docRef.update({
+                                  id: docRef.id,
+                                  ...this.metrics
+                                })
+                              })
+                          })
+                        } else {
+                            this.afs.collection<Metrics>(`users/${this.user.uid}/metrics`)
+                            .valueChanges().subscribe(metric => this.metrics = metric[0]);
+                     
+                        }
                       } else {
                         localStorage.setItem('user', null);
                         this.router.navigate(['/login']);
                       }
-                      if(!this.afs.collection(`users/`).doc(user.uid)) {
-                        this.afs.collection(`users/`)
-                        .add(this.user)
-                        .then((docRef) => {
-                           const addedUser = docRef.set(this.user, { merge: true });
-                           
-                           this.afs
-                            .collection<Metrics>(`users/${this.user.uid}/metrics`)
-                            .add(this.metrics)
-                            .then((docRef) => {
-                              const addedmetric = docRef.set(this.metrics, { merge: true });
-                              docRef.update({
-                                id: docRef.id,
-                                ...this.metrics
-                              })
-                            })
-                        })
-                      } else {
-                          this.afs.collection<Metrics>(`users/${this.user.uid}/metrics`)
-                          .valueChanges().subscribe(metric => this.metrics = metric[0]);
-                   
-                      }
+                 
               })
         } catch (error) {
             console.log({error});
@@ -190,7 +191,7 @@ export class AuthService {
         .then( result => {
           localStorage.removeItem('user');
           this.user = null;
-          this.router.navigate(['/login']);
+          this.router.navigate(['login']);
         })
     
     } 

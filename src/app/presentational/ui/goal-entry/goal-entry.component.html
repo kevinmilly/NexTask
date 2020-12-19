@@ -2,7 +2,7 @@
 
   <ion-list>
       <ion-item >
-        <ion-label>Goal Name</ion-label>
+        <ion-label>The Goal is to...</ion-label>
         <ion-input type="text" [(ngModel)]="goalTitle" name="title"></ion-input>
         
       
@@ -10,7 +10,7 @@
     </ion-item>
 
     <ion-item  >
-      <ion-label>How Crucial?: </ion-label>
+      <ion-label>The Importance is: </ion-label>
       <ion-select placeholder="Priority" [(ngModel)]="goalPriority">
         <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
           {{ prior.text }}
@@ -19,7 +19,7 @@
   </ion-item>
 
   <ion-item >
-    <ion-label>How Involved?: </ion-label>
+    <ion-label>The Difficulty Is: </ion-label>
     <ion-select placeholder="Difficulty"  [(ngModel)]="goalDifficulty">
       <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
         {{diff.text}}
@@ -29,7 +29,7 @@
   </ion-item> 
 
   <ion-item >
-    <ion-label>How Urgent?:</ion-label>
+    <ion-label>The Urgency is:</ion-label>
       <ion-select placeholder="Urgency"  [(ngModel)]="goalUrgency">
         <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
           {{ urg.text }}
@@ -39,7 +39,7 @@
     
   
   <ion-item  >
-    <ion-label>Categorize:</ion-label>
+    <ion-label>Categorize this as:</ion-label>
     <ion-input
       type="text"
       [(ngModel)]="goalTag"
@@ -50,7 +50,7 @@
   </ion-item>
 
   <ion-item id="goal-date">
-    <ion-label>Deadline: </ion-label>
+    <ion-label>Get this done by: </ion-label>
     <ion-datetime
       displayFormat="YYYY-MM-DD" 
       [(ngModel)]="goalDeadline"
@@ -70,14 +70,14 @@
               <ion-list >
                     <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
-                      <ion-label>Milestone Name: </ion-label>
+                      <ion-label>Milestone:</ion-label>
                         <ion-input type="text" formControlName="title" name="title"></ion-input>
                       
                     </ion-item>
                         
                     <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
-                      <ion-label>How Crucial?: </ion-label>
+                      <ion-label>The Importance is: </ion-label>
                         <ion-select placeholder="Priority" formControlName="priority">
                           <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
                             {{ prior.text }}
@@ -88,7 +88,7 @@
           
                     <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
-                      <ion-label>How Involved?: </ion-label>
+                      <ion-label>The Difficulty Is: </ion-label>
                       <ion-select placeholder="Difficulty" formControlName="difficulties">
                         <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
                           {{diff.text}}
@@ -99,7 +99,7 @@
           
                     <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
-                      <ion-label>How Urgent?:</ion-label>
+                      <ion-label>The Urgency is:</ion-label>
                         <ion-select placeholder="Urgency" formControlName="urgency">
                           <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
                             {{ urg.text }}
@@ -113,7 +113,7 @@
 
                        
                         <ion-badge slot="end" color="primary" (click)="addGoalChild(goal, -1)">
-                          <ion-icon name="add-circle-outline"></ion-icon> Add Task
+                          <ion-icon name="add-circle-outline"></ion-icon>Task
                         </ion-badge>
                  
                       
@@ -142,7 +142,7 @@
                       <ion-list >
 
                         <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
-                          <ion-label>Task Name: </ion-label>
+                          <ion-label>Task: </ion-label>
                           <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
                             <ion-input type="text" formControlName="title" name="title"></ion-input>
                             
@@ -155,7 +155,7 @@
                         </ion-item>
               
                         <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
-                          <ion-label>How Crucial?: </ion-label>
+                          <ion-label>The Importance is: </ion-label>
                           <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
                             <ion-select placeholder="Priority" formControlName="priority">
                               <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
@@ -165,7 +165,7 @@
                         </ion-item>
                        
                         <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
-                          <ion-label>How Involved?:</ion-label>
+                          <ion-label>The Difficulty Is:</ion-label>
                           <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
                           <ion-select placeholder="Difficulty" formControlName="difficulties">
                             <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
@@ -175,7 +175,7 @@
                         </ion-item> 
                        
                         <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
-                          <ion-label>How Urgent?:</ion-label>
+                          <ion-label>The Urgency is:</ion-label>
                           <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
                             <ion-select  formControlName="urgency">
                               <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
@@ -199,12 +199,12 @@
                         <ion-item class="button-group" disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                            
                             <ion-badge slot="end" color="primary" (click)="addGoalChild(goal, j)">
-                              <ion-icon name="add-circle-outline"></ion-icon> Add Task
+                              <ion-icon name="add-circle-outline"></ion-icon>Task
                             </ion-badge>
                       
 
                             <ion-badge slot="end" id="add-M" color="dark" (click)="addTaskChild(task, j, getTaskChildren(goal))">
-                              <ion-icon name="flag-outline"></ion-icon>Add Goal
+                              <ion-icon name="flag-outline"></ion-icon>Goal
                             </ion-badge>
                            
                             <ion-badge slot="end" color="danger" (click)="deleteTask(goal,j)">

@@ -58,7 +58,8 @@ export class QueueContainerComponent implements OnInit {
   constructor(
       private tmService: TaskManagementService,
       public toastController: ToastController,
-      private commentsService: CommentsService
+      private commentsService: CommentsService,
+      private auth: AuthService
     ) { }
 
 
@@ -140,7 +141,7 @@ createIdea(event) {
    deleteTask(event) {
       this.tmService.deleteTask(event);
    }
-
+ 
    addInitialTask() {
      this.tmService.addInitialTask();
      this.getRandomQuote();
@@ -148,7 +149,6 @@ createIdea(event) {
 
    markTaskComplete(event) {
      this.tmService.markTaskComplete(event);
-     this.presentToast("Added to your Calendar!");
      this.getRandomQuote();
    }
 
@@ -197,6 +197,8 @@ createIdea(event) {
     return complete;
   
   }
+
+  logout() {this.auth.logout();}
 
   ngOnDestroy() {
     if(this.taskSub) this.taskSub.unsubscribe();

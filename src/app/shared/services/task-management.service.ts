@@ -390,7 +390,7 @@ export class TaskManagementService {
       if(currentTask && !currentTask.completed) {
         console.log("Milestone Not completed yet");
         console.dir(milestoneInQuestion);
-        complete = 0;
+        complete = 0; 
       } 
     })
 
@@ -403,16 +403,24 @@ export class TaskManagementService {
     let complete = 1;
     const goalInQuestion = this.goals.find(goal => goal.id === milestoneGoalId);
     console.dir(goalInQuestion);
-    goalInQuestion.taskChildren.forEach( milestoneId => {
-      milestone = this.tasks.find(task => task.id === milestoneId);
-      if(milestone && !milestone.completed) {
-        console.log("Goal Not completed yet");
-        console.dir(goalInQuestion);
-        complete = 0;
-      } 
-    })
-
-    return complete;
+    this.goals.filter(goal => goal.id === milestoneGoalId)
+      .forEach(milestone => {
+        if(milestone && !milestone.completed) {
+          console.log("Goal Not completed yet");
+          console.dir(goalInQuestion);
+          complete = 0;
+        }
+      })
+      return complete;
+    
+    // goalInQuestion.taskChildren.forEach( milestoneId => {
+    //   milestone = this.tasks.find(task => task.id === milestoneId);
+    //   if(milestone && !milestone.completed) {
+    //     console.log("Goal Not completed yet");
+    //     console.dir(goalInQuestion);
+    //     complete = 0;
+    //   } 
+    // })
   
   }
 

@@ -103,8 +103,7 @@ export class MetricsComponent implements OnInit {
                       //   })
                       // });
                       this.completeVariations = comp.sort((a,b) => b.amount - a.amount);
-                      console.log("The completions variation is");
-                      console.dir(this.completeVariations);
+                
                       
                         this.organizeVariations(tasks,'incomplete')
                         .forEach(variation => {
@@ -119,7 +118,7 @@ export class MetricsComponent implements OnInit {
 
   
   organizeVariations(unAlteredTasks: Task[], type:string): Variation[] {
- 
+    let varyTemp;
     switch(type) {
       case 'complete':
         const complete = unAlteredTasks.filter(t => t.completed);
@@ -129,7 +128,9 @@ export class MetricsComponent implements OnInit {
         complete.forEach( c=> {
            foundComplete = this.alreadyAddedToVariation(variations, c);
           if(foundComplete === -1) { //didn't find it in there
-            variations.push(new Variation(1,[c.difficulty,c.priority,c.urgency]));
+            varyTemp = new Variation(1,[c.difficulty,c.priority,c.urgency])
+
+            variations.push(varyTemp);
           } else {
                variations[foundComplete].amount++;
           }
@@ -138,6 +139,7 @@ export class MetricsComponent implements OnInit {
         return variations;
       case 'incomplete':
         let foundIncomplete = -1;
+        
         const incomplete = unAlteredTasks.filter(t => !t.completed);
         const variationsIncomplete:Variation[] = [];
       
@@ -145,8 +147,9 @@ export class MetricsComponent implements OnInit {
            foundIncomplete = this.alreadyAddedToVariation(variationsIncomplete, c);
 
           if(foundIncomplete === -1) { //didn't find it in there
-         
-            variationsIncomplete.push(new Variation(1,[c.difficulty,c.priority,c.urgency]));
+            varyTemp  = new Variation(1,[c.difficulty,c.priority,c.urgency]);
+            console.log({varyTemp});
+            variationsIncomplete.push(varyTemp);
           } else {
    
                variationsIncomplete[foundIncomplete].amount++;
@@ -166,7 +169,7 @@ export class MetricsComponent implements OnInit {
         return v.variant.toString() ===  `${task.difficulty},${task.priority},${task.urgency}`;
        
     });
-    console.log(foundIndex);
+
 
     return foundIndex;
 

@@ -9,6 +9,8 @@ import { TaskManagementService } from 'src/app/shared/services/task-management.s
 })
 export class ActionButtonsComponent implements OnInit {
 
+  buttonSettings = false;
+
   constructor(
      private tmService: TaskManagementService
   ) { }

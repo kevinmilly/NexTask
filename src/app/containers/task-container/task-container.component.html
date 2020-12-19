@@ -19,12 +19,16 @@
          [expandedHeight]="'auto'" 
          >
         <mat-panel-title>
+         <div class="goal-title-block">
           {{task.title}}
+         </div> 
         </mat-panel-title>
+
         <mat-panel-description class="milestone-info">
           <ng-container *ngIf="task.mileStoneTitle !== task.parentGoalTitle"> 
-            <div>
-              {{task.parentGoalTitle}} : {{task.milestoneTitle }}
+            <div class="goal-description-block">
+              {{task.parentGoalTitle}} <br/>
+              {{task.milestoneTitle }}
             </div>
           </ng-container>
         </mat-panel-description>
@@ -134,7 +138,7 @@
     <ion-card class="no-task">
       <ion-card-header>
         <div ion-card-avatar></div>
-        <ion-card-title>Bruh Bruh, you need to get some things queued up!</ion-card-title>
+        <ion-card-title>Hey, you need to get some things queued up!</ion-card-title>
       </ion-card-header>
       <img ion-card-image src="../../../assets/images/squareclock.png" alt="orange-clock">
       <ion-card-content>

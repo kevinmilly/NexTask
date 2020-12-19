@@ -1,17 +1,15 @@
 
- <h2>Add Task</h2>
-
 <form [formGroup]="taskForm" (ngSubmit)="submitTask()">
     <ion-list>
         <ion-item>
-          <ion-label>Title</ion-label>
+          <ion-label>I Need to...</ion-label>
           <ion-input
             type="text"
             formControlName="title"
             name="title"
       
           ></ion-input>
-          <span class="error ion-padding" *ngIf='title.invalid'> Please Enter Title. </span>
+          <span class="error ion-padding" *ngIf='title.invalid && title.touched'> Please Enter Title. </span>
         </ion-item>
         <ion-item>
           <ion-label>Further Details?:</ion-label>
@@ -22,50 +20,69 @@
           ></ion-input>
           <span class="error ion-padding" *ngIf='description.invalid'> Your description doesn't look right. </span>
         </ion-item>
-          <ion-item>        
-                <ion-label>Select Priority:</ion-label>   
-                <ion-select [formControl]="priority">
-                  <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">{{prior.text}}</ion-select-option>
-                </ion-select>
-          </ion-item>
-          <ion-item>        
-              <ion-label>Select Difficulty:</ion-label>   
-              <ion-select [formControl]="priority" color="primary" >
-                <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">{{diff.text}}</ion-select-option>
-              </ion-select>
-        </ion-item>
-        <ion-item>        
-            <ion-label>Select Urgency:</ion-label>   
-            <ion-select [formControl]="priority" color="primary">
-              <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">{{urg.text}}</ion-select-option>
-            </ion-select>
+        <ion-item>
+          <ion-label>Categorize:</ion-label>
+        <ion-input
+          type="text"
+          formControlName="tag"
+          name="tag"
+        ></ion-input>
+        <span class="error ion-padding" *ngIf='tag.invalid'> Please Enter Tag. </span>
       </ion-item>
       <ion-item>
-        <ion-label>Categorize:</ion-label>
-      <ion-input
-        type="text"
-        formControlName="tag"
-        name="tag"
-      ></ion-input>
-      <span class="error ion-padding" *ngIf='tag.invalid'> Please Enter Tag. </span>
-    </ion-item>
-      <ion-item>
-        <ion-label>How Long (Min.)?:</ion-label>
+        <ion-label [style.margin-right.em]="2">The task will take</ion-label>
         <ion-input
           type="number"
           formControlName="minutes"
           name="minutes"
         ></ion-input>
+        minutes.
         <span class="error ion-padding" *ngIf='minutes.invalid'> Please enter how long this will take. </span>
       </ion-item>
+        <h2 class="label-prompt">The task has...</h2>
+          <ion-item>        
+
+                <ion-select [formControl]="priority">
+                  <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">{{prior.text}}</ion-select-option>
+                </ion-select>
+                <ion-label [ngClass]="{
+                  'low': taskForm.controls.priority.value > 0 && taskForm.controls.priority.value < 3,
+                  'med': taskForm.controls.priority.value > 2 && taskForm.controls.priority.value < 5, 
+                  'high': taskForm.controls.priority.value > 4
+                }">Priority</ion-label>
+          </ion-item>
+          <ion-item>     
+     
+              <ion-select [formControl]="difficulties" color="primary">
+                <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">{{diff.text}}</ion-select-option>
+              </ion-select>
+              <ion-label [ngClass]="{
+                'low': taskForm.controls.difficulties.value > 0 && taskForm.controls.difficulties.value < 3,
+                'med': taskForm.controls.difficulties.value > 2 && taskForm.controls.difficulties.value < 5, 
+                'high': taskForm.controls.difficulties.value > 4
+              }">Difficulty</ion-label>   
+        </ion-item>
+        <ion-item>     
+   
+            <ion-select [formControl]="priority" color="primary">
+              <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">{{urg.text}}</ion-select-option>
+            </ion-select>
+            <ion-label [ngClass]="{
+              'low': taskForm.controls.urgency.value > 0 && taskForm.controls.urgency.value < 3,
+                'med': taskForm.controls.urgency.value > 2 && taskForm.controls.urgency.value < 5, 
+                'high': taskForm.controls.urgency.value > 4
+            }">Urgency</ion-label>   
+      </ion-item>
+
+
   
     </ion-list>
    
       
 
       <div class="decision-buttons">
-        <ion-button class="submit" type="submit" [disabled]="!taskForm.valid">Submit</ion-button>
-        <ion-button  type=ion-button (click)="cancel()">Cancel</ion-button>
+        <ion-button class="submit" type="submit" color="success" [disabled]="!taskForm.valid">Submit</ion-button>
+        <ion-button  type=ion-button (click)="cancel()" color="danger">Cancel</ion-button>
       </div>
 </form>
    

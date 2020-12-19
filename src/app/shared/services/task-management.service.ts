@@ -209,30 +209,32 @@ export class TaskManagementService {
 
     const index = this.tasks.findIndex(t => t.id === event.id);
     let awards;
-    if(this.tasks[index].completed === 0) {
+
       this.tasks[index].completed = 1;
       this.tasks[index].completedDate = moment().format('YYYY-MM-DD');
       awards = this.backend.addMetric(this.tasks[index], "completion");
-    } else {
-      this.tasks[index].completed = 0;
-      this.tasks[index].completedDate = '';
-    }
+
 
     if(this.goals.length > 0) {
       const goalsToUpdate = [];
 
+      //is this a milestone task
       const associatedMilestone = this.goals.find(g => this.tasks[index].goalId === g.id);
-      const associatedGoal = this.goals.find(g => g.id === associatedMilestone.parentGoal);
 
-      //check if milestone is done
-      associatedMilestone.completed = this.checkIfMilestoneDone(this.tasks[index].goalId);
-      //check if parent goal is done
-      associatedGoal.completed = this.checkIfGoalDone(associatedMilestone.parentGoal);
+      if(associatedMilestone) {
+        const associatedGoal = this.goals.find(g => g.id === associatedMilestone.parentGoal);
 
-      if(associatedMilestone.completed) goalsToUpdate.push(associatedMilestone);
-      if(associatedGoal.completed) goalsToUpdate.push(associatedMilestone);
-
-      this.backend.updateGoals(goalsToUpdate);
+        //check if milestone is done
+        associatedMilestone.completed = this.checkIfMilestoneDone(this.tasks[index].goalId);
+        //check if parent goal is done
+        associatedGoal.completed = this.checkIfGoalDone(associatedMilestone.parentGoal);
+  
+        if(associatedMilestone.completed) goalsToUpdate.push(associatedMilestone);
+        if(associatedGoal.completed) goalsToUpdate.push(associatedMilestone);
+  
+        this.backend.updateGoals(goalsToUpdate);
+      }
+      
 
     }
     

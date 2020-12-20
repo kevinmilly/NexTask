@@ -70,12 +70,10 @@ export class TaskManagementService {
     private backend: BackendService, 
     private auth: AuthService, 
     public modalController: ModalController,
-    private fb: FormBuilder
     
   ) { 
-      this.ideaForm = this.fb.group({
-        idea: ['', [Validators.required]]
-      })
+
+    
 
     }
 
@@ -89,12 +87,8 @@ export class TaskManagementService {
      
          this.goals = goals;  
          
-        this.tasks = [...this.tasks.map(t => {
-          return {
-            ...t,
-            pastDue: t.pastDue + this.dateDifference(new Date(), new Date(t.createdDate))
-          }
-        })];
+         this.tasks = this.calculatePastDue(this.tasks);
+
 
     
         //this filter will take out goal-based task that aren't prioritized
@@ -104,9 +98,7 @@ export class TaskManagementService {
         this.tasks = nonGoalTasks.concat(this.goalTaskFilter(this.tasks, this.goals));
  
 
-        this.tasks = this.tasks.filter(task => task.completed === 0).sort((a,b) => {
-            return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue);
-        });
+        this.tasks = this.fullySortNonCompletedTasks(this.tasks);
 
         
         //load choices they can choose from
@@ -164,6 +156,15 @@ export class TaskManagementService {
     this.tasksDay5Subject.next(t5);
   }
 
+  calculatePastDue(tasks: Task[]) {
+    return  [...tasks.map(t => {
+      return {
+        ...t,
+        pastDue: t.pastDue + this.dateDifference(new Date(), new Date(t.createdDate))
+      }
+    })];
+  }
+
 
   sortDays(hours: number, taskList: Task[]) {
   
@@ -199,6 +200,12 @@ export class TaskManagementService {
         this.tasksDay5);
   }
 
+  fullySortNonCompletedTasks(tasks) {
+    return tasks.filter(task => task.completed === 0).sort((a,b) => {
+      return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue);
+    });
+  }
+
   createIdea(event) {
     this.backend.addIdea({title: event.title, createdDate: moment().format("MM/DD/YYYY")});
     this.backend.delete(event);
@@ -215,28 +222,7 @@ export class TaskManagementService {
       awards = this.backend.addMetric(this.tasks[index], "completion");
 
 
-    if(this.goals.length > 0) {
-      const goalsToUpdate = [];
-
-      //is this a milestone task
-      const associatedMilestone = this.goals.find(g => this.tasks[index].goalId === g.id);
-
-      if(associatedMilestone) {
-        const associatedGoal = this.goals.find(g => g.id === associatedMilestone.parentGoal);
-
-        //check if milestone is done
-        associatedMilestone.completed = this.checkIfMilestoneDone(this.tasks[index].goalId);
-        //check if parent goal is done
-        associatedGoal.completed = this.checkIfGoalDone(associatedMilestone.parentGoal);
-  
-        if(associatedMilestone.completed) goalsToUpdate.push(associatedMilestone);
-        if(associatedGoal.completed) goalsToUpdate.push(associatedMilestone);
-  
-        this.backend.updateGoals(goalsToUpdate);
-      }
-      
-
-    }
+    this.handleGoalUpdates(index);
     
     this.sortDays(this.defaultHours, [...this.tasks]);
     this.updateAllTasks(null);
@@ -380,6 +366,31 @@ export class TaskManagementService {
   dateDifference(d1,d2) {
     const diff = moment(d1).diff(moment(d2), 'days'); 
     return diff || 0;
+  }
+
+  handleGoalUpdates(index:number) {
+    if(this.goals.length > 0) {
+      const goalsToUpdate = [];
+
+      //is this a milestone task
+      const associatedMilestone = this.goals.find(g => this.tasks[index].goalId === g.id);
+
+      if(associatedMilestone) {
+        const associatedGoal = this.goals.find(g => g.id === associatedMilestone.parentGoal);
+
+        //check if milestone is done
+        associatedMilestone.completed = this.checkIfMilestoneDone(this.tasks[index].goalId);
+        //check if parent goal is done
+        associatedGoal.completed = this.checkIfGoalDone(associatedMilestone.parentGoal);
+  
+        if(associatedMilestone.completed) goalsToUpdate.push(associatedMilestone);
+        if(associatedGoal.completed) goalsToUpdate.push(associatedMilestone);
+  
+        this.backend.updateGoals(goalsToUpdate);
+      }
+      
+
+    }
   }
 
   checkIfMilestoneDone(taskGoalId: string) : number {

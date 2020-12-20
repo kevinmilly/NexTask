@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ActionButtonsComponent } from './action-buttons.component';
 
-describe('ActionButtonsComponent', () => {
+xdescribe('ActionButtonsComponent', () => {
   let component: ActionButtonsComponent;
   let fixture: ComponentFixture<ActionButtonsComponent>;
 

@@ -33,7 +33,6 @@ export class TaskContainerComponent implements OnInit {
   quotes;
 
   constructor(
-      public dialog: MatDialog,
       public modalController: ModalController,
       private commentService: CommentsService,
       public toastController: ToastController

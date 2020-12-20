@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { QueueContainerComponent } from './queue-container.component';
 
-describe('QueueContainerComponent', () => {
+xdescribe('QueueContainerComponent', () => {
   let component: QueueContainerComponent;
   let fixture: ComponentFixture<QueueContainerComponent>;
 

@@ -1,9 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
-
-import { User } from '../models/user.model';
-import { Task } from '../models/task.model';
+import { AngularFirestore} from '@angular/fire/firestore';
 
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 

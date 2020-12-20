@@ -1,6 +1,6 @@
 import { Goal } from '../models/goal.model';
 
-export const goals: Goal[] = [
+export const testGoals: Goal[] = [
     {
         title:'Test Goal 1',
         deadline: '2020-12-24',

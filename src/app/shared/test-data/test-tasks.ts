@@ -1,6 +1,6 @@
 import { Task } from '../models/task.model';
 
-export const tasks:Task[] = [
+export const testTasks:Task[] = [
     {
         id:'slkejl34kjl3k',
         day: 1,

@@ -26,8 +26,8 @@ export const testGoals: Goal[] = [
         completedDate: '',
         createdDate: '2020-11-28',
         tag: 'general',
-        taskChildren: ['1a2b3c'],
-        id:'fvsddsd',
+        taskChildren: ['slkejl34kjl3k'],
+        id:'1a2b3c',
         parentGoal:'dfgerbdgg',
         show: true
     },
@@ -41,8 +41,8 @@ export const testGoals: Goal[] = [
         completedDate: '',
         createdDate: '2020-11-21',
         tag: 'general',
-        taskChildren: ['a1b2c3','aa11bb22'],
-        id:'njkjlfgh',
+        taskChildren: ['dgdgdsae','dsfdgdgdsae'],
+        id:'a1b2c3',
         parentGoal:'dfgerbdgg',
         show: true
     },

@@ -7,7 +7,7 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { Idea } from '../models/idea.model';
 import { Metrics } from '../models/metrics.model';
 import { Badge } from '../models/badge.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { testBadges } from '../test-data/test-badge';
 import { Goal } from '../models/goal.model';
 
 
@@ -18,14 +18,14 @@ export class BackendService  {
 
   user: User; 
   metrics: Metrics = new Metrics(0, 0, 0, 0, 0, 0);
-  badges:Badge[];
+  badges:Badge[] = testBadges;
 
   private dayHours = new BehaviorSubject<any>(5);
 
   constructor( 
     private firestore: AngularFirestore, 
     private auth: AuthService,
-    public snackbar: MatSnackBar
+
    ) { }
 
   getAwards() {
@@ -113,7 +113,7 @@ export class BackendService  {
       }) 
 
   }
-
+ 
   addGoals(goals) {
 
     const goalPromises = [];
@@ -133,11 +133,7 @@ export class BackendService  {
   addMetric(task, typeOfUpdate) {
     this.metrics = this.auth.metrics;
     console.log({task});
-    
-        this.firestore.collection<Badge>(`Badge/`)
-        .valueChanges().subscribe( badges => {
-          this.badges = badges;
-       
+  
 
             let metric;
             let awards: Badge[] = [];
@@ -166,7 +162,7 @@ export class BackendService  {
       
                 break;
             
-            }
+            } 
             
             let toughBadges = [];
             let completionBadges = [];
@@ -223,15 +219,19 @@ export class BackendService  {
                } 
             });
 
-            metric.awards = [...this.metrics.awards, ...awards.map(a => a.title)];
+ 
+            if(this.metrics.awards.length > 0) {  
+              metric.awards = [...this.metrics.awards, ...awards.map(a => a.title)];
          
-            const metricCollection = this.firestore.collection<Metrics>(`users/${this.user.uid}/metrics/`);
-            metricCollection.doc(this.metrics.id).update(metric);
-            console.log({awards});
-            this.presentAwards(awards);
+            } else {
+              metric.awards = [...awards.map(a => a.title)];
+            }
+            
+             this.updateMetric(metric);
+      
+            // this.presentAwards(awards);
             return awards;
-        
-      })
+
 }
 
   addIdea(idea) {
@@ -249,6 +249,11 @@ export class BackendService  {
     
   }
 
+  updateMetric(metric) {
+    const metricCollection = this.firestore.collection<Metrics>(`users/${this.user.uid}/metrics/`);
+    metricCollection.doc(this.metrics.id).update(metric);
+  }
+
   delete(task) {
       const collection = this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
       collection.doc(task.id).delete();
@@ -260,17 +265,17 @@ export class BackendService  {
     collection.doc(idea.id).delete();
 }
 
-presentAwards(awards) {
-  console.dir(awards);
-  awards.forEach((a, index) => {
-    this.snackbar.open(
-      `You received ${a.title}!`, 
-       `${a.criteria} ${this.getAwardType(a.type)}`, {
-      duration:3000 * (index+1),
-      verticalPosition: 'top'
-    });
-  });
-}
+// presentAwards(awards) {
+//   console.dir(awards);
+//   awards.forEach((a, index) => {
+//     this.snackbar.open(
+//       `You received ${a.title}!`, 
+//        `${a.criteria} ${this.getAwardType(a.type)}`, {
+//       duration:3000 * (index+1),
+//       verticalPosition: 'top'
+//     });
+//   });
+// }
 
 getAwardType(type:number) {
   switch (type) {
@@ -289,6 +294,16 @@ getAwardType(type:number) {
 
   }
 }
+
+get yourMetrics () {
+  return this.auth.metrics;
+}
+
+set yourMetrics(metrics) {
+  this.metrics = metrics;
+}
+
+
 
 
 

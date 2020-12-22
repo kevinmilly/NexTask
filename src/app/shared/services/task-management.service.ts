@@ -57,7 +57,7 @@ export class TaskManagementService {
   public tasksDay4$: Observable<Task []> = this.tasksDay4Subject.asObservable();
   public tasksDay5$: Observable<Task []> = this.tasksDay5Subject.asObservable();
 
-  defaultHours = 0;
+  defaultHours = 0; 
 
   tags = ['general', 'All'];
   tagOptions = new FormControl('general',[]);
@@ -211,32 +211,33 @@ export class TaskManagementService {
     this.backend.delete(event);
   }
 
-  markTaskComplete(event) {
+  markTaskComplete(event,tasks) {
     //this will update the task as completed 
 
-    const index = this.tasks.findIndex(t => t.id === event.id);
+
+    const index = tasks.findIndex(t => t.id === event.id);
     let awards;
 
-      this.tasks[index].completed = 1;
-      this.tasks[index].completedDate = moment().format('YYYY-MM-DD');
-      awards = this.backend.addMetric(this.tasks[index], "completion");
+      tasks[index].completed = 1;
+      tasks[index].completedDate = moment().format('YYYY-MM-DD');
+      awards = this.backend.addMetric(tasks[index], "completion");
 
 
-    this.handleGoalUpdates(index);
+    this.handleGoalUpdates(index, this.tasks, this.goals);
     
-    this.sortDays(this.defaultHours, [...this.tasks]);
+    this.sortDays(this.defaultHours, [...tasks]);
     this.updateAllTasks(null);
-    this.tasks.splice(this.tasks.findIndex(task => task.day === event.day),1);
+    tasks.splice(tasks.findIndex(task => task.day === event.day),1);
 
     this.sendUpdates( 
       this.allTasks,
-      this.tasks,
-      this.goals,
-      this.tasksDay1,
-      this.tasksDay2,
-      this.tasksDay3,
-      this.tasksDay4,
-      this.tasksDay5);
+        this.tasks,
+        this.goals,
+        this.tasksDay1,
+        this.tasksDay2,
+        this.tasksDay3,
+        this.tasksDay4,
+        this.tasksDay5);
 
   }
 
@@ -368,60 +369,61 @@ export class TaskManagementService {
     return diff || 0;
   }
 
-  handleGoalUpdates(index:number) {
-    if(this.goals.length > 0) {
+  handleGoalUpdates(index:number, tasks, goals) {
+    if(goals.length > 0) {
       const goalsToUpdate = [];
 
       //is this a milestone task
-      const associatedMilestone = this.goals.find(g => this.tasks[index].goalId === g.id);
-
+      const associatedMilestone = goals.find(g => tasks[index].goalId === g.id);
+ 
       if(associatedMilestone) {
-        const associatedGoal = this.goals.find(g => g.id === associatedMilestone.parentGoal);
-
+        const associatedGoal = goals.find(g => g.id === associatedMilestone.parentGoal);
+        console.dir(associatedGoal);
         //check if milestone is done
-        associatedMilestone.completed = this.checkIfMilestoneDone(this.tasks[index].goalId);
+        associatedMilestone.completed = this.checkIfMilestoneDone(tasks[index].goalId, [...tasks],[...goals]);
         //check if parent goal is done
-        associatedGoal.completed = this.checkIfGoalDone(associatedMilestone.parentGoal);
+        associatedGoal.completed = this.checkIfGoalDone(associatedGoal.id, [...goals]);
   
         if(associatedMilestone.completed) goalsToUpdate.push(associatedMilestone);
         if(associatedGoal.completed) goalsToUpdate.push(associatedMilestone);
   
         this.backend.updateGoals(goalsToUpdate);
+      } else {
+         return null;
       }
-      
+     
 
     }
   }
 
-  checkIfMilestoneDone(taskGoalId: string) : number {
+  checkIfMilestoneDone(taskGoalId: string, tasks: Task[], goals: Goal[]) : number {
     let currentTask;
     let complete = 1;
-    const milestoneInQuestion = this.goals.find(goal => goal.id === taskGoalId);
-    console.dir(milestoneInQuestion);
+    const milestoneInQuestion = goals.find(goal => goal.id === taskGoalId);
     milestoneInQuestion.taskChildren.forEach( currentTaskId => {
-      currentTask = this.tasks.find(task => task.id === currentTaskId);
-      if(currentTask && !currentTask.completed) {
-        console.log("Milestone Not completed yet");
-        console.dir(milestoneInQuestion);
+      currentTask = tasks.find(task => task.id === currentTaskId);
+      if(!currentTask.completed) {
+   
         complete = 0; 
+        return complete;
       } 
     })
-
+    console.log("Milestone is complete");
     return complete;
   
   }
 
-  checkIfGoalDone(milestoneGoalId: string) : number {
-    let milestone;
+  checkIfGoalDone(milestoneGoalId: string, goals: Goal[]) : number {
+
     let complete = 1;
-    const goalInQuestion = this.goals.find(goal => goal.id === milestoneGoalId);
-    console.dir(goalInQuestion);
-    this.goals.filter(goal => goal.id === milestoneGoalId)
+    const goalInQuestion = goals.find(goal => goal.id === milestoneGoalId);
+    const milestonesInQuestion = goals.filter(goal => goal.parentGoal === milestoneGoalId)
+    milestonesInQuestion
       .forEach(milestone => {
-        if(milestone && !milestone.completed) {
-          console.log("Goal Not completed yet");
-          console.dir(goalInQuestion);
+        if(!milestone.completed) {
+
           complete = 0;
+          return complete;
         }
       })
       return complete;

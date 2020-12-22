@@ -6,7 +6,7 @@ export const testTasks:Task[] = [
         day: 1,
         description: "Test Description 1",
         minutes: 33,
-        priority: 3,
+        priority: 3, 
         difficulty: 5,
         urgency: 2,
         pastDue: 1,
@@ -96,7 +96,7 @@ export const testTasks:Task[] = [
         completedDate: '2020-11-22',
         createdDate: '2020-11-22',
         tag: 'general',
-        goalId: 'aa11bb22',
+        goalId: 'a1b2c3',
         milestoneTitle: 'Test Milestone 2',
         parentGoalTitle: 'Test Goal 1',
         show:true

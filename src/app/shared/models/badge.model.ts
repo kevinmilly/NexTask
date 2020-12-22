@@ -1,7 +1,7 @@
 
 
 export interface Badge {
-    id:string;
+    id?:string;
     imageUrl:string;
     title:string;
     type:number;

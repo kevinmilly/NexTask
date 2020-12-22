@@ -223,27 +223,27 @@
                     </div> 
                     <ng-container *ngIf="!getTaskChildren(goal)[j].value.show">
                       <div class="no-edit-format">
-                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                        <ion-item >
                           {{getTaskChildren(goal)[j].value.title}}
                         </ion-item>
-                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                        <ion-item >
                           {{getTaskChildren(goal)[j].value.urgency}}
                         </ion-item>
-                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                        <ion-item >
                           {{getTaskChildren(goal)[j].value.priority}}
                         </ion-item>
-                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                        <ion-item >
                           {{getTaskChildren(goal)[j].value.difficulties}}
                         </ion-item>
-                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                        <ion-item >
                           {{getTaskChildren(goal)[j].value.minutes}} minutes
                         </ion-item>
-                        <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                        <ion-item >
                           
                             <ion-badge slot="end" 
                             *ngIf="goalArray.controls[i].value.title.value !== ''"
                               color="dark" 
-                              (click)="goalArray.controls[i].value.show = !goalArray.controls[i].value.show">
+                              (click)="getTaskChildren(goal)[j].value.show = !getTaskChildren(goal)[j].value.show">
                               <ion-icon name="eye-outline"></ion-icon>
                             </ion-badge>
                       
@@ -255,20 +255,20 @@
             </div>
             <ng-container *ngIf="!goalArray.controls[i].value.show" >
               <div class="no-edit-format">
-                <ion-item disabled = "{{goalTitle === ''}}">
-                  {{goalArray.controls[i].value.title.value}}
+                <ion-item >
+                  {{goalArray.controls[i].value.title}}
                 </ion-item>
-                <ion-item disabled = "{{goalTitle === ''}}">
-                  {{goalArray.controls[i].value.urgency.value}}
+                <ion-item >
+                  {{goalArray.controls[i].value.urgency}}
                 </ion-item>
-                <ion-item disabled = "{{goalTitle === ''}}">
-                  {{goalArray.controls[i].value.priority.value}}
+                <ion-item >
+                  {{goalArray.controls[i].value.priority}}
                 </ion-item>
-                <ion-item disabled = "{{goalTitle === ''}}">
-                  {{goalArray.controls[i].value.difficulties.value}}
+                <ion-item >
+                  {{goalArray.controls[i].value.difficulties}}
                 </ion-item>
              
-                <ion-item disabled = "{{goalTitle === ''}}">
+                <ion-item >
                   
                     <ion-badge slot="end" 
                        

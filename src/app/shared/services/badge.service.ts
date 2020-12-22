@@ -15,7 +15,7 @@ import { Badge } from '../models/badge.model';
 @Injectable({ 
   providedIn: 'root'
 })
-export class BadgeService {
+export class BadgeService { 
 
   badges:Badge[];
   awards: Badge[] = [];
@@ -38,7 +38,7 @@ export class BadgeService {
 
           let toughBadges = [];
           let completionBadges = [];
-          let timeBadges = [];
+          let timeBadges = []; 
           let creationBadges = [];
           let importantBadges = [];
           let urgencyBadges = [];

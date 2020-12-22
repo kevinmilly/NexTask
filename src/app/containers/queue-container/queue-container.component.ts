@@ -15,6 +15,7 @@ import { ModalController } from '@ionic/angular';
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { Quote } from '@angular/compiler';
+import { BadgeService } from 'src/app/shared/services/badge.service';
 
 
 
@@ -59,7 +60,8 @@ export class QueueContainerComponent implements OnInit {
       private tmService: TaskManagementService,
       public toastController: ToastController,
       private commentsService: CommentsService,
-      private auth: AuthService
+      private auth: AuthService,
+      private badgesService:BadgeService
     ) { }
 
 
@@ -85,6 +87,12 @@ export class QueueContainerComponent implements OnInit {
       })
       
       this.quotes = this.commentsService.encouragement;
+
+      this.badgesService.getBadges().subscribe( badges => {
+       
+        console.log("Badges are: ");
+        console.dir(badges);
+      });
 
     
   }
@@ -148,7 +156,7 @@ createIdea(event) {
    }
 
    markTaskComplete(event) {
-     this.tmService.markTaskComplete(event);
+     this.tmService.markTaskComplete(event, this.tasks);
      this.getRandomQuote();
    }
 

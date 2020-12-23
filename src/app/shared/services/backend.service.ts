@@ -132,6 +132,7 @@ export class BackendService  {
 
   addMetric(task, typeOfUpdate) {
     this.metrics = this.auth.metrics;
+    console.dir(this.metrics);
     console.log({task});
   
 
@@ -144,6 +145,7 @@ export class BackendService  {
               case 'creation':
                 metric = {
                   tasksCreated: this.metrics.tasksCreated++,
+                  id: this.metrics.id || 'Brms29MaecPWk1CmdF8w',
                   ...this.metrics
                 }
             
@@ -156,7 +158,7 @@ export class BackendService  {
                   importantTasks: task.priority > 3 ? this.metrics.importantTasks + 1 : this.metrics.importantTasks,
                   urgencyTasks:task.urgency > 3 ? this.metrics.urgencyTasks + 1 : this.metrics.urgencyTasks,
                   usageTime: this.metrics.usageTime,
-                  id: this.metrics.id
+                  id: this.metrics.id || 'Brms29MaecPWk1CmdF8w'
                 }
                 console.log({metric});
       
@@ -248,6 +250,13 @@ export class BackendService  {
       })
     
   }
+
+  idGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+}
 
   updateMetric(metric) {
     const metricCollection = this.firestore.collection<Metrics>(`users/${this.user.uid}/metrics/`);

@@ -22,7 +22,7 @@ export class ActionButtonsComponent implements OnInit {
 
   addGoal() { this.tmService.addGoal();}
 
-  openSettings() {this.tmService.openSettings();}
+
 
   showAwards() {this.tmService.showAwards();}
 

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Goal } from 'src/app/shared/models/goal.model';
-import {AbstractControlDirective, Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Task } from 'src/app/shared/models/task.model';
-import { BackendService } from 'src/app/shared/services/backend.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { BackendService } from 'src/app/shared/services/backend.service'
 import * as moment from 'moment';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CommentsService } from 'src/app/shared/services/comments.service';
@@ -258,7 +257,7 @@ export class GoalEntryComponent implements OnInit {
             priority,
             difficulties,
             urgency,
-            tag,
+            this.goalTag,
             goalId,
             moment().format("MM/DD/YYYY"),
             group.get("title").value,//milestone title

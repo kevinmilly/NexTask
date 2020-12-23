@@ -56,6 +56,8 @@ fdescribe('TaskManagementService', () => {
     goals = [...testGoals];
     tasks = [...testTasks];
 
+    console.dir(goals);
+
 
 
   });
@@ -144,7 +146,7 @@ fdescribe('TaskManagementService', () => {
     
     expect(associatedMilestone.completed).toBeTruthy();
     expect(!associatedGoal.completed).toBeTruthy();
-    console.dir(associatedGoal);
+ 
 
   })
 
@@ -181,6 +183,15 @@ fdescribe('TaskManagementService', () => {
     expect(
       tmService.checkIfGoalDone(goals[1].parentGoal, goals)
     ).toBeTruthy();
+  })
+
+
+  
+  it('should return the task of the most prioritized milestone', () => {
+     expect(
+       tmService.goalTaskFilter(tasks, goals)
+      [0].milestoneTitle
+     ).toBe('Test Milestone 1');
   })
 
   afterEach(() => {

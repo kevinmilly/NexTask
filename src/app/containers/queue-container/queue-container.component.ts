@@ -88,12 +88,6 @@ export class QueueContainerComponent implements OnInit {
       
       this.quotes = this.commentsService.encouragement;
 
-      this.badgesService.getBadges().subscribe( badges => {
-       
-        console.log("Badges are: ");
-        console.dir(badges);
-      });
-
     
   }
 

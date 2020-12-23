@@ -12,7 +12,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TaskEntryComponent } from 'src/app/presentational/ui/task-entry/task-entry.component';
 import { ShowAwardComponent } from 'src/app/presentational/display/show-award/show-award.component';
-import { SettingsComponent } from 'src/app/presentational/ui/settings/settings.component';
+
 
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
 
@@ -106,12 +106,11 @@ export class TaskManagementService {
             if(t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
           });
 
-        
         this.daySub = this.backend.getDayHours()
         .subscribe(h => {
           this.defaultHours = h;
           this.sortDays(this.defaultHours, [...this.tasks]);
-
+          
           this.sendUpdates( 
               this.allTasks,
               this.tasks,
@@ -223,15 +222,15 @@ export class TaskManagementService {
       awards = this.backend.addMetric(tasks[index], "completion");
 
 
-    this.handleGoalUpdates(index, this.tasks, this.goals);
+    this.handleGoalUpdates(index, tasks, this.goals);
     
     this.sortDays(this.defaultHours, [...tasks]);
-    this.updateAllTasks(null);
+    this.updateAllTasks(tasks);
     tasks.splice(tasks.findIndex(task => task.day === event.day),1);
 
     this.sendUpdates( 
       this.allTasks,
-        this.tasks,
+        tasks,
         this.goals,
         this.tasksDay1,
         this.tasksDay2,
@@ -354,7 +353,7 @@ export class TaskManagementService {
 
     this.sendUpdates( 
       this.allTasks,
-      this.tasks,
+      event,
       this.goals,
       this.tasksDay1,
       this.tasksDay2,
@@ -444,14 +443,15 @@ export class TaskManagementService {
 
     if(goals.length === 0) return [];
 
-    
+    console.dir(goals);
+
     //get most prioritized goal
    const filteredGoals = goals
                             .filter(goal => !goal.completed && goal.parentGoal === null)
                             .sort((a,b) => {
                               return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
                            })
-
+    console.dir(filteredGoals);
 
       //get most milestone within that goal
    const filteredMilestones = goals
@@ -460,38 +460,39 @@ export class TaskManagementService {
         return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
      })
     
+     console.dir(filteredMilestones);
 
     const list = filteredMilestones.length > 0 ? taskList.filter(t => {
       if(t.goalId && t.goalId !== "") {
         return t.goalId === filteredMilestones[0].id && t;
       } 
     }) : [];
-
+    console.dir(list);
     return list; 
   }
 
-  async openSettings() {
-      const modal = await this.modalController.create({
-        component: SettingsComponent,
-        // cssClass: 'show-award'
-      });
-      modal.onDidDismiss()
-        .then((data) => {
-          const result = data['data']; 
-          if(result) this.backend.setDayHours(result.hours);
-          this.sendUpdates( 
-            this.allTasks,
-            this.tasks,
-            this.goals,
-            this.tasksDay1,
-            this.tasksDay2,
-            this.tasksDay3,
-            this.tasksDay4,
-            this.tasksDay5);
-      });
+  // async openSettings() {
+  //     const modal = await this.modalController.create({
+  //       component: SettingsComponent,
+  //       // cssClass: 'show-award'
+  //     });
+  //     modal.onDidDismiss()
+  //       .then((data) => {
+  //         const result = data['data']; 
+  //         if(result) this.backend.setDayHours(result.hours);
+  //         this.sendUpdates( 
+  //           this.allTasks,
+  //           this.tasks,
+  //           this.goals,
+  //           this.tasksDay1,
+  //           this.tasksDay2,
+  //           this.tasksDay3,
+  //           this.tasksDay4,
+  //           this.tasksDay5);
+  //     });
 
-    return await modal.present();
-  }
+  //   return await modal.present();
+  // }
 
   async showAwards() {
     const modal = await this.modalController.create({

@@ -158,6 +158,14 @@ createIdea(event) {
     this.tmService.updateAllTasks(event || [...this.tasks]);
   }
 
+  addTask() {this.tmService.addTask();}
+
+  addGoal() { this.tmService.addGoal();}
+
+
+
+  showAwards() {this.tmService.showAwards();}
+
 
   dateDifference(d1,d2) {
     const diff = moment(d1).diff(moment(d2), 'days'); 

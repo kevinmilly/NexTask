@@ -18,13 +18,7 @@ export class ActionButtonsComponent implements OnInit {
   ngOnInit() {}
 
 
-  addTask() {this.tmService.addTask();}
 
-  addGoal() { this.tmService.addGoal();}
-
-
-
-  showAwards() {this.tmService.showAwards();}
 
 
 }

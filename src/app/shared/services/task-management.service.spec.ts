@@ -11,7 +11,6 @@ import * as moment from "moment";
 
 
 import { TaskManagementService } from './task-management.service';
-import { BehaviorSubject } from 'rxjs';
 
 fdescribe('TaskManagementService', () => {
   let tmService: TaskManagementService;
@@ -51,8 +50,8 @@ fdescribe('TaskManagementService', () => {
     backend = TestBed.inject(BackendService);
 
  
-    goals = [];
-    tasks = [];
+    if(goals) goals.length = 0;
+    if(tasks) tasks.length= 0;
     goals = [...testGoals];
     tasks = [...testTasks];
 

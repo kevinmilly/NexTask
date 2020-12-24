@@ -407,7 +407,7 @@ export class TaskManagementService {
         return complete;
       } 
     })
-    console.log("Milestone is complete");
+  
     return complete;
   
   }
@@ -443,15 +443,12 @@ export class TaskManagementService {
 
     if(goals.length === 0) return [];
 
-    console.dir(goals);
-
     //get most prioritized goal
    const filteredGoals = goals
                             .filter(goal => !goal.completed && goal.parentGoal === null)
                             .sort((a,b) => {
                               return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
                            })
-    console.dir(filteredGoals);
 
       //get most milestone within that goal
    const filteredMilestones = goals
@@ -459,15 +456,14 @@ export class TaskManagementService {
       .sort((a,b) => {
         return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
      })
-    
-     console.dir(filteredMilestones);
+
 
     const list = filteredMilestones.length > 0 ? taskList.filter(t => {
       if(t.goalId && t.goalId !== "") {
         return t.goalId === filteredMilestones[0].id && t;
       } 
     }) : [];
-    console.dir(list);
+
     return list; 
   }
 

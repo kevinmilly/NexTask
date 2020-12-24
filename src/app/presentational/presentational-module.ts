@@ -18,13 +18,13 @@ import { MetricsComponent } from './display/metrics/metrics.component';
     declarations: [
         TaskEntryComponent,
         TaskEditComponent,
-  
         IdeaEntryComponent,
         MetricsComponent,
         BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,
         ActionButtonsComponent
+        
         
     ],
     entryComponents: [
@@ -37,7 +37,6 @@ import { MetricsComponent } from './display/metrics/metrics.component';
     exports:[
         TaskEntryComponent,
         TaskEditComponent,
-
         IdeaEntryComponent,
         BatchTaskEntryComponent,
         ShowAwardComponent,

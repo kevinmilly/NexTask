@@ -130,3 +130,25 @@ ion-content {
   height: 100vh;
   align-self: center;
 }
+
+.mat-tab-label {
+  min-width: 25px !important;
+  padding: 5px;
+  background-color: transparent;
+  color: rgb(255, 253, 245);
+  font-weight: 700;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+  min-width: 25px !important;
+  padding: 5px;
+  background-color: transparent;
+  color: rgb(255, 253, 245);
+  font-weight: 700;
+}
+
+.mat-ink-bar {
+  color: var(--ion-color-primary) !important;
+  background-color: var(--ion-color-primary) !important;
+}

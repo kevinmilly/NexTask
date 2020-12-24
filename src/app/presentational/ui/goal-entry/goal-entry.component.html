@@ -3,7 +3,7 @@
   <ion-list>
       <ion-item >
         <ion-label>The Goal is to...</ion-label>
-        <ion-input type="text" [(ngModel)]="goalTitle" name="title"></ion-input>
+        <ion-input type="text" [(ngModel)]="goalTitle" name="title" minlength="37"></ion-input>
         
       
   
@@ -71,7 +71,7 @@
                     <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
                       <ion-label>Milestone:</ion-label>
-                        <ion-input type="text" formControlName="title" name="title"></ion-input>
+                        <ion-input type="text" formControlName="title" name="title" minlength="37"></ion-input>
                       
                     </ion-item>
                         
@@ -109,7 +109,7 @@
                     </ion-item>
                     
             
-                    <ion-item disabled = "{{goalTitle === ''}}">
+                    <ion-item disabled = "{{goalTitle === ''}}" lines="none">
 
                        
                         <ion-badge slot="end" color="primary" (click)="addGoalChild(goal, -1)">
@@ -122,12 +122,15 @@
                       </ion-badge>
                
                     
-                      <ion-badge slot="end" 
+                      <ion-icon 
+                        slot="end" 
                         *ngIf="goalArray.controls[i].value.title !== '' && goalArray.controls[i].value.show"
-                        color="light" 
-                        (click)="goalArray.controls[i].value.show = !goalArray.controls[i].value.show">
-                        <ion-icon name="eye-off-outline"></ion-icon> 
-                      </ion-badge>
+                        color="dark"  
+                        (click)="goalArray.controls[i].value.show = !goalArray.controls[i].value.show"
+                         name="eye-off-outline"
+                         >
+                        </ion-icon> 
+                   
                 
       
                     </ion-item>
@@ -144,7 +147,7 @@
                         <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                           <ion-label>Task: </ion-label>
                           <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
-                            <ion-input type="text" formControlName="title" name="title"></ion-input>
+                            <ion-input type="text" formControlName="title" name="title" minlength="37"></ion-input>
                             
                         </ion-item>
   
@@ -196,7 +199,7 @@
                       </ion-list>
                     
                         <br/>
-                        <ion-item class="button-group" disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
+                        <ion-item class="button-group" disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}" lines="none">
                            
                             <ion-badge slot="end" color="primary" (click)="addGoalChild(goal, j)">
                               <ion-icon name="add-circle-outline"></ion-icon>Task
@@ -211,41 +214,44 @@
                               <ion-icon name="ban-outline"></ion-icon> 
                             </ion-badge>
 
-                            <ion-badge 
+                            <ion-icon
+                              name="eye-off-outline"
                               *ngIf="getTaskChildren(goal)[j].value.title !== '' || getTaskChildren(goal)[j].value.show"
                               slot="end" 
-                              color="light" 
+                              color="dark" 
                               (click)="getTaskChildren(goal)[j].value.show = !getTaskChildren(goal)[j].value.show">
-                              <ion-icon name="eye-off-outline"></ion-icon> 
-                            </ion-badge>
+                            </ion-icon>
                       
                         </ion-item>
                     </div> 
                     <ng-container *ngIf="!getTaskChildren(goal)[j].value.show">
                       <div class="no-edit-format">
-                        <ion-item >
-                          {{getTaskChildren(goal)[j].value.title}}
+                        <ion-item lines="none">
+                          <ion-grid>
+                            <ion-row>
+                              <ion-col [style.font-size.em]=".8"> 
+                               
+                               <b>Task #{{i+1}}: </b>&nbsp;&nbsp;{{getTaskChildren(goal)[j].value.title}}
+                              </ion-col> 
+                            </ion-row>
+                            <ion-row>
+                              <ion-col [style.font-size.em]=".8">{{importanceDifficultyFormat("urgency",getTaskChildren(goal)[j].value.urgency)}} <br/>Urgency</ion-col> 
+                              <ion-col [style.font-size.em]=".8"> {{importanceDifficultyFormat("importance",getTaskChildren(goal)[j].value.priority)}} <br/>Priority</ion-col>
+                              <ion-col [style.font-size.em]=".8"> {{importanceDifficultyFormat("difficulty",getTaskChildren(goal)[j].value.difficulties)}} <br/>Difficulty</ion-col>
+                            </ion-row>
+                          </ion-grid>
+
                         </ion-item>
-                        <ion-item >
-                          {{getTaskChildren(goal)[j].value.urgency}}
-                        </ion-item>
-                        <ion-item >
-                          {{getTaskChildren(goal)[j].value.priority}}
-                        </ion-item>
-                        <ion-item >
-                          {{getTaskChildren(goal)[j].value.difficulties}}
-                        </ion-item>
-                        <ion-item >
-                          {{getTaskChildren(goal)[j].value.minutes}} minutes
-                        </ion-item>
-                        <ion-item >
-                          
-                            <ion-badge slot="end" 
-                            *ngIf="goalArray.controls[i].value.title.value !== ''"
-                              color="dark" 
-                              (click)="getTaskChildren(goal)[j].value.show = !getTaskChildren(goal)[j].value.show">
-                              <ion-icon name="eye-outline"></ion-icon>
-                            </ion-badge>
+                        <ion-item lines="none">
+
+                              <ion-icon 
+                                name="eye-outline"
+                                slot="end"
+                                *ngIf="goalArray.controls[i].value.title.value !== ''"
+                                color="dark" 
+                                (click)="getTaskChildren(goal)[j].value.show = !getTaskChildren(goal)[j].value.show"
+                                ></ion-icon>
+                   
                       
                         </ion-item>
                       </div>
@@ -255,27 +261,31 @@
             </div>
             <ng-container *ngIf="!goalArray.controls[i].value.show" >
               <div class="no-edit-format">
-                <ion-item >
-                  {{goalArray.controls[i].value.title}}
+                <ion-item lines="none">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col [style.font-size.em]=".8">
+                        <ion-note slot="start" color="tertiary">M</ion-note>
+                        <b>Milestone #{{i+1}}: </b>&nbsp;&nbsp; {{goalArray.controls[i].value.title}}
+                        </ion-col> 
+                    </ion-row>
+                    <ion-row>
+                      <ion-col [style.font-size.em]=".8">{{importanceDifficultyFormat("urgency",goalArray.controls[i].value.urgency)}} <br/>Urgency</ion-col> 
+                      <ion-col [style.font-size.em]=".8"> {{importanceDifficultyFormat("importance",goalArray.controls[i].value.priority)}} <br/>Priority</ion-col>
+                      <ion-col [style.font-size.em]=".8"> {{importanceDifficultyFormat("difficulty",goalArray.controls[i].value.difficulties)}} <br/>Difficulty</ion-col>
+                    </ion-row>
+                  </ion-grid>
+                 
                 </ion-item>
-                <ion-item >
-                  {{goalArray.controls[i].value.urgency}}
-                </ion-item>
-                <ion-item >
-                  {{goalArray.controls[i].value.priority}}
-                </ion-item>
-                <ion-item >
-                  {{goalArray.controls[i].value.difficulties}}
-                </ion-item>
-             
-                <ion-item >
+              
+                <ion-item lines="none">
                   
-                    <ion-badge slot="end" 
-                       
+                    <ion-icon 
+                      name="eye-outline"
+                      slot="end" 
                       color="dark" 
                       (click)="goalArray.controls[i].value.show = !goalArray.controls[i].value.show">
-                      <ion-icon name="eye-outline"></ion-icon>
-                    </ion-badge>
+                    </ion-icon>
               
                 </ion-item>
               </div>

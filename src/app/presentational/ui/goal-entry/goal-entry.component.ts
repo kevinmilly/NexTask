@@ -152,6 +152,75 @@ export class GoalEntryComponent implements OnInit {
     this.goalArray.removeAt(index);
   }
 
+  importanceDifficultyFormat(format, number) {
+    if(format === 'importance') {
+      switch(number) {
+        case 1:
+        
+          return `Very Low`;
+        case 2:
+        
+          return `Low`;
+        case 3: 
+      
+          return `Moderate`;
+        case 4:
+    
+          return `High`;
+        case 5:
+  
+          return `Very High`;
+        default:
+
+          return `Very High`;
+      }
+    } else if(format === 'difficulty') {
+      switch(number) {
+        case 1:
+        
+          return `Very Low`;
+        case 2:
+        
+          return `Low`;
+        case 3: 
+      
+          return `Moderate`;
+        case 4:
+    
+          return `High`;
+        case 5:
+  
+          return `Very High`;
+        default:
+
+          return `Very High`;
+      }
+    } else {
+       
+        switch(number) {
+          case 1:
+        
+            return `Very Low`;
+          case 2:
+          
+            return `Low`;
+          case 3: 
+        
+            return `Moderate`;
+          case 4:
+      
+            return `High`;
+          case 5:
+    
+            return `Very High`;
+          default:
+  
+            return `Very High`;
+        }
+    }
+  
+}
+
   //creates child of the task, promoting the task to a goal
   addTaskChild(task,formerTaskIndex, arr) {
  

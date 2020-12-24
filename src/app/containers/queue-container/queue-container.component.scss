@@ -20,3 +20,39 @@ ion-ion {
   width: 2em;
   height: 2em;
 }
+
+ion-fab-button {
+  width: 2.5em;
+  height: 2.5em;
+  margin-bottom: 1.5em;
+}
+ion-icon {
+  width: 1em;
+  height: 1em;
+}
+
+ion-fab-list {
+  margin-right: 3.5em;
+  margin-bottom: 2em;
+}
+
+.logout-button {
+  margin-right: 15em;
+}
+
+.setting-buttons {
+  margin: 5em 1em 0 0;
+}
+
+.main-background {
+  --ion-background-color: rgb(163, 160, 157);
+  height: 45em;
+  overflow-y: auto;
+}
+.card-background {
+  --ion-background-color: rgb(245, 233, 220);
+}
+
+.header-background {
+  --ion-background-color: rgb(85, 72, 60);
+}

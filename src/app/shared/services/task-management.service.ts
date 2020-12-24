@@ -340,7 +340,7 @@ export class TaskManagementService {
       this.allTasks,
       this.tasks,
       this.goals,
-      this.tasksDay1,
+      this.tasksDay1, 
       this.tasksDay2,
       this.tasksDay3,
       this.tasksDay4,
@@ -374,14 +374,15 @@ export class TaskManagementService {
 
       //is this a milestone task
       const associatedMilestone = goals.find(g => tasks[index].goalId === g.id);
- 
+      console.dir(associatedMilestone);
+
       if(associatedMilestone) {
         const associatedGoal = goals.find(g => g.id === associatedMilestone.parentGoal);
         console.dir(associatedGoal);
         //check if milestone is done
         associatedMilestone.completed = this.checkIfMilestoneDone(tasks[index].goalId, [...tasks],[...goals]);
         //check if parent goal is done
-        associatedGoal.completed = this.checkIfGoalDone(associatedGoal.id, [...goals]);
+        associatedGoal.completed = this.checkIfGoalDone(associatedMilestone, [...goals]);
   
         if(associatedMilestone.completed) goalsToUpdate.push(associatedMilestone);
         if(associatedGoal.completed) goalsToUpdate.push(associatedMilestone);
@@ -399,12 +400,16 @@ export class TaskManagementService {
     let currentTask;
     let complete = 1;
     const milestoneInQuestion = goals.find(goal => goal.id === taskGoalId);
+    console.dir(milestoneInQuestion);
     milestoneInQuestion.taskChildren.forEach( currentTaskId => {
       currentTask = tasks.find(task => task.id === currentTaskId);
-      if(!currentTask.completed) {
+      if(currentTask && !currentTask.completed) {
    
         complete = 0; 
         return complete;
+      } else {
+        console.log(`Couldn't find ${currentTaskId} in`);
+        console.dir(tasks);
       } 
     })
   
@@ -412,15 +417,14 @@ export class TaskManagementService {
   
   }
 
-  checkIfGoalDone(milestoneGoalId: string, goals: Goal[]) : number {
+  checkIfGoalDone(associatedMilestone:Goal, goals: Goal[]) : number {
 
     let complete = 1;
-    const goalInQuestion = goals.find(goal => goal.id === milestoneGoalId);
-    const milestonesInQuestion = goals.filter(goal => goal.parentGoal === milestoneGoalId)
+    const goalInQuestion = goals.find(goal => goal.id === associatedMilestone.parentGoal);
+    const milestonesInQuestion = goals.filter(goal => goal.parentGoal === goalInQuestion.id)
     milestonesInQuestion
       .forEach(milestone => {
         if(!milestone.completed) {
-
           complete = 0;
           return complete;
         }

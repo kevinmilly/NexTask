@@ -55,7 +55,7 @@ fdescribe('TaskManagementService', () => {
     goals = [...testGoals];
     tasks = [...testTasks];
 
-    console.dir(goals);
+    // console.dir(goals);
 
 
 
@@ -134,13 +134,13 @@ fdescribe('TaskManagementService', () => {
   it('should handle in goalUpdates if necessary', () => {
 
     tasks[0].completed = 1;
-    const index = tasks.findIndex(t => t.id === tasks[0].id);
+   
 
-    const associatedMilestone = goals.find(g => tasks[index].goalId === g.id);
+    const associatedMilestone = goals.find(g => tasks[0].goalId === g.id);
     const associatedGoal = goals.find(g => g.id === associatedMilestone.parentGoal);
-    goals[0].completed = 0;
+    associatedGoal.completed = 0;
 
-    tmService.handleGoalUpdates(index, tasks, goals);
+    tmService.handleGoalUpdates(0, tasks, goals);
 
     
     expect(associatedMilestone.completed).toBeTruthy();
@@ -180,13 +180,14 @@ fdescribe('TaskManagementService', () => {
     goals[1].completed = 1;
     goals[2].completed = 1;
     expect(
-      tmService.checkIfGoalDone(goals[1].parentGoal, goals)
+      tmService.checkIfGoalDone(goals[1], goals)
     ).toBeTruthy();
   })
 
 
   
   it('should return the task of the most prioritized milestone', () => {
+    console.dir(goals);
      expect(
        tmService.goalTaskFilter(tasks, goals)
       [0].milestoneTitle

@@ -7,7 +7,7 @@ import { IdeaEntryComponent } from './ui/idea-entry/idea-entry.component';
 import { BatchTaskEntryComponent } from './ui/batch-task-entry/batch-task-entry.component';
 import { ShowAwardComponent } from './display/show-award/show-award.component';
 import { GoalEntryComponent } from './ui/goal-entry/goal-entry.component';
-import { ActionButtonsComponent } from './ui/action-buttons/action-buttons.component';
+
 import { MetricsComponent } from './display/metrics/metrics.component';
 
 
@@ -23,7 +23,7 @@ import { MetricsComponent } from './display/metrics/metrics.component';
         BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,
-        ActionButtonsComponent
+      
         
         
     ],
@@ -41,7 +41,7 @@ import { MetricsComponent } from './display/metrics/metrics.component';
         BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,
-        ActionButtonsComponent,
+
         MetricsComponent
     ]
 

@@ -3,7 +3,7 @@
   <ion-list>
       <ion-item >
         <ion-label>The Goal is to...</ion-label>
-        <ion-input type="text" [(ngModel)]="goalTitle" name="title" minlength="37"></ion-input>
+        <ion-input type="text" [(ngModel)]="goalTitle" name="title" maxlength="37"></ion-input>
         
       
   
@@ -71,7 +71,7 @@
                     <ion-item disabled = "{{goalTitle === ''}}">
                        <ion-note slot="start" color="tertiary">M</ion-note>
                       <ion-label>Milestone:</ion-label>
-                        <ion-input type="text" formControlName="title" name="title" minlength="37"></ion-input>
+                        <ion-input type="text" formControlName="title" name="title" maxlength="37"></ion-input>
                       
                     </ion-item>
                         
@@ -147,7 +147,7 @@
                         <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">
                           <ion-label>Task: </ion-label>
                           <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
-                            <ion-input type="text" formControlName="title" name="title" minlength="37"></ion-input>
+                            <ion-input type="text" formControlName="title" name="title" maxlength="37"></ion-input>
                             
                         </ion-item>
   

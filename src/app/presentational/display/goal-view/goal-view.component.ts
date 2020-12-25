@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Goal } from 'src/app/shared/models/goal.model';
 import { Task } from 'src/app/shared/models/task.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
 
 
@@ -19,7 +20,7 @@ export class GoalViewComponent implements OnInit {
   tasksSub:Subscription;
   goalsHierarchy:any[] = [];
 
-  constructor(private tmService: TaskManagementService) { }
+  constructor(private tmService: TaskManagementService, private auth:AuthService) { }
 
   ngOnInit() {
     this.getGoals();
@@ -72,6 +73,8 @@ editTask(event) {
  }
 
 addGoal() { this.tmService.addGoal();}
+
+logout() {this.auth.logout();}
 
 ngOnDestroy() {
   if(this.goalsSub) this.goalsSub.unsubscribe();

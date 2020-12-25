@@ -9,7 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
 import { TaskEntryComponent } from '../../presentational/ui/task-entry/task-entry.component';
 
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Goal } from 'src/app/shared/models/goal.model';
 import { ModalController } from '@ionic/angular';
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
@@ -61,7 +61,7 @@ export class QueueContainerComponent implements OnInit {
       public toastController: ToastController,
       private commentsService: CommentsService,
       private auth: AuthService,
-      private badgesService:BadgeService
+      private loadingController: LoadingController
     ) { }
 
 
@@ -74,7 +74,7 @@ export class QueueContainerComponent implements OnInit {
     this.tasksDay4$ = this.tmService.tasksDay4$
     this.tasksDay5$ = this.tmService.tasksDay5$
 
-    this.tmService.tasks$
+    this.taskSub = this.tmService.tasks$
       .subscribe(tasks => {
         this.tasks = tasks; 
 
@@ -85,7 +85,7 @@ export class QueueContainerComponent implements OnInit {
         })
 
       })
-      
+      this.presentLoading(4,"Looking for goals and tasks");
       this.quotes = this.commentsService.encouragement;
 
     
@@ -152,13 +152,17 @@ createIdea(event) {
    markTaskComplete(event) {
      this.tmService.markTaskComplete(event, this.tasks);
      this.getRandomQuote();
+     this.presentLoading(1,"Reloading");
    }
 
   updateAllTasks(event) {
     this.tmService.updateAllTasks(event || [...this.tasks]);
   }
 
-  addTask() {this.tmService.addTask();}
+  addTask() {
+    this.tmService.addTask();
+    this.presentLoading(1,"Reloading");
+  }
 
   addGoal() { this.tmService.addGoal();}
 
@@ -207,6 +211,19 @@ createIdea(event) {
     return complete;
   
   }
+
+  async presentLoading(d, m) {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: m,
+      duration: d
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
 
   logout() {this.auth.logout();}
 

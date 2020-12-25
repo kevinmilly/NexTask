@@ -9,6 +9,7 @@ import { ShowAwardComponent } from './display/show-award/show-award.component';
 import { GoalEntryComponent } from './ui/goal-entry/goal-entry.component';
 
 import { MetricsComponent } from './display/metrics/metrics.component';
+import { GoalViewComponent } from "./display/goal-view/goal-view.component";
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { MetricsComponent } from './display/metrics/metrics.component';
         BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,
-      
+        GoalViewComponent
         
         
     ],
@@ -41,7 +42,7 @@ import { MetricsComponent } from './display/metrics/metrics.component';
         BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,
-
+        GoalViewComponent,
         MetricsComponent
     ]
 

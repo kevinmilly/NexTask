@@ -1,0 +1,66 @@
+goal-item {
+  color: black;
+}
+
+milestone-item {
+  margin-left: 1.3em;
+  color: rgb(58, 38, 0);
+}
+
+task-item {
+  margin-left: 1.5em;
+  color: rgb(110, 72, 0);
+}
+
+ion-fab-button {
+  width: 2.5em;
+  height: 2.5em;
+  margin-bottom: 1.5em;
+}
+ion-icon {
+  width: 1em;
+  height: 1em;
+}
+
+ion-fab-list {
+  margin-right: 3.5em;
+  margin-bottom: 2em;
+}
+
+.logout-button {
+  margin-right: 15em;
+}
+
+.setting-buttons {
+  margin: 5em 1em 0 0;
+}
+
+.goal {
+  color: #ffa14f;
+  font-size: 1.2em;
+  margin-right: 0.6em;
+}
+.milestone {
+  color: #f3790e;
+  font-size: 1em;
+  margin-left: 0.5em;
+  margin-right: 0.6em;
+}
+
+.task {
+  color: #a34d01;
+  font-size: 0.8em;
+  margin-left: 1em;
+  margin-right: 0.6em;
+}
+
+.complete {
+  font-style: italic;
+  color: rgb(156, 156, 156);
+  text-decoration: line-through;
+}
+
+.content-height {
+  height: 45em;
+  overflow-y: auto;
+}

@@ -86,7 +86,7 @@ export class MetricsComponent implements OnInit {
     this.taskSub = this.taskManage.allTasks$
                     .subscribe( tasks => {
 
-                      console.log({tasks});
+                      // console.log({tasks});
                       
                       this.organizeVariations(tasks,'complete')
                         .forEach(variation => {
@@ -148,7 +148,7 @@ export class MetricsComponent implements OnInit {
 
           if(foundIncomplete === -1) { //didn't find it in there
             varyTemp  = new Variation(1,[c.difficulty,c.priority,c.urgency]);
-            console.log({varyTemp});
+            // console.log({varyTemp});
             variationsIncomplete.push(varyTemp);
           } else {
    

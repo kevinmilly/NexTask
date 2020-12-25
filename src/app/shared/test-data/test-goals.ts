@@ -46,4 +46,34 @@ export const testGoals: Goal[] = [
         parentGoal:'dfgerbdgg',
         show: true
     },
+    {
+        title:'Test Goal 2',
+        deadline: '2020-12-24',
+        priority: 5,
+        difficulty:4,
+        urgency:2, 
+        completed: 1,
+        completedDate: '',
+        createdDate: '2020-11-12',
+        tag: 'general',
+        taskChildren: [],
+        id:'testgoal2',
+        parentGoal:null,
+        show: true
+    },
+    {
+        title:'Test Milestone 3',
+        deadline: '2020-12-24',
+        priority: 3,
+        difficulty:4,
+        urgency:2, 
+        completed: 1,
+        completedDate: '',
+        createdDate: '2020-11-12',
+        tag: 'general',
+        taskChildren: ['dgdgdsae','dsfdgdgdsae'],
+        id:'testmile3',
+        parentGoal:'testgoal2',
+        show: true
+    },
 ];

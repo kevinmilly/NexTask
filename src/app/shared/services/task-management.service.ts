@@ -15,6 +15,7 @@ import { ShowAwardComponent } from 'src/app/presentational/display/show-award/sh
 
 
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -374,11 +375,11 @@ export class TaskManagementService {
 
       //is this a milestone task
       const associatedMilestone = goals.find(g => tasks[index].goalId === g.id);
-      console.dir(associatedMilestone);
+      // console.dir(associatedMilestone);
 
       if(associatedMilestone) {
         const associatedGoal = goals.find(g => g.id === associatedMilestone.parentGoal);
-        console.dir(associatedGoal);
+        // console.dir(associatedGoal);
         //check if milestone is done
         associatedMilestone.completed = this.checkIfMilestoneDone(tasks[index].goalId, [...tasks],[...goals]);
         //check if parent goal is done
@@ -400,7 +401,7 @@ export class TaskManagementService {
     let currentTask;
     let complete = 1;
     const milestoneInQuestion = goals.find(goal => goal.id === taskGoalId);
-    console.dir(milestoneInQuestion);
+    // console.dir(milestoneInQuestion);
     milestoneInQuestion.taskChildren.forEach( currentTaskId => {
       currentTask = tasks.find(task => task.id === currentTaskId);
       if(currentTask && !currentTask.completed) {
@@ -518,6 +519,8 @@ export class TaskManagementService {
   get loggedIn() {
     return this.auth.isLoggedIn;
   }
+
+
 
 
   ngOnDestroy() {

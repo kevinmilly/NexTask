@@ -1,0 +1,62 @@
+<ion-content class="header-background content-height">
+    <div class="setting-buttons">
+      <ion-fab vertical="top" horizontal="end">
+        <ion-fab-button>
+          <ion-icon name="flash-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="start">
+        <ion-fab-button (click)="addTask()" color="primary">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)="addGoal()" color="tertiary">
+          <ion-icon name="flag-outline"></ion-icon>
+        </ion-fab-button> 
+          <ion-fab-button class="logout-button">
+            <ion-icon name="log-out-outline" (click)="logout()"></ion-icon>
+          </ion-fab-button>
+        </ion-fab-list>
+    
+    
+      </ion-fab>
+    </div>
+    <ion-card class="card-background">
+        <ion-card-content>
+            <ion-list>
+                <ng-container *ngFor="let g of goalsHierarchy">
+                    <ion-item-sliding >
+                        <ion-item [ngClass]="{'goal-item': !g.completed, 'goal-item complete': g.completed}">
+                            <span class="goal">Goal:</span>{{g.title}} 
+                        </ion-item>
+                        <ion-item-options>
+                            Edit ability coming soon
+                         </ion-item-options>
+                    </ion-item-sliding>
+                    <ng-container *ngFor="let m of g.milestones">
+                        <ion-item-sliding >
+                            <ion-item [ngClass]="{'milestone-item': !m.completed, 'milestone-item complete': m.completed}">
+                                <span class="milestone">Milestone:</span>{{m.title}} 
+                            </ion-item>
+                            <ion-item-options>
+                                Edit ability coming soon
+                             </ion-item-options>
+                       </ion-item-sliding>
+                       <ng-container *ngFor="let t of m.tasks">
+                            <ion-item-sliding >
+                                <ion-item [ngClass]="{'task-item': !t.completed, 'task-item complete': t.completed}">
+                                    <span class="task" >Task:</span> {{t.title}} 
+                                </ion-item>
+                                <ion-item-options>
+                                    Edit ability coming soon
+                                </ion-item-options>
+                            </ion-item-sliding>
+                       </ng-container>
+                    </ng-container>
+                </ng-container>
+              
+                
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+  
+    
+</ion-content>

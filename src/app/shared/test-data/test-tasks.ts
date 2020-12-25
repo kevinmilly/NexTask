@@ -101,4 +101,24 @@ export const testTasks:Task[] = [
         parentGoalTitle: 'Test Goal 1',
         show:true
     },
+    {
+        id:'sdf43sdf',
+        day: 1,
+        description: "Test Description 6",
+        minutes: 23,
+        priority: 5,
+        difficulty: 5,
+        urgency: 2,
+        pastDue: 1,
+        resource: '',
+        title: 'Test Task 6',
+        completed:1,
+        completedDate: '2020-12-01',
+        createdDate: '2020-11-12',
+        tag: 'general',
+        goalId: 'testmile3',
+        milestoneTitle: 'Test Milestone 3',
+        parentGoalTitle: 'Test Goal 2',
+        show:true
+    },
 ]

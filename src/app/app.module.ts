@@ -18,6 +18,7 @@ import { SharedModule } from './shared/shared.module';
 import { ContainerModule } from './containers/container.module';
 import { PresentationalModule } from './presentational/presentational-module';
 import { LoginComponent } from './login/login.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -32,7 +33,8 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
     SharedModule,
     ContainerModule,
-    PresentationalModule
+    PresentationalModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     StatusBar,

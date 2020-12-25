@@ -44,6 +44,7 @@
                     [tasks] = "tasksDay1" 
                     (createdIdea)="createIdea($event)">
                   </app-task-container>
+                  <ion-spinner name="dots" *ngIf="tasksNotVisible"></ion-spinner>
               </ion-card-content>
             
           </ion-card>

@@ -152,3 +152,16 @@ ion-content {
   color: var(--ion-color-primary) !important;
   background-color: var(--ion-color-primary) !important;
 }
+
+.main-background {
+  --ion-background-color: rgb(163, 160, 157);
+  height: 45em;
+  overflow-y: auto;
+}
+.card-background {
+  --ion-background-color: rgb(245, 233, 220);
+}
+
+.header-background {
+  --ion-background-color: rgb(85, 72, 60);
+}

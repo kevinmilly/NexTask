@@ -12,7 +12,7 @@ import * as moment from "moment";
 
 import { TaskManagementService } from './task-management.service';
 
-fdescribe('TaskManagementService', () => {
+describe('TaskManagementService', () => {
   let tmService: TaskManagementService;
   let backend: any;
   let auth: any;
@@ -55,7 +55,7 @@ fdescribe('TaskManagementService', () => {
     goals = [...testGoals];
     tasks = [...testTasks];
 
-    // console.dir(goals);
+    console.dir(goals);
 
 
 
@@ -193,6 +193,7 @@ fdescribe('TaskManagementService', () => {
       [0].milestoneTitle
      ).toBe('Test Milestone 1');
   })
+
 
   afterEach(() => {
 

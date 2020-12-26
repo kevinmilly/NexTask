@@ -4,12 +4,12 @@
 
 
 
-<ion-content>
+<ion-content class="header-background" >
   <ion-segment  [(ngModel)]="type">
-    <ion-segment-button value="complete"  >
+    <ion-segment-button class="main-segments" value="complete"  >
       <ion-label>Completed</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="incomplete" >
+    <ion-segment-button class="main-segments" value="incomplete" >
       <ion-label>Incomplete</ion-label>
     </ion-segment-button>
   </ion-segment>
@@ -18,32 +18,68 @@
     <ion-list>
       <ion-item *ngSwitchCase="'complete'">
   
-        <!-- <ion-card  class="graph" *ngIf="completeVariations.length > 0; else noComplete"> -->
-          <ion-card  class="graph" *ngIf="pieCompleteChartData.length > 0; else noComplete">
-          <ion-card-header>
-            <ion-card-title>Completed Tasks</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-              <canvas  
-                baseChart 
-                height="2500em"
-                width="1000em"
-                [data]="pieCompleteChartData" 
-                [labels]="pieCompleteLabels" 
-                [chartType]="pieChartType"
-                [legend]="true"
-              >
-            </canvas>
-<!-- 
-            <ion-list>
-              <ion-item *ngFor="let data of completeVariations">
-                {{data.label}}: {{data.amount}}
-              </ion-item>
-            </ion-list> -->
-          </ion-card-content>
+          <ion-card  class="graph card-background" *ngIf="tasks.length > 0; else noComplete" >
+
+            <ion-segment  [(ngModel)]="graphDate">
+              <ion-segment-button class="secondary-segments" value="lastWeek"  >
+                <ion-label>Last Week</ion-label>
+              </ion-segment-button>
+              <ion-segment-button class="secondary-segments" value="thisWeek" >
+                <ion-label>This Week</ion-label>
+              </ion-segment-button>
+              <ion-segment-button class="secondary-segments" value="thisMonth" >
+                <ion-label>This Month</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+            <ng-container [ngSwitch]="graphDate">
+                <ng-container *ngSwitchCase="'lastWeek'">
+                  <ion-card-content>
+                    <canvas  
+                      baseChart 
+                      height="1600em"
+                      width="1000em"
+                      [data]="pieLastWeekCompleteChartData" 
+                      [labels]="pieLastWeekCompleteLabels" 
+                      [chartType]="pieChartType"
+                      [legend]="true"
+                    >
+                  </canvas>
+                </ion-card-content>
+                </ng-container>
+                <ng-container *ngSwitchCase="'thisWeek'">
+                  <ion-card-content>
+                    <canvas  
+                      baseChart 
+                      height="1600em"
+                      width="1000em"
+                      [data]="pieWeekCompleteChartData" 
+                      [labels]="pieWeekCompleteLabels" 
+                      [chartType]="pieChartType"
+                      [legend]="true"
+                    >
+                  </canvas>
+                </ion-card-content>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'thisMonth'">
+                  <ion-card-content>
+                    <canvas  
+                      baseChart 
+                      height="1600em"
+                      width="1000em"
+                      [data]="pieMonthCompleteChartData" 
+                      [labels]="pieMonthCompleteLabels" 
+                      [chartType]="pieChartType"
+                      [legend]="true"
+                    >
+                  </canvas>
+                </ion-card-content>
+                </ng-container>
+            </ng-container>
+
         </ion-card>
         <ng-template #noComplete> 
-          <ion-card [style.margin-top.em]="4">
+          <ion-card [style.margin-top.em]="4" class="card-background">
             <ion-card-content>
               <h2>Not Enough Data For This Metric</h2>
             </ion-card-content>
@@ -53,25 +89,71 @@
       </ion-item>
 
       <ion-item *ngSwitchCase="'incomplete'">
-        <ion-card class="graph" *ngIf="pieInCompleteChartData.length > 0; else noInComplete" >
-          <ion-card-header>
-            <ion-card-title>Incomplete Tasks</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-              <canvas  
-                baseChart 
-                height="800em"
-                width="800em"
-                [data]="pieInCompleteChartData" 
-                [labels]="pieInCompleteLabels" 
-                [chartType]="pieChartType"
-                [legend] ="true"
-              >
-            </canvas>
-          </ion-card-content>
+        <ion-card class="graph card-background" *ngIf="tasks.length > 0; else noInComplete" >
+    
+              
+            <ion-segment  [(ngModel)]="graphDate">
+              <ion-segment-button class="secondary-segments" value="lastWeek"  >
+                <ion-label>Last Week</ion-label>
+              </ion-segment-button>
+              <ion-segment-button class="secondary-segments" value="thisWeek" >
+                <ion-label>This Week</ion-label>
+              </ion-segment-button>
+              <ion-segment-button class="secondary-segments" value="thisMonth" >
+                <ion-label>This Month</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+            
+            
+            <ng-container [ngSwitch]="graphDate">
+              <ng-container *ngSwitchCase="'lastWeek'">
+                  <ion-card-content>
+                    <canvas  
+                      baseChart 
+                      height="800em"
+                      width="800em"
+                      [data]="pieLastWeekInCompleteChartData" 
+                      [labels]="pieLastWeekInCompleteLabels" 
+                      [chartType]="pieChartType"
+                      [legend] ="true"
+                    >
+                  </canvas>
+                </ion-card-content>
+              </ng-container>
+              <ng-container *ngSwitchCase="'thisWeek'">
+                <ion-card-content>
+                  <canvas  
+                    baseChart 
+                    height="800em"
+                    width="800em"
+                    [data]="pieWeekInCompleteChartData" 
+                    [labels]="pieWeekInCompleteLabels" 
+                    [chartType]="pieChartType"
+                    [legend] ="true"
+                  >
+                </canvas>
+              </ion-card-content>
+              </ng-container>
+              <ng-container *ngSwitchCase="'thisMonth'">
+                <ion-card-content>
+                  <canvas  
+                    baseChart 
+                    height="800em"
+                    width="800em"
+                    [data]="pieMonthInCompleteChartData" 
+                    [labels]="pieMonthInCompleteLabels" 
+                    [chartType]="pieChartType"
+                    [legend] ="true"
+                  >
+                </canvas>
+              </ion-card-content>
+  
+              </ng-container>
+            </ng-container>
+          
         </ion-card>
         <ng-template #noInComplete>
-          <ion-card [style.margin-top.em]="4">
+          <ion-card [style.margin-top.em]="4" class="card-background">
             <ion-card-content>
               <h2>Not Enough Data For This Metric</h2>
             </ion-card-content>

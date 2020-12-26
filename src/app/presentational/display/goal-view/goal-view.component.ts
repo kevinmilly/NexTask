@@ -32,7 +32,7 @@ export class GoalViewComponent implements OnInit {
         this.tasksSub = this.tmService.allTasks$
           .subscribe(retrivedTasks => {
             this.goalsHierarchy = this.returnMilestoneAndTasks(retrievedGoals,retrivedTasks.filter(t=> t.goalId));
-            console.dir(this.goalsHierarchy);
+            // console.dir(this.goalsHierarchy);
           })
         
         

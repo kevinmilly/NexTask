@@ -157,28 +157,28 @@ export class GoalEntryComponent implements OnInit {
       switch(number) {
         case 1:
         
-          return `Very Low`;
+          return `Low`;
         case 2:
         
-          return `Low`;
+          return `Medium`;
         case 3: 
       
-          return `Moderate`;
+          return `High`;
         case 4:
     
-          return `High`;
+          return `Critical`;
         case 5:
   
-          return `Very High`;
+          return `Non-Negotiable`;
         default:
 
-          return `Very High`;
+          return `Non-Negotiable`;
       }
     } else if(format === 'difficulty') {
       switch(number) {
         case 1:
         
-          return `Very Low`;
+          return `Mindless`;
         case 2:
         
           return `Low`;
@@ -190,32 +190,32 @@ export class GoalEntryComponent implements OnInit {
           return `High`;
         case 5:
   
-          return `Very High`;
+          return `Intense`;
         default:
 
-          return `Very High`;
+          return `Intense`;
       }
     } else {
        
         switch(number) {
           case 1:
         
-            return `Very Low`;
+            return `Low`;
           case 2:
           
-            return `Low`;
+            return `Medium`;
           case 3: 
         
-            return `Moderate`;
+            return `Elevated`;
           case 4:
       
             return `High`;
           case 5:
     
-            return `Very High`;
+            return `Immediate`;
           default:
   
-            return `Very High`;
+            return `Immediate`;
         }
     }
   

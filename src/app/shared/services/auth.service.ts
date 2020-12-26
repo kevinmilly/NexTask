@@ -44,12 +44,12 @@ export class AuthService {
         // this.initClient();
         this.user$ = this.afAuth.authState;
         this.metrics = new Metrics(0,0,0,0,0,0);
-        this.user = { 
-          displayName: "Kevin Smith",
-          email: "kevinmilly@gmail.com",
-          photoUrl: '',
-          uid: 'QZbKvcTx0qePmkntahbrFFG7Xyh1' 
-         };
+        // this.user = { 
+        //   displayName: "Kevin Smith",
+        //   email: "kevinmilly@gmail.com",
+        //   photoUrl: '',
+        //   uid: 'QZbKvcTx0qePmkntahbrFFG7Xyh1' 
+        //  };
 
       }
 
@@ -59,16 +59,18 @@ export class AuthService {
       }
 
       async webGoogleLogin(): Promise<void>{
+        console.log("logging in");
         try {
           const provider = new firebase.auth.GoogleAuthProvider();
           const credential = await this.afAuth.signInWithPopup(provider);
           console.log({credential});
+          console.log("Logging popup");
 
           this.afAuthSub = this.afAuth.authState.subscribe(user => {
                   console.log({user});
                   if (user){
-                        localStorage.setItem('user', JSON.stringify(this.user));
-                        this.router.navigate(['']);
+                        localStorage.setItem('user', JSON.stringify(user));
+                        
                         this.user = { 
                           displayName: user.displayName,
                           email: user.email,
@@ -102,6 +104,7 @@ export class AuthService {
                         localStorage.setItem('user', null);
                         this.router.navigate(['/login']);
                       }
+                      this.router.navigate(['']);
                  
               })
         } catch (error) {

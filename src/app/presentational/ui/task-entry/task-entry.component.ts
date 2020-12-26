@@ -42,23 +42,23 @@ export class TaskEntryComponent implements AfterViewInit {
 
   priorities = [
     {
-      text: "Very Low", 
+      text: "Low", 
       number: 1
     },
     { 
-      text: "Low",  
+      text: "Medium",  
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "High", 
       number: 3
     },
     {
-      text: "High", 
+      text: "Critical", 
       number: 4
     },
     {
-      text: "Very High",
+      text: "Non-Negotiable",
       number: 5
     }
   ]
@@ -66,7 +66,7 @@ export class TaskEntryComponent implements AfterViewInit {
   
   difficulty = [
     {
-      text: "Very Low", 
+      text: "Mindless", 
       number: 1
     },
     { 
@@ -74,7 +74,7 @@ export class TaskEntryComponent implements AfterViewInit {
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "Average", 
       number: 3
     },
     {
@@ -82,22 +82,22 @@ export class TaskEntryComponent implements AfterViewInit {
       number: 4
     },
     {
-      text: "Very High",
+      text: "Intense",
       number: 5
     }
   ]
 
   urgencyLevels = [
     {
-      text: "Very Low", 
+      text: "Low", 
       number: 1
     },
     { 
-      text: "Low",  
+      text: "Medium",  
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "Elevated", 
       number: 3
     },
     {
@@ -105,7 +105,7 @@ export class TaskEntryComponent implements AfterViewInit {
       number: 4
     },
     {
-      text: "Very High",
+      text: "Immediate", 
       number: 5
     }
   ]

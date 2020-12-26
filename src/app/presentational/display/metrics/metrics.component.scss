@@ -4,7 +4,39 @@ ion-row {
 
 .graph {
   width: 600em;
-  height: 60em;
+  height: 55em;
   margin: auto;
   overflow-y: auto;
+
+  .mat-tab-label {
+    min-width: 15px !important;
+    padding: 5px;
+    background-color: transparent;
+    color: rgb(85, 72, 60) !important;
+    font-weight: 700;
+  }
+
+  /* Styles for the active tab label */
+  .mat-tab-label.mat-tab-label-active {
+    min-width: 15px !important;
+    padding: 5px;
+    background-color: transparent;
+    color: rgb(85, 72, 60) !important;
+    font-weight: 700;
+  }
+
+  .mat-ink-bar {
+    color: var(--ion-color-primary) !important;
+    background-color: var(--ion-color-primary) !important;
+  }
+}
+
+.main-segments {
+  color: rgb(255, 217, 146);
+  font-size: 1.5em;
+}
+
+.secondary-segments {
+  color: rgb(85, 72, 60);
+  font-size: 1em;
 }

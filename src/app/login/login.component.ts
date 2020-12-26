@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
     //     this.router.navigate(['queue']);
     //   }
     // })
-    if(this.auth.isLoggedIn) {
+    if(localStorage.getItem("user")) {
       console.log("We are logged In");
-      console.dir(this.auth);
-      this.router.navigate(['tabs']);
+     
+      this.router.navigate(['']);
     }
 
 
@@ -38,8 +38,7 @@ export class LoginComponent implements OnInit {
 
   signIn() {
     this.auth.googleLogin();
-    console.log("Logging In");
-    this.router.navigate(['tabs']);
+    // this.router.navigate(['tabs']);
    
   }
 

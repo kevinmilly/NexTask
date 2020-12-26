@@ -6,6 +6,7 @@ import { TaskManagementService } from 'src/app/shared/services/task-management.s
 import { Chart, ChartOptions, ChartType } from 'chart.js';
 import { ChangeDetectorRef } from '@angular/core';
 
+import * as moment from "moment";
 
 
 class Variation {
@@ -20,13 +21,14 @@ class Variation {
 })
 export class MetricsComponent implements OnInit {
 
+  graphDate = "thisWeek";
 
   difficultyPossiblities = [
      `Mindless`,
-     `Easy`,
+     `Low`,
      `Average`,
-     `Involved`,
-     `Deep Focus`
+     `High`,
+     `Intense`
   ]
   importancePossiblities = [
       `Not Important`,
@@ -36,17 +38,22 @@ export class MetricsComponent implements OnInit {
       `Critical`
   ]
   urgencyPossiblities = [
-    `Not Urgent`,
-    `Somewhat Urgent`,
-    `Urgent`,
-    `Very Urgent`,
-    `Get it Done Now!`
+    `Low`,
+    `Medium`,
+    `Elevated`,
+    `High`,
+    `Immediate`
   ]
 
   variations = [];
     // Pie
-    public pieCompleteLabels: string[] = [];
-    public pieInCompleteLabels: string[] = [];
+    public pieWeekCompleteLabels: string[] = [];
+    public pieWeekInCompleteLabels: string[] = [];
+    public pieMonthCompleteLabels: string[] = [];
+    public pieMonthInCompleteLabels: string[] = [];
+    public pieLastWeekCompleteLabels: string[] = [];
+    public pieLastWeekInCompleteLabels: string[] = [];
+
 
     public pieChartOptions: ChartOptions = {
       responsive: true,
@@ -61,8 +68,14 @@ export class MetricsComponent implements OnInit {
   //   backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)', 'rgba(191, 191, 63,0.3)'],
   // },
 
-  public pieCompleteChartData: number[] = [];
-  public pieInCompleteChartData: number[] = [];
+  public pieWeekCompleteChartData: number[] = [];
+  public pieWeekInCompleteChartData: number[] = [];
+
+  public pieMonthCompleteChartData: number[] = [];
+  public pieMonthInCompleteChartData: number[] = [];
+
+  public pieLastWeekCompleteChartData: number[] = [];
+  public pieLastWeekInCompleteChartData: number[] = [];
 
   completeVariations: any[] = []
 
@@ -86,29 +99,45 @@ export class MetricsComponent implements OnInit {
     this.taskSub = this.taskManage.allTasks$
                     .subscribe( tasks => {
 
-                      // console.log({tasks});
+                      this.tasks = tasks;
                       
-                      this.organizeVariations(tasks,'complete')
+                      this.organizeVariations(tasks.filter(t => this.lastWeek(t.completedDate)),'complete')
                         .forEach(variation => {
-                          this.pieCompleteChartData.push(variation.amount);
-                          this.pieCompleteLabels
+                          this.pieLastWeekCompleteChartData.push(variation.amount);
+                          this.pieLastWeekCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
                         });
-                      const comp = [];
-                      // this.organizeVariations(tasks,'complete')
-                      // .forEach(variation => {
-                      //   comp.push({
-                      //     label: this.stringifyVariations(variation.variant),
-                      //     amount: variation.amount
-                      //   })
-                      // });
-                      this.completeVariations = comp.sort((a,b) => b.amount - a.amount);
+                        this.organizeVariations(tasks.filter(t => this.currentWeek(t.completedDate)),'complete')
+                        .forEach(variation => {
+                          this.pieWeekCompleteChartData.push(variation.amount);
+                          this.pieWeekCompleteLabels
+                              .push(this.stringifyVariations(variation.variant));
+                        });
+                        this.organizeVariations(tasks.filter(t => this.currentMonth(t.completedDate)),'complete')
+                        .forEach(variation => {
+                          this.pieMonthCompleteChartData.push(variation.amount);
+                          this.pieMonthCompleteLabels
+                              .push(this.stringifyVariations(variation.variant));
+                        });
+            
                 
                       
-                        this.organizeVariations(tasks,'incomplete')
+                        this.organizeVariations(tasks.filter(t => this.lastWeek(t.createdDate)),'incomplete')
                         .forEach(variation => {
-                          this.pieInCompleteChartData.push(variation.amount);
-                          this.pieInCompleteLabels
+                          this.pieLastWeekInCompleteChartData.push(variation.amount);
+                          this.pieLastWeekInCompleteLabels
+                              .push(this.stringifyVariations(variation.variant));
+                        });
+                        this.organizeVariations(tasks.filter(t => this.currentWeek(t.createdDate)),'incomplete')
+                        .forEach(variation => {
+                          this.pieWeekInCompleteChartData.push(variation.amount);
+                          this.pieWeekInCompleteLabels
+                              .push(this.stringifyVariations(variation.variant));
+                        });
+                        this.organizeVariations(tasks.filter(t => this.currentMonth(t.createdDate)),'incomplete')
+                        .forEach(variation => {
+                          this.pieMonthInCompleteChartData.push(variation.amount);
+                          this.pieMonthInCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
                         });
                         
@@ -175,27 +204,27 @@ export class MetricsComponent implements OnInit {
 
   }
 
-  idfConvert(format, number) {
+  idfConvert(format, number) { 
     if(format === 'importance') {
       switch(number) {
         case 1:
         
-          return `Not Important`;
+          return `Low`;
         case 2:
         
-          return `Low Priority`;
+          return `Medium`;
         case 3: 
       
-          return `Important`;
+          return `High`;
         case 4:
     
-          return `Very Important`;
+          return `Critical`;
         case 5:
   
-          return `Critical`;
+          return `Non-Negotiable`;
         default:
 
-          return `Critical`;
+          return `Non-Negotiable`;
       }
     } else if(format === 'difficulty') {
       switch(number) {
@@ -204,40 +233,44 @@ export class MetricsComponent implements OnInit {
           return `Mindless`;
         case 2:
         
-          return `Easy`;
-        case 3:
+          return `Low`;
+        case 3: 
       
-          return `Average`;
+          return `Moderate`;
         case 4:
     
-          return `Involved`;
+          return `High`;
         case 5:
   
-          return `Deep Focus`;
+          return `Intense`;
+        default:
+
+          return `Intense`;
       }
     } else {
        
         switch(number) {
           case 1:
-          
-          return `Not Urgent`;
-        case 2:
         
-          return `Somewhat Urgent`;
-        case 3:
+            return `Low`;
+          case 2:
+          
+            return `Medium`;
+          case 3: 
+        
+            return `Elevated`;
+          case 4:
       
-          return `Urgent`;
-        case 4:
+            return `High`;
+          case 5:
     
-          return `Very Urgent`;
-        case 5:
+            return `Immediate`;
+          default:
   
-          return `Get it Done Now!`;
-        default:
-
-          return 'Get It Done Now!';
+            return `Immediate`;
         }
     }
+  
   
 }
 
@@ -246,6 +279,36 @@ stringifyVariations(v: number[]) : string {
   ${this.idfConvert('importance', v[1])}
    ${this.idfConvert('urgency', v[2])}`
 }
+
+
+currentMonth(dateToCheck) {
+  return moment.utc(dateToCheck).isSame(new Date(), 'month'); //true if dates are in the same month
+}
+
+currentWeek(dateToCheck) {
+  if(!dateToCheck) {
+    // console.log(`Date passed is ${dateToCheck}`);
+    dateToCheck = new Date(dateToCheck);
+    // console.log(`Now it is ${dateToCheck}`);
+  }
+
+  return moment.utc(dateToCheck).isSame(new Date(), 'week'); //true if dates are in the same week
+}
+
+lastWeek(dateToCheck) {
+  const sevenDaysAgo = this.atimeAgo(new Date(),7)
+  // console.log(`Is ${dateToCheck} in the same week as ${sevenDaysAgo}?`);
+  return moment.utc(dateToCheck).isSame(sevenDaysAgo, 'week'); //true if dates are in the same week
+}
+
+atimeAgo(date,days) {
+  days = 7; // Days you want to subtract
+  return new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
+
+}
+
+
+
 
   ngOnDestroy() { 
     if(this.taskSub) {

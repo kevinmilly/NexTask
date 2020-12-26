@@ -107,10 +107,8 @@ export class TaskManagementService {
             if(t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
           });
 
-        this.daySub = this.backend.getDayHours()
-        .subscribe(h => {
-          this.defaultHours = h;
-          this.sortDays(this.defaultHours, [...this.tasks]);
+
+         this.sortDays(6, [...this.tasks]);
           
           this.sendUpdates( 
               this.allTasks,
@@ -124,10 +122,7 @@ export class TaskManagementService {
               );
           
     
-        })
-
-
- 
+    
     })
     })
 

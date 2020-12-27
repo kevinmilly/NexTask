@@ -1,24 +1,24 @@
 <ion-content class="header-background content-height">
-    <div class="setting-buttons">
-      <ion-fab vertical="top" horizontal="end">
-        <ion-fab-button>
-          <ion-icon name="flash-outline"></ion-icon>
+  <div class="setting-buttons">
+    <ion-fab vertical="top" horizontal="end">
+      <ion-fab-button>
+        <ion-icon name="flash-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="start">
+      <ion-fab-button class="add-button" (click)="addTask()" color="primary">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="addGoal()" color="tertiary">
+        <ion-icon name="flag-outline"></ion-icon>
+      </ion-fab-button> 
+        <ion-fab-button class="logout-button">
+          <ion-icon name="log-out-outline" (click)="logout()"></ion-icon>
         </ion-fab-button>
-        <ion-fab-list side="start">
-        <ion-fab-button (click)="addTask()" color="primary">
-          <ion-icon name="add-circle-outline"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button (click)="addGoal()" color="tertiary">
-          <ion-icon name="flag-outline"></ion-icon>
-        </ion-fab-button> 
-          <ion-fab-button class="logout-button">
-            <ion-icon name="log-out-outline" (click)="logout()"></ion-icon>
-          </ion-fab-button>
-        </ion-fab-list>
-    
-    
-      </ion-fab>
-    </div>
+      </ion-fab-list>
+  
+  
+    </ion-fab>
+  </div>
     <ion-card class="card-background">
         <ion-card-content>
             <ion-list>

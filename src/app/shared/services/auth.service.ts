@@ -63,11 +63,10 @@ export class AuthService {
         try {
           const provider = new firebase.auth.GoogleAuthProvider();
           const credential = await this.afAuth.signInWithPopup(provider);
-          console.log({credential});
-          console.log("Logging popup");
+        
 
           this.afAuthSub = this.afAuth.authState.subscribe(user => {
-                  console.log({user});
+
                   if (user){
                         localStorage.setItem('user', JSON.stringify(user));
                         
@@ -77,7 +76,7 @@ export class AuthService {
                           photoUrl: user.photoURL,
                           uid: user.uid && user.uid 
                          };
-                        console.dir(this.user);
+                      
                         if(!this.afs.collection(`users/`).doc(user.uid)) {
                           this.afs.collection(`users/`)
                           .add(this.user)

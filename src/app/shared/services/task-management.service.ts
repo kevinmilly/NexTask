@@ -95,10 +95,7 @@ export class TaskManagementService {
         //this filter will take out goal-based task that aren't prioritized
         const nonGoalTasks = this.tasks.filter(t => !t.goalId);
 
-
         this.tasks = nonGoalTasks.concat(this.goalTaskFilter(this.tasks, this.goals));
- 
-
         this.tasks = this.fullySortNonCompletedTasks(this.tasks);
 
         
@@ -215,24 +212,26 @@ export class TaskManagementService {
 
       tasks[index].completed = 1;
       tasks[index].completedDate = moment().format('YYYY-MM-DD');
-      awards = this.backend.addMetric(tasks[index], "completion");
-
+      try {
+        awards = this.backend.addMetric(tasks[index], "completion");
+      } catch (error) {
+          console.log({error})
+      }
+    
+      this.updateAllTasks(tasks);
 
     this.handleGoalUpdates(index, tasks, this.goals);
+
+     //this filter will take out goal-based task that aren't prioritized
+     const nonGoalTasks = this.tasks.filter(t => !t.goalId);
+        
+     this.tasks = nonGoalTasks.concat(this.goalTaskFilter(this.tasks, this.goals));
+     this.tasks = this.fullySortNonCompletedTasks(this.tasks);
     
     this.sortDays(this.defaultHours, [...tasks]);
-    this.updateAllTasks(tasks);
     tasks.splice(tasks.findIndex(task => task.day === event.day),1);
+   
 
-    this.sendUpdates( 
-      this.allTasks,
-        tasks,
-        this.goals,
-        this.tasksDay1,
-        this.tasksDay2,
-        this.tasksDay3,
-        this.tasksDay4,
-        this.tasksDay5);
 
   }
 
@@ -381,7 +380,7 @@ export class TaskManagementService {
         associatedGoal.completed = this.checkIfGoalDone(associatedMilestone, [...goals]);
   
         if(associatedMilestone.completed) goalsToUpdate.push(associatedMilestone);
-        if(associatedGoal.completed) goalsToUpdate.push(associatedMilestone);
+        if(associatedGoal.completed) goalsToUpdate.push(associatedGoal);
   
         this.backend.updateGoals(goalsToUpdate);
       } else {
@@ -418,6 +417,7 @@ export class TaskManagementService {
     let complete = 1;
     const goalInQuestion = goals.find(goal => goal.id === associatedMilestone.parentGoal);
     const milestonesInQuestion = goals.filter(goal => goal.parentGoal === goalInQuestion.id)
+    console.log({milestonesInQuestion});
     milestonesInQuestion
       .forEach(milestone => {
         if(!milestone.completed) {
@@ -440,31 +440,40 @@ export class TaskManagementService {
 
   
   goalTaskFilter(taskList: Task[], goals: Goal[]) {
+    // console.log({goals});
+    
 
     if(goals.length === 0) return [];
 
     //get most prioritized goal
    const filteredGoals = goals
-                            .filter(goal => !goal.completed && goal.parentGoal === null)
-                            .sort((a,b) => {
-                              return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
-                           })
+                            .filter(goal => !goal.completed && goal.parentGoal === null);
+  //  console.log({filteredGoals});
+   const sortedFilteredGoals = filteredGoals                            
+                                 .sort((a,b) => {
+                                     return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+                                })
+      // console.log({sortedFilteredGoals});
 
       //get most milestone within that goal
    const filteredMilestones = goals
-      .filter(goal => !goal.completed && goal.parentGoal === filteredGoals[0].id)
-      .sort((a,b) => {
-        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
-     })
+      .filter(goal => !goal.completed && goal.parentGoal === filteredGoals[0].id);
+    // console.log({filteredMilestones});
+    const sortedFilteredMilestones = filteredMilestones
+                                      .sort((a,b) => {
+                                        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+                                    })
+    //  console.log({sortedFilteredMilestones});
 
+    if(filteredMilestones.length > 0) {
+      const filteredTasks = taskList.filter(t => t.goalId);
+      const list = filteredTasks.filter(t => t.goalId === filteredMilestones[0].id);
+      // console.log({list});
+      return list;
+    } 
+    return [];
 
-    const list = filteredMilestones.length > 0 ? taskList.filter(t => {
-      if(t.goalId && t.goalId !== "") {
-        return t.goalId === filteredMilestones[0].id && t;
-      } 
-    }) : [];
-
-    return list; 
+     
   }
 
   // async openSettings() {

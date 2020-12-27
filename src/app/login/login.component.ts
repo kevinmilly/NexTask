@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     //     this.router.navigate(['queue']);
     //   }
     // })
-    if(localStorage.getItem("user")) {
+    if(localStorage.getItem("user") || this.auth.user) {
       console.log("We are logged In");
      
       this.router.navigate(['/tabs']);

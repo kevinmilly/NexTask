@@ -64,7 +64,7 @@
         </ion-item>
         <ion-item>     
    
-            <ion-select [formControl]="priority" color="primary">
+            <ion-select [formControl]="urgency" color="primary">
               <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">{{urg.text}}</ion-select-option>
             </ion-select>
             <ion-label [ngClass]="{

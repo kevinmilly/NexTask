@@ -392,7 +392,7 @@ export class GoalEntryComponent implements OnInit {
         }) 
         :
         this.fb.group({
-          title: ['', [Validators.required]],
+          title: ['', [Validators.required, Validators.maxLength(37)]],
           priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
           urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
           difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 

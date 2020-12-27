@@ -1,21 +1,19 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { BackendService } from '../../shared/services/backend.service';
 import { Observable, Subscription } from 'rxjs';
 import { Task } from '../../shared/models/task.model';
 import * as moment from "moment";
 import { AuthService } from '../../shared/services/auth.service';
 
-import {MatSnackBar} from '@angular/material/snack-bar';
+
 import { FormControl } from '@angular/forms';
-import { TaskEntryComponent } from '../../presentational/ui/task-entry/task-entry.component';
+
 
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Goal } from 'src/app/shared/models/goal.model';
-import { ModalController } from '@ionic/angular';
+
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
-import { Quote } from '@angular/compiler';
-import { BadgeService } from 'src/app/shared/services/badge.service';
+
 
 
 
@@ -152,9 +150,9 @@ createIdea(event) {
    }
 
    markTaskComplete(event) {
-     this.tmService.markTaskComplete(event, this.tasks);
+     this.tmService.markTaskComplete(event, [...this.tasks]);
      this.getRandomQuote();
-     this.presentLoading(1,"Reloading");
+     this.presentLoading(4,"Reloading");
    }
 
   updateAllTasks(event) {

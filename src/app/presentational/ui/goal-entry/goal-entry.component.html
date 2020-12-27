@@ -3,10 +3,17 @@
   <ion-list>
       <ion-item >
         <ion-label>The Goal is to...</ion-label>
-        <ion-input type="text" [(ngModel)]="goalTitle" name="title" maxlength="37"></ion-input>
-        
-      
-  
+        <ion-input #goalTitleControl="ngModel" type="text" [(ngModel)]="goalTitle" name="title" maxlength="37" required></ion-input><br/>
+        <mat-error 
+          *ngIf="goalTitleControl.touched && goalTitleControl.errors?.required"
+          >
+          Goal title required.
+        </mat-error>
+        <mat-error 
+          *ngIf="goalTitleControl.touched && goalTitleControl.errors?.maxlength"
+          >
+          Please choose a shorter title.
+        </mat-error>
     </ion-item>
 
     <ion-item  >
@@ -52,7 +59,7 @@
   <ion-item id="goal-date">
     <ion-label>Get this done by: </ion-label>
     <ion-datetime
-      displayFormat="YYYY-MM-DD" 
+      displayFormat="MM-DD-YYYY-MM-DD" 
       [(ngModel)]="goalDeadline"
       name="goal-deadline"
 
@@ -72,7 +79,16 @@
                        <ion-note slot="start" color="tertiary">M</ion-note>
                       <ion-label>Milestone:</ion-label>
                         <ion-input type="text" formControlName="title" name="title" maxlength="37"></ion-input>
-                      
+                        <mat-error 
+                        *ngIf="goalArray.controls[i].hasError('required')"
+                        >
+                        Milestone title required.
+                      </mat-error>
+                      <mat-error 
+                        *ngIf="goalArray.controls[i].hasError('maxLength')"
+                        >
+                        Please choose a shorter title.
+                      </mat-error>
                     </ion-item>
                         
                     <ion-item disabled = "{{goalTitle === ''}}">
@@ -117,7 +133,7 @@
                         </ion-badge>
                  
                       
-                        <ion-badge slot="end" *ngIf="i !== 0"  color="warn" (click)="deleteGoal(i)">
+                        <ion-badge slot="end" *ngIf="goalArray.controls.length > 0"  color="warn" (click)="deleteGoal(i)">
                           <ion-icon name="ban-outline"></ion-icon> 
                       </ion-badge>
                
@@ -148,7 +164,16 @@
                           <ion-label>Task: </ion-label>
                           <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
                             <ion-input type="text" formControlName="title" name="title" maxlength="37"></ion-input>
-                            
+                            <mat-error 
+                            *ngIf="getTaskChildren(goal)[j].hasError('required')"
+                            >
+                            Goal title required.
+                          </mat-error>
+                          <mat-error 
+                            *ngIf="getTaskChildren(goal)[j].hasError('maxLength')"
+                            >
+                            Please choose a shorter title.
+                          </mat-error>
                         </ion-item>
   
                         <ion-item disabled = "{{goalArray.controls[i].value.title === '' || goalTitle === ''}}">

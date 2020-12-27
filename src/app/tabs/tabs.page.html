@@ -6,12 +6,12 @@
       <ion-label>Queue</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2">
+    <ion-tab-button tab="tab2" *ngIf="tasks.length > 0">
       <ion-icon name="pie-chart-outline"></ion-icon>
       <ion-label>Metrics</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab3">
+    <ion-tab-button tab="tab3" *ngIf="goals.length > 0">
       <ion-icon name="analytics-outline"></ion-icon>
       <ion-label>Goal Progress</ion-label>
     </ion-tab-button>

@@ -49,8 +49,8 @@ ion-content {
   // background: #eb9ab0;
   background-image: linear-gradient(
     to bottom,
-    rgb(250, 231, 215),
-    rgb(248, 242, 237)
+    rgb(247, 216, 189),
+    rgb(250, 231, 215)
   );
 
   .details {
@@ -63,12 +63,12 @@ ion-content {
 }
 
 .low {
-  // background:  #f06f91;
-  // background-image: linear-gradient(
-  //   to bottom,
-  //   rgb(247, 216, 189),
-  //   rgb(250, 231, 215)
-  // );
+  background: #f06f91;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(247, 201, 162),
+    rgb(247, 216, 189)
+  );
 
   .details {
     font-size: 0.8em;
@@ -81,11 +81,11 @@ ion-content {
 
 .medium {
   // background: #f34573;
-  // background-image: linear-gradient(
-  //   to bottom,
-  //   rgb(241, 199, 163),
-  //   rgb(247, 216, 189)
-  // );
+  background-image: linear-gradient(
+    to bottom,
+    rgb(248, 184, 128),
+    rgb(247, 201, 162)
+  );
 
   .details {
     font-size: 1em;
@@ -98,7 +98,7 @@ ion-content {
 
 .high {
   // background:  #fa2e64;
-  // background-image: linear-gradient(to bottom, #f3ae72, rgb(241, 199, 163));
+  background-image: linear-gradient(to bottom, #f3ae72, rgb(241, 199, 163));
 
   .details {
     font-size: 1.2em;
@@ -233,7 +233,6 @@ ion-card.expanded-content {
 }
 
 .goal-description-block {
-  margin: 0 2em 1em 0;
   .goal {
     color: #ffa14f;
     font-size: 1.2em;

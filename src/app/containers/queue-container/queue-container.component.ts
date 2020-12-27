@@ -88,7 +88,7 @@ export class QueueContainerComponent implements OnInit {
       })
       this.presentLoading(4,"Looking for goals and tasks");
       this.quotes = this.commentsService.encouragement;
-
+      this.tags =  this.tmService.filterTags;
     
   }
 
@@ -100,11 +100,12 @@ createIdea(event) {
 
 
   filterTags() {
+    console.log(this.tagOptions.value);
      if(this.tagOptions.value === 'All') {
-       this.tmService.sortDays(this.defaultHours, [...this.tasks]);
+       this.tmService.sortDays(6, [...this.tasks]);
        return;
      }
-     this.tmService.sortDays(this.defaultHours, this.tasks.filter(task => task.tag === this.tagOptions.value));
+     this.tmService.sortDays(6, this.tasks.filter(task => task.tag === this.tagOptions.value));
   }
 
   getRandomQuote() {

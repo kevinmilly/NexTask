@@ -15,6 +15,10 @@ export class WelcomeSliderPage implements OnInit {
   ngOnInit() {
   }
 
+  // nextSlide() {
+  //   this.slides.slideNext();
+  // }
+
   start() {
     this.router.navigate(['login']);
   }

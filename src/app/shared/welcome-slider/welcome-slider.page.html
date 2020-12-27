@@ -1,10 +1,9 @@
 <ion-content>
-  <ion-slides>
+  <ion-slides pager="true" [options]="slideOptions">
       <ion-slide>
       <div >
         <img src="../../../assets/images/youngladyphone.jpg"/>
-        <h1>Dead Simple Task Management</h1>
-        <h2>More than a To Do List!</h2>
+        <h2>Dead Simple Task Management</h2>
         <div class="welcome">
             Manage tasks and goals based on 3 factors: 
             Urgency, Difficulty, and priority.  <br/><br/>
@@ -12,6 +11,7 @@
             We'll make sure you are accomplishing the most impactful tasks first!
           
         </div>
+        <!-- <div class="swiper-button-next" (click)="nextSlide()"></div> -->
         <div (click)="start()"class="skip-promo">Skip</div>
          <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
       </div>
@@ -46,7 +46,7 @@
             The tasks you add will be organized by the most impactful to the least.
           If you don't get to a task by the end of the day, next day it will slightly increase in priority.
         </div>
-        <br/>
+  
         <span (click)="start()"class="skip-promo">Skip</span>
         <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
       </div>
@@ -80,7 +80,7 @@
         <img src="../../../assets/images/coffee-peace.jpg"/>
         <h2>Be safe and productive my Friends!</h2>
         <div  class="welcome">Check out more resources below and press 'Get Started!'</div>
-        <br/>
+
         <span (click)="start()"class="skip-promo">Get Started!</span>
         <!-- <a routerLink="/login" class="skip-promo">Get Started!</a> -->
     </div>

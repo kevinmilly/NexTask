@@ -30,7 +30,7 @@
               <div class="tasks-buttons">
                 <ion-item class="columnHeaderChoiceSize" *ngIf="tags.length > 0; noTags">
                   <ion-label>Filter by Tag</ion-label>
-                  <ion-select [formControl]="tagOptions" (selectionChange)=" filterTags()">
+                  <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
                     <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
                   </ion-select>
                 </ion-item>

@@ -60,7 +60,7 @@ export class TaskManagementService {
 
   defaultHours = 0; 
 
-  tags = ['general', 'All'];
+  private tags = ['general', 'All'];
   tagOptions = new FormControl('general',[]);
 
   ideaForm;
@@ -513,6 +513,10 @@ export class TaskManagementService {
 
   get loggedIn() {
     return this.auth.isLoggedIn;
+  }
+
+  get filterTags() {
+    return this.tags;
   }
 
 

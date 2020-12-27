@@ -20,5 +20,11 @@ import { WelcomeSliderPage } from './welcome-slider.page';
 })
 export class WelcomeSliderPageModule {
 
+  slideOptions = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay: true
+  };
+
 
 }

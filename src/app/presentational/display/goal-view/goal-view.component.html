@@ -34,7 +34,7 @@
                     <ng-container *ngFor="let m of g.milestones">
                         <ion-item-sliding >
                             <ion-item [ngClass]="{'milestone-item': !m.completed, 'milestone-item complete': m.completed}">
-                                <span class="milestone">Milestone:</span>{{m.title}} 
+                                <span class="milestone">M:</span>{{m.title}} 
                             </ion-item>
                             <ion-item-options>
                                 Edit ability coming soon
@@ -43,7 +43,7 @@
                        <ng-container *ngFor="let t of m.tasks">
                             <ion-item-sliding >
                                 <ion-item [ngClass]="{'task-item': !t.completed, 'task-item complete': t.completed}">
-                                    <span class="task" >Task:</span> {{t.title}} 
+                                    <span class="task" >T:</span> {{t.title}} 
                                 </ion-item>
                                 <ion-item-options>
                                     Edit ability coming soon

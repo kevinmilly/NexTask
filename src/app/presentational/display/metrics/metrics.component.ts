@@ -209,65 +209,65 @@ export class MetricsComponent implements OnInit {
       switch(number) {
         case 1:
         
-          return `Low`;
+          return `Low Prioirty`;
         case 2:
         
-          return `Medium`;
+          return `Medium Prioirty`;
         case 3: 
       
-          return `High`;
+          return `High Prioirty`;
         case 4:
     
-          return `Critical`;
+          return `Critical Prioirty`;
         case 5:
   
-          return `Non-Negotiable`;
+          return `Non-Negotiable Prioirty`;
         default:
 
-          return `Non-Negotiable`;
+          return `Non-Negotiable Prioirty`;
       }
     } else if(format === 'difficulty') {
       switch(number) {
         case 1:
         
-          return `Mindless`;
+          return `Mindless Difficulty`;
         case 2:
         
-          return `Low`;
+          return `Low Difficulty`;
         case 3: 
       
-          return `Moderate`;
+          return `Moderate Difficulty`;
         case 4:
     
-          return `High`;
+          return `High Difficulty`;
         case 5:
   
-          return `Intense`;
+          return `Intense Difficulty`;
         default:
 
-          return `Intense`;
+          return `Intense Difficulty`;
       }
     } else {
        
         switch(number) {
           case 1:
         
-            return `Low`;
+            return `Low Urgency`;
           case 2:
           
-            return `Medium`;
+            return `Medium Urgency`;
           case 3: 
         
-            return `Elevated`;
+            return `Elevated Urgency`;
           case 4:
       
-            return `High`;
+            return `High Urgency`;
           case 5:
     
-            return `Immediate`;
+            return `Immediate Urgency`;
           default:
   
-            return `Immediate`;
+            return `Immediate Urgency`;
         }
     }
   
@@ -286,13 +286,8 @@ currentMonth(dateToCheck) {
 }
 
 currentWeek(dateToCheck) {
-  if(!dateToCheck) {
-    // console.log(`Date passed is ${dateToCheck}`);
-    dateToCheck = new Date(dateToCheck);
-    // console.log(`Now it is ${dateToCheck}`);
-  }
-
-  return moment.utc(dateToCheck).isSame(new Date(), 'week'); //true if dates are in the same week
+  const zeroDaysAgo = this.atimeAgo(new Date(),0)
+  return moment.utc(dateToCheck).isSame(zeroDaysAgo, 'week'); //true if dates are in the same week
 }
 
 lastWeek(dateToCheck) {
@@ -306,9 +301,6 @@ atimeAgo(date,days) {
   return new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
 
 }
-
-
-
 
   ngOnDestroy() { 
     if(this.taskSub) {

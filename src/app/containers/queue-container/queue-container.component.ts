@@ -26,6 +26,7 @@ import { BadgeService } from 'src/app/shared/services/badge.service';
 })
 export class QueueContainerComponent implements OnInit {
 
+
   taskSub: Subscription;
   goalsSub: Subscription;
   daySub: Subscription;

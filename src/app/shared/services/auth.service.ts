@@ -104,7 +104,9 @@ export class AuthService {
                         localStorage.setItem('user', null);
                         this.router.navigate(['/login']);
                       }
-                      this.router.navigate(['']);
+                     // this.router.navigate(['']);
+                     this.router.navigate(['/tabs/tab1']);
+                     
                  
               })
         } catch (error) {

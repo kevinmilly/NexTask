@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     if(localStorage.getItem("user")) {
       console.log("We are logged In");
      
-      this.router.navigate(['']);
+      this.router.navigate(['/tabs']);
     }
 
 

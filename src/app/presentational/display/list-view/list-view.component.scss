@@ -38,6 +38,10 @@ ion-fab-list {
   }
 }
 
+ion-item-option {
+  background-color: whitesmoke;
+}
+
 .goal {
   color: #ffa14f;
   font-size: 1.2em;
@@ -66,4 +70,11 @@ ion-fab-list {
 .content-height {
   height: 45em;
   overflow-y: auto;
+}
+
+.percentage {
+  color: #414141;
+  font-size: 0.6em;
+  margin-left: 1em;
+  margin-right: 0.6em;
 }

@@ -26,10 +26,10 @@ export class BackendService  {
     private firestore: AngularFirestore, 
     private auth: AuthService,
 
-   ) { }
+   ) { console.dir(this.auth)}
 
   getAwards() {
-    return this.auth.metrics;
+    return this.auth.authMetrics;
   }
 
   getDayHours(): Observable<any> {
@@ -41,16 +41,16 @@ export class BackendService  {
   }
 
   getTasks() {
-    this.user = this.auth.user;
+    this.user = this.auth.loggedInUser;
     return this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
   }
   getGoals() {
-    this.user = this.auth.user;
+    this.user = this.auth.loggedInUser;
     return this.firestore.collection<Goal>(`users/${this.user.uid}/Goals`);
   }
 
   getIdeas() {
-    this.user = this.auth.user;
+    this.user = this.auth.loggedInUser;
     return this.firestore.collection<Idea>(`users/${this.user.uid}/Ideas`);
   }
 
@@ -131,7 +131,8 @@ export class BackendService  {
   }
 
   addMetric(task, typeOfUpdate) {
-    this.metrics = this.auth.metrics;
+    console.dir(this.auth);
+    this.metrics = this.auth.authMetrics;
     console.dir(this.metrics);
     console.log({task});
   
@@ -305,7 +306,7 @@ getAwardType(type:number) {
 }
 
 get yourMetrics () {
-  return this.auth.metrics;
+  return this.auth.authMetrics;
 }
 
 set yourMetrics(metrics) {

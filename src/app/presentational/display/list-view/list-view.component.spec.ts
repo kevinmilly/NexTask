@@ -2,22 +2,22 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
 
-import { GoalViewComponent } from './goal-view.component';
+import { ListViewComponent } from './list-view.component';
 
-describe('GoalViewComponent', () => {
-  let component: GoalViewComponent;
-  let fixture: ComponentFixture<GoalViewComponent>;
+describe('ListViewComponent', () => {
+  let component: ListViewComponent;
+  let fixture: ComponentFixture<ListViewComponent>;
   let backend:any;
 
   beforeEach(async(() => {
-    backend = jasmine.createSpyObj("backend",[get])
+    backend = jasmine.createSpyObj("backend",['getGoals'])
     TestBed.configureTestingModule({
-      declarations: [ GoalViewComponent ],
+      declarations: [ ListViewComponent ],
       imports: [IonicModule.forRoot()],
       providers:[]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GoalViewComponent);
+    fixture = TestBed.createComponent(ListViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -64,7 +64,7 @@ export class AuthService {
           const provider = new firebase.auth.GoogleAuthProvider();
           const credential = await this.afAuth.signInWithPopup(provider);
         
-
+          
           this.afAuthSub = this.afAuth.authState.subscribe(user => {
 
                   if (user){
@@ -76,11 +76,14 @@ export class AuthService {
                           photoUrl: user.photoURL,
                           uid: user.uid && user.uid 
                          };
-                      
-                        if(!this.afs.collection(`users/`).doc(user.uid)) {
+                        //  console.dir(this.user);
+                        //  console.dir(credential.user);
+                         
+                        if(!this.afs.collection(`users/`).doc(user.uid).collection("metrics")) {
                           this.afs.collection(`users/`)
                           .add(this.user)
                           .then((docRef) => {
+                            console.log("Saving user");
                              const addedUser = docRef.set(this.user, { merge: true });
                              
                              this.afs
@@ -264,6 +267,10 @@ export class AuthService {
       
       get loggedInUser(): User {
         return this.user;
+      }
+
+      get authMetrics() {
+        return this.metrics;
       }
 
    

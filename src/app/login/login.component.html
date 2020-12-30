@@ -5,19 +5,12 @@
     <div class="row justify-content-md-center">
         <div class="col-md-4 child">
          
-            <div id="login" fxLayout="column" *ngIf="authCheck(); else loggedOut">
+            <div id="login" fxLayout="column" *ngIf="user; else loggedOut">
               <ion-card >
                   
-                <img ion-card-image src="../../assets/images/lightbulb-idea-mid.jpg">
+                <img ion-card-image src="{{user.photoURL}}">
                 <ion-card-content class="card-content">
-                  <ul style="list-style-type:square">
-                    <li> 
-                    <span class="small-login"> Speed of a Paper To-Do List ✓</span> 
-                    </li>
-                    <li><span class="small-login"> Multi-level prioritization ✓ </span></li>
-                    <li><span class="small-login"> Time-blocking ✓</span></li>
-                    <li> <span class="small-login">  More time on your hands! ✓</span></li>
-                  </ul>
+                  <h1>Welcome {{user.displayName}}</h1>
               
                 </ion-card-content>
                 <ion-row>

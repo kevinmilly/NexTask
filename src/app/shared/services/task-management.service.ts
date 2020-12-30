@@ -16,6 +16,7 @@ import { ShowAwardComponent } from 'src/app/presentational/display/show-award/sh
 
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
 import { filter } from 'rxjs/operators';
+import { AuthRedoneService } from './authredone.service';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +70,7 @@ export class TaskManagementService {
 
   constructor(
     private backend: BackendService, 
-    private auth: AuthService, 
+    private auth: AuthRedoneService, 
     public modalController: ModalController,
     
   ) { 
@@ -521,7 +522,7 @@ export class TaskManagementService {
 
 
   get loggedIn() {
-    return this.auth.isLoggedIn;
+    return !!this.auth.user;
   }
 
   get filterTags() {

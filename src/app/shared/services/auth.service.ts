@@ -17,6 +17,8 @@ import { Metrics } from '../models/metrics.model';
 
 declare let gapi: any;
 
+
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
@@ -265,7 +267,7 @@ export class AuthService {
         return this.user !== null;
       }
       
-      get loggedInUser(): User {
+      getloggedInUser(): any {
         return this.user;
       }
 

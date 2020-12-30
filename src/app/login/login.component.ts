@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../shared/services/auth.service';
+// import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthRedoneService } from '../shared/services/authredone.service';
 
 
 @Component({
@@ -13,43 +14,44 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit {
 
   deviceSize;
+  authSub:Subscription;
+  user:any;
 
   constructor(
-      public auth: AuthService, 
+      // public auth: AuthService, 
+      public auth: AuthRedoneService,
       private router: Router,
  
     ) { }
 
   ngOnInit(): void {
-    // this.auth.user$.subscribe(user => {
-    //   if(user) {
-    //     console.log("authenticated");
-    //     this.router.navigate(['queue']);
-    //   }
-    // })
-    if(localStorage.getItem("user") || this.auth.user) {
-      console.log("We are logged In");
-     
-      this.router.navigate(['/tabs']);
-    }
-
+    // this.authSub = this.auth.user$
+    //     .subscribe(user => {
+    //       if(user) {
+    //        this.user = user;
+    //         this.router.navigate(['']);
+    //       }
+         
+    //     })
 
   }
 
   signIn() {
-    this.auth.googleLogin();
-    // this.router.navigate(['tabs']);
+    this.auth.googleSignin();
+  
    
   }
 
 
 signOut() {
-  this.auth.logout();
+  this.auth.signOut();
   this.router.navigate(['/login']);
 }
 
-authCheck() {
-  return this.auth.isLoggedIn
+ngOnDestroy() {
+  if(this.authSub) this.authSub.unsubscribe();
 }
+
+
 
 }

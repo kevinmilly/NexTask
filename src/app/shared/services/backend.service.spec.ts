@@ -9,6 +9,7 @@ import { testMetrics } from '../test-data/test-metrics';
 import { testTasks } from '../test-data/test-tasks';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+import { AuthRedoneService } from './authredone.service';
 
 xdescribe('BackendService', () => {
   let service: BackendService;
@@ -24,7 +25,7 @@ xdescribe('BackendService', () => {
     TestBed.configureTestingModule({
       providers:[
         {provide:AngularFirestore, useValue:fakeFireService},
-        {provide: AuthService, useValue: authService}
+        {provide: AuthRedoneService, useValue: authService}
       ]
     });
     service = TestBed.inject(BackendService);

@@ -13,6 +13,7 @@ import { Goal } from 'src/app/shared/models/goal.model';
 
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
+import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
 
 
 
@@ -59,7 +60,7 @@ export class QueueContainerComponent implements OnInit {
       private tmService: TaskManagementService,
       public toastController: ToastController,
       private commentsService: CommentsService,
-      private auth: AuthService,
+      private auth: AuthRedoneService,
       private loadingController: LoadingController
     ) { }
 
@@ -220,12 +221,12 @@ createIdea(event) {
     });
     await loading.present();
 
-    const { role, data } = await loading.onDidDismiss();
+    const { data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
   }
 
 
-  logout() {this.auth.logout();}
+  logout() {this.auth.signOut();}
 
   ngOnDestroy() {
     if(this.taskSub) this.taskSub.unsubscribe();

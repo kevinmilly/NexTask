@@ -17,7 +17,7 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: '',
+    path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
 ];

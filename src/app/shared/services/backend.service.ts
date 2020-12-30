@@ -9,6 +9,7 @@ import { Metrics } from '../models/metrics.model';
 import { Badge } from '../models/badge.model';
 import { testBadges } from '../test-data/test-badge';
 import { Goal } from '../models/goal.model';
+import { AuthRedoneService } from './authredone.service';
 
 
 @Injectable({
@@ -24,7 +25,7 @@ export class BackendService  {
 
   constructor( 
     private firestore: AngularFirestore, 
-    private auth: AuthService,
+    private auth: AuthRedoneService,
 
    ) { console.dir(this.auth)}
 
@@ -41,16 +42,18 @@ export class BackendService  {
   }
 
   getTasks() {
-    this.user = this.auth.loggedInUser;
+    this.user = this.auth.user;
+    console.dir(this.user);
     return this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
   }
   getGoals() {
-    this.user = this.auth.loggedInUser;
+    this.user = this.auth.user;
+    
     return this.firestore.collection<Goal>(`users/${this.user.uid}/Goals`);
   }
 
   getIdeas() {
-    this.user = this.auth.loggedInUser;
+    this.user = this.auth.user;
     return this.firestore.collection<Idea>(`users/${this.user.uid}/Ideas`);
   }
 

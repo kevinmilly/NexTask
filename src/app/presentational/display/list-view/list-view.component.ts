@@ -38,7 +38,7 @@ export class ListViewComponent implements OnInit {
                   .sort((a,b) => {
                     return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue)
                   })
-                  .sort((a,b) => b.completed - a.completed);
+                  .sort((a,b) => a.completed - b.completed);
 
  
 
@@ -67,25 +67,23 @@ returnMilestoneAndTasks(goals:Goal[],tasks:Task[]) {
       g['milestones'] = milestones.filter(m => m.parentGoal === g.id);
       structures.push(g);
     }
-  });
+  }); 
   // console.dir(structures);
   return structures;
 }
 
-addTask() {
-  this.tmService.addTask();
-}
-
-editTask(event) {
-  const returnItem = this.tmService.editTask(event);
-
- }
-
- deleteTask(event) {
-    this.tmService.deleteTask(event);
- }
+addTask(m?:Goal,g?:Goal) {this.tmService.addTask(m,g);}
+deleteTask(event) {this.tmService.deleteTask(event);}
 
 addGoal() { this.tmService.addGoal();}
+
+deleteGoal(g) { this.tmService.deleteGoal(g);}
+
+addMilestone(g) { 
+  this.tmService.addMilestone(g);
+} //basically an edit goal
+
+editItem(data, type) {const returnItem = this.tmService.editItem(data, type); }
 
 logout() {this.auth.signOut();}
 

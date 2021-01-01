@@ -1,0 +1,198 @@
+<ion-content>
+
+    <form [formGroup] = "goalForm">
+
+              <ion-list >
+                    <ion-item>
+                      <ion-label>Milestone:</ion-label>
+                        <ion-input type="text" formControlName="title" name="title" maxlength="37"></ion-input>
+                        <mat-error 
+                        *ngIf="goalForm.controls.title.hasError('required')"
+                        >
+                        Milestone title required.
+                      </mat-error>
+                      <mat-error 
+                        *ngIf="goalForm.controls.title.hasError('maxLength')"
+                        >
+                        Please choose a shorter title.
+                      </mat-error>
+                    </ion-item>
+                        
+                    <ion-item disabled = "{{goalForm.controls.title.value === ''}}">
+                      <ion-label>The Importance is: </ion-label>
+                        <ion-select placeholder="Priority" formControlName="priority">
+                          <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
+                            {{ prior.text }}
+                          </ion-select-option> 
+                        </ion-select>
+                      
+                    </ion-item>
+          
+                    <ion-item disabled = "{{goalForm.controls.title.value === ''}}">
+                      <ion-label>The Difficulty Is: </ion-label>
+                      <ion-select placeholder="Difficulty" formControlName="difficulties">
+                        <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
+                          {{diff.text}}
+                        </ion-select-option>
+                      </ion-select>
+                    
+                    </ion-item> 
+          
+                    <ion-item disabled = "{{goalForm.controls.title.value === ''}}">
+                      <ion-label>The Urgency is:</ion-label>
+                        <ion-select placeholder="Urgency" formControlName="urgency">
+                          <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
+                            {{ urg.text }}
+                          </ion-select-option> 
+                        </ion-select>
+                      
+                    </ion-item>
+                    
+            
+                    <ion-item disabled = "{{goalForm.controls.title.value === ''}}" lines="none">
+                        <ion-badge slot="end" color="primary" (click)="addGoalChild()">
+                          <ion-icon name="add-circle-outline"></ion-icon>Task
+                        </ion-badge>
+                    </ion-item>
+
+              </ion-list>
+         
+                
+              
+               
+                <div formArrayName = "taskChildren">
+                  <div *ngFor="let task of taskArray.controls; index as j" class="form-group">
+                    <div [formGroupName]="j" class="milestone-block" *ngIf="taskArray.controls[j].value.show">
+                      <ion-list >
+
+                        <ion-item disabled = "{{taskArray.controls[j].value.title === '' || goalForm.controls.title.value === ''}}">
+                          <ion-label>Task: </ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                            <ion-input type="text" formControlName="title" name="title" maxlength="37"></ion-input>
+                            <mat-error 
+                            *ngIf="taskArray.controls[j].hasError('required')"
+                            >
+                            Goal title required.
+                          </mat-error>
+                          <mat-error 
+                            *ngIf="taskArray.controls[j].hasError('maxLength')"
+                            >
+                            Please choose a shorter title.
+                          </mat-error>
+                        </ion-item>
+  
+                        <ion-item disabled = "{{taskArray.controls[j].value.title === '' || goalForm.controls.title.value === ''}}">
+                          <ion-label>More Details: </ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                          <ion-input type="text" formControlName="description" name="description"></ion-input>
+                        </ion-item>
+              
+                        <ion-item disabled = "{{taskArray.controls[j].value.title === '' || goalForm.controls.title.value === ''}}">
+                          <ion-label>The Importance is: </ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                            <ion-select placeholder="Priority" formControlName="priority">
+                              <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
+                                {{ prior.text }}
+                              </ion-select-option> 
+                            </ion-select>
+                        </ion-item>
+                       
+                        <ion-item disabled = "{{taskArray.controls[j].value.title === '' || goalForm.controls.title.value === ''}}">
+                          <ion-label>The Difficulty Is:</ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                          <ion-select placeholder="Difficulty" formControlName="difficulties">
+                            <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
+                              {{diff.text}}
+                            </ion-select-option>
+                          </ion-select>
+                        </ion-item> 
+                       
+                        <ion-item disabled = "{{taskArray.controls[j].value.title === '' || goalForm.controls.title.value === ''}}">
+                          <ion-label>The Urgency is:</ion-label>
+                          <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                            <ion-select  formControlName="urgency">
+                              <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
+                                {{ urg.text }}
+                              </ion-select-option> 
+                            </ion-select>
+                        </ion-item>
+                        <ion-item disabled = "{{taskArray.controls[j].value.title === '' || goalForm.controls.title.value === ''}}">
+                            <ion-label>Duration (Min): </ion-label>
+                            <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
+                            <ion-input
+                              type="number"
+                              formControlName="minutes"
+                              name="minutes"
+                            >
+                          </ion-input>
+                        </ion-item>
+                      </ion-list>
+                    
+                        <br/>
+                        <ion-item class="button-group" disabled = "{{taskArray.controls[j].value.title === '' || goalForm.controls.title.value === ''}}" lines="none">
+                           
+                          
+                      
+
+                    
+                           
+                            <ion-badge slot="end" color="danger" (click)="deleteTask(j)">
+                              <ion-icon name="ban-outline"></ion-icon> 
+                            </ion-badge>
+
+                            <ion-icon
+                              name="eye-off-outline"
+                              *ngIf="taskArray.controls[j].value.title !== '' || taskArray.controls[j].value.show"
+                              slot="end" 
+                              color="dark" 
+                              (click)="taskArray.controls[j].value.show = !taskArray.controls[j].value.show">
+                            </ion-icon>
+                      
+                        </ion-item>
+                    </div> 
+                    <ng-container *ngIf="!taskArray.controls[j].value.show">
+                      <div class="no-edit-format">
+                        <ion-item lines="none">
+                          <ion-grid>
+                            <ion-row>
+                              <ion-col [style.font-size.em]=".8"> 
+                               
+                               <b>Task #{{j+1}}: </b>&nbsp;&nbsp;{{taskArray.controls[j].value.title}}
+                              </ion-col> 
+                            </ion-row>
+                            <ion-row>
+                              <ion-col [style.font-size.em]=".8">{{importanceDifficultyFormat("urgency",taskArray.controls[j].value.urgency)}} <br/>Urgency</ion-col> 
+                              <ion-col [style.font-size.em]=".8"> {{importanceDifficultyFormat("importance",taskArray.controls[j].value.priority)}} <br/>Priority</ion-col>
+                              <ion-col [style.font-size.em]=".8"> {{importanceDifficultyFormat("difficulty",taskArray.controls[j].value.difficulties)}} <br/>Difficulty</ion-col>
+                            </ion-row>
+                          </ion-grid>
+
+                        </ion-item>
+                        <ion-item lines="none">
+
+                              <ion-icon 
+                                name="eye-outline"
+                                slot="end"
+                                *ngIf="taskArray.controls[j].value.title.value !== ''"
+                                color="dark" 
+                                (click)="taskArray.controls[j].value.show = !taskArray.controls[j].value.show"
+                                ></ion-icon>
+                   
+                      
+                        </ion-item>
+                      </div>
+                    </ng-container>
+                
+                  </div>
+                </div>
+           
+       
+    
+    </form>
+
+    <div id="submit-block">
+      <ion-button type="submit" (click)="submitGoals()" disabled = "{{goalForm.invalid}}">Submit Milestone</ion-button>
+      <ion-button  color="danger" (click)="cancel()">Cancel</ion-button>
+    </div>
+    
+</ion-content>

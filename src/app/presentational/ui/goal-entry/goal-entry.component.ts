@@ -27,6 +27,8 @@ export class GoalEntryComponent implements OnInit {
   goalDifficulty = 3;
   goalTag = ""; 
 
+  goalToEdit;
+
 
   goalForm: FormGroup;
 

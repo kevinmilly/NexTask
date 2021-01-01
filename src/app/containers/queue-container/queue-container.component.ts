@@ -137,7 +137,7 @@ createIdea(event) {
 
 
   editTask(event) {
-    const returnItem = this.tmService.editTask(event);
+    const returnItem = this.tmService.editItem(event, 'task');
 
    }
 

@@ -17,6 +17,8 @@ import { ShowAwardComponent } from 'src/app/presentational/display/show-award/sh
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
 import { filter } from 'rxjs/operators';
 import { AuthRedoneService } from './authredone.service';
+import { ItemEditComponent } from 'src/app/presentational/ui/item-edit/item-edit.component';
+import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-entry/milestone-entry.component';
 
 @Injectable({
   providedIn: 'root'
@@ -150,12 +152,12 @@ export class TaskManagementService {
   }
 
   calculatePastDue(tasks: Task[]) {
-    return  [...tasks.map(t => {
+    return  tasks.map(t => {
       return {
         ...t,
         pastDue: t.pastDue + this.dateDifference(new Date(), new Date(t.createdDate))
       }
-    })];
+    });
   }
 
 
@@ -262,23 +264,32 @@ export class TaskManagementService {
   
   }
 
-  async addTask() {
+  async addTask(milestone?:Goal, goal?:Goal) {
     const modal = await this.modalController.create({
       component: TaskEntryComponent
     });
     modal.onDidDismiss()
       .then((data) => {
         const result = data['data']; 
-        if(result) this.backend.addMetric(this.backend.addTask(result), "creation")
-        this.sendUpdates( 
-          this.allTasks,
-          this.tasks,
-          this.goals,
-          this.tasksDay1,
-          this.tasksDay2,
-          this.tasksDay3,
-          this.tasksDay4,
-          this.tasksDay5);
+        if(result) {
+          if(goal) {
+            result['goalId'] = milestone.id;
+            result['parentGoalTitle'] = goal.title;
+            result['milestoneTitle'] = milestone.title;
+
+          }
+          this.backend.addMetric(this.backend.addTask(result), "creation");
+          this.sendUpdates( 
+            this.allTasks,
+            this.tasks,
+            this.goals,
+            this.tasksDay1,
+            this.tasksDay2,
+            this.tasksDay3,
+            this.tasksDay4,
+            this.tasksDay5);
+        }
+
     });
 
 
@@ -314,17 +325,98 @@ export class TaskManagementService {
   
   }
 
-  editTask(event) {
-    const returnItem = this.backend.updateTask(event);
-    this.sendUpdates( 
-      this.allTasks,
-      this.tasks,
-      this.goals,
-      this.tasksDay1,
-      this.tasksDay2,
-      this.tasksDay3,
-      this.tasksDay4,
-      this.tasksDay5);
+  async addMilestone(goalParent) {
+    const modal = await this.modalController.create({
+      component: MilestoneEntryComponent,
+      cssClass: 'goal-entry',
+      componentProps: {goalParent}
+    });
+    modal.onDidDismiss()
+      .then((data) => {
+        const result = data['data']; 
+        if(result !== null) {
+          const returnedGoals = this.backend.addGoals(result.goalToSubmit);
+          const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
+        }
+        this.sendUpdates( 
+          this.allTasks,
+          this.tasks,
+          this.goals,
+          this.tasksDay1,
+          this.tasksDay2,
+          this.tasksDay3,
+          this.tasksDay4,
+          this.tasksDay5);
+    });
+
+
+  return await modal.present();
+  
+  }
+
+  async editGoal(goalToEdit) {
+    // const modal = await this.modalController.create({
+    //   component: GoalEntryComponent,
+    //   componentProps:goalToEdit,
+    //   cssClass: 'goal-entry'
+    // });
+    // modal.onDidDismiss()
+    //   .then((data) => {
+    //     const result = data['data']; 
+    //     if(result !== null) {
+    //       const returnItem = this.backend.updateGoal(result);
+    //     }
+    const returnItem = this.backend.updateGoals([goalToEdit]);
+        this.sendUpdates( 
+          this.allTasks,
+          this.tasks,
+          this.goals,
+          this.tasksDay1,
+          this.tasksDay2,
+          this.tasksDay3,
+          this.tasksDay4,
+          this.tasksDay5);
+    // });
+    
+    //  return await modal.present();
+
+   }
+
+  async editItem(data,type) {
+    console.dir(arguments);
+    const modal = await this.modalController.create({
+      component: ItemEditComponent,
+      cssClass: 'goal-entry',
+      componentProps: {data,type}
+    });
+    modal.onDidDismiss()
+      .then((data) => {
+        console.log(data);
+        const result = data.data; 
+        if(result) {
+          switch (type) {
+            case 'task':
+              const returnItem = this.backend.updateTask(result);
+              break;
+            case 'goal':
+              this.backend.updateGoals([result]);
+              break;
+          }
+          
+          this.sendUpdates( 
+            this.allTasks,
+            this.tasks,
+            this.goals,
+            this.tasksDay1,
+            this.tasksDay2,
+            this.tasksDay3,
+            this.tasksDay4,
+            this.tasksDay5);
+        }
+ 
+    });
+    
+     return await modal.present();
 
    }
 
@@ -343,6 +435,22 @@ export class TaskManagementService {
       this.tasksDay5);
   
    }
+
+   deleteGoal(g) {
+    this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
+    const returnItem = this.backend.deleteGoal(g);
+
+    this.sendUpdates( 
+     this.allTasks,
+     this.tasks,
+     this.goals,
+     this.tasksDay1, 
+     this.tasksDay2,
+     this.tasksDay3,
+     this.tasksDay4,
+     this.tasksDay5);
+ 
+  }
 
   updateAllTasks(event) {
     this.backend.updateTasks(event || [...this.tasks]);

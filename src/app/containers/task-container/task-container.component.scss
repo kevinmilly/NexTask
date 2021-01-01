@@ -69,7 +69,7 @@ ion-content {
     rgb(247, 201, 162),
     rgb(247, 216, 189)
   );
-
+  height: 2.5em;
   .details {
     font-size: 0.8em;
     font-weight: 400;
@@ -86,7 +86,7 @@ ion-content {
     rgb(248, 184, 128),
     rgb(247, 201, 162)
   );
-
+  height: 3em;
   .details {
     font-size: 1em;
     font-weight: 400;
@@ -99,7 +99,7 @@ ion-content {
 .high {
   // background:  #fa2e64;
   background-image: linear-gradient(to bottom, #f3ae72, rgb(241, 199, 163));
-
+  height: 3.2em;
   .details {
     font-size: 1.2em;
     font-weight: 200;
@@ -112,7 +112,7 @@ ion-content {
 .very-high {
   // background: #ff1d58;
   background-image: linear-gradient(to bottom, #e9964e, #f3ae72);
-
+  height: 3.5em;
   .details {
     font-size: 1.5em;
     line-height: 4em;

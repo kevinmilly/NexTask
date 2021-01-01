@@ -272,6 +272,11 @@ export class BackendService  {
       collection.doc(task.id).delete();
   }
 
+  deleteGoal(goal) {
+    const collection = this.firestore.collection<Task>(`users/${this.user.uid}/Goals`);
+      collection.doc(goal.id).delete();
+  }
+
   deleteIdea(idea) {
     console.log({idea});
     const collection = this.firestore.collection<Idea>(`users/${this.user.uid}/Ideas`);

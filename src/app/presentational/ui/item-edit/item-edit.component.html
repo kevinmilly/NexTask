@@ -45,7 +45,7 @@
       <ion-label>Minutes</ion-label>
     </ion-item><br />
   
-    <ion-item *ngIf="deadline !== ''">
+    <ion-item >
       <mat-error *ngIf='(deadline && !deadline.valid) && (deadline.dirty || deadline.touched)'> Your deadline doesn't look right. </mat-error>
       <ion-input
         type="date"

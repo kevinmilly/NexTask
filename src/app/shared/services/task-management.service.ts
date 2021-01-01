@@ -436,9 +436,18 @@ export class TaskManagementService {
   
    }
 
-   deleteGoal(g) {
+   deleteGoal(g,m) {
+    const tasks = m.tasks;
+    tasks.forEach((t) => {
+      this.tasks.splice(this.tasks.findIndex(tasks => tasks.id === t.id),1);
+      this.backend.delete(t);
+    });
+    m.forEach(g => {
+      this.goals.splice(this.goals.findIndex(goals => goals.id === g.id),1);
+      this.backend.deleteGoal(g)
+    });
     this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
-    const returnItem = this.backend.deleteGoal(g);
+    this.backend.deleteGoal(g);
 
     this.sendUpdates( 
      this.allTasks,

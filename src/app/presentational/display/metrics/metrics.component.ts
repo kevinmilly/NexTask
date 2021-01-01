@@ -77,7 +77,13 @@ export class MetricsComponent implements OnInit {
   public pieLastWeekCompleteChartData: number[] = [];
   public pieLastWeekInCompleteChartData: number[] = [];
 
-  completeVariations: any[] = []
+  thisWeekCompleteVariations: any[] = [];
+  lastWeekCompleteVariations: any[] = [];
+  thisMonthCompleteVariations: any[] = [];
+
+  thisWeekIncompleteVariations: any[] = [];
+  lastWeekIncompleteVariations: any[] = [];
+  thisMonthIncompleteVariations: any[] = [];
 
 
 
@@ -101,19 +107,22 @@ export class MetricsComponent implements OnInit {
 
                       this.tasks = tasks;
                       
-                      this.organizeVariations(tasks.filter(t => this.lastWeek(t.completedDate)),'complete')
+                      this.lastWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.lastWeek(t.completedDate)),'complete');
+                      this.lastWeekCompleteVariations
                         .forEach(variation => {
                           this.pieLastWeekCompleteChartData.push(variation.amount);
                           this.pieLastWeekCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
                         });
-                        this.organizeVariations(tasks.filter(t => this.currentWeek(t.completedDate)),'complete')
+                        this.thisWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentWeek(t.completedDate)),'complete');
+                        this.thisWeekCompleteVariations
                         .forEach(variation => {
                           this.pieWeekCompleteChartData.push(variation.amount);
                           this.pieWeekCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
                         });
-                        this.organizeVariations(tasks.filter(t => this.currentMonth(t.completedDate)),'complete')
+                        this.thisMonthCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentMonth(t.completedDate)),'complete');
+                        this.thisMonthCompleteVariations
                         .forEach(variation => {
                           this.pieMonthCompleteChartData.push(variation.amount);
                           this.pieMonthCompleteLabels
@@ -122,20 +131,22 @@ export class MetricsComponent implements OnInit {
             
                 
                       
-                        this.organizeVariations(tasks.filter(t => this.lastWeek(t.createdDate)),'incomplete')
+                        this.lastWeekIncompleteVariations = this.organizeVariations(tasks.filter(t => this.lastWeek(t.createdDate)),'incomplete');
+                        this.lastWeekIncompleteVariations
                         .forEach(variation => {
                           this.pieLastWeekInCompleteChartData.push(variation.amount);
                           this.pieLastWeekInCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
                         });
-                        this.organizeVariations(tasks.filter(t => this.currentWeek(t.createdDate)),'incomplete')
+                        this.thisWeekIncompleteVariations = this.organizeVariations(tasks.filter(t => this.currentWeek(t.createdDate)),'incomplete');
+                        this.thisWeekIncompleteVariations
                         .forEach(variation => {
                           this.pieWeekInCompleteChartData.push(variation.amount);
                           this.pieWeekInCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
                         });
-                        this.organizeVariations(tasks.filter(t => this.currentMonth(t.createdDate)),'incomplete')
-                        .forEach(variation => {
+                        this.thisMonthIncompleteVariations = this.organizeVariations(tasks.filter(t => this.currentMonth(t.createdDate)),'incomplete');
+                        this.thisMonthIncompleteVariations.forEach(variation => {
                           this.pieMonthInCompleteChartData.push(variation.amount);
                           this.pieMonthInCompleteLabels
                               .push(this.stringifyVariations(variation.variant));
@@ -165,7 +176,7 @@ export class MetricsComponent implements OnInit {
           }
         })
 
-        return variations;
+        return variations.sort((a,b) => a.amount - b.amount);
       case 'incomplete':
         let foundIncomplete = -1;
         
@@ -185,7 +196,7 @@ export class MetricsComponent implements OnInit {
           }
         })
        
-        return variationsIncomplete;
+        return variationsIncomplete.sort((a,b) => a.amount - b.amount);
     }
     
   }

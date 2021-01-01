@@ -77,7 +77,7 @@ deleteTask(event) {this.tmService.deleteTask(event);}
 
 addGoal() { this.tmService.addGoal();}
 
-deleteGoal(g) { this.tmService.deleteGoal(g);}
+deleteGoal(g) { this.tmService.deleteGoal(g,g.milestones);}
 
 addMilestone(g) { 
   this.tmService.addMilestone(g);

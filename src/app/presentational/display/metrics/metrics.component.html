@@ -33,46 +33,106 @@
             </ion-segment>
             <ng-container [ngSwitch]="graphDate">
                 <ng-container *ngSwitchCase="'lastWeek'">
-                  <ion-card-content>
-                    <canvas  
-                      baseChart 
-                      height="1600em"
-                      width="1000em"
-                      [data]="pieLastWeekCompleteChartData" 
-                      [labels]="pieLastWeekCompleteLabels" 
-                      [chartType]="pieChartType"
-                      [legend]="true"
-                    >
-                  </canvas>
-                </ion-card-content>
+                    <ion-card-content>
+                      <ion-list>
+                        <ion-item>
+                          <ion-grid>
+                            <ion-row>
+                              <ion-col>
+                                <h2 [style.color]="orange">Most Completed Task Type</h2>
+                                <h4>{{stringifyVariations(lastWeekCompleteVariations[lastWeekCompleteVariations.length -1].variant)}}</h4>
+                                <h6> <h4>{{lastWeekCompleteVariations[lastWeekCompleteVariations.length -1].amount}} Completions</h4></h6>
+                              </ion-col>
+                              <ion-col>
+                                <h2 [style.color] = "blue">Least Completed Task Type</h2>
+                                <h4>{{stringifyVariations(lastWeekCompleteVariations[0].variant)}}</h4>
+                                <h6> <h4>{{lastWeekCompleteVariations[0].amount}} Completions</h4></h6>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
+                        </ion-item>
+                        <ion-item>
+                            <canvas  
+                            baseChart 
+                            height="1600em"
+                            width="1000em"
+                            [data]="pieLastWeekCompleteChartData" 
+                            [labels]="pieLastWeekCompleteLabels" 
+                            [chartType]="pieChartType"
+                            [legend]="true"
+                          >
+                        </canvas>
+                        </ion-item>
+                      </ion-list> 
+                  </ion-card-content>
                 </ng-container>
                 <ng-container *ngSwitchCase="'thisWeek'">
                   <ion-card-content>
-                    <canvas  
-                      baseChart 
-                      height="1600em"
-                      width="1000em"
-                      [data]="pieWeekCompleteChartData" 
-                      [labels]="pieWeekCompleteLabels" 
-                      [chartType]="pieChartType"
-                      [legend]="true"
-                    >
-                  </canvas>
+                    <ion-list>
+                      <ion-item>
+                        <ion-grid>
+                          <ion-row>
+                            <ion-col>
+                              <h2 [style.color]="orange">Most Completed Task Type</h2>
+                              <h4>{{stringifyVariations(thisWeekCompleteVariations[thisWeekCompleteVariations.length -1].variant)}}</h4>
+                              <h6> <h4>{{thisWeekCompleteVariations[thisWeekCompleteVariations.length -1].amount}} Completions</h4></h6>
+                            </ion-col>
+                            <ion-col>
+                              <h2 [style.color] = "blue">Least Completed Task Type</h2>
+                              <h4>{{stringifyVariations(thisWeekCompleteVariations[0].variant)}}</h4>
+                              <h6> <h4>{{thisWeekCompleteVariations[0].amount}} Completions</h4></h6>
+                            </ion-col>
+                          </ion-row>
+                        </ion-grid>
+                      </ion-item>
+                      <ion-item>
+                        <canvas  
+                          baseChart 
+                          height="1600em"
+                          width="1000em"
+                          [data]="pieWeekCompleteChartData" 
+                          [labels]="pieWeekCompleteLabels" 
+                          [chartType]="pieChartType"
+                          [legend]="true"
+                        >
+                      </canvas>
+                      </ion-item>
+                      </ion-list>
                 </ion-card-content>
                 </ng-container>
 
                 <ng-container *ngSwitchCase="'thisMonth'">
                   <ion-card-content>
-                    <canvas  
-                      baseChart 
-                      height="1600em"
-                      width="1000em"
-                      [data]="pieMonthCompleteChartData" 
-                      [labels]="pieMonthCompleteLabels" 
-                      [chartType]="pieChartType"
-                      [legend]="true"
-                    >
-                  </canvas>
+                    <ion-list>
+                      <ion-item>
+                        <ion-grid>
+                          <ion-row>
+                            <ion-col>
+                              <h2 [style.color]="orange">Most Completed Task Type</h2>
+                              <h4>{{stringifyVariations(thisMonthCompleteVariations[thisMonthCompleteVariations.length -1].variant)}}</h4>
+                              <h6> <h4>{{thisMonthCompleteVariations[thisMonthCompleteVariations.length -1].amount}} Completions</h4></h6>
+                            </ion-col>
+                            <ion-col>
+                              <h2 [style.color] = "blue">Least Completed Task Type</h2>
+                              <h4>{{stringifyVariations(thisMonthCompleteVariations[0].variant)}}</h4>
+                              <h6> <h4>{{thisMonthCompleteVariations[0].amount}} Completions</h4></h6>
+                            </ion-col>
+                          </ion-row>
+                        </ion-grid>
+                      </ion-item>
+                      <ion-item>
+                        <canvas  
+                          baseChart 
+                          height="1600em"
+                          width="1000em"
+                          [data]="pieMonthCompleteChartData" 
+                          [labels]="pieMonthCompleteLabels" 
+                          [chartType]="pieChartType"
+                          [legend]="true"
+                        >
+                      </canvas>
+                      </ion-item>
+                      </ion-list>
                 </ion-card-content>
                 </ng-container>
             </ng-container>

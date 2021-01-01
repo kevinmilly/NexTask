@@ -104,7 +104,7 @@ createIdea(event) {
        this.tmService.sortDays(6, [...this.tasks]);
        return;
      }
-     this.tmService.sortDays(6, this.tasks.filter(task => task.tag === this.tagOptions.value));
+     this.tmService.sortDays(6, [...this.tasks.filter(task => task.tag === this.tagOptions.value)]);
   }
 
   getRandomQuote() {

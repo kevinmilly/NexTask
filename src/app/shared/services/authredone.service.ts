@@ -78,20 +78,15 @@ export class AuthRedoneService {
             photoURL: user.photoURL
         };
 
-        
-        //    if(!metricRef) {
-        //        metricRef.add({...this.metrics});
-        //    } 
-           metricRef
-           .valueChanges().subscribe(metric => {
-               if(metric) {
-                this.metrics = metric[0]
-               } else {
+        metricRef.valueChanges().subscribe(m => {
+            if(m.length > 0) {
+                this.metrics = m[0];
+                console.dir(m);
+            } else {
+                console.log("no metrics saved");
                 metricRef.add({...this.metrics});
-               }
-              
-            
-            });
+            }
+        })
         
  
 

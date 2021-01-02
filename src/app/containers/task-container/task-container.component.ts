@@ -71,7 +71,7 @@ export class TaskContainerComponent implements OnInit {
     });
     toast.present();
   }
-
+ 
 
   
   markComplete(task: Task) {
@@ -121,13 +121,13 @@ export class TaskContainerComponent implements OnInit {
   }
 
   classPriority(priority, difficulty, urgency, pastDue) {
-    if((priority + difficulty + urgency + pastDue) < 8 || (priority + difficulty + urgency + pastDue) === 8) { 
+    if((priority + difficulty + urgency + pastDue) < 6 || (priority + difficulty + urgency + pastDue) === 6) { 
       return 'task-box very-low' 
-    } else if((priority + difficulty + urgency + pastDue) < 12 || (priority + difficulty + urgency + pastDue) === 12) { 
+    } else if((priority + difficulty + urgency + pastDue) < 10 || (priority + difficulty + urgency + pastDue) === 10) { 
         return 'task-box low';
-    } else if((priority + difficulty + urgency + pastDue) < 18 || (priority + difficulty + urgency + pastDue) === 18) { 
+    } else if((priority + difficulty + urgency + pastDue) < 14 || (priority + difficulty + urgency + pastDue) === 14) { 
         return 'task-box medium';
-    } else if((priority + difficulty + urgency + pastDue) < 24 || (priority + difficulty + urgency + pastDue) === 24) { 
+    } else if((priority + difficulty + urgency + pastDue) < 18 || (priority + difficulty + urgency + pastDue) === 18) { 
         return 'task-box high';
     } else {
         return 'task-box very-high';

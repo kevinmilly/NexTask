@@ -35,68 +35,165 @@
                 <ng-container *ngSwitchCase="'lastWeek'">
                     <ion-card-content>
                       <ion-list>
-                        <ion-item>
+                        <ion-item *ngIf="lastWeekCompleteVariations.length > 0">
                           <ion-grid>
                             <ion-row>
                               <ion-col>
-                                <h2 [style.color]="orange">Most Completed Task Type</h2>
-                                <h4>{{stringifyVariations(lastWeekCompleteVariations[lastWeekCompleteVariations.length -1].variant)}}</h4>
-                                <h6> <h4>{{lastWeekCompleteVariations[lastWeekCompleteVariations.length -1].amount}} Completions</h4></h6>
+                                <h2 [style.color]="'#fc5603'">Most Completed Task Type</h2>
+                                <h4>{{stringifyVariations(lastWeekCompleteVariations[lastWeekCompleteVariations.length-1].variant)}}</h4>
+                                <h6> <h4>{{lastWeekCompleteVariations[lastWeekCompleteVariations.length-1].amount}} Completions</h4></h6>
                               </ion-col>
+                            </ion-row>
+                            <ion-row>
                               <ion-col>
-                                <h2 [style.color] = "blue">Least Completed Task Type</h2>
+                                <h2 [style.color] = "'#036bfc'">Least Completed Task Type</h2>
                                 <h4>{{stringifyVariations(lastWeekCompleteVariations[0].variant)}}</h4>
                                 <h6> <h4>{{lastWeekCompleteVariations[0].amount}} Completions</h4></h6>
                               </ion-col>
                             </ion-row>
                           </ion-grid>
+                        
                         </ion-item>
                         <ion-item>
-                            <canvas  
-                            baseChart 
-                            height="1600em"
-                            width="1000em"
-                            [data]="pieLastWeekCompleteChartData" 
-                            [labels]="pieLastWeekCompleteLabels" 
-                            [chartType]="pieChartType"
-                            [legend]="true"
-                          >
-                        </canvas>
+                          <ion-grid>
+                          <ion-row>
+                            <ion-col><h2 >Top Tasks</h2><br/></ion-col>
+                          </ion-row>
+                          <ion-row *ngIf="lastWeekMostImportantTask">
+                            <ion-col>
+                            <div >
+                              Most Important: {{lastWeekMostImportantTask.title}}
+                              <ul>
+                                <li>Level: {{idfConvert('importance',lastWeekMostImportantTask.priority)}}</li>
+                                <li>Created: {{lastWeekMostImportantTask.createdDate}}</li>
+                                <li>Completed: {{lastWeekMostImportantTask.completedDate}}</li>
+                              </ul>
+                            </div>
+                            </ion-col>
+                            </ion-row>
+                            <ion-row *ngIf="lastWeekMostUrgentTask">
+                              <ion-col>
+                                <div *ngIf="lastWeekMostUrgentTask">
+                                  Most Urgent: {{lastWeekMostUrgentTask.title}}
+                                  <ul>
+                                    <li>Level: {{idfConvert('urgency', lastWeekMostUrgentTask.urgency)}}</li>
+                                    <li>Created: {{lastWeekMostUrgentTask.createdDate}}</li>
+                                    <li>Completed: {{lastWeekMostUrgentTask.completedDate}}</li>
+                                  </ul>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                            <ion-row *ngIf="lastWeekToughestTask">
+                              <ion-col>
+                                <div>
+                                  Most Difficult: {{lastWeekToughestTask.title}}
+                                  <ul>
+                                    <li>Level: {{idfConvert('difficulty', lastWeekToughestTask.difficulty)}}</li>
+                                    <li>Created: {{lastWeekToughestTask.createdDate}}</li>
+                                    <li>Completed: {{lastWeekToughestTask.completedDate}}</li>
+                                  </ul>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                            </ion-grid>
                         </ion-item>
-                      </ion-list> 
+                        </ion-list>
+                        <ion-list *ngIf="lastWeekCompletionTimes.length > 0">
+                          <ion-item>
+                            <h2>Completion Time Ratio</h2>
+                            <canvas  
+                              baseChart 
+                              height="1400em"
+                              width="800em"
+                              [data]="pieLastWeekCompleteChartData" 
+                              [labels]="pieLastWeekCompleteLabels" 
+                              [chartType]="pieChartType"
+                              [legend]="true"
+                            >
+                          </canvas>
+                          </ion-item>
+                        </ion-list>
                   </ion-card-content>
                 </ng-container>
                 <ng-container *ngSwitchCase="'thisWeek'">
                   <ion-card-content>
                     <ion-list>
-                      <ion-item>
+                      <ion-item *ngIf="thisWeekCompleteVariations.length > 0">
                         <ion-grid>
                           <ion-row>
                             <ion-col>
-                              <h2 [style.color]="orange">Most Completed Task Type</h2>
-                              <h4>{{stringifyVariations(thisWeekCompleteVariations[thisWeekCompleteVariations.length -1].variant)}}</h4>
-                              <h6> <h4>{{thisWeekCompleteVariations[thisWeekCompleteVariations.length -1].amount}} Completions</h4></h6>
-                            </ion-col>
-                            <ion-col>
-                              <h2 [style.color] = "blue">Least Completed Task Type</h2>
-                              <h4>{{stringifyVariations(thisWeekCompleteVariations[0].variant)}}</h4>
-                              <h6> <h4>{{thisWeekCompleteVariations[0].amount}} Completions</h4></h6>
+                              <h2 [style.color]="'#fc5603'">Most Completed Task Type</h2>
+                              <h4>{{stringifyVariations(thisWeekCompleteVariations[thisWeekCompleteVariations.length-1].variant)}}</h4>
+                              <h6> <h4>{{thisWeekCompleteVariations[thisWeekCompleteVariations.length-1].amount}} Completions</h4></h6>
                             </ion-col>
                           </ion-row>
-                        </ion-grid>
+                          <ion-row>
+                            <ion-col>
+                              <h2 [style.color] = "'#036bfc'">Least Completed Task Type</h2>
+                              <h4>{{stringifyVariations(thisWeekCompleteVariations[0].variant)}}</h4>
+                              <h6> <h4>{{thisWeekCompleteVariations[0].amount}} Completions</h4></h6>
+                              </ion-col>
+                            </ion-row>
+                            </ion-grid>
                       </ion-item>
                       <ion-item>
-                        <canvas  
-                          baseChart 
-                          height="1600em"
-                          width="1000em"
-                          [data]="pieWeekCompleteChartData" 
-                          [labels]="pieWeekCompleteLabels" 
-                          [chartType]="pieChartType"
-                          [legend]="true"
-                        >
-                      </canvas>
+                        <ion-grid>
+                        <ion-row>
+                          <ion-col><h2 >Top Tasks</h2><br/></ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="thisWeekMostImportantTask">
+                          <ion-col>
+                          <div >
+                            Most Important: {{thisWeekMostImportantTask.title}}
+                            <ul>
+                              <li>Level: {{idfConvert('importance',thisWeekMostImportantTask.priority)}}</li>
+                              <li>Created: {{thisWeekMostImportantTask.createdDate}}</li>
+                              <li>Completed: {{thisWeekMostImportantTask.completedDate}}</li>
+                            </ul>
+                          </div>
+                          </ion-col>
+                          </ion-row>
+                          <ion-row *ngIf="thisWeekMostUrgentTask">
+                            <ion-col>
+                              <div *ngIf="thisWeekMostUrgentTask">
+                                Most Urgent: {{thisWeekMostUrgentTask.title}}
+                                <ul>
+                                  <li>Level: {{idfConvert('urgency', thisWeekMostUrgentTask.urgency)}}</li>
+                                  <li>Created: {{thisWeekMostUrgentTask.createdDate}}</li>
+                                  <li>Completed: {{thisWeekMostUrgentTask.completedDate}}</li>
+                                </ul>
+                              </div>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row *ngIf="thisWeekToughestTask">
+                            <ion-col>
+                              <div>
+                                Most Difficult: {{thisWeekToughestTask.title}}
+                                <ul>
+                                  <li>Level: {{idfConvert('difficulty', thisWeekToughestTask.difficulty)}}</li>
+                                  <li>Created: {{thisWeekToughestTask.createdDate}}</li>
+                                  <li>Completed: {{thisWeekToughestTask.completedDate}}</li>
+                                </ul>
+                              </div>
+                            </ion-col>
+                          </ion-row>
+                          </ion-grid>
                       </ion-item>
+                      </ion-list>
+                      <ion-list *ngIf="thisWeekCompletionTimes.length > 0">
+                        <ion-item>
+                          <h2>Completion Time Ratio</h2>
+                          <canvas  
+                            baseChart 
+                            height="1400em"
+                            width="800em"
+                            [data]="pieWeekCompleteChartData" 
+                            [labels]="pieWeekCompleteLabels" 
+                            [chartType]="pieChartType"
+                            [legend]="true"
+                          >
+                        </canvas>
+                        </ion-item>
                       </ion-list>
                 </ion-card-content>
                 </ng-container>
@@ -104,34 +201,73 @@
                 <ng-container *ngSwitchCase="'thisMonth'">
                   <ion-card-content>
                     <ion-list>
+                      <ion-item *ngIf="thisMonthCompleteVariations.length > 0">
+                        <h2 [style.color]="'#fc5603'">Most Completed Task Type</h2><br/>
+                        <h4>{{stringifyVariations(thisMonthCompleteVariations[thisMonthCompleteVariations.length-1].variant)}}</h4>
+                        <h6> <h4>{{thisMonthCompleteVariations[thisMonthCompleteVariations.length-1].amount}} Completions</h4></h6>
+                  
+                        <h2 [style.color] = "'#036bfc'">Least Completed Task Type</h2><br/>
+                        <h4>{{stringifyVariations(thisMonthCompleteVariations[0].variant)}}</h4>
+                        <h6> <h4>{{thisMonthCompleteVariations[0].amount}} Completions</h4></h6>
+                      </ion-item>
                       <ion-item>
                         <ion-grid>
-                          <ion-row>
+                        <ion-row>
+                          <ion-col><h2 >Top Tasks</h2><br/></ion-col>
+                        </ion-row>
+                        <ion-row *ngIf="thisMonthMostImportantTask">
+                          <ion-col>
+                          <div >
+                            Most Important: {{thisMonthMostImportantTask.title}}
+                            <ul>
+                              <li>Level: {{idfConvert('importance',thisMonthMostImportantTask.priority)}}</li>
+                              <li>Created: {{thisMonthMostImportantTask.createdDate}}</li>
+                              <li>Completed: {{thisMonthMostImportantTask.completedDate}}</li>
+                            </ul>
+                          </div>
+                          </ion-col>
+                          </ion-row>
+                          <ion-row *ngIf="thisMonthMostUrgentTask">
                             <ion-col>
-                              <h2 [style.color]="orange">Most Completed Task Type</h2>
-                              <h4>{{stringifyVariations(thisMonthCompleteVariations[thisMonthCompleteVariations.length -1].variant)}}</h4>
-                              <h6> <h4>{{thisMonthCompleteVariations[thisMonthCompleteVariations.length -1].amount}} Completions</h4></h6>
-                            </ion-col>
-                            <ion-col>
-                              <h2 [style.color] = "blue">Least Completed Task Type</h2>
-                              <h4>{{stringifyVariations(thisMonthCompleteVariations[0].variant)}}</h4>
-                              <h6> <h4>{{thisMonthCompleteVariations[0].amount}} Completions</h4></h6>
+                              <div *ngIf="thisMonthMostUrgentTask">
+                                Most Urgent: {{thisMonthMostUrgentTask.title}}
+                                <ul>
+                                  <li>Level: {{idfConvert('urgency', thisMonthMostUrgentTask.urgency)}}</li>
+                                  <li>Created: {{thisMonthMostUrgentTask.createdDate}}</li>
+                                  <li>Completed: {{thisMonthMostUrgentTask.completedDate}}</li>
+                                </ul>
+                              </div>
                             </ion-col>
                           </ion-row>
-                        </ion-grid>
+                          <ion-row *ngIf="thisMonthToughestTask">
+                            <ion-col>
+                              <div>
+                                Most Difficult: {{thisMonthToughestTask.title}}
+                                <ul>
+                                  <li>Level: {{idfConvert('difficulty', thisMonthToughestTask.difficulty)}}</li>
+                                  <li>Created: {{thisMonthToughestTask.createdDate}}</li>
+                                  <li>Completed: {{thisMonthToughestTask.completedDate}}</li>
+                                </ul>
+                              </div>
+                            </ion-col>
+                          </ion-row>
+                          </ion-grid>
                       </ion-item>
-                      <ion-item>
-                        <canvas  
-                          baseChart 
-                          height="1600em"
-                          width="1000em"
-                          [data]="pieMonthCompleteChartData" 
-                          [labels]="pieMonthCompleteLabels" 
-                          [chartType]="pieChartType"
-                          [legend]="true"
-                        >
-                      </canvas>
-                      </ion-item>
+                      </ion-list>
+                      <ion-list *ngIf="thisMonthCompletionTimes.length > 0">
+                        <ion-item>
+                          <h2>Completion Time Ratio</h2>
+                          <canvas  
+                            baseChart 
+                            height="1400em"
+                            width="800em"
+                            [data]="pieMonthCompleteChartData" 
+                            [labels]="pieMonthCompleteLabels" 
+                            [chartType]="pieChartType"
+                            [legend]="true"
+                          >
+                        </canvas>
+                        </ion-item>
                       </ion-list>
                 </ion-card-content>
                 </ng-container>
@@ -149,9 +285,15 @@
       </ion-item>
 
       <ion-item *ngSwitchCase="'incomplete'">
-        <ion-card class="graph card-background" *ngIf="tasks.length > 0; else noInComplete" >
-    
-              
+        <ion-card class="graph card-background">
+        <!-- <ion-card class="graph card-background" *ngIf="tasks.length > 0; else noInComplete" > -->
+          <ion-card-content>
+            <h1>Updating Metrics - Feature Coming Soon</h1>
+          </ion-card-content>
+        
+        
+      </ion-card>
+<!--               
             <ion-segment  [(ngModel)]="graphDate">
               <ion-segment-button class="secondary-segments" value="lastWeek"  >
                 <ion-label>Last Week</ion-label>
@@ -168,6 +310,7 @@
             <ng-container [ngSwitch]="graphDate">
               <ng-container *ngSwitchCase="'lastWeek'">
                   <ion-card-content>
+                    <h2>Completion Time Ratio</h2>
                     <canvas  
                       baseChart 
                       height="1600em"
@@ -182,6 +325,7 @@
               </ng-container>
               <ng-container *ngSwitchCase="'thisWeek'">
                 <ion-card-content>
+                  <h2>Completion Time Ratio</h2>
                   <canvas  
                     baseChart 
                     height="1600em"
@@ -196,6 +340,7 @@
               </ng-container>
               <ng-container *ngSwitchCase="'thisMonth'">
                 <ion-card-content>
+                  <h2>Completion Time Ratio</h2>
                   <canvas  
                     baseChart 
                     height="1600em"
@@ -219,7 +364,7 @@
             </ion-card-content>
           </ion-card>
           
-        </ng-template>
+        </ng-template> -->
       </ion-item>
     </ion-list>
   </div>

@@ -197,6 +197,7 @@ export class TaskManagementService {
 
   fullySortNonCompletedTasks(tasks) {
     return tasks.filter(task => task.completed === 0).sort((a,b) => {
+      if(a.goalId && b.goalId) return //don't resort goal-based task amongst themselves
       return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue);
     });
   }
@@ -215,6 +216,7 @@ export class TaskManagementService {
 
       tasks[index].completed = 1;
       tasks[index].completedDate = moment().format('YYYY-MM-DD');
+      tasks[index].completedTime = moment().format('hA');
       try {
         awards = this.backend.addMetric(tasks[index], "completion");
       } catch (error) {
@@ -279,15 +281,15 @@ export class TaskManagementService {
 
           }
           this.backend.addMetric(this.backend.addTask(result), "creation");
-          this.sendUpdates( 
-            this.allTasks,
-            this.tasks,
-            this.goals,
-            this.tasksDay1,
-            this.tasksDay2,
-            this.tasksDay3,
-            this.tasksDay4,
-            this.tasksDay5);
+          // this.sendUpdates( 
+          //   this.allTasks,
+          //   this.tasks,
+          //   this.goals,
+          //   this.tasksDay1,
+          //   this.tasksDay2,
+          //   this.tasksDay3,
+          //   this.tasksDay4,
+          //   this.tasksDay5);
         }
 
     });
@@ -309,15 +311,15 @@ export class TaskManagementService {
           const returnedGoals = this.backend.addGoals(result.goalsToSubmit);
           const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
         }
-        this.sendUpdates( 
-          this.allTasks,
-          this.tasks,
-          this.goals,
-          this.tasksDay1,
-          this.tasksDay2,
-          this.tasksDay3,
-          this.tasksDay4,
-          this.tasksDay5);
+        // this.sendUpdates( 
+        //   this.allTasks,
+        //   this.tasks,
+        //   this.goals,
+        //   this.tasksDay1,
+        //   this.tasksDay2,
+        //   this.tasksDay3,
+        //   this.tasksDay4,
+        //   this.tasksDay5);
     });
 
 
@@ -437,17 +439,21 @@ export class TaskManagementService {
    }
 
    deleteGoal(g,m) {
-    const tasks = m.tasks;
-    tasks.forEach((t) => {
-      this.tasks.splice(this.tasks.findIndex(tasks => tasks.id === t.id),1);
-      this.backend.delete(t);
-    });
-    m.forEach(g => {
-      this.goals.splice(this.goals.findIndex(goals => goals.id === g.id),1);
-      this.backend.deleteGoal(g)
-    });
-    this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
-    this.backend.deleteGoal(g);
+     console.log({arguments});
+     let tasks;
+
+      m.forEach(g => {
+        tasks = g.tasks;
+        tasks.forEach((t) => {
+          this.tasks.splice(this.tasks.findIndex(tasks => tasks.id === t.id),1);
+          this.backend.delete(t);
+        });
+
+        this.goals.splice(this.goals.findIndex(goals => goals.id === g.id),1);
+        this.backend.deleteGoal(g)
+      });
+      this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
+      this.backend.deleteGoal(g);
 
     this.sendUpdates( 
      this.allTasks,
@@ -558,64 +564,57 @@ export class TaskManagementService {
 
   
   goalTaskFilter(taskList: Task[], goals: Goal[]) {
-    // console.log({goals});
-    
 
-    if(goals.length === 0) return [];
+
+    if(goals.length === 0) return []; //no need to find goal related tasks if they don't exist
 
     //get most prioritized goal
-   const filteredGoals = goals
-                            .filter(goal => !goal.completed && goal.parentGoal === null);
-  //  console.log({filteredGoals});
-   const sortedFilteredGoals = filteredGoals                            
+   const sortedFilteredGoals = goals
+                            .filter(goal => !goal.completed && goal.parentGoal === null)                          
                                  .sort((a,b) => {
                                      return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
                                 })
-      // console.log({sortedFilteredGoals});
-
-      //get most milestone within that goal
+  
+    //sort the milestones following the sort of the goals
    const filteredMilestones = goals
-      .filter(goal => !goal.completed && goal.parentGoal === filteredGoals[0].id);
-    // console.log({filteredMilestones});
+      .filter(goal => !goal.completed && goal.parentGoal)
+      .sort((a,b) => this.sortMilestonesByGoal(a,b,sortedFilteredGoals));
+    
+      //now sort amongst the milestones by parentGoal
     const sortedFilteredMilestones = filteredMilestones
-                                      .sort((a,b) => {
-                                        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
-                                    })
-    //  console.log({sortedFilteredMilestones});
+                                      .sort((a,b) => this.sortMilestonesWithinGoal(a,b));
+  
+    
 
-    if(filteredMilestones.length > 0) {
-      const filteredTasks = taskList.filter(t => t.goalId);
-      const list = filteredTasks.filter(t => t.goalId === filteredMilestones[0].id);
-      // console.log({list});
+      const list = taskList.filter(t => t.goalId && !t.completed)
+                                .sort((a,b) => this.sortTasksByMilestone(a,b, sortedFilteredMilestones))
+                                .sort((a,b) => this.sortTasksWithinMilestone(a,b));
+    
+      console.log({list});
       return list;
-    } 
-    return [];
-
+  
      
   }
 
-  // async openSettings() {
-  //     const modal = await this.modalController.create({
-  //       component: SettingsComponent,
-  //       // cssClass: 'show-award'
-  //     });
-  //     modal.onDidDismiss()
-  //       .then((data) => {
-  //         const result = data['data']; 
-  //         if(result) this.backend.setDayHours(result.hours);
-  //         this.sendUpdates( 
-  //           this.allTasks,
-  //           this.tasks,
-  //           this.goals,
-  //           this.tasksDay1,
-  //           this.tasksDay2,
-  //           this.tasksDay3,
-  //           this.tasksDay4,
-  //           this.tasksDay5);
-  //     });
+  sortMilestonesByGoal(a,b, sortedParents) {
+    return (sortedParents.findIndex(g => g.id === a.parentGoal) - 
+      sortedParents.findIndex(g => g.id === b.parentGoal))
+  }
 
-  //   return await modal.present();
-  // }
+  sortMilestonesWithinGoal(a,b) {
+    if(a.parentGoal !== b.parentGoal) return -1;
+    return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+  }
+
+  sortTasksByMilestone(a,b,sortedStones) {
+    return (sortedStones.findIndex(g => g.id === a.parentGoal) - 
+    sortedStones.findIndex(g => g.id === b.parentGoal))
+  }
+
+  sortTasksWithinMilestone(a,b) {
+    if(a.goalId !== b.goalId) return -1;
+    return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+  }
 
   async showAwards() {
     const modal = await this.modalController.create({

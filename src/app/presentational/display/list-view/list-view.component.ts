@@ -77,13 +77,27 @@ deleteTask(event) {this.tmService.deleteTask(event);}
 
 addGoal() { this.tmService.addGoal();}
 
-deleteGoal(g) { this.tmService.deleteGoal(g,g.milestones);}
+deleteGoal(g) { 
+  console.log({g});
+  this.tmService.deleteGoal(g,g.milestones);
+}
 
 addMilestone(g) { 
   this.tmService.addMilestone(g);
 } //basically an edit goal
 
 editItem(data, type) {const returnItem = this.tmService.editItem(data, type); }
+
+reopenTask(task) {
+  task['completed'] = 0;
+  this.tmService.updateAllTasks([task]);
+}
+
+// markTaskComplete(event) {
+//   this.tmService.markTaskComplete(event, [...this.tasks]);
+//   this.getRandomQuote();
+//   this.presentLoading(4,"Reloading");
+// }
 
 logout() {this.auth.signOut();}
 

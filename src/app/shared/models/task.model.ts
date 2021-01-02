@@ -11,6 +11,7 @@ export class Task {
                     title:string;
                     completed = 0;
                     completedDate:string;
+                    completedTime:string;
                     createdDate:string;
                     tag:string;
                     goalId:string;

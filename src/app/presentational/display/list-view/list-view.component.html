@@ -95,21 +95,34 @@
                   </ng-container>
                   <ng-container *ngSwitchCase="'adhoc'">
                     <ng-container *ngFor="let t of tasks">
-                        <ion-item-sliding >
-                            <ion-item class="task-item" *ngIf="!t.completed; else complete">
+                        <ion-item-sliding *ngIf="!t.completed; else complete">
+                            <ion-item class="task-item">
                               {{t.title}}
                               <span class="task">{{t.day < 2 ? 'Today' : 'Day: '}}</span><span *ngIf="t.day > 1">{{t.day}}</span>
                             </ion-item>
-                            <ng-template #complete>
-                              <ion-item class="task-item complete">
-                                {{t.title}}
-                                <span class="task">{{t.completedDate}}</span>
-                              </ion-item>
-                            </ng-template>
-                            <ion-item-options>
-                              <ion-button><ion-icon name="arrow-undo-circle-outline"></ion-icon></ion-button>
+                            <ion-item-options side="start">
+                              <ion-item-option side="start">
+                                <ion-button (click)="deleteTask(t)" color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
+                              </ion-item-option>
                             </ion-item-options>
-                        </ion-item-sliding>
+                          
+                              <ion-item-options>
+                                <ion-item-option>
+                                  <ion-button (click)="editItem(t, 'task')"><ion-icon name="create-outline"></ion-icon></ion-button>
+                                </ion-item-option>
+                              </ion-item-options>
+                         </ion-item-sliding>
+                            <ng-template #complete>
+                              <ion-item-sliding>
+                                <ion-item class="task-item complete">
+                                  {{t.title}}
+                                  <span class="task">{{t.completedDate}}</span>
+                                </ion-item>
+                                  <ion-item-options>
+                                    <ion-button (click)="reopenTask(t)"><ion-icon name="arrow-undo-circle-outline"></ion-icon></ion-button>
+                                  </ion-item-options>
+                             </ion-item-sliding>
+                           </ng-template>
                     </ng-container>
                   </ng-container>
                 </ng-container>

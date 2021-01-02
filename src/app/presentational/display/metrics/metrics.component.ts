@@ -13,6 +13,10 @@ class Variation {
   constructor(public amount: number, public variant: number[]) { }
 }
 
+class CompletionTime {
+  constructor(public amount: number, public hour: string) { }
+}
+
 
 @Component({
   selector: 'metrics',
@@ -46,6 +50,9 @@ export class MetricsComponent implements OnInit {
   ]
 
   variations = [];
+  completionTimes = [];
+
+
     // Pie
     public pieWeekCompleteLabels: string[] = [];
     public pieWeekInCompleteLabels: string[] = [];
@@ -81,14 +88,25 @@ export class MetricsComponent implements OnInit {
   lastWeekCompleteVariations: any[] = [];
   thisMonthCompleteVariations: any[] = [];
 
-  thisWeekIncompleteVariations: any[] = [];
-  lastWeekIncompleteVariations: any[] = [];
-  thisMonthIncompleteVariations: any[] = [];
-
+  thisWeekCompletionTimes: any[] = [];
+  lastWeekCompletionTimes: any[] = [];
+  thisMonthCompletionTimes: any[] = [];
 
 
   tasks:Task[] = [];
   goals: Goal[] = [];
+
+  lastWeekToughestTask: Task;
+  lastWeekMostImportantTask: Task;
+  lastWeekMostUrgentTask: Task;
+
+  thisWeekToughestTask: Task;
+  thisWeekMostImportantTask: Task;
+  thisWeekMostUrgentTask: Task;
+
+  thisMonthToughestTask: Task;
+  thisMonthMostImportantTask: Task;
+  thisMonthMostUrgentTask: Task;
 
   taskSub: Subscription;
   goalSub: Subscription;
@@ -106,61 +124,72 @@ export class MetricsComponent implements OnInit {
                     .subscribe( tasks => {
 
                       this.tasks = tasks;
+                 
+                      this.lastWeekToughestTask = this.tasks
+                          .filter(t => this.lastWeek(t.createdDate))
+                          .sort((a,b) => b.difficulty - a.difficulty)[0];
+                      this.thisWeekToughestTask = this.tasks
+                          .filter(t => this.currentWeek(t.createdDate))
+                          .sort((a,b) => b.difficulty - a.difficulty)[0];
+                      this.thisMonthToughestTask = this.tasks
+                          .filter(t => this.currentMonth(t.createdDate))
+                          .sort((a,b) => b.difficulty - a.difficulty)[0];
+
+                      this.thisWeekMostImportantTask = this.tasks
+                          .filter(t => this.lastWeek(t.createdDate))
+                          .sort((a,b) => b.priority - a.priority)[0];
+                      this.thisMonthMostImportantTask = this.tasks
+                          .filter(t => this.currentWeek(t.createdDate))
+                          .sort((a,b) => b.priority - a.priority)[0];
+                      this.lastWeekMostImportantTask = this.tasks
+                          .filter(t => this.currentMonth(t.createdDate))
+                          .sort((a,b) => b.priority - a.priority)[0];
+
+                      this.lastWeekMostUrgentTask = this.tasks
+                          .filter(t => this.lastWeek(t.createdDate))
+                          .sort((a,b) => b.urgency - a.urgency)[0];
+                      this.thisWeekMostUrgentTask = this.tasks
+                          .filter(t => this.currentWeek(t.createdDate))
+                          .sort((a,b) => b.urgency - a.urgency)[0];
+                      this.thisMonthMostUrgentTask = this.tasks
+                          .filter(t => this.currentMonth(t.createdDate))
+                          .sort((a,b) => b.urgency - a.urgency)[0];     
+
+                      this.lastWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.lastWeek(t.createdDate)));
+                      this.thisWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentWeek(t.createdDate)));
+                      this.thisMonthCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentMonth(t.createdDate)));
+                      console.dir(this.thisMonthCompleteVariations);
                       
-                      this.lastWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.lastWeek(t.completedDate)),'complete');
-                      this.lastWeekCompleteVariations
-                        .forEach(variation => {
-                          this.pieLastWeekCompleteChartData.push(variation.amount);
+                      this.lastWeekCompletionTimes = this.organizeCompletionTimes(tasks.filter(t => this.lastWeek(t.completedDate)));
+                      this.lastWeekCompletionTimes
+                        .forEach(com => {
+                          this.pieLastWeekCompleteChartData.push(com.amount);
                           this.pieLastWeekCompleteLabels
-                              .push(this.stringifyVariations(variation.variant));
+                              .push(com.hour);
                         });
-                        this.thisWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentWeek(t.completedDate)),'complete');
-                        this.thisWeekCompleteVariations
-                        .forEach(variation => {
-                          this.pieWeekCompleteChartData.push(variation.amount);
+                        this.thisWeekCompletionTimes = this.organizeCompletionTimes(tasks.filter(t => this.currentWeek(t.completedDate)));
+                        this.thisWeekCompletionTimes
+                        .forEach(com => {
+                          this.pieWeekCompleteChartData.push(com.amount);
                           this.pieWeekCompleteLabels
-                              .push(this.stringifyVariations(variation.variant));
+                              .push(com.hour);
                         });
-                        this.thisMonthCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentMonth(t.completedDate)),'complete');
-                        this.thisMonthCompleteVariations
-                        .forEach(variation => {
-                          this.pieMonthCompleteChartData.push(variation.amount);
+                        console.dir(this.thisWeekCompletionTimes);
+                        this.thisMonthCompletionTimes = this.organizeCompletionTimes(tasks.filter(t => this.currentMonth(t.completedDate)));
+                        this.thisMonthCompletionTimes
+                        .forEach(com => {
+                          this.pieMonthCompleteChartData.push(com.amount);
                           this.pieMonthCompleteLabels
-                              .push(this.stringifyVariations(variation.variant));
+                              .push(com.hour);
                         });
-            
-                
                       
-                        this.lastWeekIncompleteVariations = this.organizeVariations(tasks.filter(t => this.lastWeek(t.createdDate)),'incomplete');
-                        this.lastWeekIncompleteVariations
-                        .forEach(variation => {
-                          this.pieLastWeekInCompleteChartData.push(variation.amount);
-                          this.pieLastWeekInCompleteLabels
-                              .push(this.stringifyVariations(variation.variant));
-                        });
-                        this.thisWeekIncompleteVariations = this.organizeVariations(tasks.filter(t => this.currentWeek(t.createdDate)),'incomplete');
-                        this.thisWeekIncompleteVariations
-                        .forEach(variation => {
-                          this.pieWeekInCompleteChartData.push(variation.amount);
-                          this.pieWeekInCompleteLabels
-                              .push(this.stringifyVariations(variation.variant));
-                        });
-                        this.thisMonthIncompleteVariations = this.organizeVariations(tasks.filter(t => this.currentMonth(t.createdDate)),'incomplete');
-                        this.thisMonthIncompleteVariations.forEach(variation => {
-                          this.pieMonthInCompleteChartData.push(variation.amount);
-                          this.pieMonthInCompleteLabels
-                              .push(this.stringifyVariations(variation.variant));
-                        });
-                        
-                        this.cdRef.detectChanges();
+                      this.cdRef.detectChanges();
                     })
   }
 
   
-  organizeVariations(unAlteredTasks: Task[], type:string): Variation[] {
+  organizeVariations(unAlteredTasks: Task[]): Variation[] {
     let varyTemp;
-    switch(type) {
-      case 'complete':
         const complete = unAlteredTasks.filter(t => t.completed);
         const variations:Variation[] = [];
         let foundComplete = -1;
@@ -177,43 +206,47 @@ export class MetricsComponent implements OnInit {
         })
 
         return variations.sort((a,b) => a.amount - b.amount);
-      case 'incomplete':
-        let foundIncomplete = -1;
-        
-        const incomplete = unAlteredTasks.filter(t => !t.completed);
-        const variationsIncomplete:Variation[] = [];
-      
-        incomplete.forEach( c=> {
-           foundIncomplete = this.alreadyAddedToVariation(variationsIncomplete, c);
+    
+    
+  }
 
-          if(foundIncomplete === -1) { //didn't find it in there
-            varyTemp  = new Variation(1,[c.difficulty,c.priority,c.urgency]);
-            // console.log({varyTemp});
-            variationsIncomplete.push(varyTemp);
+  organizeCompletionTimes(unAlteredTasks: Task[]): CompletionTime[] {
+    let timeTemp;
+        const complete = unAlteredTasks.filter(t => t.completed);
+        const completionTimes:CompletionTime[] = [];
+        let foundComplete = -1;
+
+        complete.forEach( c=> {
+           foundComplete = this.alreadyAddedToCompletions(completionTimes, c);
+          if(foundComplete === -1) { //didn't find it in there
+            timeTemp = new CompletionTime(1,c.completedTime)
+
+            completionTimes.push(timeTemp);
           } else {
-   
-               variationsIncomplete[foundIncomplete].amount++;
+               completionTimes[foundComplete].amount++;
           }
         })
-       
-        return variationsIncomplete.sort((a,b) => a.amount - b.amount);
-    }
+
+        return completionTimes.sort((a,b) => a.amount - b.amount);
+    
     
   }
 
   //a helper method for organizeVariations, returns true if the task combo has already been added
   alreadyAddedToVariation(vary:Variation[], task: Task): number {
    if(vary.length < 1) return -1;
-   
     const foundIndex = vary.findIndex(v => {
         return v.variant.toString() ===  `${task.difficulty},${task.priority},${task.urgency}`;
        
     });
-
-
     return foundIndex;
-
   }
+
+  alreadyAddedToCompletions(com:CompletionTime[], task: Task): number {
+    if(com.length < 1) return -1;
+     const foundIndex = com.findIndex(t => t.hour === task.completedTime);
+     return foundIndex;
+   }
 
   idfConvert(format, number) { 
     if(format === 'importance') {
@@ -286,8 +319,8 @@ export class MetricsComponent implements OnInit {
 }
 
 stringifyVariations(v: number[]) : string {
-  return `${this.idfConvert('difficulty', v[0])}
-  ${this.idfConvert('importance', v[1])}
+  return `${this.idfConvert('difficulty', v[0])},
+  ${this.idfConvert('importance', v[1])},
    ${this.idfConvert('urgency', v[2])}`
 }
 

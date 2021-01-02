@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     //     .subscribe(user => {
     //       if(user) {
     //        this.user = user;
-    //         this.router.navigate(['']);
+    //         this.router.navigate(['tabs/tab1']);
     //       }
          
     //     })

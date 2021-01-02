@@ -3,11 +3,13 @@
   <ion-item-sliding *ngFor="let task of tasks" >
     <ion-item lines="none" class="task-item">
       <mat-expansion-panel
-      [ngClass]="classPriority(task.priority, task.difficulty, task.urgency, task.pastDue)"  
-      [style.margin-top.em]=".1"
-      [style.padding.em]="1"
+        [ngClass]="classPriority(task.priority, task.difficulty, task.urgency, task.pastDue)"  
+        [style.margin-top.em]=".1"
+        [style.padding.em]="1"
       >
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header
+         [collapsedHeight]="getHeight(task)"
+        >
           <mat-panel-title>
             {{task.title}}
           </mat-panel-title>

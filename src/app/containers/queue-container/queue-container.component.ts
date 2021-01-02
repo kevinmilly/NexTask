@@ -18,6 +18,7 @@ import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
 
 
 
+
 @Component({
   selector: 'queue-container',
   templateUrl: './queue-container.component.html',
@@ -53,7 +54,7 @@ export class QueueContainerComponent implements OnInit {
   
   addSub: Subscription;
   quotes;
-
+  userInfo;
 
 
   constructor(
@@ -88,6 +89,7 @@ export class QueueContainerComponent implements OnInit {
       this.presentLoading(4,"Looking for goals and tasks");
       this.quotes = this.commentsService.encouragement;
       this.tags =  this.tmService.filterTags;
+      this.userInfo = this.auth.user;
     
   }
 
@@ -120,7 +122,7 @@ createIdea(event) {
 
   async presentToast(message) {
     const toast = await this.toastController.create({
-      message: message,
+      message: `Hey ${this.userInfo.displayName}! ${message}`,
       duration: 2000
     });
     toast.present();

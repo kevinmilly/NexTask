@@ -162,6 +162,7 @@ export class TaskManagementService {
 
 
   sortDays(hours: number, taskList: Task[]) {
+    console.log({taskList});
   
     let dayIterator = 1;
     const minutesADay = hours * 60;
@@ -184,15 +185,15 @@ export class TaskManagementService {
       this.tasksDay5 = taskList.filter(task => task.day == 5);
       this.tasks = [...taskList];
 
-      this.sendUpdates( 
-        this.allTasks,
-        this.tasks,
-        this.goals,
-        this.tasksDay1,
-        this.tasksDay2,
-        this.tasksDay3,
-        this.tasksDay4,
-        this.tasksDay5);
+      // this.sendUpdates( 
+      //   this.allTasks,
+      //   this.tasks,
+      //   this.goals,
+      //   this.tasksDay1,
+      //   this.tasksDay2,
+      //   this.tasksDay3,
+      //   this.tasksDay4,
+      //   this.tasksDay5);
   }
 
   fullySortNonCompletedTasks(tasks) {
@@ -215,7 +216,7 @@ export class TaskManagementService {
     let awards;
 
       tasks[index].completed = 1;
-      tasks[index].completedDate = moment().format('YYYY-MM-DD');
+      tasks[index].completedDate = moment().format('DD/MM/YYYY');
       tasks[index].completedTime = moment().format('hA');
       try {
         awards = this.backend.addMetric(tasks[index], "completion");
@@ -250,15 +251,15 @@ export class TaskManagementService {
       .then((data) => {
         const result = data['data']; 
         if(result) this.backend.addMetric(this.backend.addTask(result), "creation")
-        this.sendUpdates( 
-          this.allTasks,
-          this.tasks,
-          this.goals,
-          this.tasksDay1,
-          this.tasksDay2,
-          this.tasksDay3,
-          this.tasksDay4,
-          this.tasksDay5);
+        // this.sendUpdates( 
+        //   this.allTasks,
+        //   this.tasks,
+        //   this.goals,
+        //   this.tasksDay1,
+        //   this.tasksDay2,
+        //   this.tasksDay3,
+        //   this.tasksDay4,
+        //   this.tasksDay5);
     });
 
 
@@ -426,15 +427,15 @@ export class TaskManagementService {
      this.tasks.splice(this.tasks.findIndex(task => task.id === event.id),1);
      const returnItem = this.backend.delete(event);
 
-     this.sendUpdates( 
-      this.allTasks,
-      this.tasks,
-      this.goals,
-      this.tasksDay1, 
-      this.tasksDay2,
-      this.tasksDay3,
-      this.tasksDay4,
-      this.tasksDay5);
+    //  this.sendUpdates( 
+    //   this.allTasks,
+    //   this.tasks,
+    //   this.goals,
+    //   this.tasksDay1, 
+    //   this.tasksDay2,
+    //   this.tasksDay3,
+    //   this.tasksDay4,
+    //   this.tasksDay5);
   
    }
 
@@ -455,30 +456,30 @@ export class TaskManagementService {
       this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
       this.backend.deleteGoal(g);
 
-    this.sendUpdates( 
-     this.allTasks,
-     this.tasks,
-     this.goals,
-     this.tasksDay1, 
-     this.tasksDay2,
-     this.tasksDay3,
-     this.tasksDay4,
-     this.tasksDay5);
+    // this.sendUpdates( 
+    //  this.allTasks,
+    //  this.tasks,
+    //  this.goals,
+    //  this.tasksDay1, 
+    //  this.tasksDay2,
+    //  this.tasksDay3,
+    //  this.tasksDay4,
+    //  this.tasksDay5);
  
   }
 
   updateAllTasks(event) {
     this.backend.updateTasks(event || [...this.tasks]);
 
-    this.sendUpdates( 
-      this.allTasks,
-      event,
-      this.goals,
-      this.tasksDay1,
-      this.tasksDay2,
-      this.tasksDay3,
-      this.tasksDay4,
-      this.tasksDay5);
+    // this.sendUpdates( 
+    //   this.allTasks,
+    //   event,
+    //   this.goals,
+    //   this.tasksDay1,
+    //   this.tasksDay2,
+    //   this.tasksDay3,
+    //   this.tasksDay4,
+    //   this.tasksDay5);
   }
 
 

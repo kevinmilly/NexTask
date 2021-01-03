@@ -32,6 +32,7 @@ export class QueueContainerComponent implements OnInit {
   daySub: Subscription;
 
   tasks: Task[] = [];
+  tasksSaved: Task[] = [];
   goals: Goal[] = [];
   ideas: any [] = [];
 
@@ -78,7 +79,7 @@ export class QueueContainerComponent implements OnInit {
     this.taskSub = this.tmService.tasks$
       .subscribe(tasks => {
         this.tasks = tasks; 
-
+        this.tasksSaved = tasks;
 
         this.tmService.goals$.subscribe(g => {
           this.goals = g;
@@ -101,12 +102,12 @@ createIdea(event) {
 
 
   filterTags() {
-    console.log(this.tagOptions.value);
+     this.tasks = [...this.tasksSaved];
      if(this.tagOptions.value === 'All') {
        this.tmService.sortDays(6, [...this.tasks]);
        return;
      }
-     this.tmService.sortDays(6, [...this.tasks.filter(task => task.tag === this.tagOptions.value)]);
+     this.tmService.sortDays(6, this.tasks.filter(task => task.tag === this.tagOptions.value));
   }
 
   getRandomQuote() {

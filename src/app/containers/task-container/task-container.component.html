@@ -1,6 +1,6 @@
 
-<ion-content  *ngIf="tasks && tasks.length > 0; else noTasks"> 
-  <ion-item-sliding *ngFor="let task of tasks" >
+<ion-content  *ngIf="tasks && tasks.length > 0"> 
+  <ion-item-sliding *ngFor="let task of tasks">
     <ion-item lines="none" class="task-item">
       <mat-expansion-panel
         [ngClass]="classPriority(task.priority, task.difficulty, task.urgency, task.pastDue)"  
@@ -19,7 +19,7 @@
             </ng-container>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <ion-card
+        <ion-card class="task-details-card"
         >
       <ion-card-header *ngIf="task.mileStoneTitle !== task.parentGoalTitle">
             <div class="goal-description-block">

@@ -20,6 +20,7 @@ export class ListViewComponent implements OnInit {
   tasksSub:Subscription;
   goalsHierarchy:any[] = [];
   tasks:Task[];
+  goals:Goal[];
 
   listType:string = 'adhoc';
 
@@ -32,6 +33,7 @@ export class ListViewComponent implements OnInit {
   getGoals() {
     this.goalsSub = this.tmService.goals$
     .subscribe(retrievedGoals => {
+        this.goals = retrievedGoals;
         this.tasksSub = this.tmService.allTasks$
           .subscribe(retrivedTasks => {
             this.tasks = retrivedTasks.filter(t => !t.goalId && t.title)
@@ -42,7 +44,7 @@ export class ListViewComponent implements OnInit {
 
  
 
-            this.goalsHierarchy = this.returnMilestoneAndTasks(retrievedGoals,retrivedTasks.filter(t=> t.goalId));
+            this.goalsHierarchy = this.returnMilestoneAndTasks(this.goals,this.tasks.filter(t=> t.goalId));
             // console.dir(this.goalsHierarchy);
           })
         

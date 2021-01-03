@@ -165,3 +165,25 @@ ion-content {
 .header-background {
   --ion-background-color: rgb(85, 72, 60);
 }
+
+@keyframes glowing {
+  0% {
+    font-size: 2em;
+    //background-color: var(--ion-color-primary);
+    // box-shadow: 0 0 0.5px #ff7a0e;
+  }
+  50% {
+    font-size: 1.3em;
+    // background-color: var(--ion-color-tertiary);
+    // box-shadow: 0 0 1px var(--ion-color-tertiary);
+  }
+  100% {
+    font-size: 2em;
+    // background-color: var(--ion-color-quaternary);
+    // box-shadow: 0 0 0.5px var(--ion-color-quaternary);
+  }
+}
+
+.glow {
+  animation: glowing 3000ms infinite;
+}

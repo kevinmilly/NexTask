@@ -1,8 +1,8 @@
 <ion-content class="header-background content-height">
   <div class="setting-buttons">
     <ion-fab vertical="top" horizontal="end">
-      <ion-fab-button>
-        <ion-icon name="flash-outline"></ion-icon>
+      <ion-fab-button >
+        <ion-icon name="flash-outline" class="glow"></ion-icon>
       </ion-fab-button>
       <ion-fab-list side="start">
       <ion-fab-button class="add-button" (click)="addTask()" color="primary">
@@ -22,7 +22,7 @@
         <ion-segment-button class="main-segments" value="adhoc"  >
           <ion-label>Ad-hoc Tasks</ion-label>
         </ion-segment-button>
-        <ion-segment-button class="main-segments" value="goalBased" >
+        <ion-segment-button class="main-segments" value="goalBased" [disabled]="goals.length === 0">
           <ion-label>Goal-based Tasks</ion-label>
         </ion-segment-button>
       </ion-segment>

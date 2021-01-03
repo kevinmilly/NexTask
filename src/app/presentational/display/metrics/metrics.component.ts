@@ -124,40 +124,41 @@ export class MetricsComponent implements OnInit {
                     .subscribe( tasks => {
 
                       this.tasks = tasks;
-                 
+                      
                       this.lastWeekToughestTask = this.tasks
-                          .filter(t => this.lastWeek(t.createdDate))
+                          .filter(t => t.completed && this.lastWeek(t.completedDate))
                           .sort((a,b) => b.difficulty - a.difficulty)[0];
                       this.thisWeekToughestTask = this.tasks
-                          .filter(t => this.currentWeek(t.createdDate))
+                          .filter(t => t.completed && this.currentWeek(t.completedDate))
                           .sort((a,b) => b.difficulty - a.difficulty)[0];
                       this.thisMonthToughestTask = this.tasks
-                          .filter(t => this.currentMonth(t.createdDate))
+                          .filter(t => t.completed && this.currentMonth(t.completedDate))
                           .sort((a,b) => b.difficulty - a.difficulty)[0];
 
+                      this.lastWeekMostImportantTask = this.tasks
+                          .filter(t => t.completed && this.lastWeek(t.completedDate))
+                          .sort((a,b) => b.priority - a.priority)[0];
                       this.thisWeekMostImportantTask = this.tasks
-                          .filter(t => this.lastWeek(t.createdDate))
+                          .filter(t => t.completed && this.currentWeek(t.completedDate))
                           .sort((a,b) => b.priority - a.priority)[0];
                       this.thisMonthMostImportantTask = this.tasks
-                          .filter(t => this.currentWeek(t.createdDate))
+                          .filter(t => t.completed && this.currentMonth(t.completedDate))
                           .sort((a,b) => b.priority - a.priority)[0];
-                      this.lastWeekMostImportantTask = this.tasks
-                          .filter(t => this.currentMonth(t.createdDate))
-                          .sort((a,b) => b.priority - a.priority)[0];
+                     
 
                       this.lastWeekMostUrgentTask = this.tasks
-                          .filter(t => this.lastWeek(t.createdDate))
+                          .filter(t => t.completed && this.lastWeek(t.completedDate))
                           .sort((a,b) => b.urgency - a.urgency)[0];
                       this.thisWeekMostUrgentTask = this.tasks
-                          .filter(t => this.currentWeek(t.createdDate))
+                          .filter(t => t.completed && this.currentWeek(t.completedDate))
                           .sort((a,b) => b.urgency - a.urgency)[0];
                       this.thisMonthMostUrgentTask = this.tasks
-                          .filter(t => this.currentMonth(t.createdDate))
+                          .filter(t => t.completed && this.currentMonth(t.completedDate))
                           .sort((a,b) => b.urgency - a.urgency)[0];     
 
-                      this.lastWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.lastWeek(t.createdDate)));
-                      this.thisWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentWeek(t.createdDate)));
-                      this.thisMonthCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentMonth(t.createdDate)));
+                      this.lastWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.lastWeek(t.completedDate)));
+                      this.thisWeekCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentWeek(t.completedDate)));
+                      this.thisMonthCompleteVariations = this.organizeVariations(tasks.filter(t => this.currentMonth(t.completedDate)));
                       console.dir(this.thisMonthCompleteVariations);
                       
                       this.lastWeekCompletionTimes = this.organizeCompletionTimes(tasks.filter(t => this.lastWeek(t.completedDate)));
@@ -174,8 +175,9 @@ export class MetricsComponent implements OnInit {
                           this.pieWeekCompleteLabels
                               .push(com.hour);
                         });
-                        console.dir(this.thisWeekCompletionTimes);
+                        
                         this.thisMonthCompletionTimes = this.organizeCompletionTimes(tasks.filter(t => this.currentMonth(t.completedDate)));
+                        console.dir(this.thisMonthCompletionTimes);
                         this.thisMonthCompletionTimes
                         .forEach(com => {
                           this.pieMonthCompleteChartData.push(com.amount);
@@ -330,8 +332,8 @@ currentMonth(dateToCheck) {
 }
 
 currentWeek(dateToCheck) {
-  const zeroDaysAgo = this.atimeAgo(new Date(),0)
-  return moment.utc(dateToCheck).isSame(zeroDaysAgo, 'week'); //true if dates are in the same week
+  // const zeroDaysAgo = this.atimeAgo(new Date(),0)
+  return moment.utc(dateToCheck).isSame(new Date(), 'week'); //true if dates are in the same week
 }
 
 lastWeek(dateToCheck) {

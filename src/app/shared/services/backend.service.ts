@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
 import { User } from '../models/user.model';
 import { Task } from '../models/task.model';
@@ -149,7 +149,7 @@ export class BackendService  {
               case 'creation':
                 metric = {
                   tasksCreated: this.metrics.tasksCreated++,
-                  id: this.metrics.id || 'Brms29MaecPWk1CmdF8w',
+                  id: this.metrics.id,
                   ...this.metrics
                 }
             
@@ -162,7 +162,7 @@ export class BackendService  {
                   importantTasks: task.priority > 3 ? this.metrics.importantTasks + 1 : this.metrics.importantTasks,
                   urgencyTasks:task.urgency > 3 ? this.metrics.urgencyTasks + 1 : this.metrics.urgencyTasks,
                   usageTime: this.metrics.usageTime,
-                  id: this.metrics.id || 'Brms29MaecPWk1CmdF8w'
+                  id: this.metrics.id
                 }
                 console.log({metric});
       

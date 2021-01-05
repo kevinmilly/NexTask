@@ -57,9 +57,9 @@
                       <ion-card-content>
                         <div ion-card-avatar></div>
                       <img ion-card-image src="../../../assets/images/blanklist.jpg" alt="orange-clock">
-                        <p>
+                        <div>
                           <h3>Add some tasks, I know you have something you could be doing!</h3>
-                        </p>
+                        </div>
                       </ion-card-content>
                     </ion-card>
                   </ng-template> 
@@ -77,7 +77,7 @@
                 
                     <ion-item class="columnHeaderChoiceSize">
                       <ion-label>Filter by Tag</ion-label>
-                      <ion-select [formControl]="tagOptions" (selectionChange)=" filterTags()">
+                      <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
                         <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
                       </ion-select>
                     </ion-item>
@@ -104,7 +104,7 @@
                     <div class="tasks-buttons">
                       <ion-item class="columnHeaderChoiceSize">
                       <ion-label>Filter by Tag</ion-label>
-                      <ion-select [formControl]="tagOptions" (selectionChange)=" filterTags()">
+                      <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
                         <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
                       </ion-select>
                     </ion-item>
@@ -132,7 +132,7 @@
           
                       <ion-item class="columnHeaderChoiceSize">
                       <ion-label>Filter by Tag</ion-label>
-                      <ion-select [formControl]="tagOptions" (selectionChange)=" filterTags()">
+                      <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
                         <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
                       </ion-select>
                     </ion-item>
@@ -160,7 +160,7 @@
                   
                     <ion-item class="columnHeaderChoiceSize">
                     <ion-label>Filter by Tag</ion-label>
-                    <ion-select [formControl]="tagOptions" (selectionChange)=" filterTags()">
+                    <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
                         <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
                     </ion-select>
                     </ion-item>

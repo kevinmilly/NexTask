@@ -104,10 +104,10 @@ createIdea(event) {
   filterTags() {
      this.tasks = [...this.tasksSaved];
      if(this.tagOptions.value === 'All') {
-       this.tmService.sortDays(6, [...this.tasks]);
+       this.tmService.sortDays(5, [...this.tasks]);
        return;
      }
-     this.tmService.sortDays(6, this.tasks.filter(task => task.tag === this.tagOptions.value));
+     this.tmService.sortDays(5, this.tasks.filter(task => task.tag === this.tagOptions.value));
   }
 
   getRandomQuote() {
@@ -168,7 +168,11 @@ createIdea(event) {
     this.presentLoading(1,"Reloading");
   }
 
-  addGoal() { this.tmService.addGoal();}
+  addGoal() { 
+    this.tmService.addGoal();
+    this.presentLoading(3,"Reloading");
+
+  }
 
 
 

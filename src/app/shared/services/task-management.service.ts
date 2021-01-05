@@ -82,6 +82,7 @@ export class TaskManagementService {
     }
 
   public init(): void {  
+  
 
     this.taskSub = this.backend.getTasks().valueChanges().subscribe(queue => {
       this.goalsSub = this.backend.getGoals().valueChanges().subscribe( goals => {
@@ -92,8 +93,7 @@ export class TaskManagementService {
          this.goals = goals;  
          
          this.tasks = this.calculatePastDue(this.tasks);
-
-
+        
     
         //this filter will take out goal-based task that aren't prioritized
         const nonGoalTasks = this.tasks.filter(t => !t.goalId);
@@ -108,8 +108,8 @@ export class TaskManagementService {
           });
 
 
-         this.sortDays(6, [...this.tasks]);
-          
+         this.sortDays(5, [...this.tasks]);
+         console.log("in init");
           this.sendUpdates( 
               this.allTasks,
               this.tasks,
@@ -162,14 +162,14 @@ export class TaskManagementService {
 
 
   sortDays(hours: number, taskList: Task[]) {
-    console.log({taskList});
+    // console.log({taskList});
   
     let dayIterator = 1;
     const minutesADay = hours * 60;
     let remainingMinutes = minutesADay;
     for(let i = 0, len = taskList.length; i < len; i++) { 
 
-      if((remainingMinutes - taskList[i].minutes) > -1) {
+      if((remainingMinutes - taskList[i].minutes) >= -1) {
         remainingMinutes -= taskList[i].minutes;
         taskList[i].day = dayIterator;
       } else {
@@ -184,7 +184,7 @@ export class TaskManagementService {
       this.tasksDay4 = taskList.filter(task => task.day == 4);
       this.tasksDay5 = taskList.filter(task => task.day == 5);
       this.tasks = [...taskList];
-
+      console.log("in sort");
       // this.sendUpdates( 
       //   this.allTasks,
       //   this.tasks,
@@ -341,15 +341,15 @@ export class TaskManagementService {
           const returnedGoals = this.backend.addGoals(result.goalToSubmit);
           const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
         }
-        this.sendUpdates( 
-          this.allTasks,
-          this.tasks,
-          this.goals,
-          this.tasksDay1,
-          this.tasksDay2,
-          this.tasksDay3,
-          this.tasksDay4,
-          this.tasksDay5);
+        // this.sendUpdates( 
+        //   this.allTasks,
+        //   this.tasks,
+        //   this.goals,
+        //   this.tasksDay1,
+        //   this.tasksDay2,
+        //   this.tasksDay3,
+        //   this.tasksDay4,
+        //   this.tasksDay5);
     });
 
 
@@ -370,15 +370,15 @@ export class TaskManagementService {
     //       const returnItem = this.backend.updateGoal(result);
     //     }
     const returnItem = this.backend.updateGoals([goalToEdit]);
-        this.sendUpdates( 
-          this.allTasks,
-          this.tasks,
-          this.goals,
-          this.tasksDay1,
-          this.tasksDay2,
-          this.tasksDay3,
-          this.tasksDay4,
-          this.tasksDay5);
+        // this.sendUpdates( 
+        //   this.allTasks,
+        //   this.tasks,
+        //   this.goals,
+        //   this.tasksDay1,
+        //   this.tasksDay2,
+        //   this.tasksDay3,
+        //   this.tasksDay4,
+        //   this.tasksDay5);
     // });
     
     //  return await modal.present();
@@ -406,15 +406,15 @@ export class TaskManagementService {
               break;
           }
           
-          this.sendUpdates( 
-            this.allTasks,
-            this.tasks,
-            this.goals,
-            this.tasksDay1,
-            this.tasksDay2,
-            this.tasksDay3,
-            this.tasksDay4,
-            this.tasksDay5);
+        //   this.sendUpdates( 
+        //     this.allTasks,
+        //     this.tasks,
+        //     this.goals,
+        //     this.tasksDay1,
+        //     this.tasksDay2,
+        //     this.tasksDay3,
+        //     this.tasksDay4,
+        //     this.tasksDay5);
         }
  
     });
@@ -528,8 +528,8 @@ export class TaskManagementService {
         complete = 0; 
         return complete;
       } else {
-        console.log(`Couldn't find ${currentTaskId} in`);
-        console.dir(tasks);
+        // console.log(`Couldn't find ${currentTaskId} in`);
+        // console.dir(tasks);
       } 
     })
   
@@ -591,7 +591,7 @@ export class TaskManagementService {
                                 .sort((a,b) => this.sortTasksByMilestone(a,b, sortedFilteredMilestones))
                                 .sort((a,b) => this.sortTasksWithinMilestone(a,b));
     
-      console.log({list});
+      // console.log({list});
       return list;
   
      

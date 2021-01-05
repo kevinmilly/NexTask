@@ -20,7 +20,7 @@ export class TabsPage {
 
   ngOnInit() {
     this.checkGoal = this.tmService.goals$.subscribe(goals => this.goals = goals);
-    this.checkTask = this.tmService.tasks$.subscribe(tasks => this.tasks = tasks);
+    this.checkTask = this.tmService.allTasks$.subscribe(tasks => this.tasks = tasks);
   }
 
   ngOnDestroy() {

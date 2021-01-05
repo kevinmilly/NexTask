@@ -59,13 +59,20 @@
   <ion-item id="goal-date">
     <ion-label>Get this done by: </ion-label>
     <ion-datetime
-      displayFormat="MM-DD-YYYY-MM-DD" 
+      displayFormat="MM-DD-YYYY" 
       [(ngModel)]="goalDeadline"
       name="goal-deadline"
 
     >
     </ion-datetime>
   </ion-item>
+  <ion-item disabled = "{{goalTitle === ''}}" lines="none">   
+
+    <ion-badge slot="end" id="add-M" color="dark" (click)="addMilestone()">
+      <ion-icon name="flag-outline"></ion-icon>Milestone
+    </ion-badge>
+
+</ion-item>
 </ion-list>
 
 
@@ -231,8 +238,8 @@
                             </ion-badge>
                       
 
-                            <ion-badge slot="end" id="add-M" color="dark" (click)="addTaskChild(task, j, getTaskChildren(goal))">
-                              <ion-icon name="flag-outline"></ion-icon>Goal
+                            <ion-badge slot="end" id="add-M" color="dark" (click)="addMilestone(task, getTaskChildren(goal))">
+                              <ion-icon name="flag-outline"></ion-icon>Milestone
                             </ion-badge>
                            
                             <ion-badge slot="end" color="danger" (click)="deleteTask(goal,j)">
@@ -256,7 +263,7 @@
                             <ion-row>
                               <ion-col [style.font-size.em]=".8"> 
                                
-                               <b>Task #{{i+1}}: </b>&nbsp;&nbsp;{{getTaskChildren(goal)[j].value.title}}
+                               <b>Task #{{j+1}}: </b>&nbsp;&nbsp;{{getTaskChildren(goal)[j].value.title}}
                               </ion-col> 
                             </ion-row>
                             <ion-row>

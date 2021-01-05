@@ -39,7 +39,6 @@ export class TaskContainerComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    console.dir(this.tasks);
     this.quotes = this.commentService.encouragement;
   }
 

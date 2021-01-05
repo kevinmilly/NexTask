@@ -145,7 +145,7 @@ export class GoalEntryComponent implements OnInit {
   }
 
   deleteTask(goal, index) {
-    if(index === 0) return;
+    if(this.getTaskChildren(goal).length > 0) return;
     this.getTaskChildren(goal).splice(index,1);
   }
 
@@ -223,17 +223,21 @@ export class GoalEntryComponent implements OnInit {
   
 }
 
-  //creates child of the task, promoting the task to a goal
-  addTaskChild(task,formerTaskIndex, arr) {
- 
-    this.goalArray.push(this.createNewGoal(task));
+  //creates child of the task, promoting the task to a goal or just adds another milestone
+  addMilestone(task?:FormGroup, arr?:any[]) {
+    if(task) {
+      this.goalArray.push(this.createNewGoal(task));
 
-    arr.pop();
-
-    if(arr.length === 0) {
-      console.log("adding another goal");
-      arr.push(this.createNewTask())
+      arr.pop();
+  
+      if(arr.length === 0) {
+        console.log("adding another goal");
+        arr.push(this.createNewTask())
+      }
+    } else {
+       this.goalArray.push(this.createNewGoal());
     }
+  
 
 
   }
@@ -270,9 +274,9 @@ export class GoalEntryComponent implements OnInit {
     let goalId;
     let formattedTaskChildren;
     const parentId = this.idGenerator();
-    console.dir(this.goalArray);
+    // console.dir(this.goalArray);
     this.goalArray.controls.forEach((group: FormGroup, i) => {
-      console.dir(group);
+      // console.dir(group);
       goalId = this.idGenerator();
       if(this.getTaskChildren(group).length > 0) {
         this.gatherTasksToSubmit(group,goalId);
@@ -315,8 +319,8 @@ export class GoalEntryComponent implements OnInit {
   }
 
   gatherTasksToSubmit(group, goalId: string) {
-    console.log("Group passed into gatherTasks is:");
-    console.dir(group.value);
+    // console.log("Group passed into gatherTasks is:");
+    // console.dir(group.value);
     this.getTaskChildren(group).forEach(task => {
       const {title, description, minutes, priority,difficulties,urgency,tag} = task.value;
         this.tasksToSubmit.push(
@@ -337,8 +341,8 @@ export class GoalEntryComponent implements OnInit {
         )
         console.log(`Assigned the goal id ${goalId} and the milestone title ${group.get("title").value} to the task ${title}`);
       });
-      console.log(`Task to submit are : `);
-      console.dir(this.tasksToSubmit);
+      // console.log(`Task to submit are : `);
+      // console.dir(this.tasksToSubmit);
   }
 
   gatherGoalsToSubmit(group, goalId: string, parentId: string) {
@@ -355,10 +359,10 @@ export class GoalEntryComponent implements OnInit {
         parentId
       )
     )
-      console.log(`Assigned the personal goal id ${goalId} to the milestone ${group.get("title").value}`);
+      // console.log(`Assigned the personal goal id ${goalId} to the milestone ${group.get("title").value}`);
 
-        console.log(`Goals to submit are : `);
-        console.dir(this.goalsToSubmit);
+      //   console.log(`Goals to submit are : `);
+      //   console.dir(this.goalsToSubmit);
   }
 
 

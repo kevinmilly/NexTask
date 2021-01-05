@@ -25,19 +25,12 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    // this.authSub = this.auth.user$
-    //     .subscribe(user => {
-    //       if(user) {
-    //        this.user = user;
-    //         this.router.navigate(['tabs/tab1']);
-    //       }
-         
-    //     })
+
 
   }
 
   signIn() {
-    this.auth.googleSignin();
+    this.auth.login();
   
    
   }

@@ -1,0 +1,32 @@
+<ion-content>
+  <form [formGroup]="timeForm">
+  <ion-grid>
+    <ion-row>
+      <!-- <ion-col> 
+        <ion-item>
+          <ion-datetime  
+          formControlName="date"
+          placeholder="Select Date"
+          ></ion-datetime>
+        </ion-item>
+     </ion-col> -->
+      <ion-col>
+        <ion-item>
+          <ion-datetime 
+          display-format="mm dd yyyy h:mm A" 
+          picker-format="mm dd yyyy h:mm A" 
+          formControlName="datetime"
+          placeholder="Select Time"
+          ></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="submit()" >Submit</ion-button>
+        <ion-button (click)="cancel()" >Cancel</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
+</ion-content>

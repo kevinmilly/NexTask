@@ -19,6 +19,7 @@ import { filter, take } from 'rxjs/operators';
 import { AuthRedoneService } from './authredone.service';
 import { ItemEditComponent } from 'src/app/presentational/ui/item-edit/item-edit.component';
 import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-entry/milestone-entry.component';
+import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entry/date-time-entry.component';
 
 @Injectable({
   providedIn: 'root'
@@ -241,7 +242,7 @@ export class TaskManagementService {
     modal.onDidDismiss()
       .then((data) => {
         const result = data['data']; 
-        if(result.dismissed !== true) this.backend.addMetric(this.backend.addTask(result), "creation")
+        if(result.id) this.backend.addMetric(this.backend.addTask(result), "creation")
         this.sendUpdates( 
           this.allTasks,
           this.tasks,
@@ -265,7 +266,7 @@ export class TaskManagementService {
     modal.onDidDismiss()
       .then((data) => {
         const result = data['data']; 
-        if(result.dismissed !== true) {
+        if(result.id) {
           if(goal) {
             result['goalId'] = milestone.id;
             result['parentGoalTitle'] = goal.title;
@@ -614,6 +615,35 @@ export class TaskManagementService {
     console.dir(this.idea.value);
     this.backend.addIdea({title: this.idea.value, createdDate: moment().format("MM/DD/YYYY")});
     this.ideaForm.controls['idea'].setValue(null);
+  }
+
+  async createEvent(tasks) {
+    const modal = await this.modalController.create({
+      component: DateTimeEntryComponent
+    });
+    modal.onDidDismiss()
+      .then((data) => {
+        console.dir(data);
+        const result = data['data']; 
+        if(result.datetime) { 
+          console.dir(result);
+          console.log(new Date(`${result.datetime}`));
+         
+          // try {
+          //   this.backend.addMetric(result, "creation");
+    
+          // } catch (error) {
+          //     console.dir(error);
+          // }
+          
+       
+         }
+
+    });
+
+
+  return await modal.present();
+  
   }
 
   get idea() {

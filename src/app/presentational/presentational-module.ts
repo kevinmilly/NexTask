@@ -11,6 +11,7 @@ import { GoalEntryComponent } from './ui/goal-entry/goal-entry.component';
 import { MetricsComponent } from './display/metrics/metrics.component';
 import { ListViewComponent } from "./display/list-view/list-view.component";
 import { MilestoneEntryComponent } from "./ui/milestone-entry/milestone-entry.component";
+import { DateTimeEntryComponent } from "./ui/date-time-entry/date-time-entry.component";
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { MilestoneEntryComponent } from "./ui/milestone-entry/milestone-entry.co
     declarations: [
         TaskEntryComponent,
         ItemEditComponent,
+        DateTimeEntryComponent,
         IdeaEntryComponent,
         MetricsComponent,
         BatchTaskEntryComponent,
@@ -33,6 +35,7 @@ import { MilestoneEntryComponent } from "./ui/milestone-entry/milestone-entry.co
     entryComponents: [
         TaskEntryComponent,
         ItemEditComponent,
+        DateTimeEntryComponent,
         GoalEntryComponent,
         ShowAwardComponent,
         MilestoneEntryComponent
@@ -41,6 +44,7 @@ import { MilestoneEntryComponent } from "./ui/milestone-entry/milestone-entry.co
         TaskEntryComponent,
         ItemEditComponent,
         IdeaEntryComponent,
+        DateTimeEntryComponent,
         BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,

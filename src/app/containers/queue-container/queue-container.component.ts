@@ -60,6 +60,7 @@ export class QueueContainerComponent implements OnInit {
   userInfo;
 
 
+
   constructor(
       private tmService: TaskManagementService,
       public toastController: ToastController,
@@ -95,6 +96,10 @@ export class QueueContainerComponent implements OnInit {
 
 createIdea(event) {
   this.tmService.createIdea(event);
+}
+
+createEvents(tasks) {
+  this.tmService.createEvent(tasks);
 }
 
 

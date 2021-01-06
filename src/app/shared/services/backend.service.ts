@@ -89,17 +89,7 @@ export class BackendService  {
     const taskAdded = this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`)
             .doc(task.id)
             .set(task, {merge: true});
-      // .add(task)
-      // .then((docRef) => {
-      //   const data = { 
-      //     db_id: docRef.id, 
-      //     ...task
-      //   } 
-        
-      //   return docRef.set(data, { merge: true });
-       
-      // })
-      //add origination date here?
+   
     
   }
 
@@ -134,7 +124,6 @@ export class BackendService  {
   }
 
   addMetric(task, typeOfUpdate) {
-    console.dir(this.auth);
     this.metrics = this.auth.authMetrics;
     console.dir(this.metrics);
     console.log({task});
@@ -263,8 +252,12 @@ export class BackendService  {
 }
 
   updateMetric(metric) {
-    const metricCollection = this.firestore.collection<Metrics>(`users/${this.user.uid}/metrics/`);
-    metricCollection.doc(this.metrics.id).update(metric);
+    try {
+      const metricCollection = this.firestore.collection<Metrics>(`users/${this.user.uid}/metrics/`);
+      metricCollection.doc(this.metrics.id).update(metric);
+    } catch (error) {
+        console.dir( error);
+    }
   }
 
   delete(task) {

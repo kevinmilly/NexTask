@@ -36,6 +36,7 @@
     "ng2-charts": "^2.4.2",
     "ng2-tooltip-directive": "^2.9.22",
     "rxjs": "~6.5.5",
+    "subsink": "^1.0.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

@@ -14,6 +14,7 @@ import { Goal } from 'src/app/shared/models/goal.model';
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
+import { SubSink } from 'subsink';
 
 
 
@@ -26,7 +27,8 @@ import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
 })
 export class QueueContainerComponent implements OnInit {
 
-
+  private subs = new SubSink();
+  
   taskSub: Subscription;
   goalsSub: Subscription;
   daySub: Subscription;
@@ -70,27 +72,24 @@ export class QueueContainerComponent implements OnInit {
   ngOnInit(): void {  
     // this.commentsService.initComments();
     this.tmService.init();
-    this.tasksDay1$ = this.tmService.tasksDay1$ 
-    this.tasksDay2$ = this.tmService.tasksDay2$
-    this.tasksDay3$ = this.tmService.tasksDay3$
-    this.tasksDay4$ = this.tmService.tasksDay4$
-    this.tasksDay5$ = this.tmService.tasksDay5$
 
-    this.taskSub = this.tmService.tasks$
-      .subscribe(tasks => {
-        this.tasks = tasks; 
-        this.tasksSaved = tasks;
-
-        this.tmService.goals$.subscribe(g => {
-          this.goals = g;
-
-        })
-
-      })
-      this.presentLoading(4,"Looking for goals and tasks");
-      this.quotes = this.commentsService.encouragement;
-      this.tags =  this.tmService.filterTags;
-      this.userInfo = this.auth.user;
+    this.subs.add(this.tmService.tasksDay1$.subscribe(t1 => {
+      this.tasksDay1 = t1;
+      console.dir(this.tasksDay1);
+    }));
+    this.subs.add(this.tmService.tasksDay2$.subscribe(t2 => this.tasksDay2 = t2));
+    this.subs.add(this.tmService.tasksDay3$.subscribe(t3 => this.tasksDay3 = t3));
+    this.subs.add(this.tmService.tasksDay4$.subscribe(t4 => this.tasksDay4 = t4));
+    this.subs.add(this.tmService.tasksDay5$.subscribe(t5 => this.tasksDay5 = t5));
+    this.subs.add(this.tmService.tasks$.subscribe(t => {
+      this.tasks = t;
+      this.tasksSaved = t;
+    })); 
+    this.subs.add(this.tmService.goals$.subscribe(g => this.goals = g));
+    this.presentLoading(4,"Looking for goals and tasks");
+    this.quotes = this.commentsService.encouragement;
+    this.tags =  this.tmService.filterTags;
+    this.userInfo = this.auth.user;
     
   }
 
@@ -154,9 +153,9 @@ createIdea(event) {
    }
 
    markTaskComplete(event) {
+    // this.presentLoading(4,"Reloading");
      this.tmService.markTaskComplete(event, [...this.tasks]);
      this.getRandomQuote();
-     this.presentLoading(4,"Reloading");
    }
 
   updateAllTasks(event) {
@@ -169,9 +168,8 @@ createIdea(event) {
   }
 
   addGoal() { 
+    this.presentLoading(1,"Reloading");
     this.tmService.addGoal();
-    this.presentLoading(3,"Reloading");
-
   }
 
 
@@ -236,9 +234,8 @@ createIdea(event) {
   logout() {this.auth.signOut();}
 
   ngOnDestroy() {
-    if(this.taskSub) this.taskSub.unsubscribe();
+    if(this.subs) this.subs.unsubscribe();
     if(this.daySub) this.daySub.unsubscribe();
-    if(this.addSub) this.addSub.unsubscribe();
-    if(this.goalsSub) this.goalsSub.unsubscribe();
   }
+
 }

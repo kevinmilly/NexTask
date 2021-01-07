@@ -35,7 +35,7 @@
           <mat-form-field  >
             <input 
               matInput 
-              [formControl]="timeControl"
+              [formControl]="bufferControl"
               placeholder="Event Buffer (in min)"
               type="number"
               value = "5"
@@ -47,7 +47,7 @@
     </ion-row>
     <ion-row class="ion-align-self-center">
       <ion-col>
-        <ion-button shape="round" color="success" (click)="submit()" [disabled]="!dateControl.valid || !timeControl.valid" >Submit</ion-button>
+        <ion-button shape="round" color="success" (click)="submit()" [disabled]="!dateControl.valid" >Submit</ion-button>
         <ion-button shape="round" color="danger" (click)="cancel()" >Cancel</ion-button>
       </ion-col>
     </ion-row>

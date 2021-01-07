@@ -66,7 +66,7 @@ export class BackendService  {
     let taskToUpdate;
     tasks.forEach(task => {
       taskToUpdate = this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
-      taskToUpdate.doc(task.id).update(task);
+      taskToUpdate.doc(task.id).update({...task});
 
 
       
@@ -79,7 +79,7 @@ export class BackendService  {
     console.dir(goals);
 
     goals.forEach(goal => {
-      goalPromises.push(this.firestore.collection<Goal>(`users/${this.user.uid}/Goals`).doc(goal.id).update(goal));
+      goalPromises.push(this.firestore.collection<Goal>(`users/${this.user.uid}/Goals`).doc(goal.id).update({...goal}));
     });
     Promise.all(goalPromises)
             .then(docRef => console.log({docRef}));

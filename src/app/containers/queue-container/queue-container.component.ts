@@ -59,7 +59,7 @@ export class QueueContainerComponent implements OnInit {
   quotes;
   userInfo;
 
-
+ 
 
   constructor(
       private tmService: TaskManagementService,
@@ -159,7 +159,7 @@ createEvents(tasks) {
 
    markTaskComplete(event) {
     // this.presentLoading(4,"Reloading");
-     this.tmService.markTaskComplete(event, [...this.tasks]);
+     this.tmService.markTaskComplete(event);
      this.getRandomQuote();
    }
 

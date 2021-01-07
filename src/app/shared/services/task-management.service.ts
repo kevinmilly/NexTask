@@ -97,19 +97,16 @@ export class TaskManagementService {
         
     
         //this filter will take out goal-based task that aren't prioritized
-        const nonGoalTasks = this.tasks.filter(t => !t.goalId);
-
-        this.tasks = nonGoalTasks.concat(this.goalTaskFilter(this.tasks, this.goals));
-        this.tasks = this.fullySortNonCompletedTasks(this.tasks);
+        const t = this.sortTasksAndGoals([...this.tasks], [...goals]);
 
         
         //load choices they can choose from
-          this.tasks.forEach(t => {
+          t.forEach(t => {
             if(t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
           });
 
 
-         this.sortDays(5, [...this.tasks]);
+         this.sortDays(5, [...t]);
          console.log("in init");
 
           
@@ -152,6 +149,13 @@ export class TaskManagementService {
     });
   }
 
+  sortTasksAndGoals(t,g) {
+    const nonGoalTasks = t.filter(t => !t.goalId);
+
+        t = nonGoalTasks.concat(this.goalTaskFilter(t, g));
+        t = this.fullySortNonCompletedTasks(t);
+        return t;
+  }
 
   sortDays(hours: number, taskList: Task[]) {
 
@@ -189,7 +193,7 @@ export class TaskManagementService {
 
   fullySortNonCompletedTasks(tasks) {
     return tasks.filter(task => task.completed === 0).sort((a,b) => {
-      if(a.goalId && b.goalId) return //don't resort goal-based task amongst themselves
+      if(a.goalId && b.goalId) return 0//don't resort goal-based task amongst themselves
       return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue);
     });
   }
@@ -199,34 +203,35 @@ export class TaskManagementService {
     this.backend.delete(event);
   }
 
-  markTaskComplete(event,tasks) {
+  markTaskComplete(event) {
     //this will update the task as completed 
+  
 
+      const index = this.tasks.findIndex(t => t.id === event.id);
+      let awards;
 
-    const index = tasks.findIndex(t => t.id === event.id);
-    let awards;
-
-      tasks[index].completed = 1;
-      tasks[index].completedDate = moment().format('DD/MM/YYYY');
-      tasks[index].completedTime = moment().format('hA');
+      this.tasks[index].completed = 1;
+      this.tasks[index].completedDate = moment().format('DD/MM/YYYY');
+      this.tasks[index].completedTime = moment().format('hA');
       try {
-        awards = this.backend.addMetric(tasks[index], "completion");
+        awards = this.backend.addMetric(this.tasks[index], "completion");
       } catch (error) {
           console.log({error})
       }
     
-      this.updateAllTasks(tasks);
-
-    this.handleGoalUpdates(index, tasks, this.goals);
+      this.updateAllTasks([...this.tasks]);
+      console.dir(this.tasks);
+      this.handleGoalUpdates(index, [...this.tasks], this.goals);
+      // this.tasks.splice(index,1);
 
      //this filter will take out goal-based task that aren't prioritized
-     const nonGoalTasks = tasks.filter(t => !t.goalId);
+     const nonGoalTasks = this.tasks.filter(t => !t.goalId);
         
-     tasks = nonGoalTasks.concat(this.goalTaskFilter(tasks, this.goals));
-     tasks = this.fullySortNonCompletedTasks(tasks);
-    
-    tasks.splice(tasks.findIndex(task => task.id === event.id),1);
-    this.sortDays(this.defaultHours, [...tasks]);
+     this.tasks = [...nonGoalTasks,...this.goalTaskFilter([...this.tasks], this.goals)];
+     console.dir(this.tasks);
+     this.tasks = this.fullySortNonCompletedTasks([...this.tasks]);
+     console.dir(this.tasks);
+    this.sortDays(this.defaultHours, [...this.tasks]);
   
    
 
@@ -243,6 +248,7 @@ export class TaskManagementService {
       .then((data) => {
         const result = data['data']; 
         if(result.id) this.backend.addMetric(this.backend.addTask(result), "creation")
+        this.tasks.push(result);
         this.sendUpdates( 
           this.allTasks,
           this.tasks,
@@ -275,8 +281,7 @@ export class TaskManagementService {
           }
           this.backend.addTask(result);
           this.tasks.push(result);
-          console.dir(this.tasks);
-          this.sortDays(5,[...this.tasks]);
+          this.sortDays(5,[...this.sortTasksAndGoals([...this.tasks], [...this.goals])]);
          
           try {
             this.backend.addMetric(result, "creation");
@@ -309,10 +314,12 @@ export class TaskManagementService {
           const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
           for(let i=0; i<result.goalsToSubmit.length; i++) this.goals.push(result.goalsToSubmit[i]);
           for(let j=0; j<result.tasksToSubmit.length; j++) this.tasks.push(result.tasksToSubmit[j]);
+
+          console.dir(this.tasks);
           
           const nonGoalTasks = this.tasks.filter(t => !t.goalId);
           this.tasks = [...nonGoalTasks.concat(this.goalTaskFilter([...this.tasks], [...this.goals]))];
-          this.tasks = [...this.fullySortNonCompletedTasks(this.tasks)];
+          this.tasks = [...this.fullySortNonCompletedTasks([...this.tasks])];
 
           console.dir(this.tasks);
 
@@ -400,23 +407,16 @@ export class TaskManagementService {
           switch (type) {
             case 'task':
               const returnItem = this.backend.updateTask(result);
+              this.tasks.splice(this.tasks.findIndex(t=> t.id === result.id), 1, result);
               break;
             case 'goal':
               this.backend.updateGoals([result]);
+              this.goals.splice(this.goals.findIndex(t=> t.id === result.id), 1, result);
               break;
           }
           
-        //   this.sendUpdates( 
-        //     this.allTasks,
-        //     this.tasks,
-        //     this.goals,
-        //     this.tasksDay1,
-        //     this.tasksDay2,
-        //     this.tasksDay3,
-        //     this.tasksDay4,
-        //     this.tasksDay5);
+          this.sortDays(5,[...this.tasks]);
         }
- 
     });
     
      return await modal.present();
@@ -471,15 +471,15 @@ export class TaskManagementService {
   updateAllTasks(event) {
     this.backend.updateTasks(event || [...this.tasks]);
 
-    this.sendUpdates( 
-      this.allTasks,
-      event,
-      this.goals,
-      this.tasksDay1,
-      this.tasksDay2,
-      this.tasksDay3,
-      this.tasksDay4,
-      this.tasksDay5);
+    // this.sendUpdates( 
+    //   this.allTasks,
+    //   event,
+    //   this.goals,
+    //   this.tasksDay1,
+    //   this.tasksDay2,
+    //   this.tasksDay3,
+    //   this.tasksDay4,
+    //   this.tasksDay5);
   }
 
 
@@ -506,7 +506,7 @@ export class TaskManagementService {
         if(associatedMilestone.completed) goalsToUpdate.push(associatedMilestone);
         if(associatedGoal.completed) goalsToUpdate.push(associatedGoal);
   
-        this.backend.updateGoals(goalsToUpdate);
+        this.backend.updateGoals([...goalsToUpdate]);
       } else {
          return null;
       }
@@ -566,6 +566,7 @@ export class TaskManagementService {
   
   goalTaskFilter(taskList: Task[], goals: Goal[]) {
 
+      console.log({taskList});
 
     if(goals.length === 0) return []; //no need to find goal related tasks if they don't exist
 
@@ -575,6 +576,7 @@ export class TaskManagementService {
                                  .sort((a,b) => {
                                      return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
                                   })
+                                  
   
     //get the milestones within the most prioritized goal
     const filteredMilestones = goals
@@ -589,8 +591,9 @@ export class TaskManagementService {
          if(sortedFilteredMilestones.length > 0) {
            console.dir(sortedFilteredMilestones);
           const filteredTasks = taskList.filter(t => t.goalId);
+          console.log({filteredTasks});
           const list = filteredTasks.filter(t => t.goalId === sortedFilteredMilestones[0].id);
-        
+          console.log({list});
          return list;
   
          } else {
@@ -619,22 +622,22 @@ export class TaskManagementService {
 
   async createEvent(tasks) {
     const modal = await this.modalController.create({
-      component: DateTimeEntryComponent
+      component: DateTimeEntryComponent 
     });
     modal.onDidDismiss()
       .then((data) => {
         console.dir(data);
         const result = data['data']; 
-        if(result.datetime) { 
+        if(result.date) { 
           console.dir(result);
-          console.log(new Date(`${result.datetime}`));
+          console.log(new Date(`${result.date}`));
          
-          // try {
-          //   this.backend.addMetric(result, "creation");
+          try {
+            this.auth.insertEvents(tasks,result.date, result.buffer);
     
-          // } catch (error) {
-          //     console.dir(error);
-          // }
+          } catch (error) {
+              console.dir(error);
+          }
           
        
          }

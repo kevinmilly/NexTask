@@ -18,7 +18,7 @@
   
   
     </ion-fab>
-  </div>
+  </div> 
 
   
 <ion-content class="header-background" >
@@ -32,19 +32,23 @@
                   <ion-grid>
                     <ion-row>
                       <ion-col>
-                          <ion-item class="columnHeaderChoiceSize" *ngIf="tags.length > 0 && tasks.length > 0; else noTags">
-                            <ion-label>Filter by Tag</ion-label>
-                            <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
+                        <ion-list lines="none" *ngIf="tags.length > 0 && tasks.length > 0; else noTags">
+                          <ion-item >
+                            <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()" class="filter-select">
                               <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
                             </ion-select>
                           </ion-item>
+                        </ion-list>
                           <ng-template #noTags>No Tags to Filter By Yet</ng-template>
                       </ion-col>
                       <ion-col>
-                        <ion-item>
-                          <ion-label>Time-Boxing</ion-label>
-                          <ion-icon name="calendar-outline" (click)="createEvents(tasksDay1)"></ion-icon>
-                        </ion-item>
+                        <ion-list lines="none">
+                          <ion-item >
+                            <ion-button  (click)="createEvents(tasksDay1)" slot="end">
+                              <ion-icon name="calendar-outline"></ion-icon>
+                            </ion-button>
+                          </ion-item>
+                        </ion-list>
                       </ion-col>
                     </ion-row>
                   </ion-grid>

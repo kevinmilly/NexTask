@@ -132,11 +132,11 @@ export class AuthRedoneService {
     }
 
        // //loop through the tasks, start with Date.now(), for each successive iteration use the end date of the previous
-    async insertEvents(tasks:Task[]) {
+    async insertEvents(tasks:Task[], datetime, buffer) {
       console.dir(tasks);
       let start, end; 
       for(let i = 0; i<tasks.length; i++) {
-        start = i === 0 ? new Date().toISOString() : moment(end).add(5,'minutes');
+        start = i === 0 ? datetime : moment(end).add(buffer,'minutes');
         end = minutesFromNow(start, tasks[i].minutes);
 
         console.log(`Start is ${moment(start).format('LLLL')} and end is ${moment(end).format('LLLL')}`);
@@ -144,7 +144,7 @@ export class AuthRedoneService {
         const insert = await gapi.client.calendar.events.insert({
           calendarId: 'primary',
           start: {
-            dateTime: start,
+            dateTime: start, 
             timeZone: 'America/New_York'
           },
           end: {
@@ -156,20 +156,22 @@ export class AuthRedoneService {
           colorId: this.getColorId(
                           tasks[i].priority,
                           tasks[i].difficulty,
-                          tasks[i].urgency)
+                          tasks[i].urgency,
+                          tasks[i].pastDue
+                          )
         })
       }
 
     }
 
-    getColorId(priority, difficulty, urgency) {
-        if((priority + difficulty + urgency) < 4 || (priority + difficulty + urgency) === 4) { 
+    getColorId(priority, difficulty, urgency, pastDue) {
+        if((priority + difficulty + urgency + pastDue) < 6 || (priority + difficulty + urgency + pastDue) === 6) { 
           return '8' 
-        } else if((priority + difficulty + urgency) < 6 || (priority + difficulty + urgency) === 6) { 
+        } else if((priority + difficulty + urgency + pastDue) < 10 || (priority + difficulty + urgency + pastDue) === 10) { 
             return '5';
-        } else if((priority + difficulty + urgency) < 9 || (priority + difficulty + urgency) === 9) { 
+        } else if((priority + difficulty + urgency + pastDue) < 14 || (priority + difficulty + urgency + pastDue) === 14) { 
             return '6';
-        } else if((priority + difficulty + urgency) < 12 || (priority + difficulty + urgency) === 12) { 
+        } else if((priority + difficulty + urgency + pastDue) < 18 || (priority + difficulty + urgency + pastDue) === 18) { 
             return '11';
         } else {
             return '11';

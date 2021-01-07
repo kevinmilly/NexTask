@@ -1,32 +1,55 @@
 <ion-content>
-  <form [formGroup]="timeForm">
   <ion-grid>
-    <ion-row>
-      <!-- <ion-col> 
-        <ion-item>
-          <ion-datetime  
-          formControlName="date"
-          placeholder="Select Date"
-          ></ion-datetime>
-        </ion-item>
-     </ion-col> -->
+    <ion-row class="ion-align-self-center">
+      <ion-col >
+        <ion-list lines="none">
+          <ion-item>
+            <h4 color="dark">
+              Adding your tasks to your Google Calendar allows you to take advantage of alerts and other features.
+              The events will stack in the same order of priority with respective color gradients.
+            </h4>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-self-center">
+      <ion-col>
+        <ion-list lines="none">
+          <ion-item>
+            <mat-form-field>
+              <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl"
+                 [min]="minDate" [max]="maxDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <ngx-mat-datetime-picker #picker [showSpinners]="true"
+                 [stepHour]="stepHour" [stepMinute]="stepMinute"
+                 [touchUi]="touchUi" [color]="color"
+                 [hideTime]="hideTime">
+              </ngx-mat-datetime-picker>
+           </mat-form-field> 
+  
+          </ion-item>
+        </ion-list>
+      </ion-col>
       <ion-col>
         <ion-item>
-          <ion-datetime 
-          display-format="mm dd yyyy h:mm A" 
-          picker-format="mm dd yyyy h:mm A" 
-          formControlName="datetime"
-          placeholder="Select Time"
-          ></ion-datetime>
+          <mat-form-field  >
+            <input 
+              matInput 
+              [formControl]="timeControl"
+              placeholder="Event Buffer (in min)"
+              type="number"
+              value = "5"
+              class="buffer"
+             >
+         </mat-form-field>
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row class="ion-align-self-center">
       <ion-col>
-        <ion-button (click)="submit()" >Submit</ion-button>
-        <ion-button (click)="cancel()" >Cancel</ion-button>
+        <ion-button shape="round" color="success" (click)="submit()" [disabled]="!dateControl.valid || !timeControl.valid" >Submit</ion-button>
+        <ion-button shape="round" color="danger" (click)="cancel()" >Cancel</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
-</form>
 </ion-content>

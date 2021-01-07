@@ -34,6 +34,13 @@ import { CommonModule } from '@angular/common';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {
+    NgxMatDatetimePickerModule, 
+    NgxMatNativeDateModule, 
+    NgxMatTimepickerModule 
+} from '@angular-material-components/datetime-picker';
+
 @NgModule({
     imports:[   
         MatPaginatorModule,
@@ -59,7 +66,11 @@ import {MatMenuModule} from '@angular/material/menu';
         MatRadioModule,
         MatSidenavModule,
         MatMenuModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatDatepickerModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
     ],
     exports:[    
         MatPaginatorModule,
@@ -86,7 +97,11 @@ import {MatMenuModule} from '@angular/material/menu';
         MatRadioModule,
         MatSidenavModule,
         MatMenuModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatDatepickerModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
     ]
 
 })

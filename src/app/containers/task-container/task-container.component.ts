@@ -13,7 +13,7 @@ import { CommentsService } from 'src/app/shared/services/comments.service';
   templateUrl: './task-container.component.html',
   styleUrls: ['./task-container.component.scss']
 })
-export class TaskContainerComponent implements OnInit {
+export class TaskContainerComponent implements OnInit { 
 
   @Input() tasks: Task[] = [];
   @Input() deviceSize: string = '';

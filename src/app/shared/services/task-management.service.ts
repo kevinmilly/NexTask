@@ -15,11 +15,12 @@ import { ShowAwardComponent } from 'src/app/presentational/display/show-award/sh
 
 
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
-import { filter, take } from 'rxjs/operators';
+import { map, tap} from 'rxjs/operators';
 import { AuthRedoneService } from './authredone.service';
 import { ItemEditComponent } from 'src/app/presentational/ui/item-edit/item-edit.component';
 import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-entry/milestone-entry.component';
 import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entry/date-time-entry.component';
+import { merge, combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,32 +36,41 @@ export class TaskManagementService {
   settingsSub: Subscription;
   ideaSub: Subscription;
 
- private tasks: Task[]= []; 
- private allTasks: Task[] =[];
- private goals: Goal[]= []; 
- private tasksDay1: Task[] = [];
- private tasksDay2: Task[] = [];
- private tasksDay3: Task[] = [];
- private tasksDay4: Task[] = [];
- private tasksDay5: Task[] = [];
+//  private tasks: Task[]= []; 
+//  private allTasks: Task[] =[];
+//  private goals: Goal[]= []; 
+//  private tasksDay1: Task[] = [];
+//  private tasksDay2: Task[] = [];
+//  private tasksDay3: Task[] = [];
+//  private tasksDay4: Task[] = [];
+//  private tasksDay5: Task[] = [];
 
-  private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
-  private allTasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
-  private goalsSubject: BehaviorSubject<Goal[]> = new BehaviorSubject([]);
-  private tasksDay1Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
-  private tasksDay2Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
-  private tasksDay3Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
-  private tasksDay4Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
-  private tasksDay5Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
+  // private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  // private allTasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  // private goalsSubject: BehaviorSubject<Goal[]> = new BehaviorSubject([]);
+  // private tasksDay1Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
+  // private tasksDay2Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
+  // private tasksDay3Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
+  // private tasksDay4Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
+  // private tasksDay5Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
 
-  public allTasks$: Observable<Task[]> = this.allTasksSubject.asObservable();
-  public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
-  public goals$: Observable<Goal[]> = this.goalsSubject.asObservable();
-  public tasksDay1$: Observable<Task []> = this.tasksDay1Subject.asObservable();
-  public tasksDay2$: Observable<Task []> = this.tasksDay2Subject.asObservable();
-  public tasksDay3$: Observable<Task []> = this.tasksDay3Subject.asObservable();
-  public tasksDay4$: Observable<Task []> = this.tasksDay4Subject.asObservable();
-  public tasksDay5$: Observable<Task []> = this.tasksDay5Subject.asObservable();
+  // public allTasks$: Observable<Task[]> = this.allTasksSubject.asObservable();
+  // public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
+  // public goals$: Observable<Goal[]> = this.goalsSubject.asObservable();
+  // public tasksDay1$: Observable<Task []> = this.tasksDay1Subject.asObservable();
+  // public tasksDay2$: Observable<Task []> = this.tasksDay2Subject.asObservable();
+  // public tasksDay3$: Observable<Task []> = this.tasksDay3Subject.asObservable();
+  // public tasksDay4$: Observable<Task []> = this.tasksDay4Subject.asObservable();
+  // public tasksDay5$: Observable<Task []> = this.tasksDay5Subject.asObservable();
+
+  public allTasks$: Observable<Task[]>;
+  public tasks$: Observable<Task[]>;
+  public goals$: Observable<Goal[]>;
+  public tasksDay1$: Observable<Task []>;
+  public tasksDay2$: Observable<Task []>;
+  public tasksDay3$: Observable<Task []>;
+  public tasksDay4$: Observable<Task []>;
+  public tasksDay5$: Observable<Task []>;
 
   defaultHours = 5; 
 
@@ -83,62 +93,57 @@ export class TaskManagementService {
     }
 
   public init(): void {  
-  
-    console.log("in init");
-    this.taskSub = this.backend.getTasks().valueChanges().pipe(take(1)).subscribe(queue => {
-      this.goalsSub = this.backend.getGoals().valueChanges().pipe(take(1)).subscribe( goals => {
-     
-         this.tasks = queue;
-         this.allTasks = queue;
-     
-         this.goals = goals;  
-         
-         this.tasks = this.calculatePastDue(this.tasks);
-        
-    
-        //this filter will take out goal-based task that aren't prioritized
-        const t = this.sortTasksAndGoals([...this.tasks], [...goals]);
 
-        
-        //load choices they can choose from
+    this.goals$ = this.backend.getGoals().valueChanges();
+    this.allTasks$ = this.backend.getTasks().valueChanges();
+      this.tasks$ = merge(
+      this.backend.getTasks().valueChanges().pipe(
+        map(tasks => tasks.filter(t => !t.completed)),
+        map(tasks => this.incrementDaysForTasks(6,tasks)),
+        map(tasks => this.calculatePastDue(tasks))
+      ),
+      combineLatest([this.tasks$,this.goals$])
+        .pipe(map(([tasks,goals]) => this.sortTasksAndGoals(tasks,goals)))
+    )
+    .pipe(
+      tap(t => {
           t.forEach(t => {
             if(t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
           });
+      }),
+      tap(tasks => console.dir(tasks)),
+      );
 
-
-         this.sortDays(5, [...t]);
-         console.log("in init");
-
-          
     
-    
-    })
-    })
+      this.tasksDay1$ = this.tasks$.pipe(map(tasks => tasks.filter(t => t.day === 1)));
+      this. tasksDay2$ = this.tasks$.pipe(map(tasks => tasks.filter(t => t.day === 2)));
+      this. tasksDay3$ = this.tasks$.pipe(map(tasks => tasks.filter(t => t.day === 3)));
+      this. tasksDay4$ = this.tasks$.pipe(map(tasks => tasks.filter(t => t.day === 4)));
+      this. tasksDay5$ = this.tasks$.pipe(map(tasks => tasks.filter(t => t.day === 5)));
 
-    this.ideaSub = this.backend.getIdeas()
-      .valueChanges()
-        .subscribe(ideas => this.ideas = ideas);
-  }
+    }
 
-  sendUpdates(
-    allTasks,
-    tasks,
-    allGoals,
-    t1,
-    t2,
-    t3,
-    t4,
-    t5
-  ) {
-    this.allTasksSubject.next([...allTasks]);
-    this.tasksSubject.next([...tasks]);
-    this.goalsSubject.next([...allGoals]);
-    this.tasksDay1Subject.next([...t1]);
-    this.tasksDay2Subject.next([...t2]);
-    this.tasksDay3Subject.next([...t3]);
-    this.tasksDay4Subject.next([...t4]);
-    this.tasksDay5Subject.next([...t5]);
-  }
+  
+
+  // sendUpdates(
+  //   allTasks,
+  //   tasks,
+  //   allGoals,
+  //   t1,
+  //   t2,
+  //   t3,
+  //   t4,
+  //   t5
+  // ) {
+  //   this.allTasksSubject.next([...allTasks]);
+  //   this.tasksSubject.next([...tasks]);
+  //   this.goalsSubject.next([...allGoals]);
+  //   this.tasksDay1Subject.next([...t1]);
+  //   this.tasksDay2Subject.next([...t2]);
+  //   this.tasksDay3Subject.next([...t3]);
+  //   this.tasksDay4Subject.next([...t4]);
+  //   this.tasksDay5Subject.next([...t5]);
+  // }
 
   calculatePastDue(tasks: Task[]) {
     return  tasks.map(t => {
@@ -151,15 +156,12 @@ export class TaskManagementService {
 
   sortTasksAndGoals(t,g) {
     const nonGoalTasks = t.filter(t => !t.goalId);
-
-        t = nonGoalTasks.concat(this.goalTaskFilter(t, g));
-        t = this.fullySortNonCompletedTasks(t);
-        return t;
+    t = nonGoalTasks.concat(this.goalTaskFilter(t, g));
+    t = this.fullySortNonCompletedTasks(t);
+    return t;
   }
 
-  sortDays(hours: number, taskList: Task[]) {
-
-
+  incrementDaysForTasks(hours: number, taskList: Task[]) {
     let dayIterator = 1;
     const minutesADay = hours * 60;
     let remainingMinutes = minutesADay;
@@ -173,23 +175,9 @@ export class TaskManagementService {
           remainingMinutes = minutesADay;
       }
     }
-
-      this.tasksDay1 = taskList.filter(task => task.day == 1);
-      this.tasksDay2 = taskList.filter(task => task.day == 2);
-      this.tasksDay3 = taskList.filter(task => task.day == 3);
-      this.tasksDay4 = taskList.filter(task => task.day == 4);
-      this.tasksDay5 = taskList.filter(task => task.day == 5);
-      this.tasks = [...taskList];
-      this.sendUpdates( 
-        [...this.allTasks],
-        [...this.tasks],
-        [...this.goals],
-        [...this.tasksDay1],
-        [...this.tasksDay2],
-        [...this.tasksDay3],
-        [...this.tasksDay4],
-        [...this.tasksDay5]);
+    return taskList;
   }
+
 
   fullySortNonCompletedTasks(tasks) {
     return tasks.filter(task => task.completed === 0).sort((a,b) => {
@@ -205,37 +193,23 @@ export class TaskManagementService {
 
   markTaskComplete(event) {
     //this will update the task as completed 
-  
 
-      const index = this.tasks.findIndex(t => t.id === event.id);
       let awards;
 
-      this.tasks[index].completed = 1;
-      this.tasks[index].completedDate = moment().format('DD/MM/YYYY');
-      this.tasks[index].completedTime = moment().format('hA');
+      event.completed = 1;
+      event.completedDate = moment().format('DD/MM/YYYY');
+      event.completedTime = moment().format('hA');
       try {
-        awards = this.backend.addMetric(this.tasks[index], "completion");
+        awards = this.backend.addMetric(event, "completion");
       } catch (error) {
-          console.log({error})
+          console.log({error}) 
       }
     
-      this.updateAllTasks([...this.tasks]);
-      console.dir(this.tasks);
+      this.updateAllTasks(event);
+    
       this.handleGoalUpdates(index, [...this.tasks], this.goals);
       // this.tasks.splice(index,1);
-
-     //this filter will take out goal-based task that aren't prioritized
-     const nonGoalTasks = this.tasks.filter(t => !t.goalId);
-        
-     this.tasks = [...nonGoalTasks,...this.goalTaskFilter([...this.tasks], this.goals)];
-     console.dir(this.tasks);
-     this.tasks = this.fullySortNonCompletedTasks([...this.tasks]);
-     console.dir(this.tasks);
-    this.sortDays(this.defaultHours, [...this.tasks]);
-  
    
-
-
   }
 
 
@@ -248,16 +222,16 @@ export class TaskManagementService {
       .then((data) => {
         const result = data['data']; 
         if(result.id) this.backend.addMetric(this.backend.addTask(result), "creation")
-        this.tasks.push(result);
-        this.sendUpdates( 
-          this.allTasks,
-          this.tasks,
-          this.goals,
-          this.tasksDay1,
-          this.tasksDay2,
-          this.tasksDay3,
-          this.tasksDay4,
-          this.tasksDay5);
+        // this.tasks.push(result);
+        // this.sendUpdates( 
+        //   this.allTasks,
+        //   this.tasks,
+        //   this.goals,
+        //   this.tasksDay1,
+        //   this.tasksDay2,
+        //   this.tasksDay3,
+        //   this.tasksDay4,
+        //   this.tasksDay5);
     });
 
 

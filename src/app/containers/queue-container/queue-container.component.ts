@@ -1,5 +1,5 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, combineLatest } from 'rxjs';
 import { Task } from '../../shared/models/task.model';
 import * as moment from "moment";
 import { AuthService } from '../../shared/services/auth.service';
@@ -14,7 +14,7 @@ import { Goal } from 'src/app/shared/models/goal.model';
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
-import { SubSink } from 'subsink';
+// import { SubSink } from 'subsink';
 
 
 
@@ -27,30 +27,30 @@ import { SubSink } from 'subsink';
 })
 export class QueueContainerComponent implements OnInit {
 
-  private subs = new SubSink();
+  // private subs = new SubSink();
   
   taskSub: Subscription;
   goalsSub: Subscription;
   daySub: Subscription;
 
-  tasks: Task[] = [];
-  tasksSaved: Task[] = [];
-  goals: Goal[] = [];
+  // tasks: Task[] = [];
+  // tasksSaved: Task[] = [];
+  // goals: Goal[] = [];
   ideas: any [] = [];
 
-  tasksDay1: Task[] = [];
-  tasksDay2: Task[] = [];
-  tasksDay3: Task[] = [];
-  tasksDay4: Task[] = [];
-  tasksDay5: Task[] = [];
+  // tasksDay1: Task[] = [];
+  // tasksDay2: Task[] = [];
+  // tasksDay3: Task[] = [];
+  // tasksDay4: Task[] = [];
+  // tasksDay5: Task[] = [];
 
-  tasksDay1$:Observable<Task[]>;
-  tasksDay2$:Observable<Task[]>;
-  tasksDay3$:Observable<Task[]>;
-  tasksDay4$:Observable<Task[]>;
-  tasksDay5$:Observable<Task[]>;
+  tasksDaysAndGoals$:Observable<any[]>;
+  // tasksDay2$:Observable<Task[]>;
+  // tasksDay3$:Observable<Task[]>;
+  // tasksDay4$:Observable<Task[]>;
+  // tasksDay5$:Observable<Task[]>;
 
-  defaultHours = 0;
+  defaultHours = 0; 
 
   tags = ['general', 'All'];
   tagOptions = new FormControl('general',[]);
@@ -73,20 +73,29 @@ export class QueueContainerComponent implements OnInit {
   ngOnInit(): void {  
     // this.commentsService.initComments();
     this.tmService.init();
+    this.tasksDaysAndGoals$ = combineLatest(
+      [this.tmService.goals$,
+      this.tmService.tasksDay1$,
+      this.tmService.tasksDay2$,
+      this.tmService.tasksDay3$,
+      this.tmService.tasksDay4$,
+      this.tmService.tasksDay5$]
+    )
+    // this.subs.add(this.tmService.tasksDay1$.subscribe(t1 => {
+    //   this.tasksDay1 = t1;
+    //   console.dir(this.tasksDay1);
+    // }));
+    // this.subs.add(this.tmService.tasksDay2$.subscribe(t2 => this.tasksDay2 = t2));
+    // this.subs.add(this.tmService.tasksDay3$.subscribe(t3 => this.tasksDay3 = t3));
+    // this.subs.add(this.tmService.tasksDay4$.subscribe(t4 => this.tasksDay4 = t4));
+    // this.subs.add(this.tmService.tasksDay5$.subscribe(t5 => this.tasksDay5 = t5));
+    // this.subs.add(this.tmService.tasks$.subscribe(t => {
+    //   this.tasks = t;
+    //   this.tasksSaved = t;
+    // })); 
+    // this.subs.add(this.tmService.goals$.subscribe(g => this.goals = g));
 
-    this.subs.add(this.tmService.tasksDay1$.subscribe(t1 => {
-      this.tasksDay1 = t1;
-      console.dir(this.tasksDay1);
-    }));
-    this.subs.add(this.tmService.tasksDay2$.subscribe(t2 => this.tasksDay2 = t2));
-    this.subs.add(this.tmService.tasksDay3$.subscribe(t3 => this.tasksDay3 = t3));
-    this.subs.add(this.tmService.tasksDay4$.subscribe(t4 => this.tasksDay4 = t4));
-    this.subs.add(this.tmService.tasksDay5$.subscribe(t5 => this.tasksDay5 = t5));
-    this.subs.add(this.tmService.tasks$.subscribe(t => {
-      this.tasks = t;
-      this.tasksSaved = t;
-    })); 
-    this.subs.add(this.tmService.goals$.subscribe(g => this.goals = g));
+    
     this.presentLoading(4,"Looking for goals and tasks");
     this.quotes = this.commentsService.encouragement;
     this.tags =  this.tmService.filterTags;
@@ -106,12 +115,12 @@ createEvents(tasks) {
 
 
   filterTags() {
-     this.tasks = [...this.tasksSaved];
+   
      if(this.tagOptions.value === 'All') {
-       this.tmService.sortDays(5, [...this.tasks]);
+       this.tmService.sortDays(5);
        return;
      }
-     this.tmService.sortDays(5, this.tasks.filter(task => task.tag === this.tagOptions.value));
+     this.tmService.sortDays(5, this.tagOptions.value);
   }
 
   getRandomQuote() {

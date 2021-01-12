@@ -43,7 +43,6 @@ export class BackendService  {
 
   getTasks() {
     this.user = this.auth.user;
-    console.dir(this.user);
     return this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
   }
   getGoals() {
@@ -66,17 +65,14 @@ export class BackendService  {
     let taskToUpdate;
     tasks.forEach(task => {
       taskToUpdate = this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
-      taskToUpdate.doc(task.id).update({...task});
-
-
-      
+      taskToUpdate.doc(task.id).update({...task});    
     });
       
   }
 
   updateGoals(goals: Goal[]) {
     const goalPromises = [];
-    console.dir(goals);
+
 
     goals.forEach(goal => {
       goalPromises.push(this.firestore.collection<Goal>(`users/${this.user.uid}/Goals`).doc(goal.id).update({...goal}));
@@ -116,7 +112,7 @@ export class BackendService  {
     });
     Promise.all(goalPromises)
       .then((docRef) => {
-          console.dir(docRef);
+        
       })
       
     

@@ -29,6 +29,7 @@ export class AuthRedoneService {
     user$:Observable<any>;
     private loggedUser:any;
     userProfile:any;
+    private userLogged:any;
    
 
     constructor(
@@ -42,7 +43,7 @@ export class AuthRedoneService {
         this.user$ = this.afAuth.authState.pipe(
             switchMap( user => {
                 if(user) {
-                 
+                  
                     localStorage.setItem('user', JSON.stringify(user));
                     return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
                 } else {
@@ -78,7 +79,6 @@ export class AuthRedoneService {
         const credential = firebase.auth.GoogleAuthProvider.credential(token);
 
         const { user } = await this.afAuth.signInWithCredential(credential);
-        console.log({user});
         this.updateUserData(user);
         this.router.navigate(['/tabs']);
     }

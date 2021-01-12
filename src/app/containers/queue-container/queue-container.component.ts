@@ -14,6 +14,8 @@ import { Goal } from 'src/app/shared/models/goal.model';
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
+import { tap } from 'rxjs/internal/operators/tap';
+import { map } from 'rxjs/operators';
 // import { SubSink } from 'subsink';
 
 
@@ -44,11 +46,12 @@ export class QueueContainerComponent implements OnInit {
   // tasksDay4: Task[] = [];
   // tasksDay5: Task[] = [];
 
-  tasksDaysAndGoals$:Observable<any[]>;
-  // tasksDay2$:Observable<Task[]>;
-  // tasksDay3$:Observable<Task[]>;
-  // tasksDay4$:Observable<Task[]>;
-  // tasksDay5$:Observable<Task[]>;
+
+  tasksDay1$:Observable<Task[]>;
+  tasksDay2$:Observable<Task[]>;
+  tasksDay3$:Observable<Task[]>;
+  tasksDay4$:Observable<Task[]>;
+  tasksDay5$:Observable<Task[]>;
 
   defaultHours = 0; 
 
@@ -73,14 +76,16 @@ export class QueueContainerComponent implements OnInit {
   ngOnInit(): void {  
     // this.commentsService.initComments();
     this.tmService.init();
-    this.tasksDaysAndGoals$ = combineLatest(
-      [this.tmService.goals$,
-      this.tmService.tasksDay1$,
-      this.tmService.tasksDay2$,
-      this.tmService.tasksDay3$,
-      this.tmService.tasksDay4$,
-      this.tmService.tasksDay5$]
-    )
+
+
+        this.tasksDay1$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 1))),
+        this.tasksDay2$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 2))),
+        this.tasksDay3$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 3))),
+        this.tasksDay4$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 4))),
+        this.tasksDay5$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 5)))
+  
+  
+
     // this.subs.add(this.tmService.tasksDay1$.subscribe(t1 => {
     //   this.tasksDay1 = t1;
     //   console.dir(this.tasksDay1);
@@ -113,14 +118,14 @@ createEvents(tasks) {
 
 
 
-
+  //TODO: make a reactive version of the in the server (subject-based?)
   filterTags() {
    
      if(this.tagOptions.value === 'All') {
-       this.tmService.sortDays(5);
+      //  this.tmService.sortDays(5);
        return;
      }
-     this.tmService.sortDays(5, this.tagOptions.value);
+    //  this.tmService.sortDays(5, this.tagOptions.value);
   }
 
   getRandomQuote() {
@@ -173,7 +178,7 @@ createEvents(tasks) {
    }
 
   updateAllTasks(event) {
-    this.tmService.updateAllTasks(event || [...this.tasks]);
+    this.tmService.updateAllTasks(event);
   }
 
   addTask() {
@@ -187,7 +192,6 @@ createEvents(tasks) {
   }
 
 
-
   showAwards() {this.tmService.showAwards();}
 
 
@@ -196,41 +200,7 @@ createEvents(tasks) {
     return diff || 0;
   }
 
-  checkIfMilestoneDone(taskGoalId: string) : number {
-    let currentTask;
-    let complete = 1;
-    const milestoneInQuestion = this.goals.find(goal => goal.id === taskGoalId);
-    console.dir(milestoneInQuestion);
-    milestoneInQuestion.taskChildren.forEach( currentTaskId => {
-      currentTask = this.tasks.find(task => task.id === currentTaskId);
-      if(currentTask && !currentTask.completed) {
-        console.log("Milestone Not completed yet");
-        console.dir(milestoneInQuestion);
-        complete = 0;
-      } 
-    })
 
-    return complete;
-  
-  }
-
-  checkIfGoalDone(milestoneGoalId: string) : number {
-    let milestone;
-    let complete = 1;
-    const goalInQuestion = this.goals.find(goal => goal.id === milestoneGoalId);
-    console.dir(goalInQuestion);
-    goalInQuestion.taskChildren.forEach( milestoneId => {
-      milestone = this.tasks.find(task => task.id === milestoneId);
-      if(milestone && !milestone.completed) {
-        console.log("Goal Not completed yet");
-        console.dir(goalInQuestion);
-        complete = 0;
-      } 
-    })
-
-    return complete;
-  
-  }
 
   async presentLoading(d, m) {
     const loading = await this.loadingController.create({
@@ -248,8 +218,8 @@ createEvents(tasks) {
   logout() {this.auth.signOut();}
 
   ngOnDestroy() {
-    if(this.subs) this.subs.unsubscribe();
-    if(this.daySub) this.daySub.unsubscribe();
+    // if(this.subs) this.subs.unsubscribe();
+    // if(this.daySub) this.daySub.unsubscribe();
   }
 
 }

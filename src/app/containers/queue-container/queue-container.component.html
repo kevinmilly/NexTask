@@ -23,11 +23,11 @@
   
 <ion-content class="header-background" >
 
-    <mat-tab-group mat-align-tabs="center" >
-        <mat-tab  label="Today">  
+  <mat-tab-group mat-align-tabs="center">  
+        <mat-tab  label="Today"> 
           <ion-content class="main-background">
   
-              <ion-card class="card-style card-background"  *ngIf="tasksDaysAndGoals$[1] | async as tasksDay1; else noTasks">
+              <ion-card class="card-style card-background"  *ngIf="tasksDay1$ | async as tasksDay1; else noTasks">
                 <div class="tasks-buttons">
                   <ion-grid>
                     <ion-row>
@@ -84,7 +84,8 @@
 
               
         </mat-tab>
-          <mat-tab  label="Tomorrow" *ngIf="tasksDaysAndGoals$[2] | async as tasksDay2">
+        <ng-container *ngIf="tasksDay2$ | async as tasksDay2">
+          <mat-tab  label="Tomorrow" *ngIf="tasksDay2.length > 0">
           
             <ion-content >
                 <ion-card class="card-style">
@@ -109,8 +110,11 @@
                     </ion-card-content>
                 </ion-card>
               </ion-content>
-            </mat-tab>
-          <mat-tab  label="Day 3" *ngIf="tasksDaysAndGoals$[3] | async as tasksDay3">
+          </mat-tab>
+        </ng-container>
+
+        <ng-container *ngIf="tasksDay3$ | async as tasksDay3">
+          <mat-tab  label="Day 3" *ngIf="tasksDay3.length > 0">
           
             <ion-content >
                 <ion-card class="card-style">
@@ -134,8 +138,11 @@
                     </ion-card-content>
                 </ion-card>
               </ion-content>
-            </mat-tab>
-          <mat-tab  label="Day 4" *ngIf="tasksDaysAndGoals$[4] | async as tasksDay4">
+          </mat-tab>
+        </ng-container>
+  
+        <ng-container *ngIf="tasksDay4$ | async as tasksDay4">
+          <mat-tab  label="Day 4" *ngIf="tasksDay4.length > 0">
           
             <ion-content >
                 <ion-card class="card-style">
@@ -160,8 +167,11 @@
                     </ion-card-content>
                 </ion-card>
               </ion-content>
-            </mat-tab>
-          <mat-tab  label="Day 5" *ngIf="tasksDaysAndGoals$[5] | async as tasksDay5">
+         </mat-tab>
+        </ng-container>
+
+        <ng-container *ngIf="tasksDay5$ | async as tasksDay5">
+          <mat-tab  label="Day 5" *ngIf="tasksDay5.length > 0">
           
             <ion-content >
                 <ion-card class="card-style">
@@ -186,7 +196,8 @@
                     </ion-card-content>
                 </ion-card>
               </ion-content>
-            </mat-tab>
+          </mat-tab>
+        </ng-container>
        
         <ion-fab>
   

@@ -9,16 +9,19 @@ import { FormControl } from '@angular/forms';
 
 
 import { LoadingController, ToastController } from '@ionic/angular';
-import { Goal } from 'src/app/shared/models/goal.model';
+
 
 import { TaskManagementService } from 'src/app/shared/services/task-management.service';
 import { CommentsService } from 'src/app/shared/services/comments.service';
 import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
-import { tap } from 'rxjs/internal/operators/tap';
+
 import { map } from 'rxjs/operators';
+import { Goal } from 'src/app/shared/models/goal.model';
 // import { SubSink } from 'subsink';
 
-
+interface TaskAndGoal {
+  goalAndTask: [Goal[],Task[]]
+}
 
 
 
@@ -78,11 +81,11 @@ export class QueueContainerComponent implements OnInit {
     this.tmService.init();
 
 
-        this.tasksDay1$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 1))),
-        this.tasksDay2$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 2))),
-        this.tasksDay3$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 3))),
-        this.tasksDay4$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 4))),
-        this.tasksDay5$ = this.tmService.tasks$.pipe(map((tasks) => tasks[0].filter(t => t.day === 5)))
+    this.tasksDay1$ = this.tmService.tasks$.pipe(map((tasks:any) => tasks[0].filter(t => t.day === 1))),
+    this.tasksDay2$ = this.tmService.tasks$.pipe(map((tasks:any) => tasks[0].filter(t => t.day === 2))),
+    this.tasksDay3$ = this.tmService.tasks$.pipe(map((tasks:any) => tasks[0].filter(t => t.day === 3))),
+    this.tasksDay4$ = this.tmService.tasks$.pipe(map((tasks:any) => tasks[0].filter(t => t.day === 4))),
+    this.tasksDay5$ = this.tmService.tasks$.pipe(map((tasks:any) => tasks[0].filter(t => t.day === 5)))
   
   
 

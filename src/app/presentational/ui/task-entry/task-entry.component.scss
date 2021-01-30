@@ -41,19 +41,22 @@ form {
 
 .high {
   color: red;
-  font-size: 1.5em;
+  font-size: 1.4em;
   margin-left: 1em;
+  margin-bottom: 1em;
 }
 .med {
   color: rgb(255, 136, 0);
-  font-size: 1.3em;
+  font-size: 1.2em;
   margin-left: 1em;
+  margin-bottom: 1em;
 }
 
 .low {
   color: rgb(248, 195, 19);
   font-size: 1em;
   margin-left: 1em;
+  margin-bottom: 1em;
 }
 
 ion-item {
@@ -62,7 +65,7 @@ ion-item {
 }
 
 .label-prompt {
-  margin-top: 0.5em;
+  margin-top: 2em;
   margin-left: 0.5em;
 }
 

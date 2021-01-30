@@ -22,7 +22,10 @@ export class TabsPage {
   ngOnInit() {
     if(this.auth.user) {
       this.checkGoal = this.tmService.goals$.subscribe(goals => this.goals = goals);
-      this.checkTask = this.tmService.allTasks$.subscribe(tasks => this.tasks = tasks);
+      this.checkTask = this.tmService.allTasks$.subscribe(tasks => {
+        console.dir(tasks);
+        this.tasks = tasks
+      });
     }
  
   }

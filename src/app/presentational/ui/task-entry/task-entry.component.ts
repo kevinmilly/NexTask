@@ -13,7 +13,7 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./task-entry.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class TaskEntryComponent implements AfterViewInit {
+export class TaskEntryComponent {
 
  
 
@@ -115,13 +115,6 @@ export class TaskEntryComponent implements AfterViewInit {
     private cd: ChangeDetectorRef,
     private backend: BackendService,
    ) { }
-
-  ngAfterViewInit(): void {
-    this.ideaSub = this.backend
-                       .getIdeas()
-                       .valueChanges()
-                       .subscribe(i => this.ideas = i);
-  }
 
   useIdea(idea) {
     this.taskForm.controls['title'].setValue(idea.title);

@@ -22,7 +22,7 @@
         <ion-segment-button class="main-segments" value="adhoc"  >
           <ion-label>Ad-hoc Tasks</ion-label>
         </ion-segment-button>
-        <ion-segment-button class="main-segments" value="goalBased" [disabled]="goals.length === 0">
+        <ion-segment-button class="main-segments" value="goalBased" [disabled]="goals && goals.length === 0">
           <ion-label>Goal-based Tasks</ion-label>
         </ion-segment-button>
       </ion-segment>

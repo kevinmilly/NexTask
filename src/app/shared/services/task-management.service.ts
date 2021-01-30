@@ -91,7 +91,7 @@ export class TaskManagementService {
     this.allTasks$ = this.backend.getTasks().valueChanges();
     
       const tempTask$= 
-       this.allTasks$.pipe(
+      this.backend.getTasks().valueChanges().pipe(
           map(tasks => tasks.filter(t => !t.completed)),
           map(tasks => this.incrementDaysForTasks(5,tasks)),
           map(tasks => this.calculatePastDue(tasks))

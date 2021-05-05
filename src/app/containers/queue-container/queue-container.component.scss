@@ -53,6 +53,7 @@ ion-fab-list {
 }
 .card-background {
   --ion-background-color: rgb(245, 233, 220);
+    height: 80vh;
 }
 
 .header-background {
@@ -63,4 +64,10 @@ ion-fab-list {
   font-size: 0.9em;
   color: rgb(207, 135, 0);
   margin-top: 0.5em;
+}
+
+
+ion-card-title {
+  display: flex;
+  justify-content: center;
 }

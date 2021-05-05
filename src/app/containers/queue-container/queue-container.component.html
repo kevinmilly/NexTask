@@ -27,44 +27,45 @@
         <mat-tab  label="Today"> 
           <ion-content class="main-background">
   
-              <ion-card class="card-style card-background"  *ngIf="tasksDay1$ | async as tasksDay1; else noTasks">
-                <div class="tasks-buttons">
-                  <ion-grid>
-                    <ion-row>
-                      <ion-col>
-                        <ion-list lines="none" *ngIf="tags.length > 0; else noTags">
-                          <ion-item >
-                            <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()" class="filter-select">
-                              <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
-                            </ion-select>
-                          </ion-item>
-                        </ion-list>
-                          <ng-template #noTags>No Tags to Filter By Yet</ng-template>
-                      </ion-col>
-                      <ion-col>
-                        <ion-list lines="none">
-                          <ion-item >
-                            <ion-button  (click)="createEvents(tasksDay1)" slot="end">
-                              <ion-icon name="calendar-outline"></ion-icon>
-                            </ion-button>
-                          </ion-item>
-                        </ion-list>
-                      </ion-col>
-                    </ion-row>
-                  </ion-grid>
+              <ion-card class="card-style card-background"  *ngIf="tasksDay1$ | async as tasksDay1">
+                <div *ngIf="tasksDay1.length > 0; else noTasks">
+                    <div class="tasks-buttons">
+                      <ion-grid>
+                        <ion-row>
+                          <ion-col>
+                            <ion-list lines="none" *ngIf="tags.length > 0; else noTags">
+                              <ion-item >
+                                <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()" class="filter-select">
+                                  <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
+                                </ion-select>
+                              </ion-item>
+                            </ion-list>
+                              <ng-template #noTags>No Tags to Filter By Yet</ng-template>
+                          </ion-col>
+                          <ion-col *ngIf="tasksDay1.length > 0">
+                            <ion-list lines="none">
+                              <ion-item >
+                                <ion-button  (click)="createEvents(tasksDay1)" slot="end">
+                                  <ion-icon name="calendar-outline"></ion-icon>
+                                </ion-button>
+                              </ion-item>
+                            </ion-list>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    </div>
+                    <ion-card-content>
+                        <app-task-container 
+                          (editTaskEmitter) = "editTask($event)" 
+                          (taskUpdate) = "updateAllTasks($event)" 
+                          (deleteTask)="deleteTask($event)" 
+                          (markedComplete) ="markTaskComplete($event)" 
+                          [tasks] = "tasksDay1" 
+                          (createdIdea)="createIdea($event)">
+                        </app-task-container>
+                    </ion-card-content>
                 </div>
-                <ion-card-content>
-                    <app-task-container 
-                      (editTaskEmitter) = "editTask($event)" 
-                      (taskUpdate) = "updateAllTasks($event)" 
-                      (deleteTask)="deleteTask($event)" 
-                      (markedComplete) ="markTaskComplete($event)" 
-                      [tasks] = "tasksDay1" 
-                      (createdIdea)="createIdea($event)">
-                    </app-task-container>
-                </ion-card-content>
-            </ion-card>
-        
+              </ion-card>
                 <ng-template #noTasks>
                     <ion-card class="card-style card-background">
                       <ion-card-header>

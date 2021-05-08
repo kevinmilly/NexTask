@@ -37,6 +37,10 @@ describe('TaskManagementService', () => {
 
 
   beforeEach(() => {
+    goals = [];
+    tasks = [];
+    goals = [...testGoals];
+    tasks = [...testTasks];
     TestBed.configureTestingModule({
       providers:[
         {provide:BackendService, useValue:backend},
@@ -46,10 +50,6 @@ describe('TaskManagementService', () => {
         ] 
     });
     tmService = TestBed.inject(TaskManagementService);
-    goals = [];
-    tasks = [];
-    goals = [...testGoals];
-    tasks = [...testTasks];
   });
 
 
@@ -103,7 +103,7 @@ describe('TaskManagementService', () => {
   it('should check if a milestone is done (all the tasks are complete)', () => {
       tasks[0].completed = 1;
       expect(tmService.checkIfMilestoneDone(goals[1].id,tasks,goals))
-        .toBe(true);
+        .toBe(1);
   });
 
 

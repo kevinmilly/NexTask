@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Goal } from 'src/app/shared/models/goal.model';
 import { Task } from 'src/app/shared/models/task.model';
-import { TaskManagementService } from 'src/app/shared/services/task-management.service';
+import { TaskManagementService } from 'src/app/core/services/task-management/task-management.service';
 import { Chart, ChartOptions, ChartType } from 'chart.js';
 import { ChangeDetectorRef } from '@angular/core';
 

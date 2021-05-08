@@ -1,9 +1,8 @@
 import { Component, OnInit, Inject, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
-import { BackendService } from '../../../shared/services/backend.service';
+import { BackendService } from '../../../core/services/backend/backend.service';
 import { Idea } from '../../../shared/models/idea.model';
 import { ModalController } from '@ionic/angular';
 

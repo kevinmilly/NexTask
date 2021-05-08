@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Goal } from '../shared/models/goal.model';
 import { Task } from '../shared/models/task.model';
-import { AuthRedoneService } from '../shared/services/authredone.service';
-import { TaskManagementService } from '../shared/services/task-management.service';
+import { AuthRedoneService } from '../core/services/auth/authredone.service';
+import { TaskManagementService } from '../core/services/task-management/task-management.service';
 
 @Component({
   selector: 'app-tabs',

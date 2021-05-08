@@ -11,7 +11,7 @@ export const testTasks:Task[] = [
         urgency: 2,
         pastDue: 1,
         resource: '',
-        title: 'Test Task 1',
+        title: 'Test Task 1', 
         completed:0,
         completedDate: '',
         completedTime: '',

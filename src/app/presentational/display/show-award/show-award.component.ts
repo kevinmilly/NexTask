@@ -3,10 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { Badge } from 'src/app/shared/models/badge.model';
 import { Metrics } from 'src/app/shared/models/metrics.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
-import { BackendService } from 'src/app/shared/services/backend.service';
-import { BadgeService } from 'src/app/shared/services/badge.service';
+import { AuthRedoneService } from '../../../core/services/auth/authredone.service';
+import { BadgeService } from '../../../core/services/badge/badge.service';
 
 
 interface BadgeStatus {

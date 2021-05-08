@@ -2,7 +2,6 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Observable, Subscription, combineLatest } from 'rxjs';
 import { Task } from '../../shared/models/task.model';
 import * as moment from "moment";
-import { AuthService } from '../../shared/services/auth.service';
 
 
 import { FormControl } from '@angular/forms';
@@ -11,9 +10,9 @@ import { FormControl } from '@angular/forms';
 import { LoadingController, ToastController } from '@ionic/angular';
 
 
-import { TaskManagementService } from 'src/app/shared/services/task-management.service';
-import { CommentsService } from 'src/app/shared/services/comments.service';
-import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
+import { TaskManagementService } from 'src/app/core/services/task-management/task-management.service';
+import { CommentsService } from 'src/app/core/services/comments/comments.service';
+import { AuthRedoneService } from '../../core/services/auth/authredone.service';
 
 import { map } from 'rxjs/operators';
 import { Goal } from 'src/app/shared/models/goal.model';

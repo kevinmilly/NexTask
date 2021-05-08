@@ -2,14 +2,11 @@ import { TestBed } from '@angular/core/testing';
 
 import { BackendService } from './backend.service';
 
-import { BadgeService } from './badge.service';
-
-import { testBadges } from '../test-data/test-badge';
-import { testMetrics } from '../test-data/test-metrics';
-import { testTasks } from '../test-data/test-tasks';
+import { testBadges } from '../../../shared/test-data/test-badge';
+import { testMetrics } from '../../../shared/test-data/test-metrics';
+import { testTasks } from '../../../shared/test-data/test-tasks';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
-import { AuthRedoneService } from './authredone.service';
+import { AuthRedoneService } from '../auth/authredone.service';
 
 xdescribe('BackendService', () => {
   let service: BackendService;

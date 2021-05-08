@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
+import { User } from '../../../shared/models/user.model';
 
 
 import firebase from 'firebase/app';
@@ -11,9 +11,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 import { Subscription } from 'rxjs/internal/Subscription';
-import { Task } from '../models/task.model';
+import { Task } from '../../../shared/models/task.model';
 import * as moment from 'moment';
-import { Metrics } from '../models/metrics.model';
+import { Metrics } from '../../../shared/models/metrics.model';
 
 declare let gapi: any;
 

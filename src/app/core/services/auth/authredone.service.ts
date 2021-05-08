@@ -15,9 +15,9 @@ import {
     AngularFirestoreCollection,
     AngularFirestoreDocument
 } from '@angular/fire/firestore';
-import { Metrics } from "../models/metrics.model";
+import { Metrics } from "../../../shared/models/metrics.model";
 import * as moment from "moment";
-import { Task } from "../models/task.model";
+import { Task } from "../../../shared/models/task.model";
 
 
 

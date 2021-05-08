@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Goal } from 'src/app/shared/models/goal.model';
 import { Task } from 'src/app/shared/models/task.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { AuthRedoneService } from 'src/app/shared/services/authredone.service';
-import { TaskManagementService } from 'src/app/shared/services/task-management.service';
+import { AuthRedoneService } from '../../../core/services/auth/authredone.service';
+import { TaskManagementService } from 'src/app/core/services/task-management/task-management.service';
 
 
 

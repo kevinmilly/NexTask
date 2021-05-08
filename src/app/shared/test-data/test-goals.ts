@@ -11,7 +11,7 @@ export const testGoals: Goal[] = [
         completed: 0,
         completedDate: '',
         createdDate: '2020-11-21',
-        tag: 'general',
+        tag: 'general', 
         taskChildren: [],
         id:'dfgerbdgg',
         parentGoal:null,

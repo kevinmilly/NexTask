@@ -4,7 +4,7 @@ import { Task } from '../../shared/models/task.model';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ModalController, ToastController } from '@ionic/angular';
 import { TaskEntryComponent } from 'src/app/presentational/ui/task-entry/task-entry.component';
-import { CommentsService } from 'src/app/shared/services/comments.service';
+import { CommentsService } from 'src/app/core/services/comments/comments.service';
 
 
 

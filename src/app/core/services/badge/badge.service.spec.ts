@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { BadgeService } from './badge.service';
 
-import { testBadges } from '../test-data/test-badge';
-import { testMetrics } from '../test-data/test-metrics';
+import { testBadges } from '../../../shared/test-data/test-badge';
+import { testMetrics } from '../../../shared/test-data/test-metrics';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 xdescribe('BadgeService', () => {

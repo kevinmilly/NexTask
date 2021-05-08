@@ -3,8 +3,8 @@ import { AngularFirestore} from '@angular/fire/firestore';
 
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
-import { Metrics } from '../models/metrics.model';
-import { Badge } from '../models/badge.model';
+import { Metrics } from '../../../shared/models/metrics.model';
+import { Badge } from '../../../shared/models/badge.model';
 /*
   1:Completion
   2: TimeOfUse

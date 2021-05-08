@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { ContainerModule } from './containers/container.module';
 import { PresentationalModule } from './presentational/presentational-module';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './core/login/login.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({

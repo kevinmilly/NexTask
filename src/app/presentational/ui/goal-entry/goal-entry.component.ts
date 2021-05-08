@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Goal } from 'src/app/shared/models/goal.model';
 import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Task } from 'src/app/shared/models/task.model';
-import { BackendService } from 'src/app/shared/services/backend.service'
+import { BackendService } from '../../../core/services/backend/backend.service'
 import * as moment from 'moment';
 import { ModalController, ToastController } from '@ionic/angular';
-import { CommentsService } from 'src/app/shared/services/comments.service';
+import { CommentsService } from 'src/app/core/services/comments/comments.service';
 
 @Component({
   selector: 'app-goal-entry',

@@ -1,15 +1,14 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
-import { User } from '../models/user.model';
-import { Task } from '../models/task.model';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { Idea } from '../models/idea.model';
-import { Metrics } from '../models/metrics.model';
-import { Badge } from '../models/badge.model';
-import { testBadges } from '../test-data/test-badge';
-import { Goal } from '../models/goal.model';
-import { AuthRedoneService } from './authredone.service';
+import { User } from '../../../shared/models/user.model';
+import { Task } from '../../../shared/models//task.model';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Idea } from '../../../shared/models//idea.model';
+import { Metrics } from '../../../shared/models//metrics.model';
+import { Badge } from '../../../shared/models//badge.model';
+import { testBadges } from '../../../shared/test-data/test-badge';
+import { Goal } from '../../../shared/models//goal.model';
+import { AuthRedoneService } from '../auth/authredone.service';
 
 
 @Injectable({

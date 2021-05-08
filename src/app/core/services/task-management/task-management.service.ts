@@ -4,19 +4,18 @@ import * as moment from "moment";
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
-import { Task } from '../../shared/models/task.model';
+import { Task } from '../../../shared/models/task.model';
 import { Goal } from 'src/app/shared/models/goal.model';
 
-import { BackendService } from './backend.service';
-import { AuthService } from '../../shared/services/auth.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { BackendService } from '../backend/backend.service';
+import { FormControl} from '@angular/forms';
 import { TaskEntryComponent } from 'src/app/presentational/ui/task-entry/task-entry.component';
 import { ShowAwardComponent } from 'src/app/presentational/display/show-award/show-award.component';
 
 
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
 import { map, take, tap} from 'rxjs/operators';
-import { AuthRedoneService } from './authredone.service';
+import { AuthRedoneService } from '../auth/authredone.service';
 import { ItemEditComponent } from 'src/app/presentational/ui/item-edit/item-edit.component';
 import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-entry/milestone-entry.component';
 import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entry/date-time-entry.component';
@@ -98,7 +97,7 @@ export class TaskManagementService {
         );
        this.tasks$ = combineLatest([tempTask$,this.goals$])
         .pipe(
-          map(([tasks,goals]) => this.sortTasksAndGoals(tasks,goals)),
+          map(([tasks,goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks,goals)),
           )
       .pipe(
         tap(t => {
@@ -113,26 +112,6 @@ export class TaskManagementService {
 
   
 
-  // sendUpdates(
-  //   allTasks,
-  //   tasks,
-  //   allGoals,
-  //   t1,
-  //   t2,
-  //   t3,
-  //   t4,
-  //   t5
-  // ) {
-  //   this.allTasksSubject.next([...allTasks]);
-  //   this.tasksSubject.next([...tasks]);
-  //   this.goalsSubject.next([...allGoals]);
-  //   this.tasksDay1Subject.next([...t1]);
-  //   this.tasksDay2Subject.next([...t2]);
-  //   this.tasksDay3Subject.next([...t3]);
-  //   this.tasksDay4Subject.next([...t4]);
-  //   this.tasksDay5Subject.next([...t5]);
-  // }
-
   calculatePastDue(tasks: Task[]) {
     return  tasks.map(t => {
       return {
@@ -142,13 +121,42 @@ export class TaskManagementService {
     });
   }
 
-  sortTasksAndGoals(t,g) {
+
+  prioritizeAdhocAndGoalRelatedTasks(t,g) {
 
     const nonGoalTasks = t.filter(t => !t.goalId);
-    t = nonGoalTasks.concat(this.goalTaskFilter(t, g));
-    t = this.fullySortNonCompletedTasks(t);
+    t = nonGoalTasks
+        .concat(this.goalRelatedTaskPrioritize(t.filter(t => t.goalId), g))
+        .filter(task => task.completed === 0)
+        .sort((a,b) =>  (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue));
+    
     return [t,g];
   }
+
+  goalRelatedTaskPrioritize(goalRelatedTasks: Task[], goals: Goal[]) {
+      if(goals.length === 0) return []; //no need to find goal related tasks if they don't exist
+
+      const parentGoalsSortedByPriority = goals
+                                    .filter(goal => !goal.completed && goal.parentGoal === null)                          
+                                    .sort((a,b) => {
+                                        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+                                      })   
+
+
+      const sortedMilestonesOfHighestGoal = goals
+                                          .filter(goal => !goal.completed && 
+                                                            goal.parentGoal === parentGoalsSortedByPriority[0].id)
+                                          .sort((a,b) => {
+                                            return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+                                          })
+
+
+      const list = goalRelatedTasks.filter(t => t.goalId === sortedMilestonesOfHighestGoal[0].id);
+
+      return list;
+      
+  }
+
 
   incrementDaysForTasks(hours: number, taskList: Task[]) {
     let dayIterator = 1;
@@ -168,12 +176,6 @@ export class TaskManagementService {
   }
 
 
-  fullySortNonCompletedTasks(tasks) {
-    return tasks.filter(task => task.completed === 0).sort((a,b) => {
-      if(a.goalId && b.goalId) return 0//don't resort goal-based task amongst themselves
-      return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue);
-    });
-  }
 
   createIdea(event) {
     this.backend.addIdea({title: event.title, createdDate: moment().format("MM/DD/YYYY")});
@@ -211,16 +213,7 @@ export class TaskManagementService {
       .then((data) => {
         const result = data['data']; 
         if(result.id) this.backend.addMetric(this.backend.addTask(result), "creation")
-        // this.tasks.push(result);
-        // this.sendUpdates( 
-        //   this.allTasks,
-        //   this.tasks,
-        //   this.goals,
-        //   this.tasksDay1,
-        //   this.tasksDay2,
-        //   this.tasksDay3,
-        //   this.tasksDay4,
-        //   this.tasksDay5);
+
     });
 
 
@@ -298,15 +291,7 @@ export class TaskManagementService {
           const returnedGoals = this.backend.addGoals(result.goalToSubmit);
           const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
         }
-        // this.sendUpdates( 
-        //   this.allTasks,
-        //   this.tasks,
-        //   this.goals,
-        //   this.tasksDay1,
-        //   this.tasksDay2,
-        //   this.tasksDay3,
-        //   this.tasksDay4,
-        //   this.tasksDay5);
+ 
     });
 
 
@@ -377,15 +362,7 @@ export class TaskManagementService {
     //  this.tasks.splice(this.tasks.findIndex(task => task.id === event.id),1);
      const returnItem = this.backend.delete(event);
 
-    //  this.sendUpdates( 
-    //   this.allTasks,
-    //   this.tasks,
-    //   this.goals,
-    //   this.tasksDay1, 
-    //   this.tasksDay2,
-    //   this.tasksDay3,
-    //   this.tasksDay4,
-    //   this.tasksDay5);
+
   
    }
 
@@ -406,15 +383,7 @@ export class TaskManagementService {
       // this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
       this.backend.deleteGoal(g);
 
-    // this.sendUpdates( 
-    //  this.allTasks,
-    //  this.tasks,
-    //  this.goals,
-    //  this.tasksDay1, 
-    //  this.tasksDay2,
-    //  this.tasksDay3,
-    //  this.tasksDay4,
-    //  this.tasksDay5);
+
  
   }
 
@@ -486,57 +455,11 @@ export class TaskManagementService {
         }
       })
       return complete;
-    
-    // goalInQuestion.taskChildren.forEach( milestoneId => {
-    //   milestone = this.tasks.find(task => task.id === milestoneId);
-    //   if(milestone && !milestone.completed) {
-    //     console.log("Goal Not completed yet");
-    //     console.dir(goalInQuestion);
-    //     complete = 0;
-    //   } 
-    // })
   
   }
 
   
-  
-  goalTaskFilter(taskList: Task[], goals: Goal[]) {
 
-    
-    if(goals.length === 0) return []; //no need to find goal related tasks if they don't exist
-
-    //get most prioritized goal
-   const sortedFilteredGoals = goals
-                                .filter(goal => !goal.completed && goal.parentGoal === null)                          
-                                 .sort((a,b) => {
-                                     return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
-                                  })
-                                  
-  
-    //get the milestones within the most prioritized goal
-    const filteredMilestones = goals
-    .filter(goal => !goal.completed && goal.parentGoal === sortedFilteredGoals[0].id);
-    
-      //get the most prioritized milestone within that goal
-    const sortedFilteredMilestones = filteredMilestones
-        .sort((a,b) => {
-          return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
-         })
-         
-         if(sortedFilteredMilestones.length > 0) {
-
-          const filteredTasks = taskList.filter(t => t.goalId);
-
-          const list = filteredTasks.filter(t => t.goalId === sortedFilteredMilestones[0].id);
-
-         return list;
-  
-         } else {
-            return [];
-         }
-         
-     
-  }
 
 
   async showAwards() {

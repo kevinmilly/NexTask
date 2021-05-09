@@ -2,7 +2,7 @@ import { Task } from '../models/task.model';
 
 export const testTasks:Task[] = [
     {
-        id:'slkejl34kjl3k',
+        id:'slkejl34kjl3k', 
         day: 1,
         description: "Test Description 1",
         minutes: 33,
@@ -14,7 +14,7 @@ export const testTasks:Task[] = [
         title: 'Test Task 1', 
         completed:0,
         completedDate: '',
-        completedTime: '',
+        completedTime: '', 
         createdDate: '2020-11-28',
         tag: 'general',
         goalId: '1a2b3c',

@@ -14,7 +14,7 @@ export const testGoals: Goal[] = [
         tag: 'general', 
         taskChildren: [],
         id:'dfgerbdgg',
-        parentGoal:null,
+        parentGoal:null, 
         show: true
     },
     {
@@ -76,5 +76,5 @@ export const testGoals: Goal[] = [
         id:'testmile3',
         parentGoal:'testgoal2',
         show: true
-    },
+    }
 ];

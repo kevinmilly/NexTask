@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import * as moment from "moment";
 import { ModalController } from '@ionic/angular';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, Subscription } from 'rxjs';
 
 import { Task } from '../../../shared/models/task.model';
 import { Goal } from 'src/app/shared/models/goal.model';
@@ -21,6 +21,9 @@ import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-ent
 import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entry/date-time-entry.component';
 import {combineLatest } from 'rxjs';
 
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,20 +32,11 @@ export class TaskManagementService {
 
   taskSub: Subscription;
   goalsSub: Subscription;
-  daySub: Subscription;
+  daySub: Subscription;  
   addSub: Subscription;
   showAwardSub: Subscription;
   settingsSub: Subscription;
   ideaSub: Subscription;
-
-//  private tasks: Task[]= []; 
-//  private allTasks: Task[] =[];
-//  private goals: Goal[]= []; 
-//  private tasksDay1: Task[] = [];
-//  private tasksDay2: Task[] = [];
-//  private tasksDay3: Task[] = [];
-//  private tasksDay4: Task[] = [];
-//  private tasksDay5: Task[] = [];
 
   private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   private allTasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
@@ -92,7 +86,7 @@ export class TaskManagementService {
       const tempTask$= 
       this.backend.getTasks().valueChanges().pipe(
           map(tasks => tasks.filter(t => !t.completed)),
-          map(tasks => this.incrementDaysForTasks(5,tasks)),
+          map(tasks => this.incrementDaysForTasks(this.defaultHours,tasks)),
           map(tasks => this.calculatePastDue(tasks))
         );
        this.tasks$ = combineLatest([tempTask$,this.goals$])
@@ -162,15 +156,21 @@ export class TaskManagementService {
     let dayIterator = 1;
     const minutesADay = hours * 60;
     let remainingMinutes = minutesADay;
+    console.dir(taskList);
     for(let i = 0, len = taskList.length; i < len; i++) { 
 
       if((remainingMinutes - taskList[i].minutes) >= -1) {
         remainingMinutes -= taskList[i].minutes;
+        console.log("Day 1");
+        console.log(`Remaining Minutes is ${remainingMinutes} and task minutes are ${taskList[i].minutes}`);
         taskList[i].day = dayIterator;
       } else {
           taskList[i].day = ++dayIterator;
           remainingMinutes = minutesADay;
+          console.log(`Remaining Minutes is ${remainingMinutes} and task minutes are ${taskList[i].minutes}`);
+          console.log(remainingMinutes);
       }
+     
     }
     return taskList;
   }
@@ -197,9 +197,7 @@ export class TaskManagementService {
       }
     
       this.updateAllTasks(event);
-    
       this.handleGoalUpdates(this.tasks$, this.goals$);
-      // this.tasks.splice(index,1);
    
   }
 
@@ -312,16 +310,7 @@ export class TaskManagementService {
     //       const returnItem = this.backend.updateGoal(result);
     //     }
     const returnItem = this.backend.updateGoals([goalToEdit]);
-        // this.sendUpdates( 
-        //   this.allTasks,
-        //   this.tasks,
-        //   this.goals,
-        //   this.tasksDay1,
-        //   this.tasksDay2,
-        //   this.tasksDay3,
-        //   this.tasksDay4,
-        //   this.tasksDay5);
-    // });
+
     
     //  return await modal.present();
 
@@ -400,30 +389,30 @@ export class TaskManagementService {
 
   handleGoalUpdates(tasks$:Observable<Task[]>, goals$:Observable<Goal[]>) {
 
-    combineLatest([tasks$,goals$])
-      .pipe(take(1))
+    return forkJoin([tasks$,goals$])
       .subscribe(([tasks, goals]) => {
         const goalsToUpdate = [];
         let currentGoal;
-        goals.filter(g => g.taskChildren)
+        const milestones = goals.filter(g => g.taskChildren.length > 0);
+        milestones
           .forEach(m => {
-            m.completed = this.checkIfMilestoneDone(m.id, [...tasks],[...goals]);
+            m.completed = this.checkIfMilestoneDone(m.id, [...tasks],[...milestones]);
             currentGoal = goals.find(g => g.id === m.parentGoal);
             currentGoal.completed = this.checkIfGoalDone(m, [...goals]);
             if(m.completed) goalsToUpdate.push(m);
             if(currentGoal.completed) goalsToUpdate.push(currentGoal);
       
-            this.backend.updateGoals([...goalsToUpdate]);
           });
+
+          this.backend.updateGoals([...goalsToUpdate]);
       })
 
-   
   }
 
-  checkIfMilestoneDone(taskGoalId: string, tasks: Task[], goals: Goal[]) : number {
+  checkIfMilestoneDone(milestoneId: string, tasks: Task[], goals: Goal[]) : number {
     let currentTask;
     let complete = 1;
-    const milestoneInQuestion = goals.find(goal => goal.id === taskGoalId);
+    const milestoneInQuestion = goals.find(goal => goal.id === milestoneId);
     // console.dir(milestoneInQuestion);
     milestoneInQuestion.taskChildren.forEach( currentTaskId => {
       currentTask = tasks.find(task => task.id === currentTaskId);

@@ -10,6 +10,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { BackendService } from '../backend/backend.service';
 import { AuthRedoneService } from '../auth/authredone.service';
 import { ModalController } from '@ionic/angular';
+import { of } from 'rxjs/internal/observable/of';
 
 describe('TaskManagementService', () => {
 
@@ -17,7 +18,7 @@ describe('TaskManagementService', () => {
 //   let fakeFireService = jasmine.createSpyObj("fakeFire",[]);
 
   let goals:Goal[];
-  let tasks:Task[];
+  let tasks:Task[]; 
   let backend: any;
   let auth: any;
   let modal: any;
@@ -28,7 +29,7 @@ describe('TaskManagementService', () => {
     'addMetric',
     'getGoals',
     'getDayHours',
-    'updateGoals',
+    'updateGoals', 
     'updateTasks'
   ])
 
@@ -78,6 +79,7 @@ describe('TaskManagementService', () => {
     tasks[0].priority = 5;
     tasks[0].difficulty = 5;
     tasks[0].urgency = 5;
+    tasks[0].completed = 0;
     const shouldBeHighest = tasks[0];
     const[t,g] = tmService.prioritizeAdhocAndGoalRelatedTasks(tasks,goals);
 
@@ -108,6 +110,12 @@ describe('TaskManagementService', () => {
 
 
   //test for goal done
+  it('should test to see if a goal is done', () => {
+    goals[1].completed = 1;
+    goals[2].completed = 1;
+    expect(tmService.checkIfGoalDone(goals[1],goals))
+      .toBe(1);
+  })
 
 
 

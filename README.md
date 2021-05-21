@@ -4,7 +4,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/kevinmilly/QueueD">
-    <img src="readme-assets/nextask.png" alt="Logo" width="80" height="80">
+    <img src="readme-assets/nexttask.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Queue-D</h3>

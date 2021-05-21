@@ -11,7 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
 
-  
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -27,11 +27,10 @@ export class AppComponent {
         document.addEventListener('backbutton', function (event) {
           event.preventDefault();
           event.stopPropagation();
-          console.log('hello');
         }, false);
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
-  })
-}
+        this.statusBar.styleDefault();
+        this.splashScreen.hide();
+      });
+    })
+  }
 }

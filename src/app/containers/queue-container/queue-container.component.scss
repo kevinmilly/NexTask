@@ -1,3 +1,93 @@
+@mixin center {
+  margin: auto;
+  width: auto;
+  height: 95vh;
+}
+
+.header {
+  --ion-background-color: rgb(85, 72, 60);
+
+  &__setting-buttons {
+    margin: 4rem 1rem 0 2.7rem;
+    .add-button {
+      margin-left: 1rem;
+    }
+    .logout-button {
+      margin-right: 3rem;
+    }
+  }
+
+  ion-badge {
+    width: auto;
+    margin-left: 87%;
+  }
+
+  ion-ion {
+    width: 2em;
+    height: 2em;
+  }
+
+  ion-fab-button {
+    width: 2.5em;
+    height: 2.5em;
+    margin-bottom: 1.5em;
+  }
+  ion-icon {
+    width: 1em;
+    height: 1em;
+  }
+
+  ion-fab-list {
+    margin-right: 3.5em;
+    margin-bottom: 2em;
+  }
+}
+
+.queue-content {
+  /* Styles for tab labels */
+  .mat-tab-label {
+    min-width: 1.2rem !important;
+    padding: 5rem;
+    background-color: transparent;
+    // color: #383838;
+    color: rgb(255, 253, 245);
+    font-weight: 700;
+    font-size: 2rem;
+
+    &-active {
+      color: #000000;
+    }
+  }
+
+  &-main {
+    background-color: rgb(163, 160, 157);
+    height: auto;
+    overflow-y: auto;
+
+    @include center;
+
+    &__card {
+      @include center;
+      background-color: rgb(245, 233, 220);
+      display: flex;
+      justify-content: center;
+
+      .tasks-buttons {
+        margin-left: 5em;
+      }
+    }
+  }
+
+  .filter-select {
+    font-size: 0.9em;
+    color: rgb(207, 135, 0);
+    margin-top: 0.5em;
+  }
+
+  .columnHeaderChoiceSize {
+  }
+}
+
 .task-entry {
   width: "450px";
 }
@@ -10,62 +100,6 @@
 ion-content {
   --ion-background-color: #f8f0ec;
 }
-
-ion-badge {
-  width: auto;
-  margin-left: 87%;
-}
-
-ion-ion {
-  width: 2em;
-  height: 2em;
-}
-
-ion-fab-button {
-  width: 2.5em;
-  height: 2.5em;
-  margin-bottom: 1.5em;
-}
-ion-icon {
-  width: 1em;
-  height: 1em;
-}
-
-ion-fab-list {
-  margin-right: 3.5em;
-  margin-bottom: 2em;
-}
-
-.logout-button {
-  margin-right: 15em;
-}
-
-.setting-buttons {
-  margin: 4em 1em 0 2.7em;
-  .add-button {
-    margin-left: 1em;
-  }
-}
-.main-background {
-  --ion-background-color: rgb(163, 160, 157);
-  height: 45em;
-  overflow-y: auto;
-}
-.card-background {
-  --ion-background-color: rgb(245, 233, 220);
-    height: 80vh;
-}
-
-.header-background {
-  --ion-background-color: rgb(85, 72, 60);
-}
-
-.filter-select {
-  font-size: 0.9em;
-  color: rgb(207, 135, 0);
-  margin-top: 0.5em;
-}
-
 
 ion-card-title {
   display: flex;

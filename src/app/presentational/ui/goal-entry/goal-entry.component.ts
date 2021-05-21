@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Goal } from 'src/app/shared/models/goal.model';
-import {Form, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Form, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Task } from 'src/app/shared/models/task.model';
 import { BackendService } from '../../../core/services/backend/backend.service'
 import * as moment from 'moment';
@@ -9,23 +9,23 @@ import { CommentsService } from 'src/app/core/services/comments/comments.service
 
 @Component({
   selector: 'app-goal-entry',
-  templateUrl: './goal-entry.component.html', 
+  templateUrl: './goal-entry.component.html',
   styleUrls: ['./goal-entry.component.scss']
 })
 export class GoalEntryComponent implements OnInit {
 
-  quotes;  
+  quotes;
 
-  goalsToSubmit: Goal[] =[];
+  goalsToSubmit: Goal[] = [];
   tasksToSubmit: Task[] = [];
 
   goalTitle = "";
-  goalDeadline= moment().add(1, 'M').format("MM/DD/YYYY");
+  goalDeadline = moment().add(1, 'M').format("MM/DD/YYYY");
   // goalDescription = "";
   goalPriority = 3;
-  goalUrgency = 3; 
+  goalUrgency = 3;
   goalDifficulty = 3;
-  goalTag = ""; 
+  goalTag = "";
 
   goalToEdit;
 
@@ -34,19 +34,19 @@ export class GoalEntryComponent implements OnInit {
 
   priorities = [
     {
-      text: "Very Low", 
+      text: "Very Low",
       number: 1
     },
-    { 
-      text: "Low",  
+    {
+      text: "Low",
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "Moderate",
       number: 3
     },
     {
-      text: "High", 
+      text: "High",
       number: 4
     },
     {
@@ -55,22 +55,22 @@ export class GoalEntryComponent implements OnInit {
     }
   ]
 
-  
+
   difficulty = [
     {
-      text: "Very Low", 
+      text: "Very Low",
       number: 1
     },
-    { 
-      text: "Low",  
+    {
+      text: "Low",
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "Moderate",
       number: 3
     },
     {
-      text: "High", 
+      text: "High",
       number: 4
     },
     {
@@ -81,19 +81,19 @@ export class GoalEntryComponent implements OnInit {
 
   urgencyLevels = [
     {
-      text: "Very Low", 
+      text: "Very Low",
       number: 1
     },
-    { 
-      text: "Low",  
+    {
+      text: "Low",
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "Moderate",
       number: 3
     },
     {
-      text: "High", 
+      text: "High",
       number: 4
     },
     {
@@ -101,15 +101,15 @@ export class GoalEntryComponent implements OnInit {
       number: 5
     }
   ]
-  
+
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private backend: BackendService,
     public modalController: ModalController,
     private commentService: CommentsService,
     public toastController: ToastController
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
@@ -117,140 +117,137 @@ export class GoalEntryComponent implements OnInit {
     this.goalForm = this.fb.group({
       goalArray: this.fb.array([
         this.createNewGoal()
-     ])
-   })
-   
-   this.quotes = this.commentService.encouragement;
+      ])
+    })
+
+    this.quotes = this.commentService.encouragement;
 
   }
 
   get goalArray(): FormArray {
     const array = this.goalForm.get('goalArray') as FormArray;
-    // console.dir(array);
     return array;
   }
 
-  getTaskChildren(individualGoal):FormGroup[] {
+  getTaskChildren(individualGoal): FormGroup[] {
     const array = individualGoal.controls.taskChildren.controls;
 
     return array;
-  } 
+  }
 
   //adds another task to the goal
   addGoalChild(goal, index) {
-    this.getTaskChildren(goal).splice(index+1, 0, this.createNewTask());
-    console.log("Adding a task: ");
-    console.dir(goal);
-    console.dir(this.goalArray);
+    this.getTaskChildren(goal).splice(index + 1, 0, this.createNewTask());
+
   }
 
   deleteTask(goal, index) {
-    if(this.getTaskChildren(goal).length > 0) return;
-    this.getTaskChildren(goal).splice(index,1);
+    if (this.getTaskChildren(goal).length > 0) return;
+    this.getTaskChildren(goal).splice(index, 1);
   }
 
   deleteGoal(index) {
-    if(index === 0) return;
+    if (index === 0) return;
     this.goalArray.removeAt(index);
   }
 
   importanceDifficultyFormat(format, number) {
-    if(format === 'importance') {
-      switch(number) {
+    if (format === 'importance') {
+      switch (number) {
         case 1:
-        
+
           return `Low`;
         case 2:
-        
+
           return `Medium`;
-        case 3: 
-      
+        case 3:
+
           return `High`;
         case 4:
-    
+
           return `Critical`;
         case 5:
-  
+
           return `Non-Negotiable`;
         default:
 
           return `Non-Negotiable`;
       }
-    } else if(format === 'difficulty') {
-      switch(number) {
+    } else if (format === 'difficulty') {
+      switch (number) {
         case 1:
-        
+
           return `Mindless`;
         case 2:
-        
+
           return `Low`;
-        case 3: 
-      
+        case 3:
+
           return `Moderate`;
         case 4:
-    
+
           return `High`;
         case 5:
-  
+
           return `Intense`;
         default:
 
           return `Intense`;
       }
     } else {
-       
-        switch(number) {
-          case 1:
-        
-            return `Low`;
-          case 2:
-          
-            return `Medium`;
-          case 3: 
-        
-            return `Elevated`;
-          case 4:
-      
-            return `High`;
-          case 5:
-    
-            return `Immediate`;
-          default:
-  
-            return `Immediate`;
-        }
+
+      switch (number) {
+        case 1:
+
+          return `Low`;
+        case 2:
+
+          return `Medium`;
+        case 3:
+
+          return `Elevated`;
+        case 4:
+
+          return `High`;
+        case 5:
+
+          return `Immediate`;
+        default:
+
+          return `Immediate`;
+      }
     }
-  
-}
+
+  }
 
   //creates child of the task, promoting the task to a goal or just adds another milestone
-  addMilestone(task?:FormGroup, arr?:any[]) {
-    if(task) {
+  addMilestone(task?: FormGroup, arr?: any[]) {
+    if (task) {
       this.goalArray.push(this.createNewGoal(task));
 
       arr.pop();
-  
-      if(arr.length === 0) {
-        console.log("adding another goal");
+
+      if (arr.length === 0) {
+
         arr.push(this.createNewTask())
       }
     } else {
-       this.goalArray.push(this.createNewGoal());
+      this.goalArray.push(this.createNewGoal());
     }
-  
+
 
 
   }
 
   getRandomQuote() {
-    this.presentToast(this.quotes[Math.floor(Math.random()*(this.quotes.length))]);
+    this.presentToast(this.quotes[Math.floor(Math.random() * (this.quotes.length))]);
   }
 
   // pushToCalendar(day) {
 
   //   this.auth.insertEvents(this.tasks.filter(t => t.day === day));
   //   this.presentToast("Added to your Calendar!");
-   
+
   // }
 
   async presentToast(message) {
@@ -274,16 +271,16 @@ export class GoalEntryComponent implements OnInit {
     let goalId;
     let formattedTaskChildren;
     const parentId = this.idGenerator();
-    // console.dir(this.goalArray);
+
     this.goalArray.controls.forEach((group: FormGroup, i) => {
-      // console.dir(group);
+
       goalId = this.idGenerator();
-      if(this.getTaskChildren(group).length > 0) {
-        this.gatherTasksToSubmit(group,goalId);
+      if (this.getTaskChildren(group).length > 0) {
+        this.gatherTasksToSubmit(group, goalId);
       }
-      this.gatherGoalsToSubmit(group,goalId,parentId);
-  
-    }); 
+      this.gatherGoalsToSubmit(group, goalId, parentId);
+
+    });
 
     //add the prime goal
     this.goalsToSubmit.push(
@@ -303,46 +300,43 @@ export class GoalEntryComponent implements OnInit {
     this.getRandomQuote();
 
     this.modalController.dismiss({
-      'dismissed':true,
+      'dismissed': true,
       goalsToSubmit: [...this.goalsToSubmit],
-      tasksToSubmit:[...this.tasksToSubmit]
+      tasksToSubmit: [...this.tasksToSubmit]
     })
 
 
   }
 
   cancel() {
-    console.log(`Cancelled!`);
     this.modalController.dismiss({
-      'dismissed':true
+      'dismissed': true
     })
   }
 
   gatherTasksToSubmit(group, goalId: string) {
-    // console.log("Group passed into gatherTasks is:");
-    // console.dir(group.value);
+
     this.getTaskChildren(group).forEach(task => {
-      const {title, description, minutes, priority,difficulties,urgency,tag} = task.value;
-        this.tasksToSubmit.push(
-          new Task(
-            this.idGenerator(), 
-            title, 
-            description,
-            minutes, 
-            priority,
-            difficulties,
-            urgency,
-            this.goalTag,
-            goalId,
-            moment().format("MM/DD/YYYY"),
-            group.get("title").value,//milestone title
-            this.goalTitle //parent goal title
-            )
+      const { title, description, minutes, priority, difficulties, urgency, tag } = task.value;
+      this.tasksToSubmit.push(
+        new Task(
+          this.idGenerator(),
+          title,
+          description,
+          minutes,
+          priority,
+          difficulties,
+          urgency,
+          this.goalTag,
+          goalId,
+          moment().format("MM/DD/YYYY"),
+          group.get("title").value,//milestone title
+          this.goalTitle //parent goal title
         )
-        console.log(`Assigned the goal id ${goalId} and the milestone title ${group.get("title").value} to the task ${title}`);
-      });
-      // console.log(`Task to submit are : `);
-      // console.dir(this.tasksToSubmit);
+      )
+
+    });
+
   }
 
   gatherGoalsToSubmit(group, goalId: string, parentId: string) {
@@ -359,82 +353,79 @@ export class GoalEntryComponent implements OnInit {
         parentId
       )
     )
-      // console.log(`Assigned the personal goal id ${goalId} to the milestone ${group.get("title").value}`);
 
-      //   console.log(`Goals to submit are : `);
-      //   console.dir(this.goalsToSubmit);
   }
 
 
   idGenerator() {
-      var S4 = function() {
-         return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-      };
-      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    var S4 = function () {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
   }
 
   createNewGoal(task?: FormGroup) {
-    return ( task ?
+    return (task ?
+      this.fb.group({
+        title: [task.get("title").value, [Validators.required, Validators.maxLength(37)]],
+        priority: [task.get("priority").value, [Validators.required, Validators.min(0), Validators.max(5)]],
+        difficulties: [task.get("difficulties").value, [Validators.required, Validators.min(0), Validators.max(5)]],
+        urgency: [task.get("urgency").value, [Validators.required, Validators.min(0), Validators.max(5)]],
+        tag: [task.get("tag").value],
+        deadline: [moment().add(1, 'M').format("MM/DD/YYYY"), [Validators.required]],
+        show: true,
+        taskChildren: this.fb.array([
           this.fb.group({
-          title: [task.get("title").value, [Validators.required, Validators.maxLength(37)]],
-          priority: [task.get("priority").value, [Validators.required, Validators.min(0), Validators.max(5)]],
-          difficulties: [task.get("difficulties").value, [Validators.required, Validators.min(0), Validators.max(5)]],
-          urgency: [task.get("urgency").value, [Validators.required, Validators.min(0), Validators.max(5)]],
-          tag: [task.get("tag").value],
-          deadline: [moment().add(1, 'M').format("MM/DD/YYYY"), [Validators.required]],
-          show: true,
-          taskChildren: this.fb.array([
-            this.fb.group({
-              title: ['', [Validators.required, Validators.maxLength(37)]],
-              description:[''],
-              minutes: [10,[Validators.required, Validators.min(0)]],
-              priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-              urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-              difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-              tag: ["general", [Validators.required]],
-              show: true
-            })
-          ]),
-        }) 
-        :
-        this.fb.group({
-          title: ['', [Validators.required, Validators.maxLength(37)]],
-          priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-          urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-          difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-          tag: ["general", [Validators.required]],
-          deadline: [moment().add(1, 'M').format("MM/DD/YYYY"), [Validators.required]],
-          show: true,
-          taskChildren: this.fb.array([
-            this.fb.group({
-              title: ["", [Validators.required, Validators.maxLength(37)]],
-              description:[''],
-              minutes: [10,[Validators.required, Validators.min(0)]], 
-              priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-              urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-              difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-              tag: ["general", [Validators.required]],
-              show: true
-            })
-          ]),
-        })
-      )
-    }
+            title: ['', [Validators.required, Validators.maxLength(37)]],
+            description: [''],
+            minutes: [10, [Validators.required, Validators.min(0)]],
+            priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+            urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+            difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+            tag: ["general", [Validators.required]],
+            show: true
+          })
+        ]),
+      })
+      :
+      this.fb.group({
+        title: ['', [Validators.required, Validators.maxLength(37)]],
+        priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        tag: ["general", [Validators.required]],
+        deadline: [moment().add(1, 'M').format("MM/DD/YYYY"), [Validators.required]],
+        show: true,
+        taskChildren: this.fb.array([
+          this.fb.group({
+            title: ["", [Validators.required, Validators.maxLength(37)]],
+            description: [''],
+            minutes: [10, [Validators.required, Validators.min(0)]],
+            priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+            urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+            difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+            tag: ["general", [Validators.required]],
+            show: true
+          })
+        ]),
+      })
+    )
+  }
 
-    createNewTask() : FormGroup{
-     return (
-        this.fb.group({
-          title: ['', [Validators.required, Validators.maxLength(37)]],
-          description: [''],
-          minutes: [10,[Validators.required, Validators.min(0)]], 
-          priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
-          difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
-          urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
-          tag: ["general", [Validators.required]],
-          show: true
-        })
-    ); 
-    }
+  createNewTask(): FormGroup {
+    return (
+      this.fb.group({
+        title: ['', [Validators.required, Validators.maxLength(37)]],
+        description: [''],
+        minutes: [10, [Validators.required, Validators.min(0)]],
+        priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        tag: ["general", [Validators.required]],
+        show: true
+      })
+    );
+  }
 
 
 }

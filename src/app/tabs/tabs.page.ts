@@ -14,25 +14,25 @@ export class TabsPage {
 
   checkTask: Subscription;
   checkGoal: Subscription;
-  goals:Goal[];
-  tasks:Task[];
+  goals: Goal[];
+  tasks: Task[];
 
-  constructor(private tmService: TaskManagementService, private auth:AuthRedoneService) {}
+  constructor(private tmService: TaskManagementService, private auth: AuthRedoneService) { }
 
   ngOnInit() {
-    if(this.auth.user) {
+    if (this.auth.user) {
       this.checkGoal = this.tmService.goals$.subscribe(goals => this.goals = goals);
-      this.checkTask = this.tmService.allTasks$.subscribe(tasks => {
-        console.dir(tasks);
+      this.checkTask = this.tmService.tasks$.subscribe(tasks => {
+
         this.tasks = tasks
       });
     }
- 
+
   }
 
   ngOnDestroy() {
-    if(this.checkTask) this.checkTask.unsubscribe();
-    if(this.checkGoal) this.checkGoal.unsubscribe()
+    if (this.checkTask) this.checkTask.unsubscribe();
+    if (this.checkGoal) this.checkGoal.unsubscribe()
   }
 
 }

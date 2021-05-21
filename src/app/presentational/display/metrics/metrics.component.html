@@ -66,7 +66,7 @@
                             <div >
                               Most Important: {{lastWeekMostImportantTask.title}}
                               <ul>
-                                <li>Level: {{idfConvert('importance',lastWeekMostImportantTask.priority)}}</li>
+                                <li>Level: {{importanceDifficultyUrgencyConvert('importance',lastWeekMostImportantTask.priority)}}</li>
                                 <li>Created: {{lastWeekMostImportantTask.createdDate}}</li>
                                 <li>Completed: {{lastWeekMostImportantTask.completedDate}}</li>
                               </ul>
@@ -78,7 +78,7 @@
                                 <div>
                                   Most Urgent: {{lastWeekMostUrgentTask.title}}
                                   <ul>
-                                    <li>Level: {{idfConvert('urgency', lastWeekMostUrgentTask.urgency)}}</li>
+                                    <li>Level: {{importanceDifficultyUrgencyConvert('urgency', lastWeekMostUrgentTask.urgency)}}</li>
                                     <li>Created: {{lastWeekMostUrgentTask.createdDate}}</li>
                                     <li>Completed: {{lastWeekMostUrgentTask.completedDate}}</li>
                                   </ul>
@@ -90,7 +90,7 @@
                                 <div>
                                   Most Difficult: {{lastWeekToughestTask.title}}
                                   <ul>
-                                    <li>Level: {{idfConvert('difficulty', lastWeekToughestTask.difficulty)}}</li>
+                                    <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', lastWeekToughestTask.difficulty)}}</li>
                                     <li>Created: {{lastWeekToughestTask.createdDate}}</li>
                                     <li>Completed: {{lastWeekToughestTask.completedDate}}</li>
                                   </ul>
@@ -151,7 +151,7 @@
                           <div >
                             Most Important: {{thisWeekMostImportantTask.title}}
                             <ul>
-                              <li>Level: {{idfConvert('importance',thisWeekMostImportantTask.priority)}}</li>
+                              <li>Level: {{importanceDifficultyUrgencyConvert('importance',thisWeekMostImportantTask.priority)}}</li>
                               <li>Created: {{thisWeekMostImportantTask.createdDate}}</li>
                               <li>Completed: {{thisWeekMostImportantTask.completedDate}}</li>
                             </ul>
@@ -163,7 +163,7 @@
                               <div *ngIf="thisWeekMostUrgentTask">
                                 Most Urgent: {{thisWeekMostUrgentTask.title}}
                                 <ul>
-                                  <li>Level: {{idfConvert('urgency', thisWeekMostUrgentTask.urgency)}}</li>
+                                  <li>Level: {{importanceDifficultyUrgencyConvert('urgency', thisWeekMostUrgentTask.urgency)}}</li>
                                   <li>Created: {{thisWeekMostUrgentTask.createdDate}}</li>
                                   <li>Completed: {{thisWeekMostUrgentTask.completedDate}}</li>
                                 </ul>
@@ -175,7 +175,7 @@
                               <div>
                                 Most Difficult: {{thisWeekToughestTask.title}}
                                 <ul>
-                                  <li>Level: {{idfConvert('difficulty', thisWeekToughestTask.difficulty)}}</li>
+                                  <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', thisWeekToughestTask.difficulty)}}</li>
                                   <li>Created: {{thisWeekToughestTask.createdDate}}</li>
                                   <li>Completed: {{thisWeekToughestTask.completedDate}}</li>
                                 </ul>
@@ -237,7 +237,7 @@
                           <div >
                             Most Important: {{thisMonthMostImportantTask.title}}
                             <ul>
-                              <li>Level: {{idfConvert('importance',thisMonthMostImportantTask.priority)}}</li>
+                              <li>Level: {{importanceDifficultyUrgencyConvert('importance',thisMonthMostImportantTask.priority)}}</li>
                               <li>Created: {{thisMonthMostImportantTask.createdDate}}</li>
                               <li>Completed: {{thisMonthMostImportantTask.completedDate}}</li>
                             </ul>
@@ -249,7 +249,7 @@
                               <div *ngIf="thisMonthMostUrgentTask">
                                 Most Urgent: {{thisMonthMostUrgentTask.title}}
                                 <ul>
-                                  <li>Level: {{idfConvert('urgency', thisMonthMostUrgentTask.urgency)}}</li>
+                                  <li>Level: {{importanceDifficultyUrgencyConvert('urgency', thisMonthMostUrgentTask.urgency)}}</li>
                                   <li>Created: {{thisMonthMostUrgentTask.createdDate}}</li>
                                   <li>Completed: {{thisMonthMostUrgentTask.completedDate}}</li>
                                 </ul>
@@ -261,7 +261,7 @@
                               <div>
                                 Most Difficult: {{thisMonthToughestTask.title}}
                                 <ul>
-                                  <li>Level: {{idfConvert('difficulty', thisMonthToughestTask.difficulty)}}</li>
+                                  <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', thisMonthToughestTask.difficulty)}}</li>
                                   <li>Created: {{thisMonthToughestTask.createdDate}}</li>
                                   <li>Completed: {{thisMonthToughestTask.completedDate}}</li>
                                 </ul>

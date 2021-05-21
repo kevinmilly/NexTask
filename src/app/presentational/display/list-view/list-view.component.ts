@@ -15,15 +15,15 @@ import { TaskManagementService } from 'src/app/core/services/task-management/tas
 export class ListViewComponent implements OnInit {
 
 
-  goalsSub:Subscription;
-  tasksSub:Subscription;
-  goalsHierarchy:any[] = [];
-  tasks:Task[];
-  goals:Goal[];
+  goalsSub: Subscription;
+  tasksSub: Subscription;
+  goalsHierarchy: any[] = [];
+  tasks: Task[];
+  goals: Goal[];
 
-  listType:string = 'adhoc';
+  listType: string = 'adhoc';
 
-  constructor(private tmService: TaskManagementService, private auth:AuthRedoneService) { }
+  constructor(private tmService: TaskManagementService, private auth: AuthRedoneService) { }
 
   ngOnInit() {
     this.getGoals();
@@ -31,94 +31,80 @@ export class ListViewComponent implements OnInit {
 
   getGoals() {
     this.goalsSub = this.tmService.goals$
-    .subscribe(retrievedGoals => {
+      .subscribe(retrievedGoals => {
         this.goals = retrievedGoals;
         this.tasksSub = this.tmService.allTasks$
           .subscribe(retrivedTasks => {
             this.tasks = retrivedTasks.filter(t => !t.goalId && t.title)
-                  .sort((a,b) => {
-                    return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue)
-                  })
-                  .sort((a,b) => a.completed - b.completed);
+              .sort((a, b) => {
+                return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue)
+              })
+              .sort((a, b) => a.completed - b.completed);
 
- 
 
-            this.goalsHierarchy = this.returnMilestoneAndTasks(this.goals,this.tasks.filter(t=> t.goalId));
-            // console.dir(this.goalsHierarchy);
+
+            this.goalsHierarchy = this.returnMilestoneAndTasks(this.goals, this.tasks.filter(t => t.goalId));
+
           })
-        
-        
-  
-  })
-}
 
 
 
-returnMilestoneAndTasks(goals:Goal[],tasks:Task[]) {
-  const milestones = goals.filter(g => g.parentGoal);
-  const structures = [];
+      })
+  }
 
 
-  milestones.forEach(mile => {
-    mile['tasks'] = tasks.filter(t => t.goalId === mile.id);
-  });
 
-  goals.forEach(g => {
-    if(!g.parentGoal) {
-      g['milestones'] = milestones.filter(m => m.parentGoal === g.id);
-      structures.push(g);
-    }
-  }); 
-  // console.dir(structures);
-  return structures;
-}
-
-addTask(m?:Goal,g?:Goal) {this.tmService.addTask(m,g);}
-deleteTask(event) {this.tmService.deleteTask(event);}
-
-addGoal() { this.tmService.addGoal();}
-
-deleteGoal(g) { 
-  console.log({g});
-  this.tmService.deleteGoal(g,g.milestones);
-}
-
-addMilestone(g) { 
-  this.tmService.addMilestone(g);
-} //basically an edit goal
-
-editItem(data, type) {const returnItem = this.tmService.editItem(data, type); }
-
-reopenTask(task) {
-  task['completed'] = 0;
-  this.tmService.updateAllTasks([task]);
-}
-
-// markTaskComplete(event) {
-//   this.tmService.markTaskComplete(event, [...this.tasks]);
-//   this.getRandomQuote();
-//   this.presentLoading(4,"Reloading");
-// }
-
-logout() {this.auth.signOut();}
-
-// percentageTasksComplete(list:Task[]) { 
-
-//   return `${(list.reduce((p,c) => p + c.completed, 0)/list.length)}%`
-// }
-
-// percentageMilestonesComplete(list:any) {
-//   let numberOfTaskGoals = 0;
-//   list.milestones.forEach(element => {
-//     numberOfTaskGoals += element.tasks.reduce((p,v)) 
-//   });
-//   return `${(list.reduce((p,c) => p + c.completed, 0)/list.length)}%`
-// }
+  returnMilestoneAndTasks(goals: Goal[], tasks: Task[]) {
+    const milestones = goals.filter(g => g.parentGoal);
+    const structures = [];
 
 
-ngOnDestroy() {
-  if(this.goalsSub) this.goalsSub.unsubscribe();
-  if(this.tasksSub) this.tasksSub.unsubscribe();
-}
+    milestones.forEach(mile => {
+      mile['tasks'] = tasks.filter(t => t.goalId === mile.id);
+    });
+
+    goals.forEach(g => {
+      if (!g.parentGoal) {
+        g['milestones'] = milestones.filter(m => m.parentGoal === g.id);
+        structures.push(g);
+      }
+    });
+
+    return structures;
+  }
+
+  addTask(m?: Goal, g?: Goal) { this.tmService.addTask(m, g); }
+  deleteTask(event) { this.tmService.deleteTask(event); }
+
+  addGoal() { this.tmService.addGoal(); }
+
+  deleteGoal(g) {
+    this.tmService.deleteGoal(g, g.milestones);
+  }
+
+  addMilestone(g) {
+    this.tmService.addMilestone(g);
+  } //basically an edit goal
+
+  editItem(data, type) { const returnItem = this.tmService.editItem(data, type); }
+
+  reopenTask(task) {
+    task['completed'] = 0;
+    this.tmService.updateAllTasks(task);
+  }
+
+  // markTaskComplete(event) {
+  //   this.tmService.markTaskComplete(event, [...this.tasks]);
+  //   this.getRandomQuote();
+  //   this.presentLoading(4,"Reloading");
+  // }
+
+  logout() { this.auth.signOut(); }
+
+
+  ngOnDestroy() {
+    if (this.goalsSub) this.goalsSub.unsubscribe();
+    if (this.tasksSub) this.tasksSub.unsubscribe();
+  }
 
 }

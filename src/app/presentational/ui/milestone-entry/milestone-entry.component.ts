@@ -17,23 +17,23 @@ export class MilestoneEntryComponent implements OnInit {
 
   goalForm: FormGroup;
 
-  @Input() goalParent:Goal;
+  @Input() goalParent: Goal;
 
   priorities = [
     {
-      text: "Very Low", 
+      text: "Very Low",
       number: 1
     },
-    { 
-      text: "Low",  
+    {
+      text: "Low",
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "Moderate",
       number: 3
     },
     {
-      text: "High", 
+      text: "High",
       number: 4
     },
     {
@@ -42,22 +42,22 @@ export class MilestoneEntryComponent implements OnInit {
     }
   ]
 
-  
+
   difficulty = [
     {
-      text: "Very Low", 
+      text: "Very Low",
       number: 1
     },
-    { 
-      text: "Low",  
+    {
+      text: "Low",
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "Moderate",
       number: 3
     },
     {
-      text: "High", 
+      text: "High",
       number: 4
     },
     {
@@ -68,19 +68,19 @@ export class MilestoneEntryComponent implements OnInit {
 
   urgencyLevels = [
     {
-      text: "Very Low", 
+      text: "Very Low",
       number: 1
     },
-    { 
-      text: "Low",  
+    {
+      text: "Low",
       number: 2
     },
     {
-      text: "Moderate", 
+      text: "Moderate",
       number: 3
     },
     {
-      text: "High", 
+      text: "High",
       number: 4
     },
     {
@@ -90,7 +90,7 @@ export class MilestoneEntryComponent implements OnInit {
   ]
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     public modalController: ModalController,
   ) { }
 
@@ -102,126 +102,126 @@ export class MilestoneEntryComponent implements OnInit {
 
 
   importanceDifficultyFormat(format, number) {
-    if(format === 'importance') {
-      switch(number) {
+    if (format === 'importance') {
+      switch (number) {
         case 1:
-        
+
           return `Low`;
         case 2:
-        
+
           return `Medium`;
-        case 3: 
-      
+        case 3:
+
           return `High`;
         case 4:
-    
+
           return `Critical`;
         case 5:
-  
+
           return `Non-Negotiable`;
         default:
 
           return `Non-Negotiable`;
       }
-    } else if(format === 'difficulty') {
-      switch(number) {
+    } else if (format === 'difficulty') {
+      switch (number) {
         case 1:
-        
+
           return `Mindless`;
         case 2:
-        
+
           return `Low`;
-        case 3: 
-      
+        case 3:
+
           return `Moderate`;
         case 4:
-    
+
           return `High`;
         case 5:
-  
+
           return `Intense`;
         default:
 
           return `Intense`;
       }
     } else {
-       
-        switch(number) {
-          case 1:
-        
-            return `Low`;
-          case 2:
-          
-            return `Medium`;
-          case 3: 
-        
-            return `Elevated`;
-          case 4:
-      
-            return `High`;
-          case 5:
-    
-            return `Immediate`;
-          default:
-  
-            return `Immediate`;
-        }
-    }
-  
-}
 
-createNewGoal() {
-  return (      
-    this.fb.group({
-    id:this.idGenerator(),
-    title: ['', [Validators.required, Validators.maxLength(37)]],
-    priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-    urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-    difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]], 
-    tag: ["general", [Validators.required]],
-    deadline: [moment().add(1, 'M').format("MM/DD/YYYY"), [Validators.required]],
-    show: true,
-    parentGoal:this.goalParent.id,
-    taskChildren: this.fb.array([
-      this.createNewTask()
-       ]),
-    })
-  )
+      switch (number) {
+        case 1:
+
+          return `Low`;
+        case 2:
+
+          return `Medium`;
+        case 3:
+
+          return `Elevated`;
+        case 4:
+
+          return `High`;
+        case 5:
+
+          return `Immediate`;
+        default:
+
+          return `Immediate`;
+      }
+    }
+
   }
 
-createNewTask(goal?: FormGroup) : FormGroup{
-  return (
-     this.fb.group({
-       title: ['', [Validators.required, Validators.maxLength(37)]],
-       description: [''],
-       minutes: [10,[Validators.required, Validators.min(0)]], 
-       priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
-       difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
-       urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
-       tag: ["general", [Validators.required]],
-       show: true
-     })
- ); 
- }
+  createNewGoal() {
+    return (
+      this.fb.group({
+        id: this.idGenerator(),
+        title: ['', [Validators.required, Validators.maxLength(37)]],
+        priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        tag: ["general", [Validators.required]],
+        deadline: [moment().add(1, 'M').format("MM/DD/YYYY"), [Validators.required]],
+        show: true,
+        parentGoal: this.goalParent.id,
+        taskChildren: this.fb.array([
+          this.createNewTask()
+        ]),
+      })
+    )
+  }
 
-deleteTask(index) {
-  if(this.goalForm.get('taskChildren').value.length < 1) return;
-  this.goalForm.get('taskChildren').value.splice(index,1);
-}
+  createNewTask(goal?: FormGroup): FormGroup {
+    return (
+      this.fb.group({
+        title: ['', [Validators.required, Validators.maxLength(37)]],
+        description: [''],
+        minutes: [10, [Validators.required, Validators.min(0)]],
+        priority: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        difficulties: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        urgency: [2, [Validators.required, Validators.min(0), Validators.max(5)]],
+        tag: ["general", [Validators.required]],
+        show: true
+      })
+    );
+  }
 
-addGoalChild() {
-  this.goalForm.controls.taskChildren.value.splice(1, 0, this.createNewTask());
-}
+  deleteTask(index) {
+    if (this.goalForm.get('taskChildren').value.length < 1) return;
+    this.goalForm.get('taskChildren').value.splice(index, 1);
+  }
 
-gatherTasksToSubmit() {
-  this.taskArray.controls.forEach(task => {
-    const {title, description, minutes, priority,difficulties,urgency} = task.value;
+  addGoalChild() {
+    this.goalForm.controls.taskChildren.value.splice(1, 0, this.createNewTask());
+  }
+
+  gatherTasksToSubmit() {
+    this.taskArray.controls.forEach(task => {
+      const { title, description, minutes, priority, difficulties, urgency } = task.value;
       this.tasksToSubmit.push(
         new Task(
-          this.idGenerator(), 
-          title, 
+          this.idGenerator(),
+          title,
           description,
-          minutes, 
+          minutes,
           priority,
           difficulties,
           urgency,
@@ -230,47 +230,45 @@ gatherTasksToSubmit() {
           moment().format("MM/DD/YYYY"),
           this.goalForm.controls['title'].value,//milestone title
           this.goalParent.title //parent title
-          )
+        )
       )
-      
+
     });
-    console.log(`Task to submit are : `);
-    console.dir(this.tasksToSubmit);
-}
 
-submitGoals() {
-  this.gatherTasksToSubmit();
-  const { id, title, priority, urgency, difficulties, tag, deadline, parentGoal } = this.goalForm.value;
-  const g = new Goal(id, title, priority, urgency, difficulties, tag, this.tasksToSubmit, deadline,parentGoal);
-  this.modalController.dismiss({
-    'dismissed':true,
-    goalToSubmit: g,
-    tasksToSubmit:[...this.tasksToSubmit]
-  })
+  }
 
-
-}
+  submitGoals() {
+    this.gatherTasksToSubmit();
+    const { id, title, priority, urgency, difficulties, tag, deadline, parentGoal } = this.goalForm.value;
+    const g = new Goal(id, title, priority, urgency, difficulties, tag, this.tasksToSubmit, deadline, parentGoal);
+    this.modalController.dismiss({
+      'dismissed': true,
+      goalToSubmit: g,
+      tasksToSubmit: [...this.tasksToSubmit]
+    })
 
 
-idGenerator() {
-  var S4 = function() {
-     return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-  };
-  return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-}
+  }
 
 
-cancel() {
-  console.log(`Cancelled!`);
-  this.modalController.dismiss({
-    'dismissed':true
-  })
-}
+  idGenerator() {
+    var S4 = function () {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+  }
 
-get taskArray(): FormArray {
-  const array = this.goalForm.get('taskChildren') as FormArray;
-  // console.dir(array);
-  return array;
-}
+
+  cancel() {
+    this.modalController.dismiss({
+      'dismissed': true
+    })
+  }
+
+  get taskArray(): FormArray {
+    const array = this.goalForm.get('taskChildren') as FormArray;
+
+    return array;
+  }
 
 }

@@ -22,47 +22,44 @@ interface BadgeStatus {
 })
 export class ShowAwardComponent implements OnInit {
 
-  constructor(private dialog:MatDialog, 
-              private badgeService: BadgeService,
-              private auth: AuthRedoneService) { }
+  constructor(private dialog: MatDialog,
+    private badgeService: BadgeService,
+    private auth: AuthRedoneService) { }
 
   metrics: Metrics;
   badges: Badge[];
   badgeSub: Subscription;
 
   badgesOwned = [];
-  badgeStatus:BadgeStatus[] = []; 
+  badgeStatus: BadgeStatus[] = [];
   noBadges = false;
-  
+
 
   ngOnInit(): void {
     this.badgeSub = this.badgeService.getBadges()
-                      .subscribe(badges => {
-                        this.badges = badges;
-                        this.metrics = this.auth.metrics;
+      .subscribe(badges => {
+        this.badges = badges;
+        this.metrics = this.auth.metrics;
 
-                        console.dir(this.badges);
-                        console.dir(this.metrics);
+        this.badges
+          .forEach(b => {
+            if (this.metrics.awards.includes(b.title)) {
+              this.badgesOwned.push(b);
+              this.badgeStatus.push({
+                title: b.title,
+                image: `../../../../assets/badges${b.title}.svg`,
+                criteriaProgress: this.getCriteriaStatus(b, this.metrics),
+                status
+              })
+            } else {
+              this.noBadges = true;
+            }
+          })
 
-                        this.badges
-                          .forEach(b => {
-                            if(this.metrics.awards.includes(b.title)) {
-                              this.badgesOwned.push(b);
-                              this.badgeStatus.push({
-                                title: b.title,
-                                image: `../../../../assets/badges${b.title}.svg`,
-                                criteriaProgress: this.getCriteriaStatus(b,this.metrics),
-                                status
-                              })
-                            } else {
-                              this.noBadges = true;
-                            }
-                          }) 
-                       
-                    });
+      });
   }
 
-  getCriteriaStatus(badge:Badge, metrics:Metrics) {
+  getCriteriaStatus(badge: Badge, metrics: Metrics) {
     switch (badge.type) {
       case 1:
         return badge.criteria - metrics.completions;
@@ -72,17 +69,17 @@ export class ShowAwardComponent implements OnInit {
         return badge.criteria - metrics.toughTasks;
       case 4:
         return badge.criteria - metrics.tasksCreated;
-    
+
     }
   }
 
   ngOnDestroy() {
-    if(this.badgeSub) {
+    if (this.badgeSub) {
       this.badgeSub.unsubscribe();
     }
   }
 
-  
+
 
 
 

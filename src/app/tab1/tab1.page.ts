@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class Tab1Page {
 
   constructor() {
-    console.log("In constructore")
+
   }
 
 }

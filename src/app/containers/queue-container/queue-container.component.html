@@ -1,213 +1,190 @@
-<ion-content class="header-background">
-  <div class="setting-buttons">
+<ion-content class="header">
+  <div class="header__setting-buttons">
     <ion-fab vertical="top" horizontal="end">
-      <ion-fab-button >
-        <ion-icon class="glow" name="flash-outline"></ion-icon>
+      <ion-fab-button>
+        <ion-icon name="flash-outline"></ion-icon>
       </ion-fab-button>
       <ion-fab-list side="start">
-      <ion-fab-button class="add-button" (click)="addTask()" color="primary">
-        <ion-icon name="add-circle-outline"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button (click)="addGoal()" color="tertiary">
-        <ion-icon name="flag-outline"></ion-icon>
-      </ion-fab-button> 
+        <ion-fab-button class="add-button" (click)="addTask()" color="primary">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)="addGoal()" color="tertiary">
+          <ion-icon name="flag-outline"></ion-icon>
+        </ion-fab-button>
         <ion-fab-button class="logout-button">
           <ion-icon name="log-out-outline" (click)="logout()"></ion-icon>
         </ion-fab-button>
       </ion-fab-list>
-  
-  
+
+
     </ion-fab>
-  </div> 
+  </div>
 
-  
-<ion-content class="header-background" >
 
-  <mat-tab-group mat-align-tabs="center">  
-        <mat-tab  label="Today"> 
-          <ion-content class="main-background">
-  
-              <ion-card class="card-style card-background"  *ngIf="tasksDay1$ | async as tasksDay1">
-                <div *ngIf="tasksDay1.length > 0; else noTasks">
-                    <div class="tasks-buttons">
-                      <ion-grid>
-                        <ion-row>
-                          <ion-col>
-                            <ion-list lines="none" *ngIf="tags.length > 0; else noTags">
-                              <ion-item >
-                                <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()" class="filter-select">
-                                  <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
-                                </ion-select>
-                              </ion-item>
-                            </ion-list>
-                              <ng-template #noTags>No Tags to Filter By Yet</ng-template>
-                          </ion-col>
-                          <ion-col *ngIf="tasksDay1.length > 0">
-                            <ion-list lines="none">
-                              <ion-item >
-                                <ion-button  (click)="createEvents(tasksDay1)" slot="end">
-                                  <ion-icon name="calendar-outline"></ion-icon>
-                                </ion-button>
-                              </ion-item>
-                            </ion-list>
-                          </ion-col>
-                        </ion-row>
-                      </ion-grid>
-                    </div>
-                    <ion-card-content>
-                        <app-task-container 
-                          (editTaskEmitter) = "editTask($event)" 
-                          (taskUpdate) = "updateAllTasks($event)" 
-                          (deleteTask)="deleteTask($event)" 
-                          (markedComplete) ="markTaskComplete($event)" 
-                          [tasks] = "tasksDay1" 
-                          (createdIdea)="createIdea($event)">
-                        </app-task-container>
-                    </ion-card-content>
+  <ion-content class="queue-content">
+
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Today">
+        <ion-content class="queue-content-main">
+
+          <ion-card class="queue-container-main__card" *ngIf="tasksDay1$ | async as tasksDay1">
+            <div *ngIf="tasksDay1.length > 0; else noTasks">
+              <div class="tasks-buttons">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <ion-list lines="none" *ngIf="tags.length > 0; else noTags">
+                        <ion-item>
+                          <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()" class="filter-select">
+                            <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                      </ion-list>
+                      <ng-template #noTags>No Tags to Filter By Yet</ng-template>
+                    </ion-col>
+                    <ion-col *ngIf="tasksDay1.length > 0">
+                      <ion-list lines="none">
+                        <ion-item>
+                          <ion-button (click)="createEvents(tasksDay1)" [style.margin-left.rem]="4">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                          </ion-button>
+                        </ion-item>
+                      </ion-list>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </div>
+              <ion-card-content>
+                <app-task-container (editTaskEmitter)="editTask($event)" (taskUpdate)="updateAllTasks($event)"
+                  (deleteTask)="deleteTask($event)" (markedComplete)="markTaskComplete($event)" [tasks]="tasksDay1"
+                  (createdIdea)="createIdea($event)">
+                </app-task-container>
+              </ion-card-content>
+            </div>
+          </ion-card>
+          <ng-template #noTasks>
+            <ion-card class="queue-container-main__card">
+              <ion-card-header>
+                <ion-card-title>
+                  <h1>Hey, you need to get some things queued up!</h1>
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <div ion-card-avatar></div>
+                <img ion-card-image src="../../../assets/images/blanklist.jpg" alt="orange-clock">
+                <div>
+                  <h3>Add some tasks, I know you have something you could be doing!</h3>
                 </div>
-              </ion-card>
-                <ng-template #noTasks>
-                    <ion-card class="card-style card-background">
-                      <ion-card-header>
-                        <ion-card-title><h1>Hey, you need to get some things queued up!</h1></ion-card-title>
-                      </ion-card-header>
-                      <ion-card-content>
-                        <div ion-card-avatar></div>
-                      <img ion-card-image src="../../../assets/images/blanklist.jpg" alt="orange-clock">
-                        <div>
-                          <h3>Add some tasks, I know you have something you could be doing!</h3>
-                        </div>
-                      </ion-card-content>
-                    </ion-card>
-                  </ng-template> 
-  
+              </ion-card-content>
+            </ion-card>
+          </ng-template>
+
+        </ion-content>
+
+
+      </mat-tab>
+      <ng-container *ngIf="tasksDay2$ | async as tasksDay2">
+        <mat-tab label="Tomorrow" *ngIf="tasksDay2.length > 0">
+
+          <ion-content>
+            <ion-card class="queue-container-main__card">
+              <div class="tasks-buttons">
+
+                <ion-item class="columnHeaderChoiceSize">
+                  <ion-label>Filter by Tag</ion-label>
+                  <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
+                    <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+              </div>
+              <ion-card-content>
+                <app-task-container *ngIf="tasksDay2" (editTaskEmitter)="editTask($event)"
+                  (taskUpdate)="updateAllTasks($event)" (deleteTask)="deleteTask($event)"
+                  (markedComplete)="markTaskComplete($event)" [tasks]="tasksDay2" (createdIdea)="createIdea($event)">
+                </app-task-container>
+              </ion-card-content>
+            </ion-card>
           </ion-content>
-
-              
         </mat-tab>
-        <ng-container *ngIf="tasksDay2$ | async as tasksDay2">
-          <mat-tab  label="Tomorrow" *ngIf="tasksDay2.length > 0">
-          
-            <ion-content >
-                <ion-card class="card-style">
-                    <div class="tasks-buttons">
-                
-                    <ion-item class="columnHeaderChoiceSize">
-                      <ion-label>Filter by Tag</ion-label>
-                      <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
-                        <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                    </div>
-                    <ion-card-content>
-                        <app-task-container 
-                          *ngIf="tasksDay2" 
-                          (editTaskEmitter) = "editTask($event)" 
-                          (taskUpdate) = "updateAllTasks($event)" 
-                          (deleteTask)="deleteTask($event)" 
-                          (markedComplete) ="markTaskComplete($event)" 
-                          [tasks] = "tasksDay2" (createdIdea)="createIdea($event)">
-                      </app-task-container>
-                    </ion-card-content>
-                </ion-card>
-              </ion-content>
-          </mat-tab>
-        </ng-container>
+      </ng-container>
 
-        <ng-container *ngIf="tasksDay3$ | async as tasksDay3">
-          <mat-tab  label="Day 3" *ngIf="tasksDay3.length > 0">
-          
-            <ion-content >
-                <ion-card class="card-style">
-                    <div class="tasks-buttons">
-                      <ion-item class="columnHeaderChoiceSize">
-                      <ion-label>Filter by Tag</ion-label>
-                      <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
-                        <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                    </div>
-                    <ion-card-content>
-                        <app-task-container 
-                          *ngIf="tasksDay3" 
-                          (editTaskEmitter) = "editTask($event)" 
-                          (taskUpdate) = "updateAllTasks($event)" 
-                          (deleteTask)="deleteTask($event)" 
-                          (markedComplete) ="markTaskComplete($event)" 
-                          [tasks] = "tasksDay3" (createdIdea)="createIdea($event)">
-                      </app-task-container>
-                    </ion-card-content>
-                </ion-card>
-              </ion-content>
-          </mat-tab>
-        </ng-container>
-  
-        <ng-container *ngIf="tasksDay4$ | async as tasksDay4">
-          <mat-tab  label="Day 4" *ngIf="tasksDay4.length > 0">
-          
-            <ion-content >
-                <ion-card class="card-style">
-                    <div class="tasks-buttons">
-          
-                      <ion-item class="columnHeaderChoiceSize">
-                      <ion-label>Filter by Tag</ion-label>
-                      <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
-                        <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                    </div>
-                    <ion-card-content>
-                        <app-task-container 
-                          *ngIf="tasksDay4" 
-                          (editTaskEmitter) = "editTask($event)" 
-                          (taskUpdate) = "updateAllTasks($event)" 
-                          (deleteTask)="deleteTask($event)" 
-                          (markedComplete) ="markTaskComplete($event)" 
-                          [tasks] = "tasksDay4" (createdIdea)="createIdea($event)">
-                      </app-task-container>
-                    </ion-card-content>
-                </ion-card>
-              </ion-content>
-         </mat-tab>
-        </ng-container>
+      <ng-container *ngIf="tasksDay3$ | async as tasksDay3">
+        <mat-tab label="Day 3" *ngIf="tasksDay3.length > 0">
 
-        <ng-container *ngIf="tasksDay5$ | async as tasksDay5">
-          <mat-tab  label="Day 5" *ngIf="tasksDay5.length > 0">
-          
-            <ion-content >
-                <ion-card class="card-style">
-                    <div class="tasks-buttons">
-                  
-                    <ion-item class="columnHeaderChoiceSize">
-                    <ion-label>Filter by Tag</ion-label>
-                    <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
-                        <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
-                    </ion-select>
-                    </ion-item>
-                    </div>
-                    <ion-card-content>
-                        <app-task-container 
-                          *ngIf="tasksDay5" 
-                          (editTaskEmitter) = "editTask($event)" 
-                          (taskUpdate) = "updateAllTasks($event)" 
-                          (deleteTask)="deleteTask($event)" 
-                          (markedComplete) ="markTaskComplete($event)" 
-                          [tasks] = "tasksDay5" (createdIdea)="createIdea($event)">
-                      </app-task-container>
-                    </ion-card-content>
-                </ion-card>
-              </ion-content>
-          </mat-tab>
-        </ng-container>
-       
-        <ion-fab>
-  
+          <ion-content>
+            <ion-card class="queue-container-main__card">
+              <div class="tasks-buttons">
+                <ion-item class="columnHeaderChoiceSize">
+                  <ion-label>Filter by Tag</ion-label>
+                  <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
+                    <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </div>
+              <ion-card-content>
+                <app-task-container *ngIf="tasksDay3" (editTaskEmitter)="editTask($event)"
+                  (taskUpdate)="updateAllTasks($event)" (deleteTask)="deleteTask($event)"
+                  (markedComplete)="markTaskComplete($event)" [tasks]="tasksDay3" (createdIdea)="createIdea($event)">
+                </app-task-container>
+              </ion-card-content>
+            </ion-card>
+          </ion-content>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container *ngIf="tasksDay4$ | async as tasksDay4">
+        <mat-tab label="Day 4" *ngIf="tasksDay4.length > 0">
+
+          <ion-content>
+            <ion-card class="queue-container-main__card">
+              <div class="tasks-buttons">
+
+                <ion-item class="columnHeaderChoiceSize">
+                  <ion-label>Filter by Tag</ion-label>
+                  <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
+                    <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </div>
+              <ion-card-content>
+                <app-task-container *ngIf="tasksDay4" (editTaskEmitter)="editTask($event)"
+                  (taskUpdate)="updateAllTasks($event)" (deleteTask)="deleteTask($event)"
+                  (markedComplete)="markTaskComplete($event)" [tasks]="tasksDay4" (createdIdea)="createIdea($event)">
+                </app-task-container>
+              </ion-card-content>
+            </ion-card>
+          </ion-content>
+        </mat-tab>
+      </ng-container>
+
+      <ng-container *ngIf="tasksDay5$ | async as tasksDay5">
+        <mat-tab label="Day 5" *ngIf="tasksDay5.length > 0">
+
+          <ion-content>
+            <ion-card class="queue-container-main__card">
+              <div class="tasks-buttons">
+
+                <ion-item class="columnHeaderChoiceSize">
+                  <ion-label>Filter by Tag</ion-label>
+                  <ion-select [formControl]="tagOptions" (ionChange)=" filterTags()">
+                    <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </div>
+              <ion-card-content>
+                <app-task-container *ngIf="tasksDay5" (editTaskEmitter)="editTask($event)"
+                  (taskUpdate)="updateAllTasks($event)" (deleteTask)="deleteTask($event)"
+                  (markedComplete)="markTaskComplete($event)" [tasks]="tasksDay5" (createdIdea)="createIdea($event)">
+                </app-task-container>
+              </ion-card-content>
+            </ion-card>
+          </ion-content>
+        </mat-tab>
+      </ng-container>
+
+      <ion-fab>
+
       </ion-fab>
     </mat-tab-group>
-</ion-content>
-
-
-  
-
-
-
+  </ion-content>

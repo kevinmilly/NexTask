@@ -25,170 +25,20 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  background-color: whitesmoke;
-  .main {
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    max-width: 1000px;
-    margin: auto;
-    margin-top: 3em;
-    color: var(--main-font-color);
-    font-size: var(--main-font-size);
-  }
-}
 
-:root {
-  --ion-color-primary: #f59846;
-  --ion-color-primary-rgb: 254, 200, 154;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #f3aa6a;
-  --ion-color-primary-tint: #f9dcc4;
+@import "reset";
 
-  --ion-color-tertiary: #fabf8e;
-  --ion-color-tertiary-rgb: 249, 220, 196;
-  --ion-color-tertiary-contrast: #ffffff;
-  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-  --ion-color-tertiary-shade: #f9dcc4;
-  --ion-color-tertiary-tint: #f9dcc4;
 
-  --ion-color-secondary: #ffb5a7;
-  --ion-color-secondary-rgb: 255, 181, 167;
-  --ion-color-secondary-contrast: #ffffff;
-  --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #f1beb4;
-  --ion-color-secondary-tint: #f3ac9e;
 
-  --ion-color-quaternary: #fdd378;
-  --ion-color-quaternary-rgb: 248, 216, 148;
-  --ion-color-quaternary-contrast: #ffffff;
-  --ion-color-quaternary-contrast-rgb: 255, 255, 255;
-  --ion-color-quaternary-shade: #f8e1b0;
-  --ion-color-quaternary-tint: #f1c668;
-}
+  
 
-.card-padding {
-  padding: var(--card-container-padding);
-}
 
-.card-center-margin {
-  margin: var(--card-container-margin);
-}
-
-.card-font {
-  font-size: var(--card-font);
-}
-
-.card {
-  background-color: var(--card-background);
-  color: var(--card-color);
-  margin-top: 50%;
-}
-
-.login-button {
-  font-size: var(--card-header-font);
-  color: rgb(255, 255, 255);
-  background-color: rgb(33, 190, 252);
-  width: 6.5em;
-  height: 1.2em;
-}
-
-/* Styles for tab labels */
-.mat-tab-label {
-  min-width: 25px !important;
-  padding: 5px;
-  background-color: transparent;
-  color: #383838;
-  font-weight: 700;
-  font-size: 2em;
-}
-
-/* Styles for the active tab label */
-.mat-tab-label.mat-tab-label-active {
-  min-width: 25px !important;
-  padding: 5px;
-  background-color: transparent;
-  color: #000000;
-  font-weight: 700;
-  font-size: 2em;
-}
-
-/* Styles for the ink bar */
-.mat-ink-bar {
-  background-color: green;
-}
-
-ion-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  align-self: center;
-}
-
-.mat-tab-label {
-  min-width: 25px !important;
-  padding: 5px;
-  background-color: transparent;
-  color: rgb(255, 253, 245);
-  font-weight: 700;
-}
-
-/* Styles for the active tab label */
-.mat-tab-label.mat-tab-label-active {
-  min-width: 25px !important;
-  padding: 5px;
-  background-color: transparent;
-  color: rgb(255, 253, 245);
-  font-weight: 700;
-}
-
-.mat-ink-bar {
-  color: var(--ion-color-primary) !important;
-  background-color: var(--ion-color-primary) !important;
-}
-
-.main-background {
-  --ion-background-color: rgb(163, 160, 157);
-  height: 45em;
-  overflow-y: auto;
-}
-.card-background {
-  --ion-background-color: rgb(245, 233, 220);
-}
-
-.header-background {
-  --ion-background-color: rgb(85, 72, 60);
-}
-
-@keyframes glowing {
-  0% {
-    font-size: 2em;
-    //background-color: var(--ion-color-primary);
-    // box-shadow: 0 0 0.5px #ff7a0e;
-  }
-  50% {
-    font-size: 1.3em;
-    // background-color: var(--ion-color-tertiary);
-    // box-shadow: 0 0 1px var(--ion-color-tertiary);
-  }
-  100% {
-    font-size: 2em;
-    // background-color: var(--ion-color-quaternary);
-    // box-shadow: 0 0 0.5px var(--ion-color-quaternary);
-  }
-}
-
-.glow {
-  animation: glowing 2000ms infinite;
-}
 
 .small-modal {
   height: auto;
   display: block;
 }
+
+
+
+

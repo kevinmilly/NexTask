@@ -14,46 +14,46 @@ import { ModalController } from '@ionic/angular';
 })
 export class TaskEntryComponent {
 
- 
 
-    taskForm = new FormGroup({
-      day: new FormControl(1,[Validators.required, Validators.min(1), Validators.max(5)]), 
-      description: new FormControl("",[]), 
-      minutes: new FormControl(10,[Validators.required, Validators.min(0)]), 
-      priority: new FormControl(2,[Validators.required, Validators.min(0), Validators.max(5)]), 
-      urgency: new FormControl(2,[Validators.required, Validators.min(0), Validators.max(5)]), 
-      difficulties: new FormControl(2,[Validators.required, Validators.min(0), Validators.max(5)]), 
-      resource: new FormControl("",[]), 
-      title: new FormControl("",[Validators.required, Validators.maxLength(37)]),
-      tag: new FormControl("general",[Validators.required])
-      
-    }
+
+  taskForm = new FormGroup({
+    day: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(5)]),
+    description: new FormControl("", []),
+    minutes: new FormControl(10, [Validators.required, Validators.min(0)]),
+    priority: new FormControl(2, [Validators.required, Validators.min(0), Validators.max(5)]),
+    urgency: new FormControl(2, [Validators.required, Validators.min(0), Validators.max(5)]),
+    difficulties: new FormControl(2, [Validators.required, Validators.min(0), Validators.max(5)]),
+    resource: new FormControl("", []),
+    title: new FormControl("", [Validators.required, Validators.maxLength(37)]),
+    tag: new FormControl("general", [Validators.required])
+
+  }
   )
- 
+
   difficultyLevel: number = 1;
   priorityLevel: number = 1;
   urgencyLevel: number = 1;
 
-  ideas:Idea[] = [];
+  ideas: Idea[] = [];
   ideaSub;
 
 
 
   priorities = [
     {
-      text: "Low", 
+      text: "Low",
       number: 1
     },
-    { 
-      text: "Medium",  
+    {
+      text: "Medium",
       number: 2
     },
     {
-      text: "High", 
+      text: "High",
       number: 3
     },
     {
-      text: "Critical", 
+      text: "Critical",
       number: 4
     },
     {
@@ -62,22 +62,22 @@ export class TaskEntryComponent {
     }
   ]
 
-  
+
   difficulty = [
     {
-      text: "Mindless", 
+      text: "Mindless",
       number: 1
     },
-    { 
-      text: "Low",  
+    {
+      text: "Low",
       number: 2
     },
     {
-      text: "Average", 
+      text: "Average",
       number: 3
     },
     {
-      text: "High", 
+      text: "High",
       number: 4
     },
     {
@@ -88,32 +88,32 @@ export class TaskEntryComponent {
 
   urgencyLevels = [
     {
-      text: "Low", 
+      text: "Low",
       number: 1
     },
-    { 
-      text: "Medium",  
+    {
+      text: "Medium",
       number: 2
     },
     {
-      text: "Elevated", 
+      text: "Elevated",
       number: 3
     },
     {
-      text: "High", 
+      text: "High",
       number: 4
     },
     {
-      text: "Immediate", 
+      text: "Immediate",
       number: 5
     }
   ]
-  
+
   constructor(
     public modalController: ModalController,
     private cd: ChangeDetectorRef,
     private backend: BackendService,
-   ) { }
+  ) { }
 
   useIdea(idea) {
     this.taskForm.controls['title'].setValue(idea.title);
@@ -121,8 +121,6 @@ export class TaskEntryComponent {
   }
 
   submitTask() {
-    // console.dir(this.title);-
-    console.log("Task is being submitted");
     this.modalController.dismiss({
       id: this.idGenerator(),
       completed: 0,
@@ -141,33 +139,32 @@ export class TaskEntryComponent {
   }
 
   cancel() {
-    console.log(`Cancelled!`);
     this.modalController.dismiss({
-      'dismissed':true
+      'dismissed': true
     })
   }
 
-  get day() { return this.taskForm.get('day');}
-  get description() { return this.taskForm.get('description');}
-  get minutes() { return this.taskForm.get('minutes');}
-  get priority() { return this.taskForm.get('priority');}
-  get urgency() { return this.taskForm.get('urgency');}
-  get difficulties() { return this.taskForm.get('difficulties');}
-  get resource() { return this.taskForm.get('resource');}
-  get title() { return this.taskForm.get('title');}
-  get tag() { return this.taskForm.get('tag');}
+  get day() { return this.taskForm.get('day'); }
+  get description() { return this.taskForm.get('description'); }
+  get minutes() { return this.taskForm.get('minutes'); }
+  get priority() { return this.taskForm.get('priority'); }
+  get urgency() { return this.taskForm.get('urgency'); }
+  get difficulties() { return this.taskForm.get('difficulties'); }
+  get resource() { return this.taskForm.get('resource'); }
+  get title() { return this.taskForm.get('title'); }
+  get tag() { return this.taskForm.get('tag'); }
 
   idGenerator() {
-    var S4 = function() {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    var S4 = function () {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     };
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-}
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+  }
 
 
 
   ngOnDestroy() {
-    if(this.ideaSub) this.ideaSub.unsubscribe();
+    if (this.ideaSub) this.ideaSub.unsubscribe();
   }
 
 }

@@ -8,18 +8,18 @@ import { Task } from '../../../shared/models/task.model';
 import { Goal } from 'src/app/shared/models/goal.model';
 
 import { BackendService } from '../backend/backend.service';
-import { FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { TaskEntryComponent } from 'src/app/presentational/ui/task-entry/task-entry.component';
 import { ShowAwardComponent } from 'src/app/presentational/display/show-award/show-award.component';
 
 
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
-import { map, take, tap} from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { AuthRedoneService } from '../auth/authredone.service';
 import { ItemEditComponent } from 'src/app/presentational/ui/item-edit/item-edit.component';
 import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-entry/milestone-entry.component';
 import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entry/date-time-entry.component';
-import {combineLatest } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 
 
@@ -28,11 +28,11 @@ import {combineLatest } from 'rxjs';
   providedIn: 'root'
 })
 export class TaskManagementService {
- 
+
 
   taskSub: Subscription;
   goalsSub: Subscription;
-  daySub: Subscription;  
+  daySub: Subscription;
   addSub: Subscription;
   showAwardSub: Subscription;
   settingsSub: Subscription;
@@ -41,73 +41,73 @@ export class TaskManagementService {
   private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   private allTasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   private goalsSubject: BehaviorSubject<Goal[]> = new BehaviorSubject([]);
-  private tasksDay1Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
-  private tasksDay2Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
-  private tasksDay3Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
-  private tasksDay4Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
-  private tasksDay5Subject: BehaviorSubject<Task[]> =  new BehaviorSubject([]);
+  private tasksDay1Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  private tasksDay2Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  private tasksDay3Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  private tasksDay4Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  private tasksDay5Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
 
   public allTasks$: Observable<Task[]> = this.allTasksSubject.asObservable();
   public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
   public goals$: Observable<Goal[]> = this.goalsSubject.asObservable();
-  public tasksDay1$: Observable<Task []> = this.tasksDay1Subject.asObservable();
-  public tasksDay2$: Observable<Task []> = this.tasksDay2Subject.asObservable();
-  public tasksDay3$: Observable<Task []> = this.tasksDay3Subject.asObservable();
-  public tasksDay4$: Observable<Task []> = this.tasksDay4Subject.asObservable();
-  public tasksDay5$: Observable<Task []> = this.tasksDay5Subject.asObservable();
+  public tasksDay1$: Observable<Task[]> = this.tasksDay1Subject.asObservable();
+  public tasksDay2$: Observable<Task[]> = this.tasksDay2Subject.asObservable();
+  public tasksDay3$: Observable<Task[]> = this.tasksDay3Subject.asObservable();
+  public tasksDay4$: Observable<Task[]> = this.tasksDay4Subject.asObservable();
+  public tasksDay5$: Observable<Task[]> = this.tasksDay5Subject.asObservable();
 
 
 
-  defaultHours = 5; 
+  defaultHours = 5;
 
   private tags = ['general', 'All'];
-  tagOptions = new FormControl('general',[]);
+  tagOptions = new FormControl('general', []);
 
   ideaForm;
   ideas;
 
 
   constructor(
-    private backend: BackendService, 
-    private auth: AuthRedoneService, 
+    private backend: BackendService,
+    private auth: AuthRedoneService,
     public modalController: ModalController,
-    
-  ) { 
 
-    
+  ) {
 
-    }
 
-  public init(): void {  
-    console.log("In init");
+
+  }
+
+  public init(): void {
+
     this.goals$ = this.backend.getGoals().valueChanges();
     this.allTasks$ = this.backend.getTasks().valueChanges();
-    
-      const tempTask$= 
+
+    const tempTask$ =
       this.backend.getTasks().valueChanges().pipe(
-          map(tasks => tasks.filter(t => !t.completed)),
-          map(tasks => this.incrementDaysForTasks(this.defaultHours,tasks)),
-          map(tasks => this.calculatePastDue(tasks))
-        );
-       this.tasks$ = combineLatest([tempTask$,this.goals$])
-        .pipe(
-          map(([tasks,goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks,goals)),
-          )
+        map(tasks => tasks.filter(t => !t.completed)),
+        map(tasks => this.incrementDaysForTasks(this.defaultHours, tasks)),
+        map(tasks => this.calculatePastDue(tasks))
+      );
+    this.tasks$ = combineLatest([tempTask$, this.goals$])
+      .pipe(
+        map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
+      )
       .pipe(
         tap(t => {
-            t.forEach(t => {
-              if(t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
-            });
+          t.forEach(t => {
+            if (t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
+          });
         })
-        );
+      );
 
 
-    }
+  }
 
-  
+
 
   calculatePastDue(tasks: Task[]) {
-    return  tasks.map(t => {
+    return tasks.map(t => {
       return {
         ...t,
         pastDue: t.pastDue + this.dateDifference(new Date(), new Date(t.createdDate))
@@ -116,39 +116,39 @@ export class TaskManagementService {
   }
 
 
-  prioritizeAdhocAndGoalRelatedTasks(t,g) {
+  prioritizeAdhocAndGoalRelatedTasks(t, g) {
 
     const nonGoalTasks = t.filter(t => !t.goalId);
     t = nonGoalTasks
-        .concat(this.goalRelatedTaskPrioritize(t.filter(t => t.goalId), g))
-        .filter(task => task.completed === 0)
-        .sort((a,b) =>  (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue));
-    
-    return [t,g];
+      .concat(this.goalRelatedTaskPrioritize(t.filter(t => t.goalId), g))
+      .filter(task => task.completed === 0)
+      .sort((a, b) => (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue));
+
+    return [t, g];
   }
 
   goalRelatedTaskPrioritize(goalRelatedTasks: Task[], goals: Goal[]) {
-      if(goals.length === 0) return []; //no need to find goal related tasks if they don't exist
+    if (goals.length === 0) return []; //no need to find goal related tasks if they don't exist
 
-      const parentGoalsSortedByPriority = goals
-                                    .filter(goal => !goal.completed && goal.parentGoal === null)                          
-                                    .sort((a,b) => {
-                                        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
-                                      })   
-
-
-      const sortedMilestonesOfHighestGoal = goals
-                                          .filter(goal => !goal.completed && 
-                                                            goal.parentGoal === parentGoalsSortedByPriority[0].id)
-                                          .sort((a,b) => {
-                                            return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
-                                          })
+    const parentGoalsSortedByPriority = goals
+      .filter(goal => !goal.completed && goal.parentGoal === null)
+      .sort((a, b) => {
+        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+      })
 
 
-      const list = goalRelatedTasks.filter(t => t.goalId === sortedMilestonesOfHighestGoal[0].id);
+    const sortedMilestonesOfHighestGoal = goals
+      .filter(goal => !goal.completed &&
+        goal.parentGoal === parentGoalsSortedByPriority[0].id)
+      .sort((a, b) => {
+        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+      })
 
-      return list;
-      
+
+    const list = goalRelatedTasks.filter(t => t.goalId === sortedMilestonesOfHighestGoal[0].id);
+
+    return list;
+
   }
 
 
@@ -156,21 +156,19 @@ export class TaskManagementService {
     let dayIterator = 1;
     const minutesADay = hours * 60;
     let remainingMinutes = minutesADay;
-    console.dir(taskList);
-    for(let i = 0, len = taskList.length; i < len; i++) { 
 
-      if((remainingMinutes - taskList[i].minutes) >= -1) {
+    for (let i = 0, len = taskList.length; i < len; i++) {
+
+      if ((remainingMinutes - taskList[i].minutes) >= -1) {
         remainingMinutes -= taskList[i].minutes;
-        console.log("Day 1");
-        console.log(`Remaining Minutes is ${remainingMinutes} and task minutes are ${taskList[i].minutes}`);
+
         taskList[i].day = dayIterator;
       } else {
-          taskList[i].day = ++dayIterator;
-          remainingMinutes = minutesADay;
-          console.log(`Remaining Minutes is ${remainingMinutes} and task minutes are ${taskList[i].minutes}`);
-          console.log(remainingMinutes);
+        taskList[i].day = ++dayIterator;
+        remainingMinutes = minutesADay;
+
       }
-     
+
     }
     return taskList;
   }
@@ -178,27 +176,27 @@ export class TaskManagementService {
 
 
   createIdea(event) {
-    this.backend.addIdea({title: event.title, createdDate: moment().format("MM/DD/YYYY")});
+    this.backend.addIdea({ title: event.title, createdDate: moment().format("MM/DD/YYYY") });
     this.backend.delete(event);
   }
 
   markTaskComplete(event) {
     //this will update the task as completed 
 
-      let awards;
+    let awards;
 
-      event.completed = 1;
-      event.completedDate = moment().format('DD/MM/YYYY');
-      event.completedTime = moment().format('hA');
-      try {
-        awards = this.backend.addMetric(event, "completion");
-      } catch (error) {
-          console.log({error}) 
-      }
-    
-      this.updateAllTasks(event);
-      this.handleGoalUpdates(this.tasks$, this.goals$);
-   
+    event.completed = 1;
+    event.completedDate = moment().format('MM/DD/YYYY');
+    event.completedTime = moment().format('hA');
+    try {
+      awards = this.backend.addMetric(event, "completion");
+    } catch (error) {
+      console.log({ error })
+    }
+
+    this.updateAllTasks(event);
+    this.handleGoalUpdates(this.tasks$, this.goals$);
+
   }
 
 
@@ -209,25 +207,25 @@ export class TaskManagementService {
     });
     modal.onDidDismiss()
       .then((data) => {
-        const result = data['data']; 
-        if(result.id) this.backend.addMetric(this.backend.addTask(result), "creation")
+        const result = data['data'];
+        if (result.id) this.backend.addMetric(this.backend.addTask(result), "creation")
 
-    });
+      });
 
 
-  return await modal.present();
-  
+    return await modal.present();
+
   }
 
-  async addTask(milestone?:Goal, goal?:Goal) {
+  async addTask(milestone?: Goal, goal?: Goal) {
     const modal = await this.modalController.create({
       component: TaskEntryComponent
     });
     modal.onDidDismiss()
       .then((data) => {
-        const result = data['data']; 
-        if(result.id) {
-          if(goal) {
+        const result = data['data'];
+        if (result.id) {
+          if (goal) {
             result['goalId'] = milestone.id;
             result['parentGoalTitle'] = goal.title;
             result['milestoneTitle'] = milestone.title;
@@ -236,22 +234,22 @@ export class TaskManagementService {
           this.backend.addTask(result);
           // this.tasks.push(result);
           // this.sortDays(5,[...this.sortTasksAndGoals([...this.tasks], [...this.goals])]);
-         
+
           try {
             this.backend.addMetric(result, "creation");
-    
+
           } catch (error) {
-              console.dir(error);
+            console.dir(error);
           }
-          
-       
-         }
-
-    });
 
 
-  return await modal.present();
-  
+        }
+
+      });
+
+
+    return await modal.present();
+
   }
 
   async addGoal() {
@@ -261,40 +259,40 @@ export class TaskManagementService {
     });
     modal.onDidDismiss()
       .then((data) => {
-        const result = data['data']; 
-        console.dir(result);
-        if(result) {
+        const result = data['data'];
+
+        if (result) {
           const returnedGoals = this.backend.addGoals(result.goalsToSubmit);
           const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
-    
+
         }
 
-    });
+      });
 
 
-  return await modal.present();
-  
+    return await modal.present();
+
   }
 
   async addMilestone(goalParent) {
     const modal = await this.modalController.create({
       component: MilestoneEntryComponent,
       cssClass: 'goal-entry',
-      componentProps: {goalParent}
+      componentProps: { goalParent }
     });
     modal.onDidDismiss()
       .then((data) => {
-        const result = data['data']; 
-        if(result !== null) {
+        const result = data['data'];
+        if (result !== null) {
           const returnedGoals = this.backend.addGoals(result.goalToSubmit);
           const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
         }
- 
-    });
+
+      });
 
 
-  return await modal.present();
-  
+    return await modal.present();
+
   }
 
   async editGoal(goalToEdit) {
@@ -311,23 +309,23 @@ export class TaskManagementService {
     //     }
     const returnItem = this.backend.updateGoals([goalToEdit]);
 
-    
+
     //  return await modal.present();
 
-   }
+  }
 
-  async editItem(data,type) {
+  async editItem(data, type) {
 
     const modal = await this.modalController.create({
       component: ItemEditComponent,
       cssClass: 'goal-entry',
-      componentProps: {data,type}
+      componentProps: { data, type }
     });
     modal.onDidDismiss()
       .then((data) => {
 
-        const result = data.data; 
-        if(result) {
+        const result = data.data;
+        if (result) {
           switch (type) {
             case 'task':
               const returnItem = this.backend.updateTask(result);
@@ -338,42 +336,42 @@ export class TaskManagementService {
               // this.goals.splice(this.goals.findIndex(t=> t.id === result.id), 1, result);
               break;
           }
-          
+
           // this.sortDays(5,[...this.tasks]);
         }
-    });
-    
-     return await modal.present();
-
-   }
-
-   deleteTask(event) {
-    //  this.tasks.splice(this.tasks.findIndex(task => task.id === event.id),1);
-     const returnItem = this.backend.delete(event);
-
-
-  
-   }
-
-   deleteGoal(g,m) {
-     console.log({arguments});
-     let tasks;
-
-      m.forEach(g => {
-        tasks = g.tasks;
-        tasks.forEach((t) => {
-          // this.tasks.splice(this.tasks.findIndex(tasks => tasks.id === t.id),1);
-          this.backend.delete(t);
-        });
-
-        // this.goals.splice(this.goals.findIndex(goals => goals.id === g.id),1);
-        this.backend.deleteGoal(g)
       });
-      // this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
-      this.backend.deleteGoal(g);
+
+    return await modal.present();
+
+  }
+
+  deleteTask(event) {
+    //  this.tasks.splice(this.tasks.findIndex(task => task.id === event.id),1);
+    const returnItem = this.backend.delete(event);
 
 
- 
+
+  }
+
+  deleteGoal(g, m) {
+
+    let tasks;
+
+    m.forEach(g => {
+      tasks = g.tasks;
+      tasks.forEach((t) => {
+        // this.tasks.splice(this.tasks.findIndex(tasks => tasks.id === t.id),1);
+        this.backend.delete(t);
+      });
+
+      // this.goals.splice(this.goals.findIndex(goals => goals.id === g.id),1);
+      this.backend.deleteGoal(g)
+    });
+    // this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
+    this.backend.deleteGoal(g);
+
+
+
   }
 
   updateAllTasks(event) {
@@ -382,55 +380,53 @@ export class TaskManagementService {
   }
 
 
-  dateDifference(d1,d2) {
-    const diff = moment(d1).diff(moment(d2), 'days'); 
+  dateDifference(d1, d2) {
+    const diff = moment(d1).diff(moment(d2), 'days');
     return diff || 0;
   }
 
-  handleGoalUpdates(tasks$:Observable<Task[]>, goals$:Observable<Goal[]>) {
+  handleGoalUpdates(tasks$: Observable<Task[]>, goals$: Observable<Goal[]>) {
 
-    return forkJoin([tasks$,goals$])
+    return forkJoin([tasks$, goals$])
       .subscribe(([tasks, goals]) => {
         const goalsToUpdate = [];
         let currentGoal;
         const milestones = goals.filter(g => g.taskChildren.length > 0);
         milestones
           .forEach(m => {
-            m.completed = this.checkIfMilestoneDone(m.id, [...tasks],[...milestones]);
+            m.completed = this.checkIfMilestoneDone(m.id, [...tasks], [...milestones]);
             currentGoal = goals.find(g => g.id === m.parentGoal);
             currentGoal.completed = this.checkIfGoalDone(m, [...goals]);
-            if(m.completed) goalsToUpdate.push(m);
-            if(currentGoal.completed) goalsToUpdate.push(currentGoal);
-      
+            if (m.completed) goalsToUpdate.push(m);
+            if (currentGoal.completed) goalsToUpdate.push(currentGoal);
+
           });
 
-          this.backend.updateGoals([...goalsToUpdate]);
+        this.backend.updateGoals([...goalsToUpdate]);
       })
 
   }
 
-  checkIfMilestoneDone(milestoneId: string, tasks: Task[], goals: Goal[]) : number {
+  checkIfMilestoneDone(milestoneId: string, tasks: Task[], goals: Goal[]): number {
     let currentTask;
     let complete = 1;
     const milestoneInQuestion = goals.find(goal => goal.id === milestoneId);
-    // console.dir(milestoneInQuestion);
-    milestoneInQuestion.taskChildren.forEach( currentTaskId => {
+    milestoneInQuestion.taskChildren.forEach(currentTaskId => {
       currentTask = tasks.find(task => task.id === currentTaskId);
-      if(currentTask && !currentTask.completed) {
-   
-        complete = 0; 
+      if (currentTask && !currentTask.completed) {
+
+        complete = 0;
         return complete;
       } else {
-        // console.log(`Couldn't find ${currentTaskId} in`);
-        // console.dir(tasks);
-      } 
+
+      }
     })
-  
+
     return complete;
-  
+
   }
 
-  checkIfGoalDone(associatedMilestone:Goal, goals: Goal[]) : number {
+  checkIfGoalDone(associatedMilestone: Goal, goals: Goal[]): number {
 
     let complete = 1;
     const goalInQuestion = goals.find(goal => goal.id === associatedMilestone.parentGoal);
@@ -438,16 +434,16 @@ export class TaskManagementService {
 
     milestonesInQuestion
       .forEach(milestone => {
-        if(!milestone.completed) {
+        if (!milestone.completed) {
           complete = 0;
           return complete;
         }
       })
-      return complete;
-  
+    return complete;
+
   }
 
-  
+
 
 
 
@@ -462,38 +458,35 @@ export class TaskManagementService {
   }
 
   addIdea() {
-    console.dir(this.idea.value);
-    this.backend.addIdea({title: this.idea.value, createdDate: moment().format("MM/DD/YYYY")});
+
+    this.backend.addIdea({ title: this.idea.value, createdDate: moment().format("MM/DD/YYYY") });
     this.ideaForm.controls['idea'].setValue(null);
   }
 
   async createEvent(tasks) {
     const modal = await this.modalController.create({
-      component: DateTimeEntryComponent 
+      component: DateTimeEntryComponent
     });
     modal.onDidDismiss()
       .then((data) => {
-        console.dir(data);
-        const result = data['data']; 
-        if(result.date) { 
-          console.dir(result);
-          console.log(new Date(`${result.date}`));
-         
+        const result = data['data'];
+        if (result.date) {
+
           try {
-            this.auth.insertEvents(tasks,result.date, result.buffer);
-    
+            this.auth.insertEvents(tasks, result.date, result.buffer);
+
           } catch (error) {
-              console.dir(error);
+            console.dir(error);
           }
-          
-       
-         }
-
-    });
 
 
-  return await modal.present();
-  
+        }
+
+      });
+
+
+    return await modal.present();
+
   }
 
   get idea() {
@@ -513,16 +506,15 @@ export class TaskManagementService {
 
 
   ngOnDestroy() {
-    if(this.settingsSub) {
+    if (this.settingsSub) {
       this.settingsSub.unsubscribe();
     }
-    if(this.taskSub) this.taskSub.unsubscribe();
-    if(this.daySub) this.daySub.unsubscribe();
-    if(this.addSub) this.addSub.unsubscribe();
-    if(this.goalsSub) this.goalsSub.unsubscribe();
+    if (this.taskSub) this.taskSub.unsubscribe();
+    if (this.daySub) this.daySub.unsubscribe();
+    if (this.addSub) this.addSub.unsubscribe();
+    if (this.goalsSub) this.goalsSub.unsubscribe();
 
   }
 
 
 }
- 

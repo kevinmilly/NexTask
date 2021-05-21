@@ -1,89 +1,84 @@
-
-<ion-content  *ngIf="tasks && tasks.length > 0"> 
-  <ion-item-sliding *ngFor="let task of tasks">
-    <ion-item lines="none" class="task-item">
-      <mat-expansion-panel
-        [ngClass]="classPriority(task.priority, task.difficulty, task.urgency, task.pastDue)"  
-        [style.margin-top.em]=".1"
-        [style.padding.em]="1"
-      >
-        <mat-expansion-panel-header
-         [collapsedHeight]="getHeight(task)"
-        >
-          <mat-panel-title>
-            {{task.title}}
-          </mat-panel-title>
-          <mat-panel-description>
-            <ng-container class="goal-description-block" *ngIf="task.mileStoneTitle !== task.parentGoalTitle">
-              <span class="goal">G/M</span> 
-            </ng-container>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <ion-card class="task-details-card"
-        >
-      <ion-card-header *ngIf="task.mileStoneTitle !== task.parentGoalTitle">
-            <div class="goal-description-block">
-              <span class="goal">Goal:</span> {{task.parentGoalTitle}} 
-              <hr>
-              <span class="milestone">Milestone: </span>{{task.milestoneTitle }}
-            </div>
-            <mat-divider></mat-divider>
-      </ion-card-header>
-      <ion-card-content text-center>
-            <ng-container >
-  
-                <ion-list lines="none">
-              
+<ion-content *ngIf="tasks && tasks.length > 0">
+  <ion-list>
+    <ion-item-sliding *ngFor="let task of tasks">
+        <ion-item lines="none" class="task-item">
+          <mat-expansion-panel [ngClass]="classPriority(task.priority, task.difficulty, task.urgency, task.pastDue)"
+            [style.margin-top.rem]=".5" [style.padding.rem]="1">
+            <mat-expansion-panel-header [collapsedHeight]="getHeight(task)">
+              <mat-panel-title>
+                {{task.title}}
+              </mat-panel-title>
+              <mat-panel-description>
+                <ng-container class="goal-description-block" *ngIf="task.mileStoneTitle !== task.parentGoalTitle">
+                  <span class="goal">G/M</span>
+                </ng-container>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ion-card class="task-details-card">
+              <ion-card-header *ngIf="task.mileStoneTitle !== task.parentGoalTitle">
+                <div class="goal-description-block">
+                  <span class="goal">Goal:</span> {{task.parentGoalTitle}}
+                  <hr>
+                  <span class="milestone">Milestone: </span>{{task.milestoneTitle }}
+                </div>
+                <mat-divider></mat-divider>
+              </ion-card-header>
+              <ion-card-content text-center>
+                <ng-container>
+    
+                  <ion-list lines="none">
+    
                     <h2>{{task.title}}</h2>
-                  
-            
-            
-          
-                  <ion-item class="details">
-                  
+    
+    
+                    <ion-item class="details">
+    
                       <h3><b>Urgency</b>:</h3> &nbsp;<h4>{{importanceDifficultyFormat('urgency',task.urgency)}}</h4>
-                  
-                  </ion-item>
-                  <ion-item class="details">
-                  
+    
+                    </ion-item>
+                    <ion-item class="details">
+    
                       <h3><b>Priority</b>:</h3> &nbsp;<h4>{{importanceDifficultyFormat('importance',task.priority)}}</h4>
-                  
-                  </ion-item>
-                  <ion-item class="details">
-                  
-                      <h3><b>Difficulty</b>:</h3> &nbsp;<h4>{{importanceDifficultyFormat('difficulty',task.difficulty)}}</h4>
-                  
-                  </ion-item>
-                  <ion-item class="details">
-                  
+    
+                    </ion-item>
+                    <ion-item class="details">
+    
+                      <h3><b>Difficulty</b>:</h3> &nbsp;<h4>{{importanceDifficultyFormat('difficulty',task.difficulty)}}
+                      </h4>
+    
+                    </ion-item>
+                    <ion-item class="details">
+    
                       <h3><b>Minutes</b>:</h3> &nbsp;<h4>{{task.minutes}}</h4>
-                  
-                  </ion-item>
-                </ion-list>
     
-          </ng-container>
+                    </ion-item>
+                  </ion-list>
     
-          <mat-divider></mat-divider>
-
-    </ion-card-content>
-  </ion-card>
-      </mat-expansion-panel>
-    </ion-item>
-
-    <ion-item-options side="start">
-      <ion-item-option >
-        <ion-icon name="trash-outline" color="danger"  (click)="delete(task)"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
-    <ion-item-options side="end">
-      <ion-item-option >
-        <ion-icon name="checkbox-outline" (click)="markComplete(task)" color="success" ></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
+                </ng-container>
+    
+                <mat-divider></mat-divider>
+    
+              </ion-card-content>
+            </ion-card>
+          </mat-expansion-panel>
+        </ion-item>
+    
+        <ion-item-options side="start">
+          <ion-item-option>
+            <ion-icon name="trash-outline" color="danger" (click)="delete(task)"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+        <ion-item-options side="end">
+          <ion-item-option>
+            <ion-icon name="checkbox-outline" (click)="markComplete(task)" color="success"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
     </ion-item-sliding>
+  </ion-list>
 
-  
+
 </ion-content>
+
 <ng-template #noTasks>
   <ion-card class="no-task">
     <ion-card-header>
@@ -98,8 +93,3 @@
     </ion-card-content>
   </ion-card>
 </ng-template>
-
-
-   
-   
- 

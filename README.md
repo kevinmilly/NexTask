@@ -101,7 +101,7 @@ Sometimes you have Goal-based tasks that are interspersed between simple ad-hoc 
 
 | Submitting Goal | Goal-Based within Adhoc |
 | --- | --- |
-| <img src="readme-assets/submitgoal.gif" alt="goal-based-entry"> | <img src="readme-assets/withGoal.png" alt="goal-with-adhoc"> |
+| <img src="readme-assets/submitgoal.gif" alt="goal-based-entry"> | <img src="readme-assets/withGoal.gif" alt="goal-with-adhoc"> |
 
 
 #### Metrics

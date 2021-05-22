@@ -1,85 +1,98 @@
 <ion-content>
-  <ion-slides pager="true" [options]="slideOptions">
-      <ion-slide>
-      <div >
-        <img src="../../../assets/images/youngladyphone.jpg"/>
-        <h2>Smarter and Sleek</h2>
-        <div class="welcome">
-            Looking for simple task management, but something more robust than a 'To Do' list?
-            Try Queue-D!  We'll make sure you are accomplishing the most impactful tasks first!
-    
-            
-          
-        </div>
-        <!-- <div class="swiper-button-next" (click)="nextSlide()"></div> -->
-        <div (click)="start()"class="skip-promo">Skip</div>
-         <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <div>
-        <img src="../../../assets/images/busywomanphone.jpg"/>
-       
-          <h2>Create a task</h2>
-
-        <div  class="welcome">
-           Put what you have to accomplish then decide 3 factors:<br/>
-           How Urgent is it? How important is it? How difficult is it?<br/>
-           You set the levels, and we'll organize it in a queue to make sure you are using your time and energy effectively.
-          
+  <ion-grid>
+    <ion-row>
+        <ion-col 
+          size="12" 
+          size-xs="12"
+          size-sm="6"
+          size-md="4"
+          size-lg="3"
+          >
+              <ion-slides pager="true" [options]="slideOptions">
+                <ion-slide>
+                <div >
+                  <img src="../../../assets/images/youngladyphone.jpg"/>
+                  <h2>Smarter and Sleek</h2>
+                  <div class="welcome">
+                      Looking for simple task management, but something more robust than a 'To Do' list?
+                      Try Queue-D!  We'll make sure you are accomplishing the most impactful tasks first!
               
-        </div>
-       
-        <div (click)="start()"class="skip-promo">Skip</div>
-         <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <div>
-        <img src="../../../assets/images/happygirlphone.jpg"/>
-        <h2>Now all you have to do is focus on getting it done!</h2>
-        <div class="welcome">
-            The tasks you add will be organized by the most impactful to the least.
-          If you don't get to a task by the end of the day, next day it will slightly increase in priority.
-        </div>
-  
-        <span (click)="start()"class="skip-promo">Skip</span>
-        <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <div class="slide">
-        <img src="../../../assets/images/strategywomen.jpg"/>
-        <h2>Create Goals for More Strategic Planning.</h2>
-        <div class="welcome">Reverse engineer your goals by breaking them down to milestones.  Then break 
-          your milestones down to tasks.  They will show up on the Queue too, organized amongst ad-hoc tasks.
-        </div>
-        <br/><br/>
-        <div (click)="start()"class="skip-promo">Skip</div>
-         <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <div class="slide">
-        <img src="../../../assets/images/viewmetrics.jpg"/>
-        <h2>Check Your Metrics.</h2>
-        <div >
-          Measure your progress, see where you can improve!
-        </div>
-        <br/>
-        <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
-        <span (click)="start()"class="skip-promo">Skip</span>
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <div class="slide">
-        <img src="../../../assets/images/coffee-peace.jpg"/>
-        <h2>Be safe and productive my Friends!</h2>
-        <div  class="welcome">Check out more resources below and press 'Get Started!'</div>
+                      
+                    
+                  </div>
+                  <!-- <div class="swiper-button-next" (click)="nextSlide()"></div> -->
+                  <div (click)="start()"class="skip-promo">Skip</div>
+                  <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
+                </div>
+              </ion-slide>
+              <ion-slide>
+                <div>
+                  <img src="../../../assets/images/busywomanphone.jpg"/>
+                
+                    <h2>Create a task</h2>
+          
+                  <div  class="welcome">
+                    Put what you have to accomplish then decide 3 factors:<br/>
+                    How Urgent is it? How important is it? How difficult is it?<br/>
+                    You set the levels, and we'll organize it in a queue to make sure you are using your time and energy effectively.
+                    
+                        
+                  </div>
+                
+                  <div (click)="start()"class="skip-promo">Skip</div>
+                  <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
+                </div>
+              </ion-slide>
+              <ion-slide>
+                <div>
+                  <img src="../../../assets/images/happygirlphone.jpg"/>
+                  <h2>Now all you have to do is focus on getting it done!</h2>
+                  <div class="welcome">
+                      The tasks you add will be organized by the most impactful to the least.
+                    If you don't get to a task by the end of the day, next day it will slightly increase in priority.
+                  </div>
+            
+                  <span (click)="start()"class="skip-promo">Skip</span>
+                  <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
+                </div>
+              </ion-slide>
+              <ion-slide>
+                <div class="slide">
+                  <img src="../../../assets/images/strategywomen.jpg"/>
+                  <h2>Create Goals for More Strategic Planning.</h2>
+                  <div class="welcome">Reverse engineer your goals by breaking them down to milestones.  Then break 
+                    your milestones down to tasks.  They will show up on the Queue too, organized amongst ad-hoc tasks.
+                  </div>
+                  <br/><br/>
+                  <div (click)="start()"class="skip-promo">Skip</div>
+                  <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
+                </div>
+              </ion-slide>
+              <ion-slide>
+                <div class="slide">
+                  <img src="../../../assets/images/viewmetrics.jpg"/>
+                  <h2>Check Your Metrics.</h2>
+                  <div >
+                    Measure your progress, see where you can improve!
+                  </div>
+                  <br/>
+                  <!-- <a routerLink="/login" class="skip-promo">Skip</a> -->
+                  <span (click)="start()"class="skip-promo">Skip</span>
+                </div>
+              </ion-slide>
+              <ion-slide>
+                <div class="slide">
+                  <img src="../../../assets/images/coffee-peace.jpg"/>
+                  <h2>Be safe and productive my Friends!</h2>
+                  <div  class="welcome">Check out more resources below and press 'Get Started!'</div>
+          
+                  <span (click)="start()"class="skip-promo">Get Started!</span>
+                  <!-- <a routerLink="/login" class="skip-promo">Get Started!</a> -->
+              </div>
+              </ion-slide>
+            </ion-slides>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
 
-        <span (click)="start()"class="skip-promo">Get Started!</span>
-        <!-- <a routerLink="/login" class="skip-promo">Get Started!</a> -->
-    </div>
-    </ion-slide>
-  </ion-slides>
 </ion-content>

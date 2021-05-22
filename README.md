@@ -99,7 +99,9 @@ Timeblocking allows you to use your calendar with task management.  By using the
 
 Sometimes you have Goal-based tasks that are interspersed between simple ad-hoc tasks tha occur from day to day.  These goal-based tasks have a more long-term meaning, however usually, need to relate to your 'one off' tasks.  In line with that, you can 'reverse-engineer' a goal down to a milestone and then to a task with Queue-D; these tasks will be included on your day to day queue accordingly.
 
-<img src="readme-assets/submitgoal.gif" alt="goal-based-entry">
+| Submitting Goal | Goal-Based within Adhoc |
+| --- | --- |
+| <img src="readme-assets/submitgoal.gif" alt="goal-based-entry"> | <img src="readme-assets/withGoal.png" alt="goal-with-adhoc"> |
 
 
 #### Metrics

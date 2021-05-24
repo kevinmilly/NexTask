@@ -58,7 +58,7 @@ export class TaskManagementService {
 
 
 
-  defaultHours = 5;
+  defaultHours = 6;
 
   private tags = ['general', 'All'];
   tagOptions = new FormControl('general', []);
@@ -81,13 +81,14 @@ export class TaskManagementService {
   public init(): void {
 
     this.goals$ = this.backend.getGoals().valueChanges();
-    this.allTasks$ = this.backend.getTasks().valueChanges();
+    this.allTasks$ = this.backend.getTasks().valueChanges().pipe(
+      map(tasks => this.incrementDaysForTasks(this.defaultHours, tasks)),
+      map(tasks => this.calculatePastDue(tasks))
+      );
 
     const tempTask$ =
-      this.backend.getTasks().valueChanges().pipe(
-        map(tasks => tasks.filter(t => !t.completed)),
-        map(tasks => this.incrementDaysForTasks(this.defaultHours, tasks)),
-        map(tasks => this.calculatePastDue(tasks))
+     this.allTasks$.pipe(
+        map(tasks => tasks.filter(t => !t.completed))
       );
     this.tasks$ = combineLatest([tempTask$, this.goals$])
       .pipe(

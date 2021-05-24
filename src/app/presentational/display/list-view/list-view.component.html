@@ -98,7 +98,7 @@
                         <ion-item-sliding *ngIf="!t.completed; else complete">
                             <ion-item class="task-item">
                               {{t.title}}
-                              <span class="task">{{t.day < 2 ? 'Today' : 'Day: '}}</span><span *ngIf="t.day > 1">{{t.day}}</span>
+                              <span class="task">{{t.day > 1 ? 'Day' : 'Today'}}</span><span *ngIf="t.day > 1">{{t.day}}</span>
                             </ion-item>
                             <ion-item-options side="start">
                               <ion-item-option side="start">

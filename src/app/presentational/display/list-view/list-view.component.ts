@@ -28,7 +28,7 @@ export class ListViewComponent implements OnInit {
   ngOnInit() {
     this.getGoals();
   }
-
+ 
   getGoals() {
     this.goalsSub = this.tmService.goals$
       .subscribe(retrievedGoals => {
@@ -41,6 +41,8 @@ export class ListViewComponent implements OnInit {
               })
               .sort((a, b) => a.completed - b.completed);
 
+              console.log("Tasks in List view");
+              console.table(this.tasks);
 
 
             this.goalsHierarchy = this.returnMilestoneAndTasks(this.goals, this.tasks.filter(t => t.goalId));

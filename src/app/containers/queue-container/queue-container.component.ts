@@ -72,9 +72,9 @@ export class QueueContainerComponent implements OnInit {
   ngOnInit(): void {
 
     this.tmService.init();
+ 
 
-
-    this.tasksDay1$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 1))),
+      this.tasksDay1$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 1))),
       this.tasksDay2$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 2))),
       this.tasksDay3$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 3))),
       this.tasksDay4$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 4))),

@@ -97,7 +97,7 @@ export class BackendService {
     });
     Promise.all(taskPromises)
       .then((docRef) => {
-        console.dir(docRef);
+
       })
 
   }
@@ -120,9 +120,6 @@ export class BackendService {
 
   addMetric(task, typeOfUpdate) {
     this.metrics = this.auth.authMetrics;
-    console.dir(this.metrics);
-
-
 
     let metric;
     let awards: Badge[] = [];

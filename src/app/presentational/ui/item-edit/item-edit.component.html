@@ -8,7 +8,7 @@
          name="title"
   
       ></ion-input>
-      <ion-label>Title</ion-label>
+      <ion-label slot="start">Name:</ion-label>
     </ion-item>
  
      <br />
@@ -18,14 +18,14 @@
         type="text"
         formControlName="description"
         name="description" 
-  
+   
       ></ion-input>
-      <ion-label>Description</ion-label>
+      <ion-label slot="start">Details:</ion-label>
     </ion-item><br />
 
     <ion-item>
       <mat-error *ngIf='!tag.valid && (tag.dirty || tag.touched)'> Your tag doesn't look right. </mat-error>
-      <ion-label>Categorize:</ion-label>
+      <ion-label slot="start">Categorize:</ion-label>
      <ion-input
        type="text"
        formControlName="tag"
@@ -42,7 +42,7 @@
         name="minutes"
   
       ></ion-input>
-      <ion-label>Minutes</ion-label>
+      <ion-label slot="start">Minutes:</ion-label>
     </ion-item><br />
   
     <!-- <ion-item >

@@ -86,21 +86,19 @@ export class TaskManagementService {
       map(tasks => this.calculatePastDue(tasks))
       );
 
-    const tempTask$ =
-     this.allTasks$.pipe(
-        map(tasks => tasks.filter(t => !t.completed))
-      );
-    this.tasks$ = combineLatest([tempTask$, this.goals$])
-      .pipe(
-        map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
-      )
-      .pipe(
-        tap(t => {
-          t.forEach(t => {
-            if (t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
-          });
-        })
-      );
+      const tempTask$ = this.allTasks$
+      .pipe(map(tasks => tasks.filter(t => !t.completed)));
+      this.tasks$ = combineLatest([tempTask$, this.goals$])
+        .pipe(
+          map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
+        )
+        .pipe(
+          tap(t => {
+            t[0].forEach(t => {
+              if (t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
+            });
+          })
+        );
 
 
   }
@@ -487,6 +485,11 @@ export class TaskManagementService {
 
 
     return await modal.present();
+
+  }
+
+  sortDays(tags:string[]) {
+    
 
   }
 

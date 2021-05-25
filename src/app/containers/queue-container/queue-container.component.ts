@@ -52,6 +52,7 @@ export class QueueContainerComponent implements OnInit {
   defaultHours = 0;
 
   tags = ['general', 'All'];
+  tagsSaved = ['general', 'All'];
   tagOptions = new FormControl('general', []);
 
   addSub: Subscription;
@@ -72,13 +73,9 @@ export class QueueContainerComponent implements OnInit {
   ngOnInit(): void {
 
     this.tmService.init();
- 
+    this.tags = this.tmService.filterTags;
 
-      this.tasksDay1$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 1))),
-      this.tasksDay2$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 2))),
-      this.tasksDay3$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 3))),
-      this.tasksDay4$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 4))),
-      this.tasksDay5$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 5)))
+    this.filterTasks();
 
 
 
@@ -86,10 +83,10 @@ export class QueueContainerComponent implements OnInit {
 
     this.presentLoading(4, "Looking for goals and tasks");
     this.quotes = this.commentsService.encouragement;
-    this.tags = this.tmService.filterTags;
     this.userInfo = this.auth.user;
 
   }
+
 
   createIdea(event) {
     this.tmService.createIdea(event);
@@ -99,14 +96,25 @@ export class QueueContainerComponent implements OnInit {
     this.tmService.createEvent(tasks);
   }
 
-
-  filterTags() {
+ 
+  filterTasks() {
 
     if (this.tagOptions.value === 'All') {
-      //  this.tmService.sortDays(5);
+      this.tasksDay1$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 1)));
+      this.tasksDay2$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 2)));
+      this.tasksDay3$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 3)));
+      this.tasksDay4$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 4)));
+      this.tasksDay5$ = this.tmService.tasks$.pipe(map((tasks: any) => tasks[0].filter(t => t.day === 5)));
       return;
     }
-    //  this.tmService.sortDays(5, this.tagOptions.value);
+    const tempTasks = this.tmService.tasks$.pipe(
+      map((tasks: any) => tasks[0].filter(t => this.tagOptions.value.includes(t.tag)))
+    );
+    this.tasksDay1$ = tempTasks.pipe(map((tasks: any) => tasks.filter(t => t.day === 1)));
+    this.tasksDay2$ = tempTasks.pipe(map((tasks: any) => tasks.filter(t => t.day === 2)));
+    this.tasksDay3$ = tempTasks.pipe(map((tasks: any) => tasks.filter(t => t.day === 3)));
+    this.tasksDay4$ = tempTasks.pipe(map((tasks: any) => tasks.filter(t => t.day === 4)));
+    this.tasksDay5$ = tempTasks.pipe(map((tasks: any) => tasks.filter(t => t.day === 5)));
   }
 
   getRandomQuote() {

@@ -111,6 +111,11 @@ What are your most productive times in day?
 
 Having this insight will inform your future decisions!  Check out the 'Metrics' section.
 
+| Most Completions  | Top Completions | Distributions |
+| ------------- | ------------- | -------------|
+|<img src="readme-assets/metrics-view1.JPG" alt="first-metric-view">  |<img src="readme-assets/metrics-view1.5.JPG" alt="second-metric-view">|<img src="readme-assets/metrics-view2.JPG" alt="third-metric-view">|
+
+
 <!-- ROADMAP -->
 ## Roadmap
 

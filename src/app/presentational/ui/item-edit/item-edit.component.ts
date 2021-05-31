@@ -25,26 +25,27 @@ export class ItemEditComponent implements OnInit {
 
   priorities = [
     {
-      text: "Not Important",
+      text: "Low",
       number: 1
     },
     {
-      text: "Low Priority",
+      text: "Medium",
       number: 2
     },
     {
-      text: "Important",
+      text: "High",
       number: 3
     },
     {
-      text: "Very Important",
+      text: "Critical",
       number: 4
     },
     {
-      text: "Critical",
+      text: "Non-Negotiable",
       number: 5
     }
   ]
+
 
   difficulty = [
     {
@@ -52,7 +53,7 @@ export class ItemEditComponent implements OnInit {
       number: 1
     },
     {
-      text: "Easy",
+      text: "Low",
       number: 2
     },
     {
@@ -60,34 +61,34 @@ export class ItemEditComponent implements OnInit {
       number: 3
     },
     {
-      text: "Involved",
+      text: "High",
       number: 4
     },
     {
-      text: "Deep Focus",
+      text: "Intense",
       number: 5
     }
   ]
 
   urgencyLevels = [
     {
-      text: "Not Urgent",
+      text: "Low",
       number: 1
     },
     {
-      text: "Somewhat Urgent",
+      text: "Medium",
       number: 2
     },
     {
-      text: "Urgent",
+      text: "Elevated",
       number: 3
     },
     {
-      text: "Very Urgent",
+      text: "High",
       number: 4
     },
     {
-      text: "Get it Done Now!",
+      text: "Immediate",
       number: 5
     }
   ]

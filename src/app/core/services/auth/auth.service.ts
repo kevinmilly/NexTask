@@ -130,7 +130,7 @@ export class AuthService {
     } else if ((priority + difficulty + urgency) < 6 || (priority + difficulty + urgency) === 6) {
       return '5';
     } else if ((priority + difficulty + urgency) < 9 || (priority + difficulty + urgency) === 9) {
-      return '6';
+      return '4';
     } else if ((priority + difficulty + urgency) < 12 || (priority + difficulty + urgency) === 12) {
       return '11';
     } else {

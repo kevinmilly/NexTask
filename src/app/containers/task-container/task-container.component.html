@@ -64,13 +64,13 @@
         </ion-item>
     
         <ion-item-options side="start">
-          <ion-item-option>
-            <ion-icon name="trash-outline" color="danger" (click)="delete(task)"></ion-icon>
+          <ion-item-option (click)="delete(task)">
+            <ion-icon name="trash-outline" color="danger" ></ion-icon>
           </ion-item-option>
         </ion-item-options>
         <ion-item-options side="end">
-          <ion-item-option>
-            <ion-icon name="checkbox-outline" (click)="markComplete(task)" color="success"></ion-icon>
+          <ion-item-option (click)="markComplete(task)">
+            <ion-icon name="checkbox-outline"  color="success"></ion-icon>
           </ion-item-option>
         </ion-item-options>
     </ion-item-sliding>

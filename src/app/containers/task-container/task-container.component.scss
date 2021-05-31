@@ -64,7 +64,11 @@ ion-content {
   
   &-high {
     // background:  #fa2e64;
-    background-image: linear-gradient(to bottom, #fa851f, rgb(241, 199, 163));
+    background-image: linear-gradient(
+      to bottom, 
+      rgb(241, 133, 38), 
+      rgb(248, 166, 94)
+    );
     height: 3.2em;
     .details {
       font-size: 1.2em;
@@ -77,7 +81,11 @@ ion-content {
   
   &-very-high {
     // background: #ff1d58;
-    background-image: linear-gradient(to bottom, #e06d07, #f3ae72);
+    background-image: linear-gradient(
+      to bottom, 
+      rgb(255, 81, 0), 
+      rgb(241, 133, 38)
+      );
     height: 3.5em;
     .details {
       font-size: 1.5em;
@@ -126,7 +134,8 @@ ion-content {
 }
 
 ion-item-option {
-  background-color: #f5e8dc;
+  background-color: #f8f0ec;
+  margin: 0;
   ion-icon {
     font-size: 3em;
   }
@@ -142,7 +151,7 @@ ion-item-sliding {
 .task-item {
   border: #6d3402;
   border-radius: 2%;
-  width: 95vh;
+  width: 100%;
 
   ion-card {
     width: 100%;

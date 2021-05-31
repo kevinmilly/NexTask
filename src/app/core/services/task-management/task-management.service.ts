@@ -58,7 +58,7 @@ export class TaskManagementService {
 
 
 
-  defaultHours = 8;
+  defaultHours = 16;
 
   private tags = ['general', 'All'];
   tagOptions = new FormControl('general', []);

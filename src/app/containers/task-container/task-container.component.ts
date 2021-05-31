@@ -103,13 +103,13 @@ export class TaskContainerComponent implements OnInit {
   }
 
   classPriority(priority, difficulty, urgency, pastDue) {
-    if ((priority + difficulty + urgency + pastDue) < 6 || (priority + difficulty + urgency + pastDue) === 6) {
+    if ((priority + difficulty + urgency + pastDue) < 4 || (priority + difficulty + urgency + pastDue) === 4) {
       return 'task-item-very-low'
-    } else if ((priority + difficulty + urgency + pastDue) < 10 || (priority + difficulty + urgency + pastDue) === 10) {
+    } else if ((priority + difficulty + urgency + pastDue) < 7 || (priority + difficulty + urgency + pastDue) === 7) {
       return 'task-item-low';
-    } else if ((priority + difficulty + urgency + pastDue) < 14 || (priority + difficulty + urgency + pastDue) === 14) {
+    } else if ((priority + difficulty + urgency + pastDue) < 10 || (priority + difficulty + urgency + pastDue) === 10) {
       return 'task-item-medium';
-    } else if ((priority + difficulty + urgency + pastDue) < 18 || (priority + difficulty + urgency + pastDue) === 18) {
+    } else if ((priority + difficulty + urgency + pastDue) < 12 || (priority + difficulty + urgency + pastDue) === 12) {
       return 'task-item-high';
     } else {
       return 'task-item-very-high';

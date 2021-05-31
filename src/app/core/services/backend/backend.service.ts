@@ -20,7 +20,7 @@ export class BackendService {
   metrics: Metrics = new Metrics(0, 0, 0, 0, 0, 0);
   badges: Badge[] = testBadges;
 
-  private dayHours = new BehaviorSubject<any>(5);
+  private dayHours = new BehaviorSubject<any>(8);
 
   constructor(
     private firestore: AngularFirestore,

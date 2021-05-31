@@ -58,7 +58,7 @@ export class TaskManagementService {
 
 
 
-  defaultHours = 6;
+  defaultHours = 8;
 
   private tags = ['general', 'All'];
   tagOptions = new FormControl('general', []);
@@ -187,11 +187,11 @@ export class TaskManagementService {
     event.completed = 1;
     event.completedDate = moment().format('MM/DD/YYYY');
     event.completedTime = moment().format('hA');
-    try {
-      awards = this.backend.addMetric(event, "completion");
-    } catch (error) {
-      console.log({ error })
-    }
+    // try {
+    //   awards = this.backend.addMetric(event, "completion");
+    // } catch (error) {
+    //   console.log({ error })
+    // }
 
     this.updateAllTasks(event);
     this.handleGoalUpdates(this.tasks$, this.goals$);
@@ -207,7 +207,7 @@ export class TaskManagementService {
     modal.onDidDismiss()
       .then((data) => {
         const result = data['data'];
-        if (result.id) this.backend.addMetric(this.backend.addTask(result), "creation")
+        // if (result.id) this.backend.addMetric(this.backend.addTask(result), "creation")
 
       });
 
@@ -234,12 +234,12 @@ export class TaskManagementService {
           // this.tasks.push(result);
           // this.sortDays(5,[...this.sortTasksAndGoals([...this.tasks], [...this.goals])]);
 
-          try {
-            this.backend.addMetric(result, "creation");
+          // try {
+          //   this.backend.addMetric(result, "creation");
 
-          } catch (error) {
-            console.dir(error);
-          }
+          // } catch (error) {
+          //   console.dir(error);
+          // }
 
 
         }

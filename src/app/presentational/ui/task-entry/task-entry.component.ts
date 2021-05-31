@@ -6,7 +6,7 @@ import { BackendService } from '../../../core/services/backend/backend.service';
 import { Idea } from '../../../shared/models/idea.model';
 import { ModalController } from '@ionic/angular';
 
-@Component({
+@Component({ 
   selector: 'app-task-entry',
   templateUrl: './task-entry.component.html',
   styleUrls: ['./task-entry.component.scss'],

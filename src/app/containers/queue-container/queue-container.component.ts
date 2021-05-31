@@ -74,19 +74,13 @@ export class QueueContainerComponent implements OnInit {
 
     this.tmService.init();
     this.tags = this.tmService.filterTags;
-
-    this.filterTasks();
-
-
-
-
-
     this.presentLoading(4, "Looking for goals and tasks");
     this.quotes = this.commentsService.encouragement;
     this.userInfo = this.auth.user;
 
   }
 
+  ngAfterViewInit() {  this.filterTasks(); }
 
   createIdea(event) {
     this.tmService.createIdea(event);
@@ -153,6 +147,10 @@ export class QueueContainerComponent implements OnInit {
   addInitialTask() {
     this.tmService.addInitialTask();
     this.getRandomQuote();
+  }
+
+  updateSettings() {
+    this.tmService.updateSettings();
   }
 
   markTaskComplete(event) {

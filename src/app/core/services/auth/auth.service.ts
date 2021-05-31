@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { Task } from '../../../shared/models/task.model';
 import * as moment from 'moment';
 import { Metrics } from '../../../shared/models/metrics.model';
+import { Settings } from 'src/app/shared/models/settings.model';
 
 declare let gapi: any;
 
@@ -26,6 +27,8 @@ export class AuthService {
   // user: User; 
   user$: Observable<firebase.User> = null;
   metrics: Metrics;
+
+  settings:Settings;
   user: any = null;
   loggedIn = false;
   authToken = '';
@@ -45,6 +48,7 @@ export class AuthService {
 
     this.user$ = this.afAuth.authState;
     this.metrics = new Metrics(0, 0, 0, 0, 0, 0);
+
 
   }
 
@@ -71,30 +75,26 @@ export class AuthService {
             uid: user.uid && user.uid
           };
 
-
-          if (!this.afs.collection(`users/`).doc(user.uid).collection("metrics")) {
-            this.afs.collection(`users/`)
-              .add(this.user)
-              .then((docRef) => {
-
-                const addedUser = docRef.set(this.user, { merge: true });
-
-                this.afs
-                  .collection<Metrics>(`users/${this.user.uid}/metrics`)
-                  .add(this.metrics)
-                  .then((docRef) => {
-                    const addedmetric = docRef.set(this.metrics, { merge: true });
-                    docRef.update({
-                      id: docRef.id,
-                      ...this.metrics
-                    })
-                  })
+          if(credential.additionalUserInfo.isNewUser) {
+            //make their first metrics
+            this.afs
+            .collection<Metrics>(`users/${this.user.uid}/metrics`)
+            .add(this.metrics)
+            .then((docRef) => {
+              const addedmetric = docRef.set(this.metrics, { merge: true });
+              console.dir(addedmetric);
+              docRef.update({
+                id: docRef.id,
+                ...this.metrics
               })
-          } else {
-            this.afs.collection<Metrics>(`users/${this.user.uid}/metrics`)
-              .valueChanges().subscribe(metric => this.metrics = metric[0]);
+            })
+        }
 
-          }
+
+        this.afs.collection<Metrics>(`users/${this.user.uid}/metrics`)
+          .valueChanges().subscribe(metric => this.metrics = metric[0]);
+
+    
         } else {
           localStorage.setItem('user', null);
           this.router.navigate(['/login']);

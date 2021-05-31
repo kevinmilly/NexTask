@@ -9,6 +9,8 @@ import { Badge } from '../../../shared/models//badge.model';
 import { testBadges } from '../../../shared/test-data/test-badge';
 import { Goal } from '../../../shared/models//goal.model';
 import { AuthRedoneService } from '../auth/authredone.service';
+import { Settings } from 'src/app/shared/models/settings.model';
+import { take } from 'rxjs/internal/operators/take';
 
 
 @Injectable({
@@ -26,7 +28,9 @@ export class BackendService {
     private firestore: AngularFirestore,
     private auth: AuthRedoneService,
 
-  ) { }
+  ) {
+    this.user = this.auth.user;
+   }
 
   getAwards() {
     return this.auth.authMetrics;
@@ -41,17 +45,14 @@ export class BackendService {
   }
 
   getTasks() {
-    this.user = this.auth.user;
     return this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
   }
   getGoals() {
-    this.user = this.auth.user;
 
     return this.firestore.collection<Goal>(`users/${this.user.uid}/Goals`);
   }
 
   getIdeas() {
-    this.user = this.auth.user;
     return this.firestore.collection<Idea>(`users/${this.user.uid}/Ideas`);
   }
 
@@ -116,6 +117,16 @@ export class BackendService {
 
 
 
+  }
+
+  updateSettings(settings:Settings) {
+    this.firestore.collection<Settings>(`users/${this.user.uid}/Settings`)
+    .doc(settings.id).set({ ...settings}, { merge: true })
+  
+  }
+
+  getSettings() {
+    return this.firestore.collection<Settings>(`users/${this.user.uid}/Settings`);
   }
 
   addMetric(task, typeOfUpdate) {

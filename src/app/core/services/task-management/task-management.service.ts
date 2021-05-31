@@ -20,6 +20,7 @@ import { ItemEditComponent } from 'src/app/presentational/ui/item-edit/item-edit
 import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-entry/milestone-entry.component';
 import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entry/date-time-entry.component';
 import { combineLatest } from 'rxjs';
+import { SettingsComponent } from 'src/app/presentational/ui/settings/settings.component';
 
 
 
@@ -58,7 +59,7 @@ export class TaskManagementService {
 
 
 
-  defaultHours = 16;
+  defaultHours = 8;
 
   private tags = ['general', 'All'];
   tagOptions = new FormControl('general', []);
@@ -249,6 +250,30 @@ export class TaskManagementService {
 
     return await modal.present();
 
+  }
+
+  async updateSettings() {
+    console.log("Update reached to task management");
+    const modal = await this.modalController.create({
+      component: SettingsComponent,
+      componentProps: { 
+        hours: this.defaultHours
+      }
+    });
+    modal.onDidDismiss()
+      .then((data) => {
+        console.log({data});
+        const result = data['data'];
+        console.dir(result);
+        if (result) {
+          this.defaultHours = result.hours;
+
+        }
+
+      });
+
+
+    return await modal.present();
   }
 
   async addGoal() {

@@ -32,7 +32,7 @@ export class SettingsComponent implements OnInit {
         this.modalController.dismiss(this.hourSettings);
   }
 
-  get hours():number {return this.settingsForm.get('hours').value}
+  get hours(){return this.settingsForm.get('hours')}
 
   cancel() {
     this.modalController.dismiss({

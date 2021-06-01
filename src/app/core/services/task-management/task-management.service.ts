@@ -31,35 +31,20 @@ import { SettingsComponent } from 'src/app/presentational/ui/settings/settings.c
 export class TaskManagementService {
 
 
-  taskSub: Subscription;
-  goalsSub: Subscription;
-  daySub: Subscription;
-  addSub: Subscription;
-  showAwardSub: Subscription;
-  settingsSub: Subscription;
-  ideaSub: Subscription;
-
   private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   private allTasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
   private goalsSubject: BehaviorSubject<Goal[]> = new BehaviorSubject([]);
-  private tasksDay1Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
-  private tasksDay2Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
-  private tasksDay3Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
-  private tasksDay4Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
-  private tasksDay5Subject: BehaviorSubject<Task[]> = new BehaviorSubject([]);
+  private defaultHoursSubject: BehaviorSubject<number> = new BehaviorSubject(5);
 
   public allTasks$: Observable<Task[]> = this.allTasksSubject.asObservable();
   public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
   public goals$: Observable<Goal[]> = this.goalsSubject.asObservable();
-  public tasksDay1$: Observable<Task[]> = this.tasksDay1Subject.asObservable();
-  public tasksDay2$: Observable<Task[]> = this.tasksDay2Subject.asObservable();
-  public tasksDay3$: Observable<Task[]> = this.tasksDay3Subject.asObservable();
-  public tasksDay4$: Observable<Task[]> = this.tasksDay4Subject.asObservable();
-  public tasksDay5$: Observable<Task[]> = this.tasksDay5Subject.asObservable();
+  public defaultHours$: Observable<number> = this.defaultHoursSubject.asObservable();
 
 
 
-  defaultHours = 8;
+
+  defaultHours = 5;
 
   private tags = ['general', 'All'];
   tagOptions = new FormControl('general', []);
@@ -80,12 +65,15 @@ export class TaskManagementService {
   }
 
   public init(): void {
-
+    console.log(`in init with ${this.defaultHours}`);
     this.goals$ = this.backend.getGoals().valueChanges();
-    this.allTasks$ = this.backend.getTasks().valueChanges().pipe(
-      map(tasks => this.incrementDaysForTasks(this.defaultHours, tasks)),
-      map(tasks => this.calculatePastDue(tasks))
-      );
+    this.allTasks$ = combineLatest([
+                        this.backend.getTasks().valueChanges(),
+                        this.defaultHours$
+                      ]).pipe(
+                            map(([unincrementedTasks,hours]) => this.incrementDaysForTasks(hours, unincrementedTasks)),
+                            map(tasks => this.calculatePastDue(tasks))
+                       );
 
       const tempTask$ = this.allTasks$
       .pipe(map(tasks => tasks.filter(t => !t.completed)));
@@ -155,6 +143,7 @@ export class TaskManagementService {
   incrementDaysForTasks(hours: number, taskList: Task[]) {
     let dayIterator = 1;
     const minutesADay = hours * 60;
+    console.log(`Minutes per day are ${minutesADay}`);
     let remainingMinutes = minutesADay;
 
     for (let i = 0, len = taskList.length; i < len; i++) {
@@ -254,10 +243,11 @@ export class TaskManagementService {
 
   async updateSettings() {
     console.log("Update reached to task management");
+    console.log(this.defaultHours);
     const modal = await this.modalController.create({
       component: SettingsComponent,
       componentProps: { 
-        hours: this.defaultHours
+        hourSettings: this.defaultHours
       }
     });
     modal.onDidDismiss()
@@ -265,8 +255,9 @@ export class TaskManagementService {
         console.log({data});
         const result = data['data'];
         console.dir(result);
-        if (result) {
-          this.defaultHours = result.hours;
+        if (!result.dismissed) {
+          this.defaultHours = result;
+          this.defaultHoursSubject.next(this.defaultHours);
 
         }
 
@@ -535,13 +526,7 @@ export class TaskManagementService {
 
 
   ngOnDestroy() {
-    if (this.settingsSub) {
-      this.settingsSub.unsubscribe();
-    }
-    if (this.taskSub) this.taskSub.unsubscribe();
-    if (this.daySub) this.daySub.unsubscribe();
-    if (this.addSub) this.addSub.unsubscribe();
-    if (this.goalsSub) this.goalsSub.unsubscribe();
+   
 
   }
 

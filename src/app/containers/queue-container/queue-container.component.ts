@@ -151,6 +151,7 @@ export class QueueContainerComponent implements OnInit {
 
   updateSettings() {
     this.tmService.updateSettings();
+  
   }
 
   markTaskComplete(event) {

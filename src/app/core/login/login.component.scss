@@ -25,6 +25,10 @@ button {
   display: flex;
   justify-content: center;
 
+  img {
+    border-radius: 3%;
+  }
+
   div {
     font-size: 1em;
   }

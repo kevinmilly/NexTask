@@ -1,0 +1,16 @@
+@mixin center {
+    margin: auto;
+    width: auto;
+    height: 95vh;
+  }
+
+ion-content {
+    ion-card  {
+        @include center;
+        background-color: rgb(245, 233, 220);
+        display: flex;
+        justify-content: center;
+    
+
+      }
+}

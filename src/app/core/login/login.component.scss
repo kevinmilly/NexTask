@@ -5,7 +5,21 @@
     linear-gradient(
       rgb(218, 176, 98), #f06d06
     );
-    height: auto;
+  height: auto;
+}
+
+.landing-container {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  height: 97vh;
+
+
+  img.splash {
+    height:  47vh;
+    width: 100vh;
+
+  }
 }
 
 ion-card {
@@ -14,12 +28,17 @@ ion-card {
   width: 100%;
   border: none;
   height: auto;
+  
 
   .card-content {
-    margin: 2em auto;
-    width: 30em;
-    font-size: 1rem;
+    display: block;
+    // margin: 2em auto;
+    // width: 20em;
+    font-size: 2.5rem;
     text-align: center;
+    margin-top: .5rem;
+
+    
  
   }
 
@@ -29,9 +48,11 @@ ion-card {
 }
 
 button {
-  width: 10em;
-  height: 10em;
-  background-color: orange;
+  width: 100%;
+  height: auto;
+  margin-bottom: 1.2rem;
+
+  // background-color: orange;
 }
 
 .sign-in {
@@ -39,6 +60,7 @@ button {
   justify-content: center;
 
   img {
+    
     border-radius: 3%;
   }
 
@@ -69,11 +91,6 @@ ion-card.small-card {
   height: 100%;
 }
 
-.landing-container {
-  width: auto;
-  display: flex;
-  justify-content: center;
-}
 
 .small-login {
   font-size: 1.5rem;

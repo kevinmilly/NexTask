@@ -5,6 +5,7 @@
     linear-gradient(
       rgb(218, 176, 98), #f06d06
     );
+    height: auto;
 }
 
 ion-card {
@@ -12,11 +13,14 @@ ion-card {
   background-color: white;
   width: 100%;
   border: none;
+  height: auto;
 
   .card-content {
     margin: 2em auto;
     width: 30em;
     font-size: 1rem;
+    text-align: center;
+ 
   }
 
   img {

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { firebase } from '@firebase/app';
 import '@firebase/auth';
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare var gapi: any;
 
@@ -35,7 +36,8 @@ export class AuthRedoneService {
     constructor(
         private afAuth: AngularFireAuth,
         private afs: AngularFirestore,
-        private router: Router
+        private router: Router,
+        private spinner: NgxSpinnerService
 
     ) {
         this.initClient();
@@ -43,11 +45,8 @@ export class AuthRedoneService {
         this.user$ = this.afAuth.authState.pipe(
             switchMap(user => {
                 if (user) {
-
-                    localStorage.setItem('user', JSON.stringify(user));
                     return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
                 } else {
-                    localStorage.setItem('user', null);
                     return of(null);
                 }
             })
@@ -80,6 +79,12 @@ export class AuthRedoneService {
 
         const { user } = await this.afAuth.signInWithCredential(credential);
         this.updateUserData(user);
+        this.spinner.show();
+
+        setTimeout(() => {
+          /** spinner ends after 5 seconds */
+          this.spinner.hide();
+        }, 3000);
         this.router.navigate(['/tabs']);
     }
 
@@ -156,13 +161,13 @@ export class AuthRedoneService {
     }
 
     getColorId(priority, difficulty, urgency, pastDue) {
-        if ((priority + difficulty + urgency + pastDue) < 6 || (priority + difficulty + urgency + pastDue) === 6) {
+        if ((priority + difficulty + urgency + pastDue) < 6 || (priority + difficulty + urgency + pastDue) === 4) {
             return '8'
-        } else if ((priority + difficulty + urgency + pastDue) < 10 || (priority + difficulty + urgency + pastDue) === 10) {
+        } else if ((priority + difficulty + urgency + pastDue) < 10 || (priority + difficulty + urgency + pastDue) === 6) {
             return '5';
-        } else if ((priority + difficulty + urgency + pastDue) < 14 || (priority + difficulty + urgency + pastDue) === 14) {
-            return '6';
-        } else if ((priority + difficulty + urgency + pastDue) < 18 || (priority + difficulty + urgency + pastDue) === 18) {
+        } else if ((priority + difficulty + urgency + pastDue) < 14 || (priority + difficulty + urgency + pastDue) === 9) {
+            return '4';
+        } else if ((priority + difficulty + urgency + pastDue) < 18 || (priority + difficulty + urgency + pastDue) === 12) {
             return '11';
         } else {
             return '11';

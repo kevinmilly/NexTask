@@ -4,12 +4,23 @@
 }
 
 .skip {
-  width: 20em;
+  width: 20rem;
   margin: auto;
+  
+ 
 }
 
 ion-slides {
-  height: 100%;
+  padding: 0;
+  height: auto;
+  margin: auto;
+
+  img {
+   border:10px outset rgb(251, 200, 104);
+   border-radius: 2%;
+   border-width: 1rem;
+  }
+
 }
 
 .swiper-slide {
@@ -21,35 +32,36 @@ ion-slides {
 }
 
 .swiper-slide img {
+  margin-top: 1rem;
   max-height: 50%;
   max-width: 80%;
   margin: 60px 0 40px;
   pointer-events: none;
 }
 
-.slide {
-  // display: flex;
-  // justify-content: center;
-}
+
 
 p {
   text-align: left;
-  margin: 0.5em;
+  margin: 0.5rem;
 }
 
 ion-icon {
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
 }
 
 .skip-promo {
   color: coral;
-  margin-top: 2em;
+  margin: 4rem 0;
+
 }
 
 .welcome {
-  font-size: 0.8em;
+  font-size: 1rem;
   text-align: justify;
-  margin: 0.5em;
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
 }
 
 a {

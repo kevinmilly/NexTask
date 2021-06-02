@@ -1,8 +1,8 @@
 {
-  "name": "Next Task Queue",
-  "short_name": "Task Q",
+  "name": "Queue-D Task Management",
+  "short_name": "Queue-D",
   "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "background_color": "#fffaed",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

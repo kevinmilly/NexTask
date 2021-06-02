@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
       // public auth: AuthService, 
       public auth: AuthRedoneService,
       private router: Router,
+      
  
     ) { }
 

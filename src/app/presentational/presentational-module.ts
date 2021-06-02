@@ -3,8 +3,6 @@ import { TaskEntryComponent } from './ui/task-entry/task-entry.component';
 import { ItemEditComponent } from './ui/item-edit/item-edit.component';
 
 import { SharedModule } from '../shared/shared.module';
-import { IdeaEntryComponent } from './ui/idea-entry/idea-entry.component';
-import { BatchTaskEntryComponent } from './ui/batch-task-entry/batch-task-entry.component';
 import { ShowAwardComponent } from './display/show-award/show-award.component';
 import { GoalEntryComponent } from './ui/goal-entry/goal-entry.component';
 
@@ -12,6 +10,7 @@ import { MetricsComponent } from './display/metrics/metrics.component';
 import { ListViewComponent } from "./display/list-view/list-view.component";
 import { MilestoneEntryComponent } from "./ui/milestone-entry/milestone-entry.component";
 import { DateTimeEntryComponent } from "./ui/date-time-entry/date-time-entry.component";
+import { SettingsComponent } from "./ui/settings/settings.component";
 
 
 @NgModule({
@@ -22,13 +21,12 @@ import { DateTimeEntryComponent } from "./ui/date-time-entry/date-time-entry.com
         TaskEntryComponent,
         ItemEditComponent,
         DateTimeEntryComponent,
-        IdeaEntryComponent,
         MetricsComponent,
-        BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,
         ListViewComponent,
-        MilestoneEntryComponent
+        MilestoneEntryComponent,
+        SettingsComponent
         
         
     ],
@@ -38,19 +36,19 @@ import { DateTimeEntryComponent } from "./ui/date-time-entry/date-time-entry.com
         DateTimeEntryComponent,
         GoalEntryComponent,
         ShowAwardComponent,
-        MilestoneEntryComponent
+        MilestoneEntryComponent,
+        SettingsComponent
     ],
     exports:[
         TaskEntryComponent,
         ItemEditComponent,
-        IdeaEntryComponent,
         DateTimeEntryComponent,
-        BatchTaskEntryComponent,
         ShowAwardComponent,
         GoalEntryComponent,
         ListViewComponent,
         MetricsComponent,
-        MilestoneEntryComponent
+        MilestoneEntryComponent,
+        SettingsComponent
     ]
 
 })

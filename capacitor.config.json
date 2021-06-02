@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "QueueIonic",
+  "appId": "com.kevinsmith.queued-taskmanager",
+  "appName": "Queue-D Task Manager",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

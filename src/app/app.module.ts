@@ -20,8 +20,6 @@ import { PresentationalModule } from './presentational/presentational-module';
 import { LoginComponent } from './core/login/login.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { NgxSpinnerModule } from "ngx-spinner";
-
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -35,7 +33,6 @@ import { NgxSpinnerModule } from "ngx-spinner";
     AngularFirestoreModule,
     BrowserAnimationsModule,
     SharedModule,
-    NgxSpinnerModule,
     ContainerModule,
     PresentationalModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })

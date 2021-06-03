@@ -5,11 +5,16 @@
   }
 
 ion-content {
+  height: auto;
     ion-card  {
         @include center;
         background-color: rgb(245, 233, 220);
         display: flex;
         justify-content: center;
+
+        button {
+          margin: auto;
+        }
     
 
       }

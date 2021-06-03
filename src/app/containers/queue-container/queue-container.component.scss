@@ -36,8 +36,8 @@
     margin-bottom: 1.5em;
   }
   ion-icon {
-    width: 1em;
-    height: 1em;
+    width: 2em;
+    height: 2em;
   }
 
   ion-fab-list {
@@ -63,6 +63,7 @@
   }
 
   &-main {
+    
     background-color: rgb(163, 160, 157);
     height: auto;
     overflow-y: auto;
@@ -77,6 +78,15 @@
 
       .tasks-buttons {
         margin-left: 5em;
+      }
+    }
+
+    .no-tasks {
+      padding: 1rem;
+      text-align: center;
+      img {
+        height: auto;
+        width: auto;
       }
     }
   }

@@ -1,97 +1,87 @@
+@import "../../../animations";
+
+
 .main-container {
-  background-color: rgb(218, 176, 98);
-  background-color: rgb(218, 176, 98);
-  background-image:
-    linear-gradient(
-      rgb(218, 176, 98), #f06d06
-    );
-  height: auto;
-}
+  // background-color: rgb(218, 176, 98);
 
-.landing-container {
-  width: auto;
-  display: flex;
-  justify-content: center;
-  height: 97vh;
-
-
-  img.splash {
-    height:  47vh;
-    width: 100vh;
-
-  }
-}
-
-ion-card {
-  margin: 0 auto 0 auto;
-  background-color: white;
-  width: 100%;
-  border: none;
-  height: auto;
+  @include fade-in;
   
+  height: 100vh;
+  position: relative;
 
-  .card-content {
-    display: block;
-    // margin: 2em auto;
-    // width: 20em;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-top: .5rem;
-
-    
  
-  }
 
-  img {
+  .landing-container {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+
+
+  
+  
+      .bg {
+        background-image: linear-gradient(
+          to bottom, rgba(224, 75, 6, 0.2), #130800
+        ), 
+        url("../../../assets/images/womanonphone.jpg");
+        padding: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        top: -1%;
+        // right: 100%;
+        height: 100vh;
+        margin-bottom: 2rem;
+        width: auto;
+
+        animation: fadeIn 5s;
+        -webkit-animation: fadeIn 5s;
+        -moz-animation: fadeIn 5s;
+        -o-animation: fadeIn 5s;
+        -ms-animation: fadeIn 5s;
+
+      }
+      .card-content {
+          
+        display: block;
+        position: relative;
+        top: 59%;
+        text-align: center;
+        h1 {
+
+          font-family: 'Montserrat', sans-serif;
+        }
+        
+        color: white;
+        font-weight: 500;
+
+        .sign-in {
+          display: flex;
+          justify-content: center;
+
+          img {
+            
+            border-radius: 3%;
+            width: 15rem;
+            height:auto;
+          }
+
+          div {
+            font-size: 1em;
+          }
+        }
+
+
+      }
   }
-}
 
-button {
-  width: 100%;
-  height: auto;
-  margin-bottom: 1.2rem;
-
-  // background-color: orange;
-}
-
-.sign-in {
-  display: flex;
-  justify-content: center;
-
-  img {
-    
-    border-radius: 3%;
-  }
-
-  div {
-    font-size: 1em;
-  }
-}
-.sign-in-med {
-  display: flex;
-  justify-content: center;
-  margin-right: 3em;
-  img {
-    margin-right: 5em;
-  }
-}
-.material-icons {
-  font-size: 8em;
-}
-
-ion-card.small-card {
-  // position: absolute;
-  max-width: 400px;
-  width: 400px;
-  // top: 15%;
-  // left: 38%;
-  margin-right: 25em;
-  margin-top: 10%;
-  height: 100%;
 }
 
 
-.small-login {
-  font-size: 1.5rem;
-}
+
+
+
+
+

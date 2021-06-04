@@ -91,6 +91,10 @@
     }
   }
 
+  .no-tasks {
+    padding: 1rem;
+  }
+
   .filter-select {
     font-size: 0.9em;
     color: rgb(207, 135, 0);
@@ -117,4 +121,9 @@ ion-content {
 ion-card-title {
   display: flex;
   justify-content: center;
+}
+
+
+.calendar-button {
+  margin-left: 3rem;
 }

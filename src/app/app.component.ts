@@ -19,6 +19,7 @@ export class AppComponent {
 
   ) {
     this.initializeApp();
+    this.lock();
   }
 
   initializeApp() {
@@ -32,5 +33,9 @@ export class AppComponent {
         this.splashScreen.hide();
       });
     })
+  }
+
+  async lock() {
+    await screen.orientation.lock("portrait");
   }
 }

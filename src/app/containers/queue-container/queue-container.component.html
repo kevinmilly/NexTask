@@ -28,7 +28,7 @@
     </ion-fab>
   </div>
 
-
+<div class="scrolls">
   <ion-content class="queue-content">
 
     <mat-tab-group mat-align-tabs="center">
@@ -52,7 +52,7 @@
                     </ion-col>
                     <ion-col *ngIf="tasksDay1.length > 0">
                       <ion-list lines="none">
-                        <ion-item>
+                        <ion-item class="calendar-button">
                           <ion-button (click)="createEvents(tasksDay1)" [style.margin-left.rem]="4">
                             <ion-icon name="calendar-outline"></ion-icon>
                           </ion-button>
@@ -71,10 +71,17 @@
             </div>
           </ion-card>
           <ng-template #noTasks>
+
+            <div class="no-tasks">
+              <h1>Hey, you need to get some things queued up!</h1> 
+              <img src="../../../assets/images/blanklist.jpg" alt="orange-clock">
+            </div>
+
               <div class="no-tasks">
                 <h1>Hey, you need to get some things queued up!</h1>
                 <img src="../../../assets/images/blanklist.jpg" alt="orange-clock">
               </div>
+
           </ng-template>
 
         </ion-content>
@@ -186,3 +193,4 @@
       </ion-fab>
     </mat-tab-group>
   </ion-content>
+</div>

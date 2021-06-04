@@ -1,25 +1,29 @@
-<ion-content>
+
   <ion-card>
+    <ion-card-header>
+      <ion-card-title>Settings</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="settingsForm" (ngSubmit)="submitSettings()">
-        <ion-list>
-          <ion-item>
-            <ion-label slot="start">Hours to Work per Day:</ion-label>
-            <ion-input
-              type="number"
-              formControlName="hours"
-              name="hours" 
-            ></ion-input>
-            <mat-error *ngIf='!hours.valid && (hours.dirty || hours.touched)'> Your hours don't look right.</mat-error>
-          </ion-item>
-          <br/>
-        </ion-list>
-    
-        <div class="decision-buttons">
-          <ion-button class="submit" type="submit" color="success" [disabled]="!settingsForm.valid">Submit</ion-button>
-          <ion-button  type=ion-button (click)="cancel()" color="danger">Cancel</ion-button>
-        </div>
-      </form>
+                <form [formGroup]="settingsForm" (ngSubmit)="submitSettings()">
+                  <div class="setting-choices">
+                    <mat-form-field  >
+                      <mat-label>Work Hrs. per Day:</mat-label>
+                      <input 
+                        matInput 
+                        formControlName="hours"
+                        type="number"
+                       >
+                   </mat-form-field>
+                  </div>
+                  <mat-error *ngIf='!hours.valid && (hours.dirty || hours.touched)'> Your hours don't look right.</mat-error>
+      
+                <br/>
+        
+          
+              <div class="decision-buttons">
+                <ion-button class="submit" type="submit" color="success" [disabled]="!settingsForm.valid">Submit</ion-button>
+                <ion-button  type=ion-button (click)="cancel()" color="danger">Cancel</ion-button>
+              </div>
+            </form>
     </ion-card-content>
   </ion-card>
-</ion-content>

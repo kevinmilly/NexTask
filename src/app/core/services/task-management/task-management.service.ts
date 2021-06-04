@@ -249,7 +249,10 @@ export class TaskManagementService {
       // cssClass: 'small-modal',
       componentProps: { 
         hourSettings: this.defaultHours
-      }
+      },
+      cssClass: 'auto-height',
+      showBackdrop: true,
+      mode: "ios"
     });
     modal.onDidDismiss()
       .then((data) => {

@@ -1,8 +1,20 @@
 @mixin center {
     margin: auto;
     width: auto;
-    height: 95vh;
+    height: auto;
   }
+
+
+    ion-card  {
+        @include center;
+        background-color: rgb(245, 233, 220);
+        display: block;
+        padding: 1rem;
+
+
+        
+        
+      }
 
 ion-content {
   height: auto;
@@ -17,5 +29,19 @@ ion-content {
         }
     
 
+      .decision-buttons {
+        margin-top: 1em;
+        display: flex;
+        justify-content: space-evenly;
       }
-}
+      
+
+      
+      form {
+        .setting-choices {
+          margin-top: 2rem;
+          // display: flex;
+          // justify-content: space-evenly;
+        }
+  
+      }

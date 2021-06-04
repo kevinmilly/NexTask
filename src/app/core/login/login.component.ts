@@ -17,6 +17,13 @@ export class LoginComponent implements OnInit {
   authSub:Subscription;
   user:any;
 
+  slideOptions = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay: true,
+    speed: 3000
+  };
+
   constructor(
       // public auth: AuthService, 
       public auth: AuthRedoneService,

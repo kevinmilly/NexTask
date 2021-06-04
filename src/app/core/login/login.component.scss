@@ -12,9 +12,9 @@
   height: 100vh;
   position: relative;
  
+  @include fade-in;
+  padding-right: 3rem;
 
-
-}
 
 
   
@@ -29,34 +29,45 @@
     background-color: rgb(218, 176, 98);
     background-image:
     linear-gradient(
-      rgba(0, 0, 0, 0.3), #4d4138
+      rgba(0, 0, 0, 0.5), #4d4138
     ),
       url("../../../assets/images/girlonphone.png");
     
     position: absolute;
-    padding: 100%;
+    padding: 80%;
+  
     background-size: contain;
     background-repeat: no-repeat;
     height: 110vh;
-    width: 100%;
+    width: 100vh;
     top: -2%;
+    left: -45%;
+
    
     
-    @include fade-in;
+   
   }
 
   .content {
+    @include slide-in;
     display: block;
-    position: relative;
+    position: absolute;
     top: 58%;
     font-size: 2.5rem;
     text-align: center;
     margin-top: .5rem;
     color: white;
-
+    font-weight: 800;
+    width:100%;
+    overflow:hidden;
+    // margin-left: 5%;
+   
+      animation: 1s slide-right;
     
- 
+    
+    
   }
+}
 
 
 button {

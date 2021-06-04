@@ -34,9 +34,31 @@
 
 
 
-.small-modal {
-  height: auto;
-  display: block;
+ion-modal.auto-height {
+  &.bottom {
+      align-items: flex-end;
+  }
+
+  --height: auto;
+
+  .ion-page {
+      position: relative;
+      display: block;
+      contain: content;
+
+      .inner-content {
+          max-height: 80vh;
+          overflow: auto;
+          padding: 2rem;
+
+          .decisions-buttons {
+            display: flex;
+            justify-content: space-evenly;
+          }
+      }
+  }
+
+
 }
 
 

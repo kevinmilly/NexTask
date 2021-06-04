@@ -248,7 +248,10 @@ export class TaskManagementService {
       component: SettingsComponent,
       componentProps: { 
         hourSettings: this.defaultHours
-      }
+      },
+      cssClass: 'auto-height',
+      showBackdrop: true,
+      mode: "ios"
     });
     modal.onDidDismiss()
       .then((data) => {

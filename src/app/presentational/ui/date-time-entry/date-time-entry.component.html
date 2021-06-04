@@ -3,7 +3,7 @@
     <ion-row class="ion-align-self-center">
       <ion-col >
         <ion-list lines="none">
-          <ion-item>
+          <ion-item lines="none">
             <h4 color="dark">
               Adding your tasks to your Google Calendar allows you to take advantage of alerts and other features.
               The events will stack in the same order of priority with respective color gradients.
@@ -15,7 +15,7 @@
     <ion-row class="ion-align-self-center">
       <ion-col>
         <ion-list lines="none">
-          <ion-item>
+          <ion-item lines="none">
             <mat-form-field>
               <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl"
                  [min]="minDate">
@@ -31,7 +31,7 @@
         </ion-list>
       </ion-col>
       <ion-col>
-        <ion-item>
+        <ion-item lines="none">
           <mat-form-field  >
             <input 
               matInput 
@@ -46,8 +46,8 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-align-self-center">
-      <ion-col>
-        <ion-button shape="round" color="success" (click)="submit()" [disabled]="!dateControl.valid" >Submit</ion-button>
+      <ion-col >
+        <ion-button [style.margin-right.rem]="1" shape="round" color="success" (click)="submit()" [disabled]="!dateControl.valid" >Submit</ion-button>
         <ion-button shape="round" color="danger" (click)="cancel()" >Cancel</ion-button>
       </ion-col>
     </ion-row>

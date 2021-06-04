@@ -41,27 +41,28 @@ form {
 
 .high {
   color: red;
-  font-size: 1.4em;
+  font-size: 1.2em;
   margin-left: 1em;
-  margin-bottom: 1em;
+
 }
 .med {
   color: rgb(255, 136, 0);
-  font-size: 1.2em;
+  font-size: 1em;
   margin-left: 1em;
-  margin-bottom: 1em;
+
 }
 
 .low {
   color: rgb(248, 195, 19);
-  font-size: 1em;
+  font-size: .8em;
   margin-left: 1em;
-  margin-bottom: 1em;
+ 
 }
 
 ion-item {
   display: flex;
   justify-self: center;
+  width: 100%;
 }
 
 .label-prompt {
@@ -71,4 +72,8 @@ ion-item {
 
 .input-sufix {
   margin-left: 2em;
+}
+
+ion-select {
+  width: 100%;
 }

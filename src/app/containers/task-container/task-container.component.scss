@@ -1,7 +1,6 @@
-ion-content {
-  display: flex;
-  justify-content: center;
-
+.scrolls {
+  height: 80%;
+  overflow-y: auto;
 }
 
 .task-item {
@@ -138,14 +137,15 @@ ion-item-option {
   margin: 0;
   ion-icon {
     font-size: 3em;
+    background: none;
   }
 }
 
 ion-item-sliding {
   margin-bottom: 0.7em;
-  border: solid;
-  border-width: 0.7em;
-  border: rgb(192, 128, 9);
+  // border: solid;
+  // border-width: 0.7em;
+  // border: rgb(192, 128, 9);
 }
 
 .task-item {
@@ -253,3 +253,6 @@ mat-list.list-horizontal {
 }
 
 
+ion-icon {
+  background:transparent;
+}

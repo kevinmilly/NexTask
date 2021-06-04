@@ -1,3 +1,5 @@
+@import "../../../animations";
+
 .title-icon {
   display: flex;
   justify-content: space-between;
@@ -16,9 +18,17 @@ ion-slides {
   margin: auto;
 
   img {
+
+  @include fade-in;
    border:10px outset rgb(251, 200, 104);
    border-radius: 2%;
    border-width: 1rem;
+
+   animation: fadeIn 5s;
+    -webkit-animation: fadeIn 5s;
+    -moz-animation: fadeIn 5s;
+    -o-animation: fadeIn 5s;
+    -ms-animation: fadeIn 5s;
   }
 
 }

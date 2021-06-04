@@ -53,7 +53,7 @@ export class QueueContainerComponent implements OnInit {
 
   tags = ['general', 'All'];
   tagsSaved = ['general', 'All'];
-  tagOptions = new FormControl('general', []);
+  tagOptions = new FormControl('All', []);
 
   addSub: Subscription;
   quotes;

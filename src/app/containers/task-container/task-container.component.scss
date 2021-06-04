@@ -1,5 +1,5 @@
 .scrolls {
-  height: 65%;
+  height: 80%;
   overflow-y: auto;
 }
 
@@ -267,4 +267,8 @@ mat-list.list-horizontal {
 
 ion-icon {
   background:transparent;
+}
+
+.no-task {
+  padding:1rem;
 }

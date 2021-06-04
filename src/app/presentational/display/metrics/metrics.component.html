@@ -27,16 +27,21 @@
                     <ion-card-content>
                       <ion-list>
                         <ion-item *ngIf="lastWeekCompleteVariations.length > 0">
+                          
                           <ion-grid>
                             <ion-row>
                               <ion-col>
+                                <h2 >Completion Frequencies</h2>
+                              </ion-col>
+                            </ion-row>
+                            <ion-row>
+                              <ion-col>
+                              
                                 <h3 [style.color]="'#fc5603'">Most Completed Task Type</h3>
                                 <h4>{{stringifyVariations(lastWeekCompleteVariations[lastWeekCompleteVariations.length-1].variant)}}</h4>
                                 <h6> <h4>{{lastWeekCompleteVariations[lastWeekCompleteVariations.length-1].amount}} Completions</h4></h6>
                               </ion-col>
                             </ion-row>
-                          </ion-grid>
-                          <ion-grid>
                             <ion-row>
                               <ion-col>
                                 <h3 [style.color] = "'#036bfc'">Least Completed Task Type</h3>
@@ -49,13 +54,12 @@
                         </ion-item>
                         <ion-item *ngIf="lastWeekMostImportantTask">
                           <ion-grid>
-                          <ion-row>
-                            <ion-col><h2 >Top Task Completions</h2><br/></ion-col>
-                          </ion-row>
+        
                           <ion-row *ngIf="lastWeekMostImportantTask">
                             <ion-col>
                             <div >
-                              Most Important: {{lastWeekMostImportantTask.title}}
+                              <h2 >Top Task Completions</h2>
+                              <h3>Most Important: {{lastWeekMostImportantTask.title}}</h3>
                               <ul>
                                 <li>Level: {{importanceDifficultyUrgencyConvert('importance',lastWeekMostImportantTask.priority)}}</li>
                                 <li>Created: {{lastWeekMostImportantTask.createdDate}}</li>
@@ -67,7 +71,7 @@
                             <ion-row *ngIf="lastWeekMostUrgentTask">
                               <ion-col>
                                 <div>
-                                  Most Urgent: {{lastWeekMostUrgentTask.title}}
+                                  <h3>Most Urgent: {{lastWeekMostUrgentTask.title}}</h3>
                                   <ul>
                                     <li>Level: {{importanceDifficultyUrgencyConvert('urgency', lastWeekMostUrgentTask.urgency)}}</li>
                                     <li>Created: {{lastWeekMostUrgentTask.createdDate}}</li>
@@ -79,7 +83,7 @@
                             <ion-row *ngIf="lastWeekToughestTask">
                               <ion-col>
                                 <div>
-                                  Most Difficult: {{lastWeekToughestTask.title}}
+                                  <h3>Most Difficult: {{lastWeekToughestTask.title}}</h3>
                                   <ul>
                                     <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', lastWeekToughestTask.difficulty)}}</li>
                                     <li>Created: {{lastWeekToughestTask.createdDate}}</li>
@@ -113,16 +117,21 @@
                   <ion-card-content>
                     <ion-list>
                       <ion-item *ngIf="thisWeekCompleteVariations.length > 0">
+                        
                         <ion-grid>
                           <ion-row>
                             <ion-col>
+                              <h2 >Completion Frequencies</h2>
+                            </ion-col>
+                          </ion-row>
+                          <ion-row>
+                            <ion-col>
+                         
                               <h3 [style.color]="'#fc5603'">Most Completed Task Type</h3>
                               <h4>{{stringifyVariations(thisWeekCompleteVariations[thisWeekCompleteVariations.length-1].variant)}}</h4>
                               <h6> <h4>{{thisWeekCompleteVariations[thisWeekCompleteVariations.length-1].amount}} Completions</h4></h6>
                             </ion-col>
                           </ion-row>
-                        </ion-grid>
-                        <ion-grid>
                           <ion-row>
                             <ion-col>
                               <h3 [style.color] = "'#036bfc'">Least Completed Task Type</h3>
@@ -134,13 +143,12 @@
                       </ion-item>
                       <ion-item *ngIf="thisWeekMostImportantTask">
                         <ion-grid>
-                        <ion-row>
-                          <ion-col><h2 >Top Task Completions</h2><br/></ion-col>
-                        </ion-row>
+                  
                         <ion-row *ngIf="thisWeekMostImportantTask">
                           <ion-col>
                           <div >
-                            Most Important: {{thisWeekMostImportantTask.title}}
+                            <h2 >Top Task Completions</h2>
+                            <h3>Most Important: {{thisWeekMostImportantTask.title}}</h3>
                             <ul>
                               <li>Level: {{importanceDifficultyUrgencyConvert('importance',thisWeekMostImportantTask.priority)}}</li>
                               <li>Created: {{thisWeekMostImportantTask.createdDate}}</li>
@@ -152,7 +160,7 @@
                           <ion-row *ngIf="thisWeekMostUrgentTask">
                             <ion-col>
                               <div *ngIf="thisWeekMostUrgentTask">
-                                Most Urgent: {{thisWeekMostUrgentTask.title}}
+                               <h3>Most Urgent: {{thisWeekMostUrgentTask.title}}</h3> 
                                 <ul>
                                   <li>Level: {{importanceDifficultyUrgencyConvert('urgency', thisWeekMostUrgentTask.urgency)}}</li>
                                   <li>Created: {{thisWeekMostUrgentTask.createdDate}}</li>
@@ -164,7 +172,7 @@
                           <ion-row *ngIf="thisWeekToughestTask">
                             <ion-col>
                               <div>
-                                Most Difficult: {{thisWeekToughestTask.title}}
+                               <h3>Most Difficult: {{thisWeekToughestTask.title}}</h3>
                                 <ul>
                                   <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', thisWeekToughestTask.difficulty)}}</li>
                                   <li>Created: {{thisWeekToughestTask.createdDate}}</li>
@@ -199,7 +207,13 @@
                   <ion-card-content>
                     <ion-list>
                       <ion-item *ngIf="thisMonthCompleteVariations.length > 0">
+                        
                         <ion-grid>
+                          <ion-row>
+                            <ion-col>
+                              <h2 >Completion Frequencies</h2>
+                            </ion-col>
+                          </ion-row>
                           <ion-row>
                             <ion-col>
                               <h3 [style.color]="'#fc5603'">Most Completed Task Type</h3>
@@ -207,8 +221,6 @@
                               <h6> <h4>{{thisMonthCompleteVariations[thisMonthCompleteVariations.length-1].amount}} Completions</h4></h6>
                             </ion-col>
                           </ion-row>
-                        </ion-grid>
-                        <ion-grid>
                           <ion-row>
                             <ion-col>
                               <h3 [style.color] = "'#036bfc'">Least Completed Task Type</h3>
@@ -220,13 +232,11 @@
                       </ion-item>
                       <ion-item *ngIf="thisMonthMostImportantTask">
                         <ion-grid>
-                        <ion-row>
-                          <ion-col><h2>Top Task Completions</h2><br/></ion-col>
-                        </ion-row>
                         <ion-row *ngIf="thisMonthMostImportantTask">
                           <ion-col>
                           <div >
-                            Most Important: {{thisMonthMostImportantTask.title}}
+                            <h2 >Top Task Completions</h2>
+                           <h3>Most Important: {{thisMonthMostImportantTask.title}}</h3>
                             <ul>
                               <li>Level: {{importanceDifficultyUrgencyConvert('importance',thisMonthMostImportantTask.priority)}}</li>
                               <li>Created: {{thisMonthMostImportantTask.createdDate}}</li>
@@ -238,7 +248,7 @@
                           <ion-row *ngIf="thisMonthMostUrgentTask">
                             <ion-col>
                               <div *ngIf="thisMonthMostUrgentTask">
-                                Most Urgent: {{thisMonthMostUrgentTask.title}}
+                               <h3>Most Urgent: {{thisMonthMostUrgentTask.title}}</h3>
                                 <ul>
                                   <li>Level: {{importanceDifficultyUrgencyConvert('urgency', thisMonthMostUrgentTask.urgency)}}</li>
                                   <li>Created: {{thisMonthMostUrgentTask.createdDate}}</li>
@@ -250,7 +260,7 @@
                           <ion-row *ngIf="thisMonthToughestTask">
                             <ion-col>
                               <div>
-                                Most Difficult: {{thisMonthToughestTask.title}}
+                                <h3>Most Difficult: {{thisMonthToughestTask.title}}</h3>
                                 <ul>
                                   <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', thisMonthToughestTask.difficulty)}}</li>
                                   <li>Created: {{thisMonthToughestTask.createdDate}}</li>

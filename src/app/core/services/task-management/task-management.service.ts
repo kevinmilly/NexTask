@@ -246,7 +246,6 @@ export class TaskManagementService {
     console.log(this.defaultHours);
     const modal = await this.modalController.create({
       component: SettingsComponent,
-      // cssClass: 'small-modal',
       componentProps: { 
         hourSettings: this.defaultHours
       },

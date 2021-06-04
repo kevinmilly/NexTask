@@ -1,8 +1,6 @@
-@mixin center {
-    margin: auto;
-    width: auto;
-    height: auto;
-  }
+@import "../../../../mixins";
+
+
 
 
     ion-card  {
@@ -40,8 +38,12 @@ ion-content {
       form {
         .setting-choices {
           margin-top: 2rem;
-          // display: flex;
-          // justify-content: space-evenly;
+         
+         
         }
   
       }
+  }
+}
+
+@include mat-forms;

@@ -1,5 +1,5 @@
 .scrolls {
-  height: 80%;
+  height: 65%;
   overflow-y: auto;
 }
 
@@ -65,7 +65,7 @@
     // background:  #fa2e64;
     background-image: linear-gradient(
       to bottom, 
-      rgb(241, 133, 38), 
+      rgb(235, 121, 21), 
       rgb(248, 166, 94)
     );
     height: 3.2em;
@@ -76,13 +76,19 @@
       color: black;
       height: 3.2em;
     }
+    mat-panel-title {
+      color: white;
+      font-weight: 500;
+      font-size: 1rem;
+      text-transform: uppercase;
+  }
   }
   
   &-very-high {
     // background: #ff1d58;
     background-image: linear-gradient(
       to bottom, 
-      rgb(255, 81, 0), 
+      rgb(216, 68, 0), 
       rgb(241, 133, 38)
       );
     height: 3.5em;
@@ -93,6 +99,12 @@
       color: black;
       height: 3.5em;
     }
+    mat-panel-title {
+      color: white;
+      font-weight: 500;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+  }
   }
 
 }

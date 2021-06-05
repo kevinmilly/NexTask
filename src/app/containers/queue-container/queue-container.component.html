@@ -1,41 +1,41 @@
 <ion-content class="header">
-  <div class="header__setting-button">
-    
-  </div>
   <div class="header__action-buttons">
-    <ion-fab  vertical="top" horizontal="start">
-      <ion-fab-button (click)="updateSettings()" class="setting-button"> 
-        <ion-icon name="time"></ion-icon>
-      </ion-fab-button>
+    <ion-fab vertical="top" horizontal="start" slot="fixed">
+        <ion-fab-button (click)="updateSettings()" color="tertiary"> 
+          <ion-icon name="time"></ion-icon>
+        </ion-fab-button>
     </ion-fab>
-    <ion-fab vertical="top" horizontal="end">
-      <ion-fab-button>
-        <ion-icon name="flash-outline"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-list side="start">
-        <ion-fab-button class="add-button" (click)="addTask()" color="primary">
+
+      <ion-button 
+        size="large" 
+        (click)="addTask()" 
+        color="primary"
+        class="task-add"
+        >
+        <ion-icon name="add-outline"></ion-icon>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-button>
+      <!-- <ion-fab vertical="top">
+        <ion-fab-button class="add-button" >
           <ion-icon name="add-circle-outline"></ion-icon>
         </ion-fab-button>
+      </ion-fab> -->
+
+      <ion-fab vertical="top" horizontal="end">
         <ion-fab-button (click)="addGoal()" color="tertiary">
           <ion-icon name="flag-outline"></ion-icon>
         </ion-fab-button>
-        <ion-fab-button class="logout-button" (click)="logout()">
-          <ion-icon name="log-out-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab-list>
-
-
-    </ion-fab>
+      </ion-fab>
   </div>
-
+  
 <div class="scrolls">
   <ion-content class="queue-content">
 
-    <mat-tab-group mat-align-tabs="center">
-      <mat-tab label="Today">
+    <mat-tab-group mat-align-tabs="center" *ngIf="tasksDay1$ | async as tasksDay1">
+      <mat-tab label="Today - {{tasksDay1 | hoursSum}}">
         <ion-content class="queue-content-main">
 
-          <ion-card class="queue-container-main__card" *ngIf="tasksDay1$ | async as tasksDay1">
+          <ion-card class="queue-container-main__card">
             <div *ngIf="tasksDay1.length > 0; else noTasks">
               <div class="tasks-buttons">
                 <ion-grid>
@@ -86,7 +86,7 @@
 
       </mat-tab>
       <ng-container *ngIf="tasksDay2$ | async as tasksDay2">
-        <mat-tab label="Tomorrow" *ngIf="tasksDay2.length > 0">
+        <mat-tab label="Tomorrow - {{tasksDay2 | hoursSum}}" *ngIf="tasksDay2.length > 0">
 
           <ion-content>
             <ion-card class="queue-container-main__card">
@@ -112,7 +112,7 @@
       </ng-container>
 
       <ng-container *ngIf="tasksDay3$ | async as tasksDay3">
-        <mat-tab label="Day 3" *ngIf="tasksDay3.length > 0">
+        <mat-tab label="Day 3 - {{tasksDay3 | hoursSum}}" *ngIf="tasksDay3.length > 0">
 
           <ion-content>
             <ion-card class="queue-container-main__card">
@@ -136,7 +136,7 @@
       </ng-container>
 
       <ng-container *ngIf="tasksDay4$ | async as tasksDay4">
-        <mat-tab label="Day 4" *ngIf="tasksDay4.length > 0">
+        <mat-tab label="Day 4 - {{tasksDay4 | hoursSum}}" *ngIf="tasksDay4.length > 0">
 
           <ion-content>
             <ion-card class="queue-container-main__card">
@@ -161,7 +161,7 @@
       </ng-container>
 
       <ng-container *ngIf="tasksDay5$ | async as tasksDay5">
-        <mat-tab label="Day 5" *ngIf="tasksDay5.length > 0">
+        <mat-tab label="Day 5 - {{tasksDay5 | hoursSum}}" *ngIf="tasksDay5.length > 0">
 
           <ion-content>
             <ion-card class="queue-container-main__card">

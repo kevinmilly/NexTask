@@ -198,7 +198,5 @@ export class QueueContainerComponent implements OnInit {
   }
 
 
-  logout() { this.auth.signOut(); }
-
 
 }

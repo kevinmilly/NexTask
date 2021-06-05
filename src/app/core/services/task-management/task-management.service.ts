@@ -37,6 +37,7 @@ export class TaskManagementService {
   private defaultHoursSubject: BehaviorSubject<number> = new BehaviorSubject(5);
 
   public allTasks$: Observable<Task[]> = this.allTasksSubject.asObservable();
+  public allTasksCompleted$: Observable<Task[]> = this.allTasksSubject.asObservable();
   public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
   public goals$: Observable<Goal[]> = this.goalsSubject.asObservable();
   public defaultHours$: Observable<number> = this.defaultHoursSubject.asObservable();
@@ -145,21 +146,22 @@ export class TaskManagementService {
     const minutesADay = hours * 60;
     console.log(`Minutes per day are ${minutesADay}`);
     let remainingMinutes = minutesADay;
+    const list = taskList.filter(t => !t.completed);
+    for (let i = 0, len = list.length; i < len; i++) {
 
-    for (let i = 0, len = taskList.length; i < len; i++) {
-
-      if ((remainingMinutes - taskList[i].minutes) >= -1) {
-        remainingMinutes -= taskList[i].minutes;
-
-        taskList[i].day = dayIterator;
+      if ((remainingMinutes - list[i].minutes) >= -1) {
+        remainingMinutes -= list[i].minutes;
+        console.log(`Remaining minutes are ${remainingMinutes} after subtracting: 
+        ${remainingMinutes} from ${list[i].minutes} (${list[i].title})`);
+        list[i].day = dayIterator;
       } else {
-        taskList[i].day = ++dayIterator;
+        list[i].day = ++dayIterator;
         remainingMinutes = minutesADay;
 
       }
 
     }
-    return taskList;
+    return list;
   }
 
 

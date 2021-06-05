@@ -7,24 +7,54 @@
 }
 
 .header {
-  --ion-background-color: rgb(85, 72, 60);
+  --ion-background-color: rgb(241, 210, 182);
+  position: relative;
 
   &__action-buttons {
-    margin: 4rem 1rem 0 2.7rem;
-    .add-button {
-      margin-left: 1rem;
-    }
-    .logout-button {
-      margin-right: 3rem;
-    }
-    .setting-button {
-      margin-right: 8rem;
-    }
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 4rem;
+    width: 4rem;
     ion-icon {
-      width: 2em;
-      height: 2em;
+      width: 1.5em;
+      height: 1.5em;
     }
+    ion-fab-button {
+      width: 3em;
+      height: 3em;
+      margin-bottom: 1.5em;
+    }
+
   }
+
+  .task-add {
+    position: absolute;
+    top: .5rem;
+    left: 38%;
+    
+     ion-icon {
+       width: 3.5em;
+       height: 3.5em;
+     }
+   }
+
+  
+//   &__action-buttons {
+//     margin: 4rem 1rem 0 2.7rem;
+//    .add-button {
+//      margin-left: 1rem;
+//    }
+//    .logout-button {
+//      margin-right: 3rem;
+//    }
+//    .setting-button {
+//      margin-right: 8rem;
+//    }
+//    ion-icon {
+//      width: 2em;
+//      height: 2em;
+//    }
+//  }
 
   ion-badge {
     width: auto;
@@ -114,7 +144,7 @@
 }
 
 ion-content {
-  --ion-background-color: #f8f0ec;
+  --ion-background-color: #fff9f6;
 }
 
 ion-card-title {

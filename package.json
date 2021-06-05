@@ -34,7 +34,6 @@
     "angularfire2": "^5.4.2",
     "chart.js": "^2.9.4",
     "firebase": "^8.1.2",
-    "moment": "^2.29.1",
     "ng2-charts": "^2.4.2",
     "ng2-tooltip-directive": "^2.9.22",
     "ngx-spinner": "^11.0.1",

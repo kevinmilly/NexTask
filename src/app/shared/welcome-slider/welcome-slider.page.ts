@@ -12,7 +12,7 @@ export class WelcomeSliderPage implements OnInit {
     initialSlide: 0,
     slidesPerView: 1,
     autoplay: true,
-    speed: 8000
+    speed: 2000
   };
 
   constructor(private router: Router) {}

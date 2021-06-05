@@ -27,11 +27,7 @@ ion-content {
         }
     
 
-      .decision-buttons {
-        margin-top: 1em;
-        display: flex;
-        justify-content: space-evenly;
-      }
+    
       
 
       
@@ -47,3 +43,9 @@ ion-content {
 }
 
 @include mat-forms;
+
+.decision-buttons {
+  margin-top: 1em;
+  display: flex;
+  justify-content: space-evenly;
+}

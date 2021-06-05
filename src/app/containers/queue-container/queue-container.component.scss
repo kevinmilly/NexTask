@@ -1,8 +1,8 @@
 @import "../../../mixins";
 
 @mixin center {
-  margin: auto;
-  width: auto;
+  width: 98%;
+  margin:auto;
   height: 95vh;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .queue-content {
-  /* Styles for tab labels */
+  @include center;
   .mat-tab-label {
     min-width: 1.2rem !important;
     padding: 5rem;
@@ -100,10 +100,9 @@
     @include center;
 
     &__card {
-      height: 95vh;
+      @include center;
       background-color: rgb(245, 233, 220);
-      width: 98%;
-      margin:auto;
+     
 
       .tasks-buttons {
         margin-left: 5em;
@@ -152,10 +151,18 @@ ion-card-title {
   justify-content: center;
 }
 
+ion-card-content {
+  width: 98%;
+  margin: auto;
+}
 
 .calendar-button {
-  margin-left: 3rem;
-  padding: 1rem;
+  margin-top: .3rem;
+  margin-left: 60%;
+
+  img {
+    width: 1rem;
+  }
 }
 
 

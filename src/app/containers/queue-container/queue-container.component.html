@@ -59,7 +59,7 @@
                     <ion-col>
                       <ion-list lines="none" *ngIf="tags.length > 0; else noTags">
                         <ion-item>
-                          <ion-select [formControl]="tagOptions" (ionChange)=" filterTasks()" class="filter-select">
+                          <ion-select [style.width.rem]="5" [formControl]="tagOptions" (ionChange)=" filterTasks()" class="filter-select">
                             <ion-select-option *ngFor="let tag of tags" [value]="tag">{{tag}}</ion-select-option>
                           </ion-select>
                         </ion-item>
@@ -69,12 +69,23 @@
                     <ion-col *ngIf="tasksDay1.length > 0">
                       <ion-list lines="none">
                         <ion-item class="calendar-button">
-                          <ion-button 
+                          <!-- <ion-button 
                               [bdcWalkTriggerFor]="timeBox"
                               (click)="createEvents(tasksDay1)" 
                               [style.margin-left.rem]="4">
                             <ion-icon name="calendar-outline"></ion-icon>
-                          </ion-button>
+                          </ion-button> -->
+                          <a
+                            [bdcWalkTriggerFor]="timeBox"
+                            (click)="createEvents(tasksDay1)" 
+                            
+                          >
+                         
+                            <img 
+                              src="../../../assets/images/google-calendar.svg" 
+                              alt="google-calendar"
+                              >
+                          </a>
                         </ion-item>
                       </ion-list>
                     </ion-col>

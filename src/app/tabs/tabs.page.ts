@@ -30,6 +30,8 @@ export class TabsPage {
 
   }
 
+  logout() { this.auth.signOut(); }
+
   ngOnDestroy() {
     if (this.checkTask) this.checkTask.unsubscribe();
     if (this.checkGoal) this.checkGoal.unsubscribe()

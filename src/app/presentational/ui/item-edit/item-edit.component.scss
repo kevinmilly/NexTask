@@ -1,3 +1,5 @@
+@import "../../../../mixins";
+
 .parent-entry {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -69,3 +71,5 @@ mat-error {
   font-size: 0.8em;
   margin-bottom: 5em;
 }
+
+@include mat-forms;

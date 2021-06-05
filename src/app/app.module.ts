@@ -19,6 +19,7 @@ import { ContainerModule } from './containers/container.module';
 import { PresentationalModule } from './presentational/presentational-module';
 import { LoginComponent } from './core/login/login.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { BdcWalkModule } from 'bdc-walkthrough';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     SharedModule,
     ContainerModule,
     PresentationalModule,
+    BdcWalkModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

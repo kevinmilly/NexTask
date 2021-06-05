@@ -16,6 +16,7 @@ import { AuthRedoneService } from '../../core/services/auth/authredone.service';
 
 import { map } from 'rxjs/operators';
 import { Goal } from 'src/app/shared/models/goal.model';
+import { BdcWalkService } from 'bdc-walkthrough';
 
 
 interface TaskAndGoal {
@@ -66,7 +67,8 @@ export class QueueContainerComponent implements OnInit {
     public toastController: ToastController,
     private commentsService: CommentsService,
     private auth: AuthRedoneService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private bdcWalkService: BdcWalkService
   ) { }
 
 
@@ -181,6 +183,10 @@ export class QueueContainerComponent implements OnInit {
   dateDifference(d1, d2) {
     const diff = moment(d1).diff(moment(d2), 'days');
     return diff || 0;
+  }
+
+  reset() {
+    this.bdcWalkService.reset('tour');
   }
 
 

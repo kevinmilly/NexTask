@@ -20,7 +20,7 @@ export class TaskContainerComponent implements OnInit {
 
   @Output() markedComplete: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() taskUpdate = new EventEmitter();
-  @Output() editTaskEmitter: EventEmitter<Task> = new EventEmitter<Task>();
+  @Output() editTaskEmitter: EventEmitter<Task> = new EventEmitter<any>();
   @Output() deleteTask: EventEmitter<Task> = new EventEmitter<Task>();
   @Output() createdIdea: EventEmitter<Task> = new EventEmitter<Task>();
 
@@ -95,6 +95,10 @@ export class TaskContainerComponent implements OnInit {
       });
 
     return await modal.present();
+  }
+
+  editTask(event) {
+    this.editTaskEmitter.emit(event);
   }
 
 

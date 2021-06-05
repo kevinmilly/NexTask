@@ -100,10 +100,10 @@
     @include center;
 
     &__card {
-      @include center;
+      height: 95vh;
       background-color: rgb(245, 233, 220);
-      display: flex;
-      justify-content: center;
+      width: 98%;
+      margin:auto;
 
       .tasks-buttons {
         margin-left: 5em;
@@ -160,3 +160,7 @@ ion-card-title {
 
 
 @include mat-forms;
+
+.holder {
+  padding: 1px;
+}

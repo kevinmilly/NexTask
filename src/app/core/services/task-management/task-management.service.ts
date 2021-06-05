@@ -144,15 +144,15 @@ export class TaskManagementService {
   incrementDaysForTasks(hours: number, taskList: Task[]) {
     let dayIterator = 1;
     const minutesADay = hours * 60;
-    console.log(`Minutes per day are ${minutesADay}`);
+    // console.log(`Minutes per day are ${minutesADay}`);
     let remainingMinutes = minutesADay;
     const list = taskList.filter(t => !t.completed);
     for (let i = 0, len = list.length; i < len; i++) {
 
       if ((remainingMinutes - list[i].minutes) >= -1) {
         remainingMinutes -= list[i].minutes;
-        console.log(`Remaining minutes are ${remainingMinutes} after subtracting: 
-        ${remainingMinutes} from ${list[i].minutes} (${list[i].title})`);
+        // console.log(`Remaining minutes are ${remainingMinutes} after subtracting: 
+        // ${remainingMinutes} from ${list[i].minutes} (${list[i].title})`);
         list[i].day = dayIterator;
       } else {
         list[i].day = ++dayIterator;
@@ -257,9 +257,9 @@ export class TaskManagementService {
     });
     modal.onDidDismiss()
       .then((data) => {
-        console.log({data});
+        // console.log({data});
         const result = data['data'];
-        console.dir(result);
+        // console.dir(result);
         if (!result.dismissed) {
           this.defaultHours = result;
           this.defaultHoursSubject.next(this.defaultHours);

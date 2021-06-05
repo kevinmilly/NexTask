@@ -1,100 +1,107 @@
-<form [formGroup]="itemForm" (ngSubmit)="submitItem()" *ngIf="itemForm">
-  <ion-list>
-    <ion-item>
-      <mat-error *ngIf='!title.valid && (title.dirty || title.touched)'> Your title doesn't look right.</mat-error>
-      <ion-input
-        type="text"
-        formControlName="title"
-         name="title"
+<ion-content fullscreen>
+  <ion-card>
+    <ion-card-header>
+      <ion-title>
+        <h2>Edit Item</h2>
+      </ion-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <form [formGroup]="itemForm" (ngSubmit)="submitItem()" *ngIf="itemForm">
+              <ion-list>
+                <ion-item>
+                  <mat-error *ngIf='!title.valid && (title.dirty || title.touched)'> Your title doesn't look right.</mat-error>
+                  <ion-input
+                    type="text"
+                    formControlName="title"
+                     name="title"
+              
+                  ></ion-input>
+                  <ion-label slot="start" position="stacked">Name:</ion-label>
+                </ion-item>
+             
+                 <br />
+                 <ion-item>
+                  <mat-error *ngIf='!description.valid && (description.dirty || description.touched)'> Your description doesn't look right. </mat-error>
+                  <ion-input
+                    type="text"
+                    formControlName="description"
+                    name="description" 
+               
+                  ></ion-input>
+                  <ion-label slot="start" position="stacked">Details:</ion-label>
+                </ion-item><br />
+            
+                <ion-item> 
+                  <mat-error *ngIf='!tag.valid && (tag.dirty || tag.touched)'> Your tag doesn't look right. </mat-error>
+                  <ion-label slot="start" position="stacked">Categorize:</ion-label>
+                 <ion-input
+                   type="text"
+                   formControlName="tag"
+                   name="tag"
+             
+                 ></ion-input>
+               </ion-item><br />
+              
+                <ion-item *ngIf="minutes">
+                  <mat-error *ngIf='!minutes.valid && (minutes.dirty || minutes.touched)'> Your minutes don't look right.</mat-error>
+                  <ion-input
+                    type="number"
+                    formControlName="minutes"
+                    name="minutes"
+              
+                  ></ion-input>
+                  <ion-label slot="start" position="stacked">Minutes:</ion-label>
+                </ion-item><br />
+              
+             
+                <br/>
+             
+                  <ion-item>
+                    <ion-label>The Importance is: </ion-label>
+                    <ion-note slot="start" [style.margin-left.rem]="'1'" color="secondary">T</ion-note>
+                      <ion-select  formControlName="priority">
+                        <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
+                          {{ prior.text }}
+                        </ion-select-option> 
+                      </ion-select> 
+                  </ion-item>
+                 
+                  <ion-item>
+                    <ion-label>The Difficulty Is:</ion-label>
+                    <ion-note slot="start" [style.margin-left.rem]="'1'" color="secondary">T</ion-note>
+                    <ion-select formControlName="difficulties">
+                      <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
+                        {{diff.text}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item> 
+                 
+                  <ion-item>
+                    <ion-label>The Urgency is:</ion-label>
+                    <ion-note slot="start" [style.margin-left.rem]="'1'" color="secondary">T</ion-note>
+                      <ion-select  formControlName="urgency">
+                        <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
+                          {{ urg.text }}
+                        </ion-select-option> 
+                      </ion-select>
+                  </ion-item>
+                
+                <br/>
+              </ion-list>
+            
+              <div class="decision-buttons">
+                <ion-button class="submit" type="submit" color="success" [disabled]="!itemForm.valid">Submit</ion-button>
+                <ion-button  type=ion-button (click)="cancel()" color="danger">Cancel</ion-button>
+              </div>
+            </form>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
   
-      ></ion-input>
-      <ion-label slot="start">Name:</ion-label>
-    </ion-item>
- 
-     <br />
-     <ion-item>
-      <mat-error *ngIf='!description.valid && (description.dirty || description.touched)'> Your description doesn't look right. </mat-error>
-      <ion-input
-        type="text"
-        formControlName="description"
-        name="description" 
-   
-      ></ion-input>
-      <ion-label slot="start">Details:</ion-label>
-    </ion-item><br />
-
-    <ion-item> 
-      <mat-error *ngIf='!tag.valid && (tag.dirty || tag.touched)'> Your tag doesn't look right. </mat-error>
-      <ion-label slot="start">Categorize:</ion-label>
-     <ion-input
-       type="text"
-       formControlName="tag"
-       name="tag"
- 
-     ></ion-input>
-   </ion-item><br />
-  
-    <ion-item *ngIf="minutes">
-      <mat-error *ngIf='!minutes.valid && (minutes.dirty || minutes.touched)'> Your minutes don't look right.</mat-error>
-      <ion-input
-        type="number"
-        formControlName="minutes"
-        name="minutes"
-  
-      ></ion-input>
-      <ion-label slot="start">Minutes:</ion-label>
-    </ion-item><br />
-  
-    <!-- <ion-item >
-      <mat-error *ngIf='(deadline && !deadline.valid) && (deadline.dirty || deadline.touched)'> Your deadline doesn't look right. </mat-error>
-      <ion-input
-        type="date"
-        formControlName="deadline"
-        name="deadline"
-  
-      ></ion-input>
-      <ion-label>Deadline</ion-label>
-    </ion-item><br /> -->
-  
- 
-    <br/>
- 
-      <ion-item>
-        <ion-label>The Importance is: </ion-label>
-        <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
-          <ion-select placeholder="Priority" formControlName="priority">
-            <ion-select-option *ngFor="let prior of priorities" [value]="prior.number">
-              {{ prior.text }}
-            </ion-select-option> 
-          </ion-select> 
-      </ion-item>
-     
-      <ion-item>
-        <ion-label>The Difficulty Is:</ion-label>
-        <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
-        <ion-select placeholder="Difficulty" formControlName="difficulties">
-          <ion-select-option *ngFor="let diff of difficulty" [value]="diff.number">
-            {{diff.text}}
-          </ion-select-option>
-        </ion-select>
-      </ion-item> 
-     
-      <ion-item>
-        <ion-label>The Urgency is:</ion-label>
-        <ion-note slot="start" [style.margin-left.em]="'2'" color="secondary">T</ion-note>
-          <ion-select  formControlName="urgency">
-            <ion-select-option *ngFor="let urg of urgencyLevels" [value]="urg.number">
-              {{ urg.text }}
-            </ion-select-option> 
-          </ion-select>
-      </ion-item>
-    
-    <br/>
-  </ion-list>
-
-  <div class="decision-buttons">
-    <ion-button class="submit" type="submit" color="success" [disabled]="!itemForm.valid">Submit</ion-button>
-    <ion-button  type=ion-button (click)="cancel()" color="danger">Cancel</ion-button>
-  </div>
-</form>
+</ion-content>
    

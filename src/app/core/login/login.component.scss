@@ -4,6 +4,7 @@
 .main-container {
   height: 100vh;
   
+  
 }
 
 .landing-container {
@@ -65,20 +66,21 @@
     img {
       width: 65%;
       height: auto;
-      margin-top: 10rem;
+      margin-top: 12rem;
     }
     
   }
 
   .title {
-    top: 1%;
-    left: 15%;
+    top: 55%;
+    left: 7%;
     position: absolute;
     font-family: 'Oswald', sans-serif;
     font-size: 2rem;
     text-transform: uppercase;
     z-index: 10000000;
     color: white;
+    letter-spacing: .25rem;
   }
 }
 

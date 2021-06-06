@@ -20,6 +20,7 @@ import { PresentationalModule } from './presentational/presentational-module';
 import { LoginComponent } from './core/login/login.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BdcWalkModule } from 'bdc-walkthrough';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { BdcWalkModule } from 'bdc-walkthrough';
     ContainerModule,
     PresentationalModule,
     BdcWalkModule,
+    NgxSpinnerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

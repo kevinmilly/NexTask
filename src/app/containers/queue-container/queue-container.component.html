@@ -18,14 +18,27 @@
     
       <ion-button 
         [bdcWalkTriggerFor]="add_task"
-        size="large" 
+        size="regular" 
         (click)="addTask()" 
         color="primary"
         class="task-add"
       >
-      <ion-icon name="add-outline"></ion-icon>
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      <ion-label>Task</ion-label>
       <ion-ripple-effect></ion-ripple-effect>
     </ion-button>
+    <!-- <button 
+      ion-button icon-end
+      [bdcWalkTriggerFor]="add_task"
+      size="large" 
+      (click)="addTask()" 
+      color="primary"
+      class="task-add"
+      >
+      Add Task
+      <ion-icon name="add-outline"></ion-icon>
+      <ion-ripple-effect></ion-ripple-effect>
+    </button> -->
     
     
       <!-- <ion-fab vertical="top">

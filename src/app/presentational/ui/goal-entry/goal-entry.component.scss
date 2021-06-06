@@ -1,6 +1,8 @@
 .button-group {
   margin-top: auto;
   // padding-right: 1em;
+  display: flex;
+  justify-content: space-evenly;
   button {
     margin-left: 1em;
   }
@@ -47,6 +49,7 @@ ion-fab-button {
 
 ion-badge {
   width: auto;
+  margin: .3rem;
   ion-icon {
     margin: 2px 5px 0 5px;
   }

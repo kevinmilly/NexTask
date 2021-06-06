@@ -122,7 +122,7 @@ export class TaskContainerComponent implements OnInit {
   }
 
   getHeight(task) {
-    return `${(task.difficulty + task.priority + task.urgency + task.pastDue) / 1.2}rem`;
+    return `${(task.difficulty + task.priority + task.urgency + task.pastDue) / 2}rem`;
   }
 
   importanceDifficultyFormat(format, number) {

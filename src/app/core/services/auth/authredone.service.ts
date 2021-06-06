@@ -18,6 +18,7 @@ import {
 import { Metrics } from "../../../shared/models/metrics.model";
 import * as moment from "moment";
 import { Task } from "../../../shared/models/task.model";
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 
@@ -36,6 +37,7 @@ export class AuthRedoneService {
         private afAuth: AngularFireAuth,
         private afs: AngularFirestore,
         private router: Router,
+        private spinner: NgxSpinnerService
     
 
     ) {
@@ -78,7 +80,7 @@ export class AuthRedoneService {
 
         const { user } = await this.afAuth.signInWithCredential(credential);
         this.updateUserData(user);
-
+ 
         this.router.navigate(['/tabs']);
     }
 

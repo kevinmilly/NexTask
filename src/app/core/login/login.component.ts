@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthRedoneService } from '../services/auth/authredone.service';
 
 import { fromEvent } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
       // public auth: AuthService, 
       public auth: AuthRedoneService,
       private router: Router,
-      
+      private spinner: NgxSpinnerService
  
     ) { }
 
@@ -57,7 +58,12 @@ export class LoginComponent implements OnInit {
 
   signIn() {
     this.auth.login();
-  
+    this.spinner.show();
+
+    setTimeout(() => {
+    /** spinner ends after 5 seconds */
+    this.spinner.hide();
+    }, 10000);
    
   }
 

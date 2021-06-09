@@ -3,85 +3,89 @@
 
 .main-container {
   height: 100vh;
-  
-  
-}
 
-.landing-container {
-  display: block;
-  height: 100vh;
-  position: relative;
- 
-  @include fade-in;
-  padding-right: 3rem;
-
-
-
-  
-  .bg {
-
-    animation: fadeIn 5s;
-    -webkit-animation: fadeIn 5s;
-    -moz-animation: fadeIn 5s;
-    -o-animation: fadeIn 5s;
-    -ms-animation: fadeIn 5s;
-
-    background-color: rgb(218, 176, 98);
-    background-image:
-    linear-gradient(
-      rgba(0, 0, 0, 0.5), #4d4138
-    ),
-      url("../../../assets/images/girlonphone.png");
-    
-    position: absolute;
-    padding: 80%;
-  
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 110vh;
-    width: 100vh;
-    top: -2%;
-    left: -45%;
-    z-index: 0;
-
-   
-  }
-
-  .content {
-    @include slide-in;
+  &__landing {
     display: block;
-    position: absolute;
-    top: 58%;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-top: .5rem;
-    color: white;
-    font-weight: 800;
-    width:100%;
-    overflow:hidden;
-    // margin-left: 5%;
+    height: 100vh;
+    position: relative;
    
-      animation: 1s slide-right;
-    
-    img {
-      width: 65%;
-      height: auto;
-      margin-top: 12rem;
-    }
-    
-  }
+    @include fade-in;
+    padding-right: 3rem;
 
-  .title {
-    top: 55%;
-    left: 7%;
-    position: absolute;
-    font-family: 'Oswald', sans-serif;
-    font-size: 2rem;
-    text-transform: uppercase;
-    z-index: 10000000;
-    color: white;
-    letter-spacing: .25rem;
+    &__title {
+      top: 55%;
+      left: 7%;
+      position: absolute;
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      text-transform: uppercase;
+      z-index: 10000000;
+      color: white;
+      letter-spacing: .25rem;
+    }
+
+  
+  
+    
+    &__bg {
+  
+      animation: fadeIn 5s;
+      -webkit-animation: fadeIn 5s;
+      -moz-animation: fadeIn 5s;
+      -o-animation: fadeIn 5s;
+      -ms-animation: fadeIn 5s;
+  
+      background-color: rgb(218, 176, 98);
+      background-image:
+      linear-gradient(
+        rgba(0, 0, 0, 0.5), #4d4138
+      ),
+        url("../../../assets/images/girlonphone.png");
+      
+      position: absolute;
+      padding: 80%;
+    
+      background-size: contain;
+      background-repeat: no-repeat;
+      height: 110vh;
+      width: 100vh;
+      top: -2%;
+      left: -45%;
+      z-index: 0;
+  
+     
+    }
+  
+    &__content {
+      @include slide-in;
+      display: block;
+      position: absolute;
+      top: 58%;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-top: .5rem;
+      color: white;
+      font-weight: 800;
+      width:100%;
+      overflow:hidden;
+      // margin-left: 5%;
+     
+        animation: 1s slide-right;
+      
+      img {
+        width: 65%;
+        height: auto; 
+        margin-top: 12rem;
+      }
+      
+    }
+
   }
+  
+ 
+  
+  
 }
+
 
 

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { Badge } from 'src/app/shared/models/badge.model';
 import { Metrics } from 'src/app/shared/models/metrics.model';
-import { AuthRedoneService } from '../../../core/services/auth/authredone.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
 import { BadgeService } from '../../../core/services/badge/badge.service';
 
 
@@ -24,7 +24,7 @@ export class ShowAwardComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
     private badgeService: BadgeService,
-    private auth: AuthRedoneService) { }
+    private auth: AuthService) { }
 
   metrics: Metrics;
   badges: Badge[];

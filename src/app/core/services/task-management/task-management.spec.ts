@@ -8,32 +8,32 @@ import { Goal } from 'src/app/shared/models/goal.model';
 import { Task } from 'src/app/shared/models/task.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BackendService } from '../backend/backend.service';
-import { AuthRedoneService } from '../auth/authredone.service';
+import { AuthServiceService } from '../auth/AuthService.service';
 import { ModalController } from '@ionic/angular';
 import { of } from 'rxjs/internal/observable/of';
 
 describe('TaskManagementService', () => {
 
   let tmService: TaskManagementService;
-//   let fakeFireService = jasmine.createSpyObj("fakeFire",[]);
+  //   let fakeFireService = jasmine.createSpyObj("fakeFire",[]);
 
-  let goals:Goal[];
-  let tasks:Task[]; 
+  let goals: Goal[];
+  let tasks: Task[];
   let backend: any;
   let auth: any;
   let modal: any;
-  
 
-  backend = jasmine.createSpyObj("backend",[
-    'getTasks', 
+
+  backend = jasmine.createSpyObj("backend", [
+    'getTasks',
     'addMetric',
     'getGoals',
     'getDayHours',
-    'updateGoals', 
+    'updateGoals',
     'updateTasks'
   ])
 
-  auth = jasmine.createSpyObj("auth",["loggedIn"]);
+  auth = jasmine.createSpyObj("auth", ["loggedIn"]);
   modal = jasmine.createSpyObj("modal", ["presentModal"]);
 
 
@@ -43,12 +43,12 @@ describe('TaskManagementService', () => {
     goals = [...testGoals];
     tasks = [...testTasks];
     TestBed.configureTestingModule({
-      providers:[
-        {provide:BackendService, useValue:backend},
-        {provide:ModalController, useValue:modal},
-        {provide:AuthRedoneService, useValue:auth},
-         TaskManagementService
-        ] 
+      providers: [
+        { provide: BackendService, useValue: backend },
+        { provide: ModalController, useValue: modal },
+        { provide: AuthServiceService, useValue: auth },
+        TaskManagementService
+      ]
     });
     tmService = TestBed.inject(TaskManagementService);
   });
@@ -64,9 +64,9 @@ describe('TaskManagementService', () => {
 
   it('should prioritize goal related Tasks', () => {
     const goalRelatedTasks = tasks.filter(t => t.goalId);
-    goalRelatedTasks[goalRelatedTasks.length-1].priority = 5;
-    goalRelatedTasks[goalRelatedTasks.length-1].difficulty = 5;
-    goalRelatedTasks[goalRelatedTasks.length-1].urgency = 5;
+    goalRelatedTasks[goalRelatedTasks.length - 1].priority = 5;
+    goalRelatedTasks[goalRelatedTasks.length - 1].difficulty = 5;
+    goalRelatedTasks[goalRelatedTasks.length - 1].urgency = 5;
 
     const prioritizedTasks = tmService.goalRelatedTaskPrioritize(goalRelatedTasks, goals);
     expect(prioritizedTasks[0].id).toEqual("slkejl34kjl3k");
@@ -81,31 +81,31 @@ describe('TaskManagementService', () => {
     tasks[0].urgency = 5;
     tasks[0].completed = 0;
     const shouldBeHighest = tasks[0];
-    const[t,g] = tmService.prioritizeAdhocAndGoalRelatedTasks(tasks,goals);
+    const [t, g] = tmService.prioritizeAdhocAndGoalRelatedTasks(tasks, goals);
 
     expect(t[0].id).toEqual(shouldBeHighest.id);
-  
+
   });
 
   it(`should separate tasks per day based on the minutes per day allowed`, () => {
-       const hours = 4;
-       tasks[0].minutes = 120;
-       tasks[1].minutes = 120;
-       tasks[2].minutes = 120;
+    const hours = 4;
+    tasks[0].minutes = 120;
+    tasks[1].minutes = 120;
+    tasks[2].minutes = 120;
 
-       const list = tmService.incrementDaysForTasks(
-           hours,
-           [tasks[0],tasks[1], tasks[2]]
-       );
+    const list = tmService.incrementDaysForTasks(
+      hours,
+      [tasks[0], tasks[1], tasks[2]]
+    );
 
-       expect(list[list.length-1].day).toEqual(2);
+    expect(list[list.length - 1].day).toEqual(2);
   });
 
 
   it('should check if a milestone is done (all the tasks are complete)', () => {
-      tasks[0].completed = 1;
-      expect(tmService.checkIfMilestoneDone(goals[1].id,tasks,goals))
-        .toBe(1);
+    tasks[0].completed = 1;
+    expect(tmService.checkIfMilestoneDone(goals[1].id, tasks, goals))
+      .toBe(1);
   });
 
 
@@ -113,7 +113,7 @@ describe('TaskManagementService', () => {
   it('should test to see if a goal is done', () => {
     goals[1].completed = 1;
     goals[2].completed = 1;
-    expect(tmService.checkIfGoalDone(goals[1],goals))
+    expect(tmService.checkIfGoalDone(goals[1], goals))
       .toBe(1);
   })
 
@@ -122,4 +122,3 @@ describe('TaskManagementService', () => {
 
 
 });
- 

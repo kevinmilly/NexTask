@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Goal } from '../shared/models/goal.model';
 import { Task } from '../shared/models/task.model';
-import { AuthRedoneService } from '../core/services/auth/authredone.service';
+import { AuthService } from '../core/services/auth/auth.service';
 import { TaskManagementService } from '../core/services/task-management/task-management.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class TabsPage {
   goals: Goal[];
   tasks: Task[];
 
-  constructor(private tmService: TaskManagementService, private auth: AuthRedoneService) { }
+  constructor(private tmService: TaskManagementService, private auth: AuthService) { }
 
   ngOnInit() {
     if (this.auth.user) {

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-// import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthRedoneService } from '../services/auth/authredone.service';
+import { AuthService } from '../services/auth/auth.service';
 
 import { fromEvent } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,8 +15,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class LoginComponent implements OnInit {
 
   deviceSize;
-  authSub:Subscription;
-  user:any;
+  authSub: Subscription;
+  user: any;
 
   slideOptions = {
     initialSlide: 0,
@@ -29,19 +28,39 @@ export class LoginComponent implements OnInit {
   ev: any;
 
   constructor(
-      // public auth: AuthService, 
-      public auth: AuthRedoneService,
-      private router: Router,
-      private spinner: NgxSpinnerService
- 
-    ) { }
+    public auth: AuthService,
+    private router: Router,
+    private spinner: NgxSpinnerService
+
+  ) { }
 
   ngOnInit(): void {
+    this.promptAppInstallation();
+
+  }
+
+  signIn() {
+    this.auth.login();
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 10000);
+
+  }
+
+
+  signOut() {
+    this.auth.signOut();
+    this.router.navigate(['/login']);
+  }
+
+  promptAppInstallation() {
     fromEvent(window, 'beforeinstallprompt').subscribe((res: any) => {
       console.log(res);
       this.ev = res;
 
-      if(this.ev) {
+      if (this.ev) {
         this.ev.preventDefault();
         this.ev.prompt();
         this.ev.userChoice.then((choiceResult: { outcome: string }) => {
@@ -53,29 +72,11 @@ export class LoginComponent implements OnInit {
         });
       }
     });
-
   }
 
-  signIn() {
-    this.auth.login();
-    this.spinner.show();
-
-    setTimeout(() => {
-    /** spinner ends after 5 seconds */
-    this.spinner.hide();
-    }, 10000);
-   
+  ngOnDestroy() {
+    if (this.authSub) this.authSub.unsubscribe();
   }
-
-
-signOut() {
-  this.auth.signOut();
-  this.router.navigate(['/login']);
-}
-
-ngOnDestroy() {
-  if(this.authSub) this.authSub.unsubscribe();
-}
 
 
 

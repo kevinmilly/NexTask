@@ -1,166 +1,181 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User } from '../../../shared/models/user.model';
 
-
-import firebase from 'firebase/app';
 
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { firebase } from '@firebase/app';
+import '@firebase/auth';
+import {
+    AngularFirestore,
+    AngularFirestoreCollection,
+    AngularFirestoreDocument
+} from '@angular/fire/firestore';
 
-import { Observable } from 'rxjs';
+declare var gapi: any;
+import * as moment from "moment";
+import { NgxSpinnerService } from "ngx-spinner";
 
-import { Subscription } from 'rxjs/internal/Subscription';
-import { Task } from '../../../shared/models/task.model';
-import * as moment from 'moment';
-import { Metrics } from '../../../shared/models/metrics.model';
-import { Settings } from 'src/app/shared/models/settings.model';
-
-declare let gapi: any;
+import { Metrics } from "../../../shared/models/metrics.model";
+import { Task } from "../../../shared/models/task.model";
 
 
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
-  // user$: Observable<User>;
-  // user: User; 
-  user$: Observable<firebase.User> = null;
-  metrics: Metrics;
-
-  settings:Settings;
-  user: any = null;
-  loggedIn = false;
-  authToken = '';
-  afAuthSub: Subscription;
+    metrics: Metrics;
+    user$: Observable<any>;
+    private loggedUser: any;
+    userProfile: any;
+    private userLogged: any;
 
 
+    constructor(
+        private afAuth: AngularFireAuth,
+        private afs: AngularFirestore,
+        private router: Router,
+
+    ) {
+        this.initClient();
+        this.user$ = afAuth.authState;
+        this.user$ = this.afAuth.authState.pipe(
+            switchMap(user => {
+                if (user) {
+                    return this.afs.doc<any>(`users/${user.uid}`).valueChanges();
+                } else {
+                    return of(null);
+                }
+            })
+        )
+        this.metrics = new Metrics(0, 0, 0, 0, 0, 0);
+    }
+
+    initClient() {
+        gapi.load('client', () => {
+
+            gapi.client.init({
+                apiKey: 'AIzaSyAHq7tes1IxsaabtwD375WcQO3HJHGJR1I',
+                clientId: '665563290905-kkd8mqv10q989rq1coq5ih04hbr5k9tv.apps.googleusercontent.com',
+                discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
+                scope: 'https://www.googleapis.com/auth/calendar'
+            })
+            gapi.client.load('calendar', 'v3', () => console.log('loaded calendar'));
+        })
+    }
+
+    async login() {
+        const googleAuth = gapi.auth2.getAuthInstance();
+        const googleUser = await googleAuth.signIn();
+
+        const token = googleUser.getAuthResponse().id_token;
 
 
 
+        const credential = firebase.auth.GoogleAuthProvider.credential(token);
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router,
+        const { user } = await this.afAuth.signInWithCredential(credential);
+        this.updateUserData(user);
 
-  ) {
-
-    this.user$ = this.afAuth.authState;
-    this.metrics = new Metrics(0, 0, 0, 0, 0, 0);
+        this.router.navigate(['/tabs']);
+    }
 
 
-  }
+
+    async signOut() {
+        await this.afAuth.signOut();
+
+        this.router.navigate(['/login']);
+
+    }
 
 
-  googleLogin() {
-    this.webGoogleLogin();
-  }
+    private updateUserData(user) {
 
-  async webGoogleLogin(): Promise<void> {
-    try {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      const credential = await this.afAuth.signInWithPopup(provider);
-
-
-      this.afAuthSub = this.afAuth.authState.subscribe(user => {
-
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-
-          this.user = {
-            displayName: user.displayName,
+        this.loggedUser = {
+            uid: user.uid,
             email: user.email,
-            photoUrl: user.photoURL,
-            uid: user.uid && user.uid
-          };
+            displayName: user.displayName,
+            photoURL: user.photoURL
+        };
 
-          if(credential.additionalUserInfo.isNewUser) {
-            //make their first metrics
-            this.afs
-            .collection<Metrics>(`users/${this.user.uid}/metrics`)
-            .add(this.metrics)
-            .then((docRef) => {
-              const addedmetric = docRef.set(this.metrics, { merge: true });
-              console.dir(addedmetric);
-              docRef.update({
-                id: docRef.id,
-                ...this.metrics
-              })
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${this.loggedUser.uid}`);
+        const metricRef: AngularFirestoreCollection<any> = this.afs.doc(`users/${this.loggedUser.uid}`).collection("metrics");
+
+        //decide whether to make metrics for the first time
+        metricRef.valueChanges().subscribe(m => {
+            if (m.length > 0) {
+                this.metrics = m[0];
+
+            } else {
+
+                metricRef.add({ ...this.metrics });
+            }
+        })
+
+
+
+        userRef.set(this.loggedUser, { merge: true });
+
+    }
+
+    // //loop through the tasks, start with Date.now(), for each successive iteration use the end date of the previous
+    async insertEvents(tasks: Task[], datetime, buffer) {
+
+        let start, end;
+        for (let i = 0; i < tasks.length; i++) {
+            start = i === 0 ? datetime : moment(end).add(buffer, 'minutes');
+            end = minutesFromNow(start, tasks[i].minutes);
+
+
+
+            const insert = await gapi.client.calendar.events.insert({
+                calendarId: 'primary',
+                start: {
+                    dateTime: start,
+                    timeZone: 'America/New_York'
+                },
+                end: {
+                    dateTime: end,
+                    timeZone: 'America/New_York'
+                },
+                summary: tasks[i].title,
+                description: tasks[i].description,
+                colorId: this.getColorId(
+                    tasks[i].priority,
+                    tasks[i].difficulty,
+                    tasks[i].urgency,
+                    tasks[i].pastDue
+                )
             })
         }
 
+    }
 
-        this.afs.collection<Metrics>(`users/${this.user.uid}/metrics`)
-          .valueChanges().subscribe(metric => this.metrics = metric[0]);
-
-    
+    getColorId(priority, difficulty, urgency, pastDue) {
+        if ((priority + difficulty + urgency + pastDue) < 6 || (priority + difficulty + urgency + pastDue) === 4) {
+            return '8'
+        } else if ((priority + difficulty + urgency + pastDue) < 10 || (priority + difficulty + urgency + pastDue) === 6) {
+            return '5';
+        } else if ((priority + difficulty + urgency + pastDue) < 14 || (priority + difficulty + urgency + pastDue) === 9) {
+            return '4';
+        } else if ((priority + difficulty + urgency + pastDue) < 18 || (priority + difficulty + urgency + pastDue) === 12) {
+            return '11';
         } else {
-          localStorage.setItem('user', null);
-          this.router.navigate(['/login']);
+            return '11';
         }
-        // this.router.navigate(['']);
-        this.router.navigate(['/tabs/tab1']);
 
-
-      })
-    } catch (error) {
-      console.log({ error });
-    }
-  }
-
-
-
-
-  logout() {
-    this.afAuth.signOut()
-      .then(result => {
-        localStorage.removeItem('user');
-        this.user = null;
-        this.router.navigate(['login']);
-      })
-
-  }
-
-
-
-  getColorId(priority, difficulty, urgency) {
-    if ((priority + difficulty + urgency) < 4 || (priority + difficulty + urgency) === 4) {
-      return '8'
-    } else if ((priority + difficulty + urgency) < 6 || (priority + difficulty + urgency) === 6) {
-      return '5';
-    } else if ((priority + difficulty + urgency) < 9 || (priority + difficulty + urgency) === 9) {
-      return '4';
-    } else if ((priority + difficulty + urgency) < 12 || (priority + difficulty + urgency) === 12) {
-      return '11';
-    } else {
-      return '11';
     }
 
-  }
 
-
-
-  get isLoggedIn(): boolean {
-
-    return this.user !== null;
-  }
-
-  getloggedInUser(): any {
-    return this.user;
-  }
-
-  get authMetrics() {
-    return this.metrics;
-  }
-
-
-  ngOnDestroy() {
-    if (this.afAuthSub) {
-      this.afAuthSub.unsubscribe();
+    get authMetrics() {
+        return this.metrics;
     }
 
-  }
+    get user(): any {
+        return this.loggedUser;
+    }
+
 }
 
 const minutesFromNow = (start, n) => moment(start).add(n, 'minutes').toISOString();

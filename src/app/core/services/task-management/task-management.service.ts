@@ -15,7 +15,7 @@ import { ShowAwardComponent } from 'src/app/presentational/display/show-award/sh
 
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
 import { map, take, tap } from 'rxjs/operators';
-import { AuthRedoneService } from '../auth/authredone.service';
+import { AuthService } from '../auth/auth.service';
 import { ItemEditComponent } from 'src/app/presentational/ui/item-edit/item-edit.component';
 import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-entry/milestone-entry.component';
 import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entry/date-time-entry.component';
@@ -56,7 +56,7 @@ export class TaskManagementService {
 
   constructor(
     private backend: BackendService,
-    private auth: AuthRedoneService,
+    private auth: AuthService,
     public modalController: ModalController,
 
   ) {
@@ -69,26 +69,26 @@ export class TaskManagementService {
     console.log(`in init with ${this.defaultHours}`);
     this.goals$ = this.backend.getGoals().valueChanges();
     this.allTasks$ = combineLatest([
-                        this.backend.getTasks().valueChanges(),
-                        this.defaultHours$
-                      ]).pipe(
-                            map(([unincrementedTasks,hours]) => this.incrementDaysForTasks(hours, unincrementedTasks)),
-                            map(tasks => this.calculatePastDue(tasks))
-                       );
+      this.backend.getTasks().valueChanges(),
+      this.defaultHours$
+    ]).pipe(
+      map(([unincrementedTasks, hours]) => this.incrementDaysForTasks(hours, unincrementedTasks)),
+      map(tasks => this.calculatePastDue(tasks))
+    );
 
-      const tempTask$ = this.allTasks$
+    const tempTask$ = this.allTasks$
       .pipe(map(tasks => tasks.filter(t => !t.completed)));
-      this.tasks$ = combineLatest([tempTask$, this.goals$])
-        .pipe(
-          map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
-        )
-        .pipe(
-          tap(t => {
-            t[0].forEach(t => {
-              if (t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
-            });
-          })
-        );
+    this.tasks$ = combineLatest([tempTask$, this.goals$])
+      .pipe(
+        map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
+      )
+      .pipe(
+        tap(t => {
+          t[0].forEach(t => {
+            if (t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
+          });
+        })
+      );
 
 
   }
@@ -164,12 +164,6 @@ export class TaskManagementService {
     return list;
   }
 
-
-
-  createIdea(event) {
-    this.backend.addIdea({ title: event.title, createdDate: moment().format("MM/DD/YYYY") });
-    this.backend.delete(event);
-  }
 
   markTaskComplete(event) {
     //this will update the task as completed 
@@ -248,7 +242,7 @@ export class TaskManagementService {
     console.log(this.defaultHours);
     const modal = await this.modalController.create({
       component: SettingsComponent,
-      componentProps: { 
+      componentProps: {
         hourSettings: this.defaultHours
       },
       cssClass: 'auto-height',
@@ -316,22 +310,7 @@ export class TaskManagementService {
   }
 
   async editGoal(goalToEdit) {
-    // const modal = await this.modalController.create({
-    //   component: GoalEntryComponent,
-    //   componentProps:goalToEdit,
-    //   cssClass: 'goal-entry'
-    // });
-    // modal.onDidDismiss()
-    //   .then((data) => {
-    //     const result = data['data']; 
-    //     if(result !== null) {
-    //       const returnItem = this.backend.updateGoal(result);
-    //     }
     const returnItem = this.backend.updateGoals([goalToEdit]);
-
-
-    //  return await modal.present();
-
   }
 
   async editItem(data, type) {
@@ -349,15 +328,15 @@ export class TaskManagementService {
           switch (type) {
             case 'task':
               const returnItem = this.backend.updateTask(result);
-              // this.tasks.splice(this.tasks.findIndex(t=> t.id === result.id), 1, result);
+          
               break;
             case 'goal':
               this.backend.updateGoals([result]);
-              // this.goals.splice(this.goals.findIndex(t=> t.id === result.id), 1, result);
+          
               break;
           }
 
-          // this.sortDays(5,[...this.tasks]);
+
         }
       });
 
@@ -366,7 +345,6 @@ export class TaskManagementService {
   }
 
   deleteTask(event) {
-    //  this.tasks.splice(this.tasks.findIndex(task => task.id === event.id),1);
     const returnItem = this.backend.delete(event);
 
 
@@ -380,14 +358,11 @@ export class TaskManagementService {
     m.forEach(g => {
       tasks = g.tasks;
       tasks.forEach((t) => {
-        // this.tasks.splice(this.tasks.findIndex(tasks => tasks.id === t.id),1);
         this.backend.delete(t);
       });
 
-      // this.goals.splice(this.goals.findIndex(goals => goals.id === g.id),1);
       this.backend.deleteGoal(g)
     });
-    // this.goals.splice(this.goals.findIndex(goal => goal.id === g.id),1);
     this.backend.deleteGoal(g);
 
 
@@ -477,12 +452,6 @@ export class TaskManagementService {
 
   }
 
-  addIdea() {
-
-    this.backend.addIdea({ title: this.idea.value, createdDate: moment().format("MM/DD/YYYY") });
-    this.ideaForm.controls['idea'].setValue(null);
-  }
-
   async createEvent(tasks) {
     const modal = await this.modalController.create({
       component: DateTimeEntryComponent
@@ -509,8 +478,8 @@ export class TaskManagementService {
 
   }
 
-  sortDays(tags:string[]) {
-    
+  sortDays(tags: string[]) {
+
 
   }
 
@@ -531,7 +500,7 @@ export class TaskManagementService {
 
 
   ngOnDestroy() {
-   
+
 
   }
 

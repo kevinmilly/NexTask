@@ -115,10 +115,6 @@ export class TaskEntryComponent {
     private backend: BackendService,
   ) { }
 
-  useIdea(idea) {
-    this.taskForm.controls['title'].setValue(idea.title);
-    this.backend.deleteIdea(idea);
-  }
 
   submitTask() {
     this.modalController.dismiss({

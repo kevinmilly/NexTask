@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Task } from '../../shared/models/task.model';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalController, ToastController } from '@ionic/angular';
-import { TaskEntryComponent } from 'src/app/presentational/ui/task-entry/task-entry.component';
 import { CommentsService } from 'src/app/core/services/comments/comments.service';
 
 
@@ -42,68 +39,21 @@ export class TaskContainerComponent implements OnInit {
     this.quotes = this.commentService.encouragement;
   }
 
-
-  getRandomQuote() {
-    this.presentToast(this.quotes[Math.floor(Math.random() * (this.quotes.length))]);
-  }
-
-
-
-  async presentToast(message) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000
-    });
-    toast.present();
-  }
-
-  async presentTwoPartToast(main, sub) {
-    const toast = await this.toastController.create({
-      header: main,
-      message: sub,
-      duration: 2000
-    });
-    toast.present();
-  }
-
-
-
   markComplete(task: Task) {
     this.getRandomQuote();
     this.markedComplete.emit(task);
   }
 
   delete(task: Task) {
-    if (confirm("Do you legit wanna delete this?")) {
+    if (confirm("Do you really wanna delete this?")) {
       this.getRandomQuote();
       this.deleteTask.emit(task);
     }
 
   }
 
-  async editComplete(task: Task) {
-
-    const modal = await this.modalController.create({
-      component: TaskEntryComponent,
-      componentProps: { data: task },
-      cssClass: 'task-entry'
-    });
-    modal.onDidDismiss()
-      .then((data) => {
-        const result = data['data'];
-        if (result) this.editTaskEmitter.emit(result);
-      });
-
-    return await modal.present();
-  }
-
   editTask(event) {
     this.editTaskEmitter.emit(event);
-  }
-
-
-  createIdea(task: Task) {
-    this.createdIdea.emit(task);
   }
 
   classPriority(priority, difficulty, urgency, pastDue) {
@@ -193,5 +143,27 @@ export class TaskContainerComponent implements OnInit {
     }
 
   }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentTwoPartToast(main, sub) {
+    const toast = await this.toastController.create({
+      header: main,
+      message: sub,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  getRandomQuote() {
+    this.presentToast(this.quotes[Math.floor(Math.random() * (this.quotes.length))]);
+  }
+
 
 }

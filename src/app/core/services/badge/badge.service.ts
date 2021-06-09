@@ -5,6 +5,9 @@ import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
 import { Metrics } from '../../../shared/models/metrics.model';
 import { Badge } from '../../../shared/models/badge.model';
+import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs/internal/Subscription';
+
 /*
   1:Completion
   2: TimeOfUse
@@ -18,57 +21,74 @@ import { Badge } from '../../../shared/models/badge.model';
 export class BadgeService {
 
   badges: Badge[];
-  awards: Badge[] = [];
+  badgeAwards: Badge[] = [];
   metrics: Metrics;
 
-  constructor(private firestore: AngularFirestore) { }
+  toughBadges = [];
+  completionBadges = [];
+  timeBadges = [];
+  creationBadges = [];
+  importantBadges = [];
+  urgencyBadges = [];
+
+  awardsSub:Subscription;
+
+  constructor(private firestore: AngularFirestore) {
+
+   }
 
 
   getBadges(): Observable<Badge[]> {
     return this.firestore.collection<Badge>(`Badge/`)
       .valueChanges()
   }
+ //TODO: Need to complete gamification function
+  // determineAwards(metrics) : Observable<BadgeService[]> {
 
-  checkCriteria(metrics) {
+  //   return this.getBadges()
+  //   .pipe(take(1))
+  //   .subscribe(badges => {
+  //     this.badges = badges;
 
-    this.getBadges().subscribe(badges => {
-      this.badges = badges;
-
-
-      let toughBadges = [];
-      let completionBadges = [];
-      let timeBadges = [];
-      let creationBadges = [];
-      let importantBadges = [];
-      let urgencyBadges = [];
-
-      if (metrics.toughTasks > 0) toughBadges = this.badges.filter(b => b.type === 3)
-        .sort((a, b) => a.criteria - b.criteria);
-      if (metrics.completions > 0) completionBadges = this.badges.filter(b => b.type === 1)
-        .sort((a, b) => a.criteria - b.criteria);
-      if (metrics.usageTime > 0) timeBadges = this.badges.filter(b => b.type === 2)
-        .sort((a, b) => a.criteria - b.criteria);
-      if (metrics.tasksCreated > 0) creationBadges = this.badges.filter(b => b.type === 4)
-        .sort((a, b) => a.criteria - b.criteria);
-      if (metrics.importantTasks > 0) importantBadges = this.badges.filter(b => b.type === 5)
-        .sort((a, b) => a.criteria - b.criteria);
-      if (metrics.urgencyTasks > 0) urgencyBadges = this.badges.filter(b => b.type === 6)
-        .sort((a, b) => a.criteria - b.criteria);
-
-      toughBadges.forEach(b => metrics.toughTask >= b.criteria && this.awards.push(b));
-      completionBadges.forEach(b => metrics.completions >= b.criteria && this.awards.push(b));
-      timeBadges.forEach(b => metrics.usageTime >= b.criteria && this.awards.push(b));
-      creationBadges.forEach(b => metrics.taskCreated >= b.criteria && this.awards.push(b));
-      importantBadges.forEach(b => metrics.importanTasks >= b.criteria && this.awards.push(b));
-      urgencyBadges.forEach(b => metrics.urgencyTasks >= b.criteria && this.awards.push(b));
-
-      return this.awards;
-
-    });
+  //     const [tough,completions,usage,tasks,importance,urgency] = this.setupCriteria(metrics);
+      
+  //     this.badgeAwards = this.checkCriteria(metrics,tough,completions,usage,tasks,importance,urgency);
 
 
+  //   });
 
+  // }
+
+  setupCriteria(metrics) {
+    const badgeResults = [];
+    if (metrics.toughTasks > 0) badgeResults.push(this.badges.filter(b => b.type === 3)
+        .sort((a, b) => a.criteria - b.criteria));
+      if (metrics.completions > 0)  badgeResults.push(this.badges.filter(b => b.type === 1)
+        .sort((a, b) => a.criteria - b.criteria));
+      if (metrics.usageTime > 0)  badgeResults.push(this.badges.filter(b => b.type === 2)
+        .sort((a, b) => a.criteria - b.criteria));
+      if (metrics.tasksCreated > 0)  badgeResults.push(this.badges.filter(b => b.type === 4)
+        .sort((a, b) => a.criteria - b.criteria));
+      if (metrics.importantTasks > 0)  badgeResults.push(this.badges.filter(b => b.type === 5)
+        .sort((a, b) => a.criteria - b.criteria));
+      if (metrics.urgencyTasks > 0)  badgeResults.push(this.badges.filter(b => b.type === 6)
+        .sort((a, b) => a.criteria - b.criteria));
+
+        return badgeResults;
   }
+
+  checkCriteria(metrics,tough,completions,usage,tasks,importance,urgency): Badge[] {
+      const badges = [];
+      tough.forEach(b => metrics.toughTask >= b.criteria && badges.push(b));
+      completions.forEach(b => metrics.completions >= b.criteria && badges.push(b));
+      usage.forEach(b => metrics.usageTime >= b.criteria && badges.push(b));
+      tasks.forEach(b => metrics.taskCreated >= b.criteria && badges.push(b));
+      importance.forEach(b => metrics.importanTasks >= b.criteria && badges.push(b));
+      urgency.forEach(b => metrics.urgencyTasks >= b.criteria && badges.push(b));
+
+      return this.badges;
+  }
+
 
 
 }

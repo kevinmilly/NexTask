@@ -1,45 +1,20 @@
-
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-  <ion-card class="main-container" >
+<ion-card class="main-container">
+  <div class="main-container__landing">
+    <div class="main-container__landing__title">Productive > Busy</div>
 
-                
-                        <div class="landing-container">
-                                <div class="title">Productive > Busy</div>
-                                
-                                <div class="bg">
+    <div class="main-container__landing__bg"></div>
 
-                                </div>
-                               
-                                <div class="content">
-                               
-                                 <ngx-spinner></ngx-spinner>
+    <div class="main-container__landing__content">
+      <ngx-spinner></ngx-spinner>
 
-                                     <div class="sign-in">
-                                      <img src="../../assets/images/signin-button-dark.png" (click)="signIn()">
-                                    </div>
-                                  
-                                </div>
-                             
-                                  
-                             
-                        
-                          </div>
-    
-    
-              
-    
-
-  </ion-card>
-
-
-
-
-
-
-
-
-
-
-
-
+      <div class="main-container__landing__sign-in">
+        <img
+          src="../../assets/images/signin-button-dark.png"
+          (click)="signIn()"
+        />
+      </div>
+    </div>
+  </div>
+</ion-card>

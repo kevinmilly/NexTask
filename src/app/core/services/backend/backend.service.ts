@@ -8,9 +8,10 @@ import { Metrics } from '../../../shared/models//metrics.model';
 import { Badge } from '../../../shared/models//badge.model';
 import { testBadges } from '../../../shared/test-data/test-badge';
 import { Goal } from '../../../shared/models//goal.model';
-import { AuthRedoneService } from '../auth/authredone.service';
+import { AuthService } from '../auth/auth.service';
 import { Settings } from 'src/app/shared/models/settings.model';
 import { take } from 'rxjs/internal/operators/take';
+import { BadgeService } from '../badge/badge.service';
 
 
 @Injectable({
@@ -26,11 +27,12 @@ export class BackendService {
 
   constructor(
     private firestore: AngularFirestore,
-    private auth: AuthRedoneService,
+    private auth: AuthService,
+    private badgesService:BadgeService
 
   ) {
     this.user = this.auth.user;
-   }
+  }
 
   getAwards() {
     return this.auth.authMetrics;
@@ -119,10 +121,10 @@ export class BackendService {
 
   }
 
-  updateSettings(settings:Settings) {
+  updateSettings(settings: Settings) {
     this.firestore.collection<Settings>(`users/${this.user.uid}/Settings`)
-    .doc(settings.id).set({ ...settings}, { merge: true })
-  
+      .doc(settings.id).set({ ...settings }, { merge: true })
+
   }
 
   getSettings() {
@@ -131,11 +133,8 @@ export class BackendService {
 
   addMetric(task, typeOfUpdate) {
     this.metrics = this.auth.authMetrics;
-
     let metric;
-    let awards: Badge[] = [];
-
-
+    
     switch (typeOfUpdate) {
       case 'creation':
         metric = {
@@ -161,88 +160,14 @@ export class BackendService {
 
     }
 
-    let toughBadges = [];
-    let completionBadges = [];
-    let timeBadges = [];
-    let creationBadges = [];
-    let importantBadges = [];
-    let urgencyBadges = [];
+    //TODO: Need to complete gamification function
+    // const [returnedMetric, awards] = this.badgesService.determineAwards(metric);
 
-    //figure out what badges we even need to consider
-
-    if (metric.toughTasks > 0) toughBadges = this.badges.filter(b => b.type === 3)
-      .sort((a, b) => a.criteria - b.criteria);
-    if (metric.completions > 0) completionBadges = this.badges.filter(b => b.type === 1)
-      .sort((a, b) => a.criteria - b.criteria);
-    if (metric.usageTime > 0) timeBadges = this.badges.filter(b => b.type === 2)
-      .sort((a, b) => a.criteria - b.criteria);
-    if (metric.tasksCreated > 0) creationBadges = this.badges.filter(b => b.type === 4)
-      .sort((a, b) => a.criteria - b.criteria);
-    if (metric.importantTasks > 0) importantBadges = this.badges.filter(b => b.type === 5)
-      .sort((a, b) => a.criteria - b.criteria);
-    if (metric.urgencyTasks > 0) urgencyBadges = this.badges.filter(b => b.type === 6)
-      .sort((a, b) => a.criteria - b.criteria);
-
-
-    //collect awards based on metrics
-    toughBadges.forEach(b => {
-      if (metric.toughTasks >= b.criteria && !this.metrics.awards.includes(b.title)) {
-        awards.push(b);
-      }
-    });
-    completionBadges.forEach(b => {
-      if (metric.completions >= b.criteria && !this.metrics.awards.includes(b.title)) {
-        awards.push(b);
-      }
-    });
-    timeBadges.forEach(b => {
-      if (metric.usageTime >= b.criteria && !this.metrics.awards.includes(b.title)) {
-        awards.push(b);
-      }
-    });
-    creationBadges.forEach(b => {
-      if (metric.tasksCreated >= b.criteria && !this.metrics.awards.includes(b.title)) {
-        awards.push(b);
-      }
-    });
-    importantBadges.forEach(b => {
-      if (metric.importantTasks >= b.criteria && !this.metrics.awards.includes(b.title)) {
-        awards.push(b);
-      }
-    });
-    urgencyBadges.forEach(b => {
-      if (metric.urgencyTasks >= b.criteria && !this.metrics.awards.includes(b.title)) {
-        awards.push(b);
-      }
-    });
-
-
-    if (this.metrics.awards.length > 0) {
-      metric.awards = [...this.metrics.awards, ...awards.map(a => a.title)];
-
-    } else {
-      metric.awards = [...awards.map(a => a.title)];
-    }
 
     this.updateMetric(metric);
 
-    // this.presentAwards(awards);
-    return awards;
-
-  }
-
-  addIdea(idea) {
-    console.dir(idea);
-    const ideaAdded = this.firestore.collection<string>(`users/${this.user.uid}/Ideas`)
-      .add(idea)
-      .then((docRef) => {
-        const data = {
-          id: docRef.id,
-          ...idea
-        }
-
-        return docRef.set(data, { merge: true })
-      })
+    // return awards;
+    return [];
 
   }
 
@@ -272,23 +197,7 @@ export class BackendService {
     collection.doc(goal.id).delete();
   }
 
-  deleteIdea(idea) {
 
-    const collection = this.firestore.collection<Idea>(`users/${this.user.uid}/Ideas`);
-    collection.doc(idea.id).delete();
-  }
-
-  // presentAwards(awards) {
-  //   console.dir(awards);
-  //   awards.forEach((a, index) => {
-  //     this.snackbar.open(
-  //       `You received ${a.title}!`, 
-  //        `${a.criteria} ${this.getAwardType(a.type)}`, {
-  //       duration:3000 * (index+1),
-  //       verticalPosition: 'top'
-  //     });
-  //   });
-  // }
 
   getAwardType(type: number) {
     switch (type) {

@@ -69,6 +69,10 @@ export class TaskManagementService {
 
     this.goals$ = this.backend.getGoals().valueChanges();
 
+    /*
+    Making sure to account for tasks that have gone over their day there were supposed to be finished
+    determined by the default hours chose.
+    */
     this.allTasks$ = combineLatest([
       this.backend.getTasks().valueChanges(),
       this.defaultHours$
@@ -77,8 +81,13 @@ export class TaskManagementService {
       map(tasks => this.calculatePastDue(tasks))
     );
 
+    /*
+      Now that past due and days are chosen we can sort all tasks and load tags
+      for filtering later
+    */
     const tempTask$ = this.allTasks$
       .pipe(map(tasks => tasks.filter(t => !t.completed)));
+
     this.tasks$ = combineLatest([tempTask$, this.goals$])
       .pipe(
         map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
@@ -111,7 +120,6 @@ export class TaskManagementService {
     const nonGoalTasks = t.filter(t => !t.goalId);
     t = nonGoalTasks
       .concat(this.goalRelatedTaskPrioritize(t.filter(t => t.goalId), g))
-      .filter(task => task.completed === 0)
       .sort((a, b) => (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue));
 
     return [t, g];
@@ -146,21 +154,23 @@ export class TaskManagementService {
     let dayIterator = 1;
     const minutesADay = hours * 60;
     let remainingMinutes = minutesADay;
-
-    for (let i = 0, len = taskList.length; i < len; i++) {
-      if(!taskList[i].completed) {
-        if ((remainingMinutes - taskList[i].minutes) >= -1) {
-          remainingMinutes -= taskList[i].minutes;
-          taskList[i].day = dayIterator;
+    const sortedList = taskList.sort((a, b) => {
+      return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+    })
+    for (let i = 0, len = sortedList.length; i < len; i++) {
+      if(!sortedList[i].completed) {
+        if ((remainingMinutes - sortedList[i].minutes) >= -1) {
+          remainingMinutes -= sortedList[i].minutes;
+          sortedList[i].day = dayIterator;
         } else {
-          taskList[i].day = ++dayIterator;
+          sortedList[i].day = ++dayIterator;
           remainingMinutes = minutesADay;
 
         }
     }
 
     }
-    return taskList;
+    return sortedList;
   }
 
 
@@ -477,15 +487,6 @@ export class TaskManagementService {
 
   }
 
-  sortDays(tags: string[]) {
-
-
-  }
-
-  get idea() {
-    return this.ideaForm.get('idea');
-  }
-
 
   get loggedIn() {
     return !!this.auth.user;
@@ -493,14 +494,6 @@ export class TaskManagementService {
 
   get filterTags() {
     return this.tags;
-  }
-
-
-
-
-  ngOnDestroy() {
-
-
   }
 
 

@@ -6,11 +6,11 @@ import { TaskManagementService } from './task-management.service';
 import * as moment from "moment";
 import { Goal } from 'src/app/shared/models/goal.model';
 import { Task } from 'src/app/shared/models/task.model';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { BackendService } from '../backend/backend.service';
-import { AuthServiceService } from '../auth/AuthService.service';
+
 import { ModalController } from '@ionic/angular';
-import { of } from 'rxjs/internal/observable/of';
+import { AuthService } from '../auth/auth.service';
+
 
 describe('TaskManagementService', () => {
 
@@ -46,7 +46,7 @@ describe('TaskManagementService', () => {
       providers: [
         { provide: BackendService, useValue: backend },
         { provide: ModalController, useValue: modal },
-        { provide: AuthServiceService, useValue: auth },
+        { provide: AuthService, useValue: auth },
         TaskManagementService
       ]
     });

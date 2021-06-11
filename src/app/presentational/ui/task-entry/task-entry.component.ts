@@ -5,6 +5,8 @@ import * as moment from 'moment';
 import { BackendService } from '../../../core/services/backend/backend.service';
 import { Idea } from '../../../shared/models/idea.model';
 import { ModalController } from '@ionic/angular';
+import { Importance, Difficulty, Urgency } from 'src/app/containers/models/factors.enum';
+
 
 @Component({ 
   selector: 'app-task-entry',
@@ -41,23 +43,23 @@ export class TaskEntryComponent {
 
   priorities = [
     {
-      text: "Low",
+      text: Importance[1],
       number: 1
     },
     {
-      text: "Medium",
+      text: Importance[2],
       number: 2
     },
     {
-      text: "High",
+      text: Importance[3],
       number: 3
     },
     {
-      text: "Critical",
+      text: Importance[4],
       number: 4
     },
     {
-      text: "Non-Negotiable",
+      text: Importance[5],
       number: 5
     }
   ]
@@ -65,46 +67,46 @@ export class TaskEntryComponent {
 
   difficulty = [
     {
-      text: "Mindless",
+      text: Difficulty[1],
       number: 1
     },
     {
-      text: "Low",
+      text: Difficulty[2],
       number: 2
     },
     {
-      text: "Average",
+      text: Difficulty[3],
       number: 3
     },
     {
-      text: "High",
+      text: Difficulty[4],
       number: 4
     },
     {
-      text: "Intense",
+      text: Difficulty[5],
       number: 5
     }
   ]
 
   urgencyLevels = [
     {
-      text: "Low",
+      text: Urgency[1],
       number: 1
     },
     {
-      text: "Medium",
+      text: Urgency[2],
       number: 2
     },
     {
-      text: "Elevated",
+      text: Urgency[3],
       number: 3
     },
     {
-      text: "High",
+      text: Urgency[4],
       number: 4
     },
     {
-      text: "Immediate",
+      text: Urgency[5],
       number: 5
     }
   ]

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Task } from '../../shared/models/task.model';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CommentsService } from 'src/app/core/services/comments/comments.service';
@@ -8,7 +8,8 @@ import { CommentsService } from 'src/app/core/services/comments/comments.service
 @Component({
   selector: 'app-task-container',
   templateUrl: './task-container.component.html',
-  styleUrls: ['./task-container.component.scss']
+  styleUrls: ['./task-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskContainerComponent implements OnInit {
 
@@ -54,94 +55,6 @@ export class TaskContainerComponent implements OnInit {
 
   editTask(event) {
     this.editTaskEmitter.emit(event);
-  }
-
-  classPriority(priority, difficulty, urgency, pastDue) {
-    if ((priority + difficulty + urgency + pastDue) < 4 || (priority + difficulty + urgency + pastDue) === 4) {
-      return 'task-item-very-low'
-    } else if ((priority + difficulty + urgency + pastDue) < 7 || (priority + difficulty + urgency + pastDue) === 7) {
-      return 'task-item-low';
-    } else if ((priority + difficulty + urgency + pastDue) < 10 || (priority + difficulty + urgency + pastDue) === 10) {
-      return 'task-item-medium';
-    } else if ((priority + difficulty + urgency + pastDue) < 12 || (priority + difficulty + urgency + pastDue) === 12) {
-      return 'task-item-high';
-    } else {
-      return 'task-item-very-high';
-    }
-
-  }
-
-  getHeight(task) {
-    return `${(task.difficulty + task.priority + task.urgency + task.pastDue) / 2}rem`;
-  }
-
-  importanceDifficultyFormat(format, number) {
-    if (format === 'importance') {
-      switch (number) {
-        case 1:
-
-          return `Very Low`;
-        case 2:
-
-          return `Low`;
-        case 3:
-
-          return `Moderate`;
-        case 4:
-
-          return `High`;
-        case 5:
-
-          return `Very High`;
-        default:
-
-          return `Very High`;
-      }
-    } else if (format === 'difficulty') {
-      switch (number) {
-        case 1:
-
-          return `Very Low`;
-        case 2:
-
-          return `Low`;
-        case 3:
-
-          return `Moderate`;
-        case 4:
-
-          return `High`;
-        case 5:
-
-          return `Very High`;
-        default:
-
-          return `Very High`;
-      }
-    } else {
-
-      switch (number) {
-        case 1:
-
-          return `Very Low`;
-        case 2:
-
-          return `Low`;
-        case 3:
-
-          return `Moderate`;
-        case 4:
-
-          return `High`;
-        case 5:
-
-          return `Very High`;
-        default:
-
-          return `Very High`;
-      }
-    }
-
   }
 
   async presentToast(message) {

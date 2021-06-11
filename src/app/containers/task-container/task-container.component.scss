@@ -1,7 +1,23 @@
-.scrolls {
-  height: 80%;
-  overflow-y: auto;
-  padding-left: .8rem;
+
+
+.parent-scroll {
+  overflow:hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.child-scroll {
+  position: absolute;
+  width: 95%;
+  height: 70vmax;
+  overflow-y: scroll;
+  padding-right: .6rem;
+  scrollbar-width: none;
+
+}
+
+.child-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .task-item {

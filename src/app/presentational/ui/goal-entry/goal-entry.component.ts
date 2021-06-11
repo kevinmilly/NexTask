@@ -6,6 +6,7 @@ import { BackendService } from '../../../core/services/backend/backend.service'
 import * as moment from 'moment';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CommentsService } from 'src/app/core/services/comments/comments.service';
+import { Importance, Difficulty, Urgency } from 'src/app/containers/models/factors.enum';
 
 @Component({
   selector: 'app-goal-entry',
@@ -34,23 +35,23 @@ export class GoalEntryComponent implements OnInit {
 
   priorities = [
     {
-      text: "Very Low",
+      text: Importance[1],
       number: 1
     },
     {
-      text: "Low",
+      text: Importance[2],
       number: 2
     },
     {
-      text: "Moderate",
+      text: Importance[3],
       number: 3
     },
     {
-      text: "High",
+      text: Importance[4],
       number: 4
     },
     {
-      text: "Very High",
+      text: Importance[5],
       number: 5
     }
   ]
@@ -58,46 +59,46 @@ export class GoalEntryComponent implements OnInit {
 
   difficulty = [
     {
-      text: "Very Low",
+      text: Difficulty[1],
       number: 1
     },
     {
-      text: "Low",
+      text: Difficulty[2],
       number: 2
     },
     {
-      text: "Moderate",
+      text: Difficulty[3],
       number: 3
     },
     {
-      text: "High",
+      text: Difficulty[4],
       number: 4
     },
     {
-      text: "Very High",
+      text: Difficulty[5],
       number: 5
     }
   ]
 
   urgencyLevels = [
     {
-      text: "Very Low",
+      text: Urgency[1],
       number: 1
     },
     {
-      text: "Low",
+      text: Urgency[2],
       number: 2
     },
     {
-      text: "Moderate",
+      text: Urgency[3],
       number: 3
     },
     {
-      text: "High",
+      text: Urgency[4],
       number: 4
     },
     {
-      text: "Very High",
+      text: Urgency[5],
       number: 5
     }
   ]

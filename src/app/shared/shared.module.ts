@@ -18,63 +18,44 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { DisablePipe } from './pipes/disable.pipe';
 import { ChartsModule } from 'ng2-charts';
+import { FactorTranslatePipe } from "./pipes/factor-translate.pipe";
+import { HoursSumPipe } from "./pipes/hours-sum.pipe";
+import { TimeTranslatePipe } from "./pipes/time-translate.pipe";
 
 
+const modules = [
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
+    TooltipModule,
+    MatGridListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatExpansionModule,
+    MatListModule,
+    MatDividerModule,
+    MatSnackBarModule, 
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    CommonModule,
+    IonicModule,
+    FormsModule,
+    ChartsModule
+]
+
+const other = [
+    HoursSumPipe,
+    TimeTranslatePipe,
+    FactorTranslatePipe,
+    DisablePipe
+];
 
 @NgModule({
-    imports: [
-        MaterialModule,
-        ReactiveFormsModule,
-        FormsModule,
-        TooltipModule,
-        MatGridListModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatExpansionModule,
-        MatListModule,
-        MatDividerModule,
-        MatSnackBarModule, 
-        MatCardModule,
-        MatMenuModule,
-        MatIconModule,
-        MatButtonModule,
-        CommonModule,
-        IonicModule,
-        FormsModule,
-        ChartsModule
-    
-    ],
-    declarations: [
-       
-    DisablePipe],
-    entryComponents: [
-        
-    ],
-    exports:[
-        MaterialModule,
-        ReactiveFormsModule,
-        FormsModule,
-        TooltipModule,
-        MatGridListModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatExpansionModule,
-        MatListModule,
-        MatDividerModule,
-        MatSnackBarModule,
-        MatCardModule,
-        MatMenuModule,
-        MatIconModule,
-        MatButtonModule,
-        CommonModule,
-        IonicModule,
-        FormsModule,
-        DisablePipe,
-        ChartsModule
-
-    ]
-
+    imports: [modules],
+    declarations: [other],
+    exports:[modules,other]
 })
 export class SharedModule {}

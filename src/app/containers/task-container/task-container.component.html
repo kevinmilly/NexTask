@@ -5,18 +5,11 @@
         <ion-item-sliding *ngFor="let task of tasks">
           <ion-item lines="none" class="task-item">
             <mat-expansion-panel
-              [ngClass]="
-                classPriority(
-                  task.priority,
-                  task.difficulty,
-                  task.urgency,
-                  task.pastDue
-                )
-              "
+              [ngClass]="task | classPriority"
               [style.margin-top.rem]="0.5"
               [style.padding.rem]="1"
             >
-              <mat-expansion-panel-header [collapsedHeight]="getHeight(task)">
+              <mat-expansion-panel-header [collapsedHeight]="task | taskHeight">
                 <mat-panel-title>
                   {{ task.title }}
                 </mat-panel-title>
@@ -51,7 +44,7 @@
                         &nbsp;
                         <h4>
                           {{
-                            importanceDifficultyFormat("urgency", task.urgency)
+                            task.urgency | factorTranslate: "urgency"
                           }}
                         </h4>
                       </ion-item>
@@ -60,10 +53,7 @@
                         &nbsp;
                         <h4>
                           {{
-                            importanceDifficultyFormat(
-                              "importance",
-                              task.priority
-                            )
+                            task.priority | factorTranslate: "importance"
                           }}
                         </h4>
                       </ion-item>
@@ -72,17 +62,14 @@
                         &nbsp;
                         <h4>
                           {{
-                            importanceDifficultyFormat(
-                              "difficulty",
-                              task.difficulty
-                            )
+                            task.difficulty | factorTranslate: "difficulty"
                           }}
                         </h4>
                       </ion-item>
                       <ion-item class="details">
                         <h3><b>Minutes</b>:</h3>
                         &nbsp;
-                        <h4>{{ task.minutes }}</h4>
+                        <h4>{{ task.minutes | timeTranslate }}</h4>
                       </ion-item>
                       <ion-item>
                         <h4><a (click)="editTask(task)">EDIT</a></h4></ion-item

@@ -121,21 +121,30 @@
           >
             <ion-content>
               <ion-card class="queue-container-main__card">
-                <div class="tasks-buttons">
-                  <ion-item class="columnHeaderChoiceSize">
-                    <ion-label>Filter by Tag</ion-label>
-                    <ion-select
-                      [formControl]="tagOptions"
-                      (ionChange)="filterTasks()"
-                    >
-                      <ion-select-option
-                        *ngFor="let tag of tags"
-                        [value]="tag"
-                        >{{ tag }}</ion-select-option
+                <ion-col>
+                  <ion-list
+                    lines="none"
+                    *ngIf="tags.length > 0; else noTags"
+                  >
+                    <ion-item>
+                      <ion-select
+                        [style.width.rem]="5"
+                        [formControl]="tagOptions"
+                        (ionChange)="filterTasks()"
+                        class="filter-select"
                       >
-                    </ion-select>
-                  </ion-item>
-                </div>
+                        <ion-select-option
+                          *ngFor="let tag of tags"
+                          [value]="tag"
+                          >{{ tag }}</ion-select-option
+                        >
+                      </ion-select>
+                    </ion-item>
+                  </ion-list>
+                  <ng-template #noTags
+                    >No Tags to Filter By Yet</ng-template
+                  >
+                </ion-col>
                 <ion-card-content>
                   <app-task-container
                     *ngIf="tasksDay2"
@@ -160,21 +169,30 @@
           >
             <ion-content>
               <ion-card class="queue-container-main__card">
-                <div class="tasks-buttons">
-                  <ion-item class="columnHeaderChoiceSize">
-                    <ion-label>Filter by Tag</ion-label>
-                    <ion-select
-                      [formControl]="tagOptions"
-                      (ionChange)="filterTasks()"
-                    >
-                      <ion-select-option
-                        *ngFor="let tag of tags"
-                        [value]="tag"
-                        >{{ tag }}</ion-select-option
-                      >
-                    </ion-select>
-                  </ion-item>
-                </div>
+                   <ion-col>
+                        <ion-list
+                          lines="none"
+                          *ngIf="tags.length > 0; else noTags"
+                        >
+                          <ion-item>
+                            <ion-select
+                              [style.width.rem]="5"
+                              [formControl]="tagOptions"
+                              (ionChange)="filterTasks()"
+                              class="filter-select"
+                            >
+                              <ion-select-option
+                                *ngFor="let tag of tags"
+                                [value]="tag"
+                                >{{ tag }}</ion-select-option
+                              >
+                            </ion-select>
+                          </ion-item>
+                        </ion-list>
+                        <ng-template #noTags
+                          >No Tags to Filter By Yet</ng-template
+                        >
+                      </ion-col>
                 <ion-card-content>
                   <app-task-container
                     *ngIf="tasksDay3"
@@ -199,21 +217,30 @@
           >
             <ion-content>
               <ion-card class="queue-container-main__card">
-                <div class="tasks-buttons">
-                  <ion-item class="columnHeaderChoiceSize">
-                    <ion-label>Filter by Tag</ion-label>
-                    <ion-select
-                      [formControl]="tagOptions"
-                      (ionChange)="filterTasks()"
-                    >
-                      <ion-select-option
-                        *ngFor="let tag of tags"
-                        [value]="tag"
-                        >{{ tag }}</ion-select-option
-                      >
-                    </ion-select>
-                  </ion-item>
-                </div>
+                   <ion-col>
+                        <ion-list
+                          lines="none"
+                          *ngIf="tags.length > 0; else noTags"
+                        >
+                          <ion-item>
+                            <ion-select
+                              [style.width.rem]="5"
+                              [formControl]="tagOptions"
+                              (ionChange)="filterTasks()"
+                              class="filter-select"
+                            >
+                              <ion-select-option
+                                *ngFor="let tag of tags"
+                                [value]="tag"
+                                >{{ tag }}</ion-select-option
+                              >
+                            </ion-select>
+                          </ion-item>
+                        </ion-list>
+                        <ng-template #noTags
+                          >No Tags to Filter By Yet</ng-template
+                        >
+                      </ion-col>
                 <ion-card-content>
                   <app-task-container
                     *ngIf="tasksDay4"
@@ -238,21 +265,30 @@
           >
             <ion-content>
               <ion-card class="queue-container-main__card">
-                <div class="tasks-buttons">
-                  <ion-item class="columnHeaderChoiceSize">
-                    <ion-label>Filter by Tag</ion-label>
-                    <ion-select
-                      [formControl]="tagOptions"
-                      (ionChange)="filterTasks()"
-                    >
-                      <ion-select-option
-                        *ngFor="let tag of tags"
-                        [value]="tag"
-                        >{{ tag }}</ion-select-option
-                      >
-                    </ion-select>
-                  </ion-item>
-                </div>
+                   <ion-col>
+                        <ion-list
+                          lines="none"
+                          *ngIf="tags.length > 0; else noTags"
+                        >
+                          <ion-item>
+                            <ion-select
+                              [style.width.rem]="5"
+                              [formControl]="tagOptions"
+                              (ionChange)="filterTasks()"
+                              class="filter-select"
+                            >
+                              <ion-select-option
+                                *ngFor="let tag of tags"
+                                [value]="tag"
+                                >{{ tag }}</ion-select-option
+                              >
+                            </ion-select>
+                          </ion-item>
+                        </ion-list>
+                        <ng-template #noTags
+                          >No Tags to Filter By Yet</ng-template
+                        >
+                      </ion-col>
                 <ion-card-content>
                   <app-task-container
                     *ngIf="tasksDay5"

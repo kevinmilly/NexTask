@@ -28,7 +28,7 @@ export class BackendService {
   constructor(
     private firestore: AngularFirestore,
     private auth: AuthService,
-    private badgesService:BadgeService
+    // private badgesService:BadgeService
 
   ) {
     this.user = this.auth.user;

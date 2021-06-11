@@ -38,7 +38,7 @@ export class ListViewComponent implements OnInit {
             this.tasks = retrivedTasks.filter(t => !t.goalId && t.title)
               .sort((a, b) => {
                 return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue)
-              })
+              }) 
               .sort((a, b) => a.completed - b.completed);
             this.goalsHierarchy = this.returnMilestoneAndTasks(this.goals, this.tasks.filter(t => t.goalId));
 

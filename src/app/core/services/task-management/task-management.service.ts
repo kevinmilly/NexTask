@@ -66,8 +66,9 @@ export class TaskManagementService {
   }
 
   public init(): void {
-    console.log(`in init with ${this.defaultHours}`);
+
     this.goals$ = this.backend.getGoals().valueChanges();
+
     this.allTasks$ = combineLatest([
       this.backend.getTasks().valueChanges(),
       this.defaultHours$
@@ -144,24 +145,22 @@ export class TaskManagementService {
   incrementDaysForTasks(hours: number, taskList: Task[]) {
     let dayIterator = 1;
     const minutesADay = hours * 60;
-    // console.log(`Minutes per day are ${minutesADay}`);
     let remainingMinutes = minutesADay;
-    const list = taskList.filter(t => !t.completed);
-    for (let i = 0, len = list.length; i < len; i++) {
 
-      if ((remainingMinutes - list[i].minutes) >= -1) {
-        remainingMinutes -= list[i].minutes;
-        // console.log(`Remaining minutes are ${remainingMinutes} after subtracting: 
-        // ${remainingMinutes} from ${list[i].minutes} (${list[i].title})`);
-        list[i].day = dayIterator;
-      } else {
-        list[i].day = ++dayIterator;
-        remainingMinutes = minutesADay;
+    for (let i = 0, len = taskList.length; i < len; i++) {
+      if(!taskList[i].completed) {
+        if ((remainingMinutes - taskList[i].minutes) >= -1) {
+          remainingMinutes -= taskList[i].minutes;
+          taskList[i].day = dayIterator;
+        } else {
+          taskList[i].day = ++dayIterator;
+          remainingMinutes = minutesADay;
 
-      }
+        }
+    }
 
     }
-    return list;
+    return taskList;
   }
 
 

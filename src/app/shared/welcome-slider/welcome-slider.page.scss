@@ -13,10 +13,14 @@
 }
 
 ion-slides {
+  width: 100%;
+  ion-slide {
+    width: 100vh;
+  }
 
   @include fade-in;
 
-  padding: 1rem;
+  // padding: 2rem;
   height: auto;
   margin: auto;
 

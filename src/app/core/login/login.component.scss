@@ -6,22 +6,27 @@
 
   &__landing {
     display: block;
-    height: 100vh;
+    height: 100vh; 
+    width: 100vw;
     position: relative;
+    overflow: hidden;
+   
    
     @include fade-in;
-    padding-right: 3rem;
+    
 
     &__title {
       top: 55%;
       left: 7%;
       position: absolute;
       font-family: 'Oswald', sans-serif;
-      font-size: 2rem;
+      font-size: 4vmax;
       text-transform: uppercase;
+      padding:auto;
       z-index: 10000000;
       color: white;
       letter-spacing: .25rem;
+      margin-left: 8%;
     }
 
   
@@ -43,14 +48,15 @@
         url("../../../assets/images/girlonphone.png");
       
       position: absolute;
-      padding: 80%;
+      padding: 40%;
     
-      background-size: contain;
       background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
       height: 110vh;
-      width: 100vh;
-      top: -2%;
-      left: -45%;
+      width: 100vw;
+      top: 0%;
+      // left: -45%;
       z-index: 0;
   
      

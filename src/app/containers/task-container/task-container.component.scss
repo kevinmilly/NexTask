@@ -254,6 +254,7 @@ ion-card.expanded-content {
     font-size: 1.2em;
   }
   .milestone {
+    margin-top: .3rem;
     color: #f3790e;
     font-size: 1em;
   }
@@ -286,4 +287,8 @@ ion-icon {
 
 .no-task {
   padding:1rem;
+}
+
+ion-list {
+  margin-top: .3rem;
 }

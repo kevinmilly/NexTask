@@ -1,15 +1,16 @@
 <ion-app>
- <div fxHide fxShow.xs>
-  <ion-router-outlet></ion-router-outlet>
- </div>
- <div class="too-big" fxHide fxShow.gt-md fxShow.gt-lg>
-    <div class="too-big__img">
+  <ion-content>
+    <div fxHide fxShow.sm  fxShow.xs>
+      <ion-router-outlet></ion-router-outlet>
+     </div>
+     <div class="too-big" fxHide fxShow.gt-sm="true">
+        <div class="too-big__img"></div>
+        <div class="too-big__content">
+          <h1>Please use mobile device</h1>
+          <h2>Desktop version will be supported soon!</h2>
+        </div>
+        <div class="too-big__overlay"></div>
+     </div>
+  </ion-content>
 
-    </div>
-    <div class="too-big__content">
-      <h1>Please check this app out on your mobile device.</h1>
-      <h2>Desktop version will be supported soon!</h2>
-    </div>
-    <div class="too-big__overlay"></div>
- </div>
 </ion-app>

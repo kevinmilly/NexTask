@@ -1,0 +1,34 @@
+.too-big {
+    position: relative;
+    
+
+    &__img {
+        position: absolute;
+        background-size: contain;
+        top: 10%;
+        padding: 50%;
+        background: url("../assets/images/youngladyphone.jpg");
+        z-index: -1;
+    }
+
+    &__content {
+        position: absolute;
+        top: 50%;
+        text-align: center;
+        z-index: 1000;
+
+        h1 {
+            color: white;
+            font-size: 3rem;
+            text-transform: uppercase;
+        }
+    }
+
+    &__overlay {
+        background-color: black;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        padding: 80%;
+    }
+}

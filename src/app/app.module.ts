@@ -21,6 +21,7 @@ import { LoginComponent } from './core/login/login.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BdcWalkModule } from 'bdc-walkthrough';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     PresentationalModule,
     BdcWalkModule,
     NgxSpinnerModule,
+    FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [

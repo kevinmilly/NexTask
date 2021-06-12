@@ -35,7 +35,8 @@ export class QueueContainerComponent implements OnInit {
   quotes;
   userInfo;
 
-
+  hide:boolean;
+  sizes = ['md','lg','xl'];
 
   constructor(
     private tmService: TaskManagementService,

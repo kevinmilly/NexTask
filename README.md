@@ -55,7 +55,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<img src="readme-assets/nexttaskdemo.gif" alt="screenshot">
+<img src="readme-assets/nextaskdemo.gif" alt="screenshot">
 
 I love the concept of productivity.  Task management to time is like budgeting to money; it helps you save and spend your resources.  There are a lot of great task management apps out there.  However, I found that there was room for an app that:
 
@@ -101,7 +101,7 @@ Sometimes you have Goal-based tasks that are interspersed between simple ad-hoc 
 
 | Submitting Goal | Goal-Based within Adhoc |
 | --- | --- |
-| <img src="readme-assets/submitgoal.gif" alt="goal-based-entry"> | <img src="readme-assets/withGoal.png" alt="goal-with-adhoc"> |
+| <img src="readme-assets/submitgoal.gif" alt="goal-based-entry"> | <img src="readme-assets/withGoal.PNG" alt="goal-with-adhoc"> |
 
 
 #### Metrics

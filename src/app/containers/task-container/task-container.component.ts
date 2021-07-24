@@ -106,7 +106,7 @@ export class TaskContainerComponent implements OnInit {
     this.createdIdea.emit(task);
   }
 
-  classPriority(priority, difficulty, urgency, pastDue) {
+  getClassBasedOnFactors(priority, difficulty, urgency, pastDue) {
     if ((priority + difficulty + urgency + pastDue) < 4 || (priority + difficulty + urgency + pastDue) === 4) {
       return 'task-item-very-low'
     } else if ((priority + difficulty + urgency + pastDue) < 7 || (priority + difficulty + urgency + pastDue) === 7) {
@@ -121,7 +121,7 @@ export class TaskContainerComponent implements OnInit {
 
   }
 
-  getHeight(task) {
+  getHeightBasedOnFactors(task) {
     return `${(task.difficulty + task.priority + task.urgency + task.pastDue) / 2}rem`;
   }
 

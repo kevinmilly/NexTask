@@ -4,9 +4,9 @@
       <ion-list>
         <ion-item-sliding *ngFor="let task of tasks">
             <ion-item lines="none" class="task-item">
-              <mat-expansion-panel [ngClass]="classPriority(task.priority, task.difficulty, task.urgency, task.pastDue)"
+              <mat-expansion-panel [ngClass]="getClassBasedOnFactors(task.priority, task.difficulty, task.urgency, task.pastDue)"
                 [style.margin-top.rem]=".5" [style.padding.rem]="1">
-                <mat-expansion-panel-header [collapsedHeight]="getHeight(task)">
+                <mat-expansion-panel-header [collapsedHeight]="getHeightBasedOnFactors(task)">
                   <mat-panel-title>
                     {{task.title}}
                   </mat-panel-title>
@@ -80,19 +80,3 @@
       </ion-list>
     </div>
   </ion-content>
-
-<!-- 
-<ng-template #noTasks>
-  <ion-card class="no-task">
-    <ion-card-header>
-      <div ion-card-avatar></div>
-      <ion-card-title>Hey, you need to get some things queued up!</ion-card-title>
-    </ion-card-header>
-    <img ion-card-image src="../../../assets/images/squareclock.png" alt="orange-clock">
-    <ion-card-content>
-      <p>
-        Add some tasks, I know you have something you could be doing!
-      </p>
-    </ion-card-content>
-  </ion-card>
-</ng-template> -->

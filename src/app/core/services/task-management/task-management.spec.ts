@@ -25,12 +25,12 @@ describe('TaskManagementService', () => {
   
 
   backend = jasmine.createSpyObj("backend",[
-    'getTasks', 
+    'getTasksFromDB', 
     'addMetric',
-    'getGoals',
-    'getDayHours',
-    'updateGoals', 
-    'updateTasks'
+    'getGoalsFromDB',
+    'getWorkingHours',
+    'updateGoalsInDB', 
+    'updateTasksInDB'
   ])
 
   auth = jasmine.createSpyObj("auth",["loggedIn"]);
@@ -57,7 +57,7 @@ describe('TaskManagementService', () => {
   it('should calculate how many days a task is past due from completion', () => {
     tasks[0].pastDue = 0;
     tasks[0].createdDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
-    const pastDueCalculated = tmService.calculatePastDue([tasks[0]]);
+    const pastDueCalculated = tmService.calculateTasksPastDue([tasks[0]]);
     expect(pastDueCalculated[0].pastDue).toBe(1);
 
   });

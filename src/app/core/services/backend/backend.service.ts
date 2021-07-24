@@ -36,24 +36,20 @@ export class BackendService {
     return this.auth.authMetrics;
   }
 
-  getDayHours(): Observable<any> {
+  getWorkingHours(): Observable<any> {
     return this.dayHours.asObservable();
   }
 
-  setDayHours(hours: number) {
+  setWorkingHours(hours: number) {
     this.dayHours.next(hours);
   }
 
-  getTasks() {
+  getTasksFromDB() {
     return this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
   }
-  getGoals() {
+  getGoalsFromDB() {
 
     return this.firestore.collection<Goal>(`users/${this.user.uid}/Goals`);
-  }
-
-  getIdeas() {
-    return this.firestore.collection<Idea>(`users/${this.user.uid}/Ideas`);
   }
 
   updateTask(task) {
@@ -61,7 +57,7 @@ export class BackendService {
     taskCollection.doc(task.id).update(task);
   }
 
-  updateTasks(tasks) {
+  updateTasksInDB(tasks) {
     let taskToUpdate;
     tasks.forEach(task => {
       taskToUpdate = this.firestore.collection<Task>(`users/${this.user.uid}/Tasks`);
@@ -70,7 +66,7 @@ export class BackendService {
 
   }
 
-  updateGoals(goals: Goal[]) {
+  updateGoalsInDB(goals: Goal[]) {
     const goalPromises = [];
 
 

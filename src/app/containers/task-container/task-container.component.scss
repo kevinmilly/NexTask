@@ -1,7 +1,23 @@
-.scrolls {
-  height: 80%;
-  overflow-y: auto;
-  padding-left: .8rem;
+
+
+.parent-scroll {
+  overflow:hidden;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.child-scroll {
+  position: absolute;
+  width: 95%;
+  height: 70vmax;
+  overflow-y: scroll;
+  padding-right: .6rem;
+  scrollbar-width: none;
+
+}
+
+.child-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .task-item {
@@ -156,9 +172,7 @@ ion-item-option {
 
 ion-item-sliding {
   margin-bottom: 0.7em;
-  // border: solid;
-  // border-width: 0.7em;
-  // border: rgb(192, 128, 9);
+
 }
 
 .task-item {
@@ -240,6 +254,7 @@ ion-card.expanded-content {
     font-size: 1.2em;
   }
   .milestone {
+    margin-top: .3rem;
     color: #f3790e;
     font-size: 1em;
   }
@@ -272,4 +287,8 @@ ion-icon {
 
 .no-task {
   padding:1rem;
+}
+
+ion-list {
+  margin-top: .3rem;
 }

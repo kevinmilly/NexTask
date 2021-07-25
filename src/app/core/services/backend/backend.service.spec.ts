@@ -6,34 +6,35 @@ import { testBadges } from '../../../shared/test-data/test-badge';
 import { testMetrics } from '../../../shared/test-data/test-metrics';
 import { testTasks } from '../../../shared/test-data/test-tasks';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AuthRedoneService } from '../auth/authredone.service';
+import { AuthService } from '../auth/auth.service';
+
 
 xdescribe('BackendService', () => {
   let service: BackendService;
 
-  let fakeFireService = jasmine.createSpyObj("fakeFire",["collection"]);
-  let authService = jasmine.createSpyObj("auth",["metrics"]);
-  
+  let fakeFireService = jasmine.createSpyObj("fakeFire", ["collection"]);
+  let authService = jasmine.createSpyObj("auth", ["metrics"]);
+
   let badges = testBadges;
   let metrics = testMetrics;
   let tasks = testTasks;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers:[
-        {provide:AngularFirestore, useValue:fakeFireService},
-        {provide: AuthRedoneService, useValue: authService}
+      providers: [
+        { provide: AngularFirestore, useValue: fakeFireService },
+        { provide: AuthService, useValue: authService }
       ]
     });
     service = TestBed.inject(BackendService);
     authService = TestBed.inject(BackendService);
     fakeFireService = TestBed.inject(BackendService);
 
-   
-    
+
+
 
     spyOn(service, "updateMetric");
- 
+
 
   });
 
@@ -43,25 +44,24 @@ xdescribe('BackendService', () => {
 
   it('should award a toughBadge award if toughBadge is earned', () => {
     expect(
-      service.addMetric(tasks[0],"completion")
+      service.addMetric(tasks[0], "completion")
         .find(a => a.title === 'Warrior Will')).toBeTruthy();
 
   })
 
   it('should award a taskCreated award if taskCreated is earned', () => {
     expect(
-      service.addMetric(tasks[0],"creation")
+      service.addMetric(tasks[0], "creation")
         .find(a => a.title === 'Create and Conquer')).toBeTruthy();
 
   })
 
   it('should award a usage award if usage is earned', () => {
     expect(
-      service.addMetric(tasks[0],"completion")
+      service.addMetric(tasks[0], "completion")
         .find(a => a.title === 'Professional Tasker')).toBeTruthy();
 
   })
 
 
 });
- 

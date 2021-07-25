@@ -61,11 +61,11 @@
                               <h2 >Top Task Completions</h2>
                               <h3>Most Important: {{lastWeekMostImportantTask.title}}</h3>
                               <ul>
-                                <li>Level: {{importanceDifficultyUrgencyConvert('importance',lastWeekMostImportantTask.priority)}}</li>
+                                <li>Level: {{lastWeekMostImportantTask.priority | factorTranslate: "importance"}}</li>
                                 <li>Created: {{lastWeekMostImportantTask.createdDate}}</li>
                                 <li>Completed: {{lastWeekMostImportantTask.completedDate}}</li>
                               </ul>
-                            </div>
+                            </div> 
                             </ion-col>
                             </ion-row>
                             <ion-row *ngIf="lastWeekMostUrgentTask">
@@ -73,7 +73,7 @@
                                 <div>
                                   <h3>Most Urgent: {{lastWeekMostUrgentTask.title}}</h3>
                                   <ul>
-                                    <li>Level: {{importanceDifficultyUrgencyConvert('urgency', lastWeekMostUrgentTask.urgency)}}</li>
+                                    <li>Level: {{lastWeekMostUrgentTask.urgency | factorTranslate: "urgency"}}</li>
                                     <li>Created: {{lastWeekMostUrgentTask.createdDate}}</li>
                                     <li>Completed: {{lastWeekMostUrgentTask.completedDate}}</li>
                                   </ul>
@@ -85,7 +85,7 @@
                                 <div>
                                   <h3>Most Difficult: {{lastWeekToughestTask.title}}</h3>
                                   <ul>
-                                    <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', lastWeekToughestTask.difficulty)}}</li>
+                                    <li>Level: {{lastWeekToughestTask.difficulty | factorTranslate: "difficulty"}}</li>
                                     <li>Created: {{lastWeekToughestTask.createdDate}}</li>
                                     <li>Completed: {{lastWeekToughestTask.completedDate}}</li>
                                   </ul>
@@ -150,7 +150,7 @@
                             <h2 >Top Task Completions</h2>
                             <h3>Most Important: {{thisWeekMostImportantTask.title}}</h3>
                             <ul>
-                              <li>Level: {{importanceDifficultyUrgencyConvert('importance',thisWeekMostImportantTask.priority)}}</li>
+                              <li>Level: {{thisWeekMostImportantTask.priority | factorTranslate: "importance"}}</li>
                               <li>Created: {{thisWeekMostImportantTask.createdDate}}</li>
                               <li>Completed: {{thisWeekMostImportantTask.completedDate}}</li>
                             </ul>
@@ -162,7 +162,7 @@
                               <div *ngIf="thisWeekMostUrgentTask">
                                <h3>Most Urgent: {{thisWeekMostUrgentTask.title}}</h3> 
                                 <ul>
-                                  <li>Level: {{importanceDifficultyUrgencyConvert('urgency', thisWeekMostUrgentTask.urgency)}}</li>
+                                  <li>Level: {{thisWeekMostUrgentTask.urgency | factorTranslate: "urgency"}}</li>
                                   <li>Created: {{thisWeekMostUrgentTask.createdDate}}</li>
                                   <li>Completed: {{thisWeekMostUrgentTask.completedDate}}</li>
                                 </ul>
@@ -174,7 +174,7 @@
                               <div>
                                <h3>Most Difficult: {{thisWeekToughestTask.title}}</h3>
                                 <ul>
-                                  <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', thisWeekToughestTask.difficulty)}}</li>
+                                  <li>Level: {{thisWeekToughestTask.difficulty | factorTranslate: "difficulty"}}</li>
                                   <li>Created: {{thisWeekToughestTask.createdDate}}</li>
                                   <li>Completed: {{thisWeekToughestTask.completedDate}}</li>
                                 </ul>
@@ -238,7 +238,7 @@
                             <h2 >Top Task Completions</h2>
                            <h3>Most Important: {{thisMonthMostImportantTask.title}}</h3>
                             <ul>
-                              <li>Level: {{importanceDifficultyUrgencyConvert('importance',thisMonthMostImportantTask.priority)}}</li>
+                              <li>Level: {{thisMonthMostImportantTask.priority | factorTranslate: "importance"}}</li>
                               <li>Created: {{thisMonthMostImportantTask.createdDate}}</li>
                               <li>Completed: {{thisMonthMostImportantTask.completedDate}}</li>
                             </ul>
@@ -250,7 +250,7 @@
                               <div *ngIf="thisMonthMostUrgentTask">
                                <h3>Most Urgent: {{thisMonthMostUrgentTask.title}}</h3>
                                 <ul>
-                                  <li>Level: {{importanceDifficultyUrgencyConvert('urgency', thisMonthMostUrgentTask.urgency)}}</li>
+                                  <li>Level: {{thisMonthMostUrgentTask.urgency | factorTranslate: "urgency"}}</li>
                                   <li>Created: {{thisMonthMostUrgentTask.createdDate}}</li>
                                   <li>Completed: {{thisMonthMostUrgentTask.completedDate}}</li>
                                 </ul>
@@ -262,7 +262,7 @@
                               <div>
                                 <h3>Most Difficult: {{thisMonthToughestTask.title}}</h3>
                                 <ul>
-                                  <li>Level: {{importanceDifficultyUrgencyConvert('difficulty', thisMonthToughestTask.difficulty)}}</li>
+                                  <li>Level: {{thisMonthToughestTask.difficulty | factorTranslate: "difficulty"}}</li>
                                   <li>Created: {{thisMonthToughestTask.createdDate}}</li>
                                   <li>Completed: {{thisMonthToughestTask.completedDate}}</li>
                                 </ul>
@@ -301,87 +301,7 @@
         </ng-template>
       </ion-item>
 
-      <!-- <ion-item *ngSwitchCase="'incomplete'">
-        <ion-card class="graph card-background">
-         <ion-card class="graph card-background" *ngIf="tasks.length > 0; else noInComplete" >
-          <ion-card-content>
-            <h1>Updating Metrics - Feature Coming Soon</h1>
-          </ion-card-content>
-        
-        
-      </ion-card>               
-            <ion-segment  [(ngModel)]="graphDate">
-              <ion-segment-button class="secondary-segments" value="lastWeek"  [disabled]="!lastWeekMostImportantTask" >
-                <ion-label>Last Week</ion-label>
-              </ion-segment-button>
-              <ion-segment-button class="secondary-segments" value="thisWeek" >
-                <ion-label>This Week</ion-label>
-              </ion-segment-button>
-              <ion-segment-button class="secondary-segments" value="thisMonth" >
-                <ion-label>This Month</ion-label>
-              </ion-segment-button>
-            </ion-segment>
-            
-            
-            <ng-container [ngSwitch]="graphDate">
-              <ng-container *ngSwitchCase="'lastWeek'">
-                  <ion-card-content>
-                    <h2>Completion Time Ratio</h2>
-                    <canvas  
-                      baseChart 
-                      height="1600em"
-                      width="1000em"
-                      [data]="pieLastWeekInCompleteChartData" 
-                      [labels]="pieLastWeekInCompleteLabels" 
-                      [chartType]="pieChartType"
-                      [legend] ="true"
-                    >
-                  </canvas>
-                </ion-card-content>
-              </ng-container>
-              <ng-container *ngSwitchCase="'thisWeek'">
-                <ion-card-content>
-                  <h2>Completion Time Ratio</h2>
-                  <canvas  
-                    baseChart 
-                    height="1600em"
-                    width="1000em"
-                    [data]="pieWeekInCompleteChartData" 
-                    [labels]="pieWeekInCompleteLabels" 
-                    [chartType]="pieChartType"
-                    [legend] ="true"
-                  >
-                </canvas>
-              </ion-card-content>
-              </ng-container>
-              <ng-container *ngSwitchCase="'thisMonth'">
-                <ion-card-content>
-                  <h2>Completion Time Ratio</h2>
-                  <canvas  
-                    baseChart 
-                    height="1600em"
-                    width="1000em"
-                    [data]="pieMonthInCompleteChartData" 
-                    [labels]="pieMonthInCompleteLabels" 
-                    [chartType]="pieChartType"
-                    [legend] ="true"
-                  >
-                </canvas>
-              </ion-card-content>
   
-              </ng-container>
-            </ng-container>
-          
-        </ion-card>
-        <ng-template #noInComplete>
-          <ion-card [style.margin-top.em]="4" class="card-background">
-            <ion-card-content>
-              <h2>Not Enough Data For This Metric</h2>
-            </ion-card-content>
-          </ion-card>
-          
-        </ng-template>
-      </ion-item> -->
     </ion-list>
   </div>
 

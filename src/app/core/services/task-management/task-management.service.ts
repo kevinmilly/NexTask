@@ -14,8 +14,8 @@ import { ShowAwardComponent } from 'src/app/presentational/display/show-award/sh
 
 
 import { GoalEntryComponent } from 'src/app/presentational/ui/goal-entry/goal-entry.component';
-import { map, tap } from 'rxjs/operators';
-import { AuthRedoneService } from '../auth/authredone.service';
+import { map, take, tap } from 'rxjs/operators';
+import { AuthService } from '../auth/auth.service';
 import { ItemEditComponent } from 'src/app/presentational/ui/item-edit/item-edit.component';
 import { MilestoneEntryComponent } from 'src/app/presentational/ui/milestone-entry/milestone-entry.component';
 import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entry/date-time-entry.component';
@@ -56,7 +56,7 @@ export class TaskManagementService {
 
   constructor(
     private backend: BackendService,
-    private auth: AuthRedoneService,
+    private auth: AuthService,
     public modalController: ModalController,
 
   ) {
@@ -66,29 +66,39 @@ export class TaskManagementService {
   }
 
   public init(): void {
-    console.log(`in init with ${this.defaultHours}`);
-    this.goals$ = this.backend.getGoalsFromDB().valueChanges();
-    this.allTasks$ = combineLatest([
-                        this.backend.getTasksFromDB().valueChanges(),
-                        this.defaultHours$
-                      ]).pipe(
-                            map(([unincrementedTasks,hours]) => this.incrementDaysForTasks(hours, unincrementedTasks)),
-                            map(tasks => this.calculateTasksPastDue(tasks))
-                       );
 
-      const tempTask$ = this.allTasks$
+    this.goals$ = this.backend.getGoalsFromDB().valueChanges();
+
+    /*
+    Making sure to account for tasks that have gone over their day there were supposed to be finished
+    determined by the default hours chose.
+    */
+    this.allTasks$ = combineLatest([
+      this.backend.getTasksFromDB().valueChanges(),
+      this.defaultHours$
+    ]).pipe(
+      map(([unincrementedTasks, hours]) => this.incrementDaysForTasks(hours, unincrementedTasks)),
+      map(tasks => this.calculateTasksPastDue(tasks))
+    );
+
+    /*
+      Now that past due and days are chosen we can sort all tasks and load tags
+      for filtering later
+    */
+    const tempTask$ = this.allTasks$
       .pipe(map(tasks => tasks.filter(t => !t.completed)));
-      this.tasks$ = combineLatest([tempTask$, this.goals$])
-        .pipe(
-          map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
-        )
-        .pipe(
-          tap(t => {
-            t[0].forEach(t => {
-              if (t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
-            });
-          })
-        );
+
+    this.tasks$ = combineLatest([tempTask$, this.goals$])
+      .pipe(
+        map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
+      )
+      .pipe(
+        tap(t => {
+          t[0].forEach(t => {
+            if (t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
+          });
+        })
+      );
 
 
   }
@@ -110,7 +120,6 @@ export class TaskManagementService {
     const nonGoalTasks = t.filter(t => !t.goalId);
     t = nonGoalTasks
       .concat(this.goalRelatedTaskPrioritize(t.filter(t => t.goalId), g))
-      .filter(task => task.completed === 0)
       .sort((a, b) => (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue));
 
     return [t, g];
@@ -144,28 +153,25 @@ export class TaskManagementService {
     let dayIterator = 1;
     const minutesADay = hours * 60;
     let remainingMinutes = minutesADay;
-    const nonCompletedTasks = taskList.filter(t => !t.completed);
-    for (let i = 0, len = nonCompletedTasks.length; i < len; i++) {
+    const sortedList = taskList.sort((a, b) => {
+      return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+    })
+    for (let i = 0, len = sortedList.length; i < len; i++) {
+      if(!sortedList[i].completed) {
+        if ((remainingMinutes - sortedList[i].minutes) >= -1) {
+          remainingMinutes -= sortedList[i].minutes;
+          sortedList[i].day = dayIterator;
+        } else {
+          sortedList[i].day = ++dayIterator;
+          remainingMinutes = minutesADay;
 
-      if ((remainingMinutes - nonCompletedTasks[i].minutes) >= -1) {
-        remainingMinutes -= nonCompletedTasks[i].minutes;
-        nonCompletedTasks[i].day = dayIterator;
-      } else {
-        nonCompletedTasks[i].day = ++dayIterator;
-        remainingMinutes = minutesADay;
-
-      }
+        }
+    }
 
     }
-    return nonCompletedTasks;
+    return sortedList;
   }
 
-
-
-  createIdea(event) {
-    this.backend.addIdea({ title: event.title, createdDate: moment().format("MM/DD/YYYY") });
-    this.backend.delete(event);
-  }
 
   markTaskComplete(event) {
     event.completed = 1;
@@ -209,7 +215,7 @@ export class TaskManagementService {
             result['milestoneTitle'] = milestone.title;
 
           }
-          this.backend.addTask(result);
+          this.backend.addTaskToDB(result);
 
         }
 
@@ -225,7 +231,7 @@ export class TaskManagementService {
     console.log(this.defaultHours);
     const modal = await this.modalController.create({
       component: SettingsComponent,
-      componentProps: { 
+      componentProps: {
         hourSettings: this.defaultHours
       },
       cssClass: 'auto-height',
@@ -257,8 +263,8 @@ export class TaskManagementService {
         const result = data['data'];
 
         if (result) {
-          const returnedGoals = this.backend.addGoals(result.goalsToSubmit);
-          const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
+          const returnedGoals = this.backend.addGoalsToDB(result.goalsToSubmit);
+          const returnedTasks = this.backend.addTasksToDB(result.tasksToSubmit);
 
         }
 
@@ -277,8 +283,8 @@ export class TaskManagementService {
       .then((data) => {
         const result = data['data'];
         if (result !== null) {
-          const returnedGoals = this.backend.addGoals(result.goalToSubmit);
-          const returnedTasks = this.backend.addTasks(result.tasksToSubmit);
+          const returnedGoals = this.backend.addGoalsToDB(result.goalToSubmit);
+          const returnedTasks = this.backend.addTasksToDB(result.tasksToSubmit);
         }
 
       });
@@ -288,7 +294,7 @@ export class TaskManagementService {
 
   }
 
-  editGoal(goalToEdit) {
+  async editGoal(goalToEdit) {
     const returnItem = this.backend.updateGoalsInDB([goalToEdit]);
   }
 
@@ -312,8 +318,6 @@ export class TaskManagementService {
               this.backend.updateGoalsInDB([result]);
               break;
           }
-
-          // this.sortDays(5,[...this.tasks]);
         }
       });
 
@@ -322,23 +326,20 @@ export class TaskManagementService {
   }
 
   deleteTask(event) {
-    const returnItem = this.backend.delete(event);
+    const returnItem = this.backend.deleteTaskInDB(event);
   }
 
   deleteGoal(g, m) {
-
     let tasks;
-
     m.forEach(g => {
       tasks = g.tasks;
       tasks.forEach((t) => {
-        this.backend.delete(t);
+        this.backend.deleteTaskInDB(t);
       });
 
-      this.backend.deleteGoal(g)
+      this.backend.deleteGoalInDB(g)
     });
-
-    this.backend.deleteGoal(g);
+    this.backend.deleteGoalInDB(g);
 
 
 

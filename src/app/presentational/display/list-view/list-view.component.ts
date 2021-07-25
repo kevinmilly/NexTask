@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Goal } from 'src/app/shared/models/goal.model';
 import { Task } from 'src/app/shared/models/task.model';
-import { AuthRedoneService } from '../../../core/services/auth/authredone.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
 import { TaskManagementService } from 'src/app/core/services/task-management/task-management.service';
 
 
@@ -23,12 +23,12 @@ export class ListViewComponent implements OnInit {
 
   listType: string = 'adhoc';
 
-  constructor(private tmService: TaskManagementService, private auth: AuthRedoneService) { }
+  constructor(private tmService: TaskManagementService, private auth: AuthService) { }
 
   ngOnInit() {
     this.getGoals();
   }
- 
+
   getGoals() {
     this.goalsSub = this.tmService.goals$
       .subscribe(retrievedGoals => {
@@ -38,9 +38,9 @@ export class ListViewComponent implements OnInit {
             this.tasks = retrivedTasks.filter(t => !t.goalId && t.title)
               .sort((a, b) => {
                 return (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue)
-              })
+              }) 
               .sort((a, b) => a.completed - b.completed);
-               this.goalsHierarchy = this.returnMilestoneAndTasks(this.goals, this.tasks.filter(t => t.goalId));
+            this.goalsHierarchy = this.returnMilestoneAndTasks(this.goals, this.tasks.filter(t => t.goalId));
 
           })
 
@@ -90,11 +90,6 @@ export class ListViewComponent implements OnInit {
     this.tmService.updateAllTasks(task);
   }
 
-  // markTaskComplete(event) {
-  //   this.tmService.markTaskComplete(event, [...this.tasks]);
-  //   this.getRandomQuote();
-  //   this.presentLoading(4,"Reloading");
-  // }
 
   logout() { this.auth.signOut(); }
 

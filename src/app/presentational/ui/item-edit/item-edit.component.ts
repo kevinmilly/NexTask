@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { ModalController } from '@ionic/angular';
+import { Difficulty, Importance, Urgency } from 'src/app/containers/models/factors.enum';
 
 
 
@@ -25,23 +26,23 @@ export class ItemEditComponent implements OnInit {
 
   priorities = [
     {
-      text: "Low",
+      text: Importance[1],
       number: 1
     },
     {
-      text: "Medium",
+      text: Importance[2],
       number: 2
     },
     {
-      text: "High",
+      text: Importance[3],
       number: 3
     },
     {
-      text: "Critical",
+      text: Importance[4],
       number: 4
     },
     {
-      text: "Non-Negotiable",
+      text: Importance[5],
       number: 5
     }
   ]
@@ -49,46 +50,46 @@ export class ItemEditComponent implements OnInit {
 
   difficulty = [
     {
-      text: "Mindless",
+      text: Difficulty[1],
       number: 1
     },
     {
-      text: "Low",
+      text: Difficulty[2],
       number: 2
     },
     {
-      text: "Average",
+      text: Difficulty[3],
       number: 3
     },
     {
-      text: "High",
+      text: Difficulty[4],
       number: 4
     },
     {
-      text: "Intense",
+      text: Difficulty[5],
       number: 5
     }
   ]
 
   urgencyLevels = [
     {
-      text: "Low",
+      text: Urgency[1],
       number: 1
     },
     {
-      text: "Medium",
+      text: Urgency[2],
       number: 2
     },
     {
-      text: "Elevated",
+      text: Urgency[3],
       number: 3
     },
     {
-      text: "High",
+      text: Urgency[4],
       number: 4
     },
     {
-      text: "Immediate",
+      text: Urgency[5],
       number: 5
     }
   ]
@@ -123,7 +124,7 @@ export class ItemEditComponent implements OnInit {
         return new FormGroup({
           day: new FormControl(this.data.day, [Validators.required, Validators.min(1), Validators.max(5)]),
           description: new FormControl(this.data.description, []),
-          minutes: new FormControl(this.data.minutes, [Validators.required, Validators.min(0), Validators.max(59)]),
+          minutes: new FormControl(this.data.minutes, [Validators.required, Validators.min(0)]),
           priority: new FormControl(this.data.priority, [Validators.required, Validators.min(0), Validators.max(5)]),
           difficulties: new FormControl(this.data.difficulty, [Validators.required, Validators.min(0), Validators.max(5)]),
           urgency: new FormControl(this.data.urgency > 5 ? 5 : this.data.urgency, [Validators.required, Validators.min(0), Validators.max(5)]),

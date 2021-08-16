@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { ModalController } from '@ionic/angular';
 import { Difficulty, Importance, Urgency } from 'src/app/containers/models/factors.enum';
+import { Goal } from 'src/app/shared/models/goal.model';
+import { Task } from 'src/app/shared/models/task.model';
 
 
 
@@ -20,8 +22,8 @@ export class ItemEditComponent implements OnInit {
   priorityLevel: number;
 
 
-  @Input() data
-  @Input() type;
+  @Input() data: any;
+  @Input() type:string;
 
 
   priorities = [

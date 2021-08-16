@@ -1,0 +1,2890 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>QueueIonic documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">QueueIonic documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >TaskManagementService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/services/task-management/task-management.service.ts</code>
+        </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#allTasks$" >allTasks$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#allTasksCompleted$" >allTasksCompleted$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#allTasksSubject" >allTasksSubject</a>
+                            </li>
+                            <li>
+                                <a href="#defaultHours" >defaultHours</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#defaultHours$" >defaultHours$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#defaultHoursSubject" >defaultHoursSubject</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#goals$" >goals$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#goalsSubject" >goalsSubject</a>
+                            </li>
+                            <li>
+                                <a href="#ideaForm" >ideaForm</a>
+                            </li>
+                            <li>
+                                <a href="#ideas" >ideas</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#modalController" >modalController</a>
+                            </li>
+                            <li>
+                                <a href="#tagOptions" >tagOptions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#tags" >tags</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#tasks$" >tasks$</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#tasksSubject" >tasksSubject</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addGoal" >addGoal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addInitialTask" >addInitialTask</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addMilestone" >addMilestone</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addTask" >addTask</a>
+                            </li>
+                            <li>
+                                <a href="#calculateTasksPastDue" >calculateTasksPastDue</a>
+                            </li>
+                            <li>
+                                <a href="#checkIfGoalDone" >checkIfGoalDone</a>
+                            </li>
+                            <li>
+                                <a href="#checkIfMilestoneDone" >checkIfMilestoneDone</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createEvent" >createEvent</a>
+                            </li>
+                            <li>
+                                <a href="#dateDifference" >dateDifference</a>
+                            </li>
+                            <li>
+                                <a href="#deleteGoal" >deleteGoal</a>
+                            </li>
+                            <li>
+                                <a href="#deleteTask" >deleteTask</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#editGoal" >editGoal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#editItem" >editItem</a>
+                            </li>
+                            <li>
+                                <a href="#goalRelatedTaskPrioritize" >goalRelatedTaskPrioritize</a>
+                            </li>
+                            <li>
+                                <a href="#handleGoalUpdates" >handleGoalUpdates</a>
+                            </li>
+                            <li>
+                                <a href="#incrementDaysForTasks" >incrementDaysForTasks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#init" >init</a>
+                            </li>
+                            <li>
+                                <a href="#markTaskComplete" >markTaskComplete</a>
+                            </li>
+                            <li>
+                                <a href="#prioritizeAdhocAndGoalRelatedTasks" >prioritizeAdhocAndGoalRelatedTasks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#showAwards" >showAwards</a>
+                            </li>
+                            <li>
+                                <a href="#updateAllTasks" >updateAllTasks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateSettings" >updateSettings</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#loggedIn" >loggedIn</a>
+                                </li>
+                                <li>
+                                    <a href="#filterTags" >filterTags</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(backend: <a href="../injectables/BackendService.html" target="_self">BackendService</a>, auth: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, modalController: ModalController)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:58</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>backend</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/BackendService.html" target="_self" >BackendService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>auth</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalController</td>
+                                                  
+                                                        <td>
+                                                                    <code>ModalController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addGoal"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>addGoal</b></span>
+                        <a href="#addGoal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addGoal()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="287"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:287</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addInitialTask"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>addInitialTask</b></span>
+                        <a href="#addInitialTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addInitialTask()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="220"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:220</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addMilestone"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>addMilestone</b></span>
+                        <a href="#addMilestone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addMilestone(goalParent: <a href="../classes/Goal.html" target="_self">Goal</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="306"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:306</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>goalParent</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTask"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>addTask</b></span>
+                        <a href="#addTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addTask(milestone?: <a href="../classes/Goal.html" target="_self">Goal</a>, goal?: <a href="../classes/Goal.html" target="_self">Goal</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="237"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:237</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>milestone</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>goal</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateTasksPastDue"></a>
+                    <span class="name">
+                        <span ><b>calculateTasksPastDue</b></span>
+                        <a href="#calculateTasksPastDue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculateTasksPastDue(tasks: <a href="../classes/Task.html" target="_self">Task[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="126"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:126</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Calculate the amount of days past due for incomplete tasks based on creation date</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tasks</td>
+                                    <td>
+                                                <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>retrieved from database without alteration</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>tasks with past due attribute dynamically calculated based on creation date</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkIfGoalDone"></a>
+                    <span class="name">
+                        <span ><b>checkIfGoalDone</b></span>
+                        <a href="#checkIfGoalDone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkIfGoalDone(associatedMilestone: <a href="../classes/Goal.html" target="_self">Goal</a>, goals: <a href="../classes/Goal.html" target="_self">Goal[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="431"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:431</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>associatedMilestone</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>goals</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkIfMilestoneDone"></a>
+                    <span class="name">
+                        <span ><b>checkIfMilestoneDone</b></span>
+                        <a href="#checkIfMilestoneDone"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkIfMilestoneDone(milestoneId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, tasks: <a href="../classes/Task.html" target="_self">Task[]</a>, goals: <a href="../classes/Goal.html" target="_self">Goal[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="415"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:415</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>milestoneId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>tasks</td>
+                                    <td>
+                                                <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>goals</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createEvent"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>createEvent</b></span>
+                        <a href="#createEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createEvent(tasks)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="458"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:458</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tasks</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dateDifference"></a>
+                    <span class="name">
+                        <span ><b>dateDifference</b></span>
+                        <a href="#dateDifference"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>dateDifference(d1, d2)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="381"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:381</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>d1</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>d2</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteGoal"></a>
+                    <span class="name">
+                        <span ><b>deleteGoal</b></span>
+                        <a href="#deleteGoal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteGoal(g, m)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="362"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:362</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>g</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>m</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteTask"></a>
+                    <span class="name">
+                        <span ><b>deleteTask</b></span>
+                        <a href="#deleteTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteTask(event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="358"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:358</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editGoal"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>editGoal</b></span>
+                        <a href="#editGoal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>editGoal(goalToEdit: <a href="../classes/Goal.html" target="_self">Goal</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="327"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:327</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>goalToEdit</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editItem"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>editItem</b></span>
+                        <a href="#editItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>editItem(data, type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="331"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:331</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>data</td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goalRelatedTaskPrioritize"></a>
+                    <span class="name">
+                        <span ><b>goalRelatedTaskPrioritize</b></span>
+                        <a href="#goalRelatedTaskPrioritize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goalRelatedTaskPrioritize(goalRelatedTasks: <a href="../classes/Task.html" target="_self">Task[]</a>, goals: <a href="../classes/Goal.html" target="_self">Goal[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="152"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:152</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>goalRelatedTasks</td>
+                                    <td>
+                                                <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>tasks that are associated with goals</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>goals</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>retrieved from DB</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>a prioritized task list based on the goals&#39; priority and milestones</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleGoalUpdates"></a>
+                    <span class="name">
+                        <span ><b>handleGoalUpdates</b></span>
+                        <a href="#handleGoalUpdates"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleGoalUpdates(tasks$: <a href="../classes/Task.html" target="_self">Observable&lt;Task[]&gt;</a>, goals$: <a href="../classes/Goal.html" target="_self">Observable&lt;Goal[]&gt;</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="393"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:393</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Updates goals based on completed tasks.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tasks$</td>
+                                    <td>
+                                                <code><a href="../classes/Task.html" target="_self" >Observable&lt;Task[]&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>goals$</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Observable&lt;Goal[]&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="incrementDaysForTasks"></a>
+                    <span class="name">
+                        <span ><b>incrementDaysForTasks</b></span>
+                        <a href="#incrementDaysForTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>incrementDaysForTasks(hours: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, taskList: <a href="../classes/Task.html" target="_self">Task[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="183"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:183</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Based on the default hours per day set by the user, generate the day
+the task should be completed.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>hours</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>default hours set by user</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>taskList</td>
+                                    <td>
+                                                <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>a task list with days incremented based on the  default hours per day</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="init"></a>
+                    <span class="name">
+                        <span class="modifier">Public</span>
+                        <span ><b>init</b></span>
+                        <a href="#init"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>init()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:80</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Loads task and goal data from the database and
+prioritizes based on days past due, default hours per day, and build tags based
+tasks.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="markTaskComplete"></a>
+                    <span class="name">
+                        <span ><b>markTaskComplete</b></span>
+                        <a href="#markTaskComplete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>markTaskComplete(event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="209"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:209</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prioritizeAdhocAndGoalRelatedTasks"></a>
+                    <span class="name">
+                        <span ><b>prioritizeAdhocAndGoalRelatedTasks</b></span>
+                        <a href="#prioritizeAdhocAndGoalRelatedTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prioritizeAdhocAndGoalRelatedTasks(t: <a href="../classes/Task.html" target="_self">Task[]</a>, g: <a href="../classes/Goal.html" target="_self">Goal[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="136"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:136</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>t</td>
+                                    <td>
+                                                <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>g</td>
+                                    <td>
+                                                <code><a href="../classes/Goal.html" target="_self" >Goal[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showAwards"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>showAwards</b></span>
+                        <a href="#showAwards"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>showAwards()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="448"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:448</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateAllTasks"></a>
+                    <span class="name">
+                        <span ><b>updateAllTasks</b></span>
+                        <a href="#updateAllTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateAllTasks(event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="375"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:375</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateSettings"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>updateSettings</b></span>
+                        <a href="#updateSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateSettings()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="261"
+                            class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:261</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allTasks$"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>allTasks$</b></span>
+                        <a href="#allTasks$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Task.html" target="_self" >Observable&lt;Task[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.allTasksSubject.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allTasksCompleted$"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>allTasksCompleted$</b></span>
+                        <a href="#allTasksCompleted$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Task.html" target="_self" >Observable&lt;Task[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.allTasksSubject.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allTasksSubject"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>allTasksSubject</b></span>
+                        <a href="#allTasksSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Task.html" target="_self" >BehaviorSubject&lt;Task[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultHours"></a>
+                    <span class="name">
+                        <span ><b>defaultHours</b></span>
+                        <a href="#defaultHours"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>5</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultHours$"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>defaultHours$</b></span>
+                        <a href="#defaultHours$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;number&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.defaultHoursSubject.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultHoursSubject"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>defaultHoursSubject</b></span>
+                        <a href="#defaultHoursSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>BehaviorSubject&lt;number&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject(5)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goals$"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>goals$</b></span>
+                        <a href="#goals$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Goal.html" target="_self" >Observable&lt;Goal[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.goalsSubject.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goalsSubject"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>goalsSubject</b></span>
+                        <a href="#goalsSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Goal.html" target="_self" >BehaviorSubject&lt;Goal[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ideaForm"></a>
+                    <span class="name">
+                        <span ><b>ideaForm</b></span>
+                        <a href="#ideaForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ideas"></a>
+                    <span class="name">
+                        <span ><b>ideas</b></span>
+                        <a href="#ideas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modalController"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>modalController</b></span>
+                        <a href="#modalController"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ModalController</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tagOptions"></a>
+                    <span class="name">
+                        <span ><b>tagOptions</b></span>
+                        <a href="#tagOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormControl(&#x27;general&#x27;, [])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tags"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>tags</b></span>
+                        <a href="#tags"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;general&#x27;, &#x27;All&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tasks$"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>tasks$</b></span>
+                        <a href="#tasks$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Task.html" target="_self" >Observable&lt;Task[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.tasksSubject.asObservable()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tasksSubject"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>tasksSubject</b></span>
+                        <a href="#tasksSubject"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Task.html" target="_self" >BehaviorSubject&lt;Task[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new BehaviorSubject([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loggedIn"></a>
+                        <span class="name"><b>loggedIn</b><a href="#loggedIn"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>loggedIn()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="485" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:485</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filterTags"></a>
+                        <span class="name"><b>filterTags</b><a href="#filterTags"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>filterTags()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="489" class="link-to-prism">src/app/core/services/task-management/task-management.service.ts:489</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+
+import * as moment from &quot;moment&quot;;
+import { ModalController } from &#x27;@ionic/angular&#x27;;
+import { BehaviorSubject, forkJoin, Observable, Subscription } from &#x27;rxjs&#x27;;
+
+import { Task } from &#x27;../../../shared/models/task.model&#x27;;
+import { Goal } from &#x27;src/app/shared/models/goal.model&#x27;;
+
+import { BackendService } from &#x27;../backend/backend.service&#x27;;
+import { FormControl } from &#x27;@angular/forms&#x27;;
+import { TaskEntryComponent } from &#x27;src/app/presentational/ui/task-entry/task-entry.component&#x27;;
+import { ShowAwardComponent } from &#x27;src/app/presentational/display/show-award/show-award.component&#x27;;
+
+
+import { GoalEntryComponent } from &#x27;src/app/presentational/ui/goal-entry/goal-entry.component&#x27;;
+import { map, take, tap } from &#x27;rxjs/operators&#x27;;
+import { AuthService } from &#x27;../auth/auth.service&#x27;;
+import { ItemEditComponent } from &#x27;src/app/presentational/ui/item-edit/item-edit.component&#x27;;
+import { MilestoneEntryComponent } from &#x27;src/app/presentational/ui/milestone-entry/milestone-entry.component&#x27;;
+import { DateTimeEntryComponent } from &#x27;src/app/presentational/ui/date-time-entry/date-time-entry.component&#x27;;
+import { combineLatest } from &#x27;rxjs&#x27;;
+import { SettingsComponent } from &#x27;src/app/presentational/ui/settings/settings.component&#x27;;
+
+type TaskAndGoalsCombined &#x3D; {
+  ts:Task[];
+  gs:Goal[];
+}
+
+
+
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class TaskManagementService {
+
+
+  private tasksSubject: BehaviorSubject&lt;Task[]&gt; &#x3D; new BehaviorSubject([]);
+  private allTasksSubject: BehaviorSubject&lt;Task[]&gt; &#x3D; new BehaviorSubject([]);
+  private goalsSubject: BehaviorSubject&lt;Goal[]&gt; &#x3D; new BehaviorSubject([]);
+  private defaultHoursSubject: BehaviorSubject&lt;number&gt; &#x3D; new BehaviorSubject(5);
+
+  public allTasks$: Observable&lt;Task[]&gt; &#x3D; this.allTasksSubject.asObservable();
+  public allTasksCompleted$: Observable&lt;Task[]&gt; &#x3D; this.allTasksSubject.asObservable();
+  public tasks$: Observable&lt;Task[]&gt; &#x3D; this.tasksSubject.asObservable();
+  public goals$: Observable&lt;Goal[]&gt; &#x3D; this.goalsSubject.asObservable();
+  public defaultHours$: Observable&lt;number&gt; &#x3D; this.defaultHoursSubject.asObservable();
+
+
+
+
+  defaultHours &#x3D; 5;
+
+  private tags &#x3D; [&#x27;general&#x27;, &#x27;All&#x27;];
+  tagOptions &#x3D; new FormControl(&#x27;general&#x27;, []);
+
+  ideaForm;
+  ideas;
+
+  
+
+
+  constructor(
+    private backend: BackendService,
+    private auth: AuthService,
+    public modalController: ModalController,
+
+  ) {
+
+
+
+  }
+
+
+  /**
+   * Loads task and goal data from the database and 
+   * prioritizes based on days past due, default hours per day, and build tags based 
+   * tasks.
+   */
+  public init(): void {
+
+    this.goals$ &#x3D; this.backend.getGoalsFromDB().valueChanges();
+
+    /*
+    Making sure to account for tasks that have gone over their day that were supposed to be completed
+    determined by the default hours chose.
+    */
+    this.allTasks$ &#x3D; combineLatest([
+      this.backend.getTasksFromDB().valueChanges(),
+      this.defaultHours$
+    ]).pipe(
+      map(([unincrementedTasks, hours]) &#x3D;&gt; this.incrementDaysForTasks(hours, unincrementedTasks)),
+      map(tasks &#x3D;&gt; this.calculateTasksPastDue(tasks))
+    );
+
+    /*
+      Now that past due and days are chosen we can sort all tasks and load tags
+      for filtering later
+    */
+    const tempTask$ &#x3D; this.allTasks$
+      .pipe(map(tasks &#x3D;&gt; tasks.filter(t &#x3D;&gt; !t.completed)));
+
+    this.tasks$ &#x3D; combineLatest([tempTask$, this.goals$])
+      .pipe(
+        map(([tasks, goals]) &#x3D;&gt; this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
+      )
+      .pipe(
+        tap(ts &#x3D;&gt; {
+          ts.forEach(t &#x3D;&gt; {
+            if (t.tag &amp;&amp; !this.tags.find(currentTag &#x3D;&gt; currentTag &#x3D;&#x3D;&#x3D; t.tag)) this.tags.push(t.tag)
+          });
+        })
+      );
+
+
+  }
+
+
+
+
+  /**
+   * Calculate the amount of days past due for incomplete tasks based on creation date
+   * @param tasks retrieved from database without alteration
+   * @returns tasks with past due attribute dynamically calculated based on creation date
+   */
+  calculateTasksPastDue(tasks: Task[]):Task[] {
+    return tasks.map(t &#x3D;&gt; {
+      return {
+        ...t,
+        pastDue: t.pastDue + this.dateDifference(new Date(), new Date(t.createdDate))
+      }
+    });
+  }
+
+
+  prioritizeAdhocAndGoalRelatedTasks(t:Task[], g:Goal[]) : Task[] {
+
+    const nonGoalTasks &#x3D; t.filter(t &#x3D;&gt; !t.goalId);
+    t &#x3D; nonGoalTasks
+      .concat(this.goalRelatedTaskPrioritize(t.filter(t &#x3D;&gt; t.goalId), g))
+      .sort((a, b) &#x3D;&gt; (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue));
+
+    return t;
+  }
+
+ /**
+  * 
+  * @param goalRelatedTasks tasks that are associated with goals
+  * @param goals retrieved from DB
+  * @returns a prioritized task list based on the goals&#x27; priority and milestones
+  */
+  goalRelatedTaskPrioritize(goalRelatedTasks: Task[], goals: Goal[]): Task[] {
+    if (goals.length &#x3D;&#x3D;&#x3D; 0) return []; //no need to find goal related tasks if they don&#x27;t exist
+
+    const parentGoalsSortedByPriority &#x3D; goals
+      .filter(goal &#x3D;&gt; !goal.completed &amp;&amp; goal.parentGoal &#x3D;&#x3D;&#x3D; null)
+      .sort((a, b) &#x3D;&gt; {
+        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+      })
+
+
+    const sortedMilestonesOfHighestGoal &#x3D; goals
+      .filter(goal &#x3D;&gt; !goal.completed &amp;&amp;
+        goal.parentGoal &#x3D;&#x3D;&#x3D; parentGoalsSortedByPriority[0].id)
+      .sort((a, b) &#x3D;&gt; {
+        return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+      })
+
+    const list &#x3D; goalRelatedTasks.filter(t &#x3D;&gt; t.goalId &#x3D;&#x3D;&#x3D; sortedMilestonesOfHighestGoal[0].id);
+
+    return list;
+
+  }
+
+  
+  /**
+   * Based on the default hours per day set by the user, generate the day
+   * the task should be completed.
+   * @param hours default hours set by user
+   * @param taskList 
+   * @returns a task list with days incremented based on the  default hours per day
+   */
+  incrementDaysForTasks(hours: number, taskList: Task[]) :Task[] {
+    let dayIterator &#x3D; 1;
+    const minutesADay &#x3D; hours * 60;
+    let remainingMinutes &#x3D; minutesADay;
+
+    const sortedList &#x3D; taskList.sort((a, b) &#x3D;&gt; {
+      return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
+    })
+
+    for (let i &#x3D; 0, len &#x3D; sortedList.length; i &lt; len; i++) {
+      if(!sortedList[i].completed) {
+        if ((remainingMinutes - sortedList[i].minutes) &gt;&#x3D; -1) {
+          remainingMinutes -&#x3D; sortedList[i].minutes;
+          sortedList[i].day &#x3D; dayIterator;
+        } else {
+          sortedList[i].day &#x3D; ++dayIterator;
+          remainingMinutes &#x3D; minutesADay;
+
+        }
+    }
+
+    }
+    return sortedList;
+  }
+
+
+  markTaskComplete(event):void {
+    event.completed &#x3D; 1;
+    event.completedDate &#x3D; moment().format(&#x27;MM/DD/YYYY&#x27;);
+    event.completedTime &#x3D; moment().format(&#x27;hA&#x27;);
+
+    this.updateAllTasks(event);
+    this.handleGoalUpdates(this.tasks$, this.goals$);
+
+  }
+
+
+  async addInitialTask():Promise&lt;void&gt; {
+    const modal &#x3D; await this.modalController.create({
+      component: TaskEntryComponent,
+      cssClass: &#x27;task-entry&#x27;
+    });
+    modal.onDidDismiss()
+      .then((data) &#x3D;&gt; {
+        const result &#x3D; data[&#x27;data&#x27;];
+        // if (result.id) this.backend.addMetric(this.backend.addTask(result), &quot;creation&quot;)
+
+      });
+
+
+    return await modal.present();
+
+  }
+
+  async addTask(milestone?: Goal, goal?: Goal):Promise&lt;void&gt; {
+    const modal &#x3D; await this.modalController.create({
+      component: TaskEntryComponent
+    });
+    modal.onDidDismiss()
+      .then((data) &#x3D;&gt; {
+        const result &#x3D; data[&#x27;data&#x27;];
+        if (result.id) {
+          if (goal) {
+            result[&#x27;goalId&#x27;] &#x3D; milestone.id;
+            result[&#x27;parentGoalTitle&#x27;] &#x3D; goal.title;
+            result[&#x27;milestoneTitle&#x27;] &#x3D; milestone.title;
+
+          }
+          this.backend.addTaskToDB(result);
+
+        }
+
+      });
+
+    return await modal.present();
+  }
+
+
+  async updateSettings():Promise&lt;void&gt; {
+    console.log(&quot;Update reached to task management&quot;);
+    console.log(this.defaultHours);
+    const modal &#x3D; await this.modalController.create({
+      component: SettingsComponent,
+      componentProps: {
+        hourSettings: this.defaultHours
+      },
+      cssClass: &#x27;auto-height&#x27;,
+      showBackdrop: true,
+      mode: &quot;ios&quot;
+    });
+    modal.onDidDismiss()
+      .then((data) &#x3D;&gt; {
+        const result &#x3D; data[&#x27;data&#x27;];
+        if (!result.dismissed) {
+          this.defaultHours &#x3D; result;
+          this.defaultHoursSubject.next(this.defaultHours);
+
+        }
+
+      });
+    return await modal.present();
+  }
+
+
+  async addGoal():Promise&lt;void&gt; {
+    const modal &#x3D; await this.modalController.create({
+      component: GoalEntryComponent,
+      cssClass: &#x27;goal-entry&#x27;
+    });
+    modal.onDidDismiss()
+      .then((data) &#x3D;&gt; {
+        const result &#x3D; data[&#x27;data&#x27;];
+
+        if (result) {
+          const returnedGoals &#x3D; this.backend.addGoalsToDB(result.goalsToSubmit);
+          const returnedTasks &#x3D; this.backend.addTasksToDB(result.tasksToSubmit);
+
+        }
+
+      });
+    return await modal.present();
+  }
+
+  async addMilestone(goalParent:Goal) {
+    const modal &#x3D; await this.modalController.create({
+      component: MilestoneEntryComponent,
+      cssClass: &#x27;goal-entry&#x27;,
+      componentProps: { goalParent }
+    });
+    modal.onDidDismiss()
+      .then((data) &#x3D;&gt; {
+        const result &#x3D; data[&#x27;data&#x27;];
+        if (result !&#x3D;&#x3D; null) {
+          const returnedGoals &#x3D; this.backend.addGoalsToDB(result.goalToSubmit);
+          const returnedTasks &#x3D; this.backend.addTasksToDB(result.tasksToSubmit);
+        }
+
+      });
+
+
+    return await modal.present();
+
+  }
+
+  async editGoal(goalToEdit:Goal) {
+    const returnItem &#x3D; this.backend.updateGoalsInDB([goalToEdit]);
+  }
+
+  async editItem(data:(Task | Goal), type:string) {
+
+    const modal &#x3D; await this.modalController.create({
+      component: ItemEditComponent,
+      cssClass: &#x27;goal-entry&#x27;,
+      componentProps: { data, type }
+    });
+    modal.onDidDismiss()
+      .then((data) &#x3D;&gt; {
+
+        const result &#x3D; data.data;
+        if (result) {
+          switch (type) {
+            case &#x27;task&#x27;:
+              const returnItem &#x3D; this.backend.updateTask(result);
+              break;
+            case &#x27;goal&#x27;:
+              this.backend.updateGoalsInDB([result]);
+              break;
+          }
+        }
+      });
+
+    return await modal.present();
+
+  }
+
+  deleteTask(event) {
+    const returnItem &#x3D; this.backend.deleteTaskInDB(event);
+  }
+
+  deleteGoal(g, m) {
+    let tasks;
+    m.forEach(g &#x3D;&gt; {
+      tasks &#x3D; g.tasks;
+      tasks.forEach((t) &#x3D;&gt; {
+        this.backend.deleteTaskInDB(t);
+      });
+
+      this.backend.deleteGoalInDB(g)
+    });
+    this.backend.deleteGoalInDB(g);
+  }
+
+  updateAllTasks(event) {
+    this.backend.updateTasksInDB([event]);
+
+  }
+
+
+  dateDifference(d1, d2) {
+    const diff &#x3D; moment(d1).diff(moment(d2), &#x27;days&#x27;);
+    return diff || 0;
+  }
+
+
+/**
+ * Updates goals based on completed tasks.
+ * @param tasks$ 
+ * @param goals$ 
+ * 
+ */
+  handleGoalUpdates(tasks$: Observable&lt;Task[]&gt;, goals$: Observable&lt;Goal[]&gt;) {
+
+    return forkJoin([tasks$, goals$])
+      .subscribe(([tasks, goals]) &#x3D;&gt; {
+        const goalsToUpdate &#x3D; [];
+        let currentGoal;
+        const milestones &#x3D; goals.filter(g &#x3D;&gt; g.taskChildren.length &gt; 0);
+        milestones
+          .forEach(m &#x3D;&gt; {
+            m.completed &#x3D; this.checkIfMilestoneDone(m.id, [...tasks], [...milestones]);
+            currentGoal &#x3D; goals.find(g &#x3D;&gt; g.id &#x3D;&#x3D;&#x3D; m.parentGoal);
+            currentGoal.completed &#x3D; this.checkIfGoalDone(m, [...goals]);
+            if (m.completed) goalsToUpdate.push(m);
+            if (currentGoal.completed) goalsToUpdate.push(currentGoal);
+
+          });
+
+        this.backend.updateGoalsInDB([...goalsToUpdate]);
+      })
+
+  }
+
+  checkIfMilestoneDone(milestoneId: string, tasks: Task[], goals: Goal[]): number {
+    let currentTask;
+    let complete &#x3D; 1;
+    const milestoneToCheck &#x3D; goals.find(goal &#x3D;&gt; goal.id &#x3D;&#x3D;&#x3D; milestoneId);
+    milestoneToCheck.taskChildren.forEach(currentTaskId &#x3D;&gt; {
+      currentTask &#x3D; tasks.find(task &#x3D;&gt; task.id &#x3D;&#x3D;&#x3D; currentTaskId);
+      if (currentTask &amp;&amp; !currentTask.completed) {
+        complete &#x3D; 0;
+        return complete;
+      }
+    })
+
+    return complete;
+
+  }
+
+  checkIfGoalDone(associatedMilestone: Goal, goals: Goal[]): number {
+
+    let complete &#x3D; 1;
+    const goalToCheck &#x3D; goals.find(goal &#x3D;&gt; goal.id &#x3D;&#x3D;&#x3D; associatedMilestone.parentGoal);
+    const milestoneToCheck &#x3D; goals.filter(goal &#x3D;&gt; goal.parentGoal &#x3D;&#x3D;&#x3D; goalToCheck.id)
+
+    milestoneToCheck
+      .forEach(milestone &#x3D;&gt; {
+        if (!milestone.completed) {
+          complete &#x3D; 0;
+          return complete;
+        }
+      })
+    return complete;
+
+  }
+
+  async showAwards() {
+    const modal &#x3D; await this.modalController.create({
+      component: ShowAwardComponent,
+      // cssClass: &#x27;show-award&#x27;
+    });
+
+    return await modal.present();
+
+  }
+
+  async createEvent(tasks) {
+    const modal &#x3D; await this.modalController.create({
+      component: DateTimeEntryComponent
+    });
+    modal.onDidDismiss()
+      .then((data) &#x3D;&gt; {
+        const result &#x3D; data[&#x27;data&#x27;];
+        if (result.date) {
+
+          try {
+            this.auth.insertEvents(tasks, result.date, result.buffer);
+
+          } catch (error) {
+            console.dir(error);
+          }
+
+
+        }
+
+      });
+
+
+    return await modal.present();
+
+  }
+
+
+  get loggedIn() {
+    return !!this.auth.user;
+  }
+
+  get filterTags() {
+    return this.tags;
+  }
+
+
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'TaskManagementService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

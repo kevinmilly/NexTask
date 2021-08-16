@@ -22,6 +22,10 @@ import { DateTimeEntryComponent } from 'src/app/presentational/ui/date-time-entr
 import { combineLatest } from 'rxjs';
 import { SettingsComponent } from 'src/app/presentational/ui/settings/settings.component';
 
+type TaskAndGoalsCombined = {
+  ts:Task[];
+  gs:Goal[];
+}
 
 
 
@@ -53,6 +57,8 @@ export class TaskManagementService {
   ideaForm;
   ideas;
 
+  
+
 
   constructor(
     private backend: BackendService,
@@ -65,12 +71,18 @@ export class TaskManagementService {
 
   }
 
+
+  /**
+   * Loads task and goal data from the database and 
+   * prioritizes based on days past due, default hours per day, and build tags based 
+   * tasks.
+   */
   public init(): void {
 
     this.goals$ = this.backend.getGoalsFromDB().valueChanges();
 
     /*
-    Making sure to account for tasks that have gone over their day there were supposed to be finished
+    Making sure to account for tasks that have gone over their day that were supposed to be completed
     determined by the default hours chose.
     */
     this.allTasks$ = combineLatest([
@@ -93,8 +105,8 @@ export class TaskManagementService {
         map(([tasks, goals]) => this.prioritizeAdhocAndGoalRelatedTasks(tasks, goals)),
       )
       .pipe(
-        tap(t => {
-          t[0].forEach(t => {
+        tap(ts => {
+          ts.forEach(t => {
             if (t.tag && !this.tags.find(currentTag => currentTag === t.tag)) this.tags.push(t.tag)
           });
         })
@@ -105,7 +117,13 @@ export class TaskManagementService {
 
 
 
-  calculateTasksPastDue(tasks: Task[]) {
+
+  /**
+   * Calculate the amount of days past due for incomplete tasks based on creation date
+   * @param tasks retrieved from database without alteration
+   * @returns tasks with past due attribute dynamically calculated based on creation date
+   */
+  calculateTasksPastDue(tasks: Task[]):Task[] {
     return tasks.map(t => {
       return {
         ...t,
@@ -115,17 +133,23 @@ export class TaskManagementService {
   }
 
 
-  prioritizeAdhocAndGoalRelatedTasks(t, g) {
+  prioritizeAdhocAndGoalRelatedTasks(t:Task[], g:Goal[]) : Task[] {
 
     const nonGoalTasks = t.filter(t => !t.goalId);
     t = nonGoalTasks
       .concat(this.goalRelatedTaskPrioritize(t.filter(t => t.goalId), g))
       .sort((a, b) => (b.priority + b.difficulty + b.urgency + b.pastDue) - (a.priority + a.difficulty + a.urgency + a.pastDue));
 
-    return [t, g];
+    return t;
   }
 
-  goalRelatedTaskPrioritize(goalRelatedTasks: Task[], goals: Goal[]) {
+ /**
+  * 
+  * @param goalRelatedTasks tasks that are associated with goals
+  * @param goals retrieved from DB
+  * @returns a prioritized task list based on the goals' priority and milestones
+  */
+  goalRelatedTaskPrioritize(goalRelatedTasks: Task[], goals: Goal[]): Task[] {
     if (goals.length === 0) return []; //no need to find goal related tasks if they don't exist
 
     const parentGoalsSortedByPriority = goals
@@ -148,14 +172,23 @@ export class TaskManagementService {
 
   }
 
-
-  incrementDaysForTasks(hours: number, taskList: Task[]) {
+  
+  /**
+   * Based on the default hours per day set by the user, generate the day
+   * the task should be completed.
+   * @param hours default hours set by user
+   * @param taskList 
+   * @returns a task list with days incremented based on the  default hours per day
+   */
+  incrementDaysForTasks(hours: number, taskList: Task[]) :Task[] {
     let dayIterator = 1;
     const minutesADay = hours * 60;
     let remainingMinutes = minutesADay;
+
     const sortedList = taskList.sort((a, b) => {
       return (b.priority + b.difficulty + b.urgency) - (a.priority + a.difficulty + a.urgency);
     })
+
     for (let i = 0, len = sortedList.length; i < len; i++) {
       if(!sortedList[i].completed) {
         if ((remainingMinutes - sortedList[i].minutes) >= -1) {
@@ -173,7 +206,7 @@ export class TaskManagementService {
   }
 
 
-  markTaskComplete(event) {
+  markTaskComplete(event):void {
     event.completed = 1;
     event.completedDate = moment().format('MM/DD/YYYY');
     event.completedTime = moment().format('hA');
@@ -184,7 +217,7 @@ export class TaskManagementService {
   }
 
 
-  async addInitialTask() {
+  async addInitialTask():Promise<void> {
     const modal = await this.modalController.create({
       component: TaskEntryComponent,
       cssClass: 'task-entry'
@@ -201,7 +234,7 @@ export class TaskManagementService {
 
   }
 
-  async addTask(milestone?: Goal, goal?: Goal) {
+  async addTask(milestone?: Goal, goal?: Goal):Promise<void> {
     const modal = await this.modalController.create({
       component: TaskEntryComponent
     });
@@ -221,12 +254,11 @@ export class TaskManagementService {
 
       });
 
-
     return await modal.present();
-
   }
 
-  async updateSettings() {
+
+  async updateSettings():Promise<void> {
     console.log("Update reached to task management");
     console.log(this.defaultHours);
     const modal = await this.modalController.create({
@@ -248,12 +280,11 @@ export class TaskManagementService {
         }
 
       });
-
-
     return await modal.present();
   }
 
-  async addGoal() {
+
+  async addGoal():Promise<void> {
     const modal = await this.modalController.create({
       component: GoalEntryComponent,
       cssClass: 'goal-entry'
@@ -270,10 +301,9 @@ export class TaskManagementService {
 
       });
     return await modal.present();
-
   }
 
-  async addMilestone(goalParent) {
+  async addMilestone(goalParent:Goal) {
     const modal = await this.modalController.create({
       component: MilestoneEntryComponent,
       cssClass: 'goal-entry',
@@ -294,11 +324,11 @@ export class TaskManagementService {
 
   }
 
-  async editGoal(goalToEdit) {
+  async editGoal(goalToEdit:Goal) {
     const returnItem = this.backend.updateGoalsInDB([goalToEdit]);
   }
 
-  async editItem(data, type) {
+  async editItem(data:(Task | Goal), type:string) {
 
     const modal = await this.modalController.create({
       component: ItemEditComponent,
@@ -340,9 +370,6 @@ export class TaskManagementService {
       this.backend.deleteGoalInDB(g)
     });
     this.backend.deleteGoalInDB(g);
-
-
-
   }
 
   updateAllTasks(event) {
@@ -356,6 +383,13 @@ export class TaskManagementService {
     return diff || 0;
   }
 
+
+/**
+ * Updates goals based on completed tasks.
+ * @param tasks$ 
+ * @param goals$ 
+ * 
+ */
   handleGoalUpdates(tasks$: Observable<Task[]>, goals$: Observable<Goal[]>) {
 
     return forkJoin([tasks$, goals$])

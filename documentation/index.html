@@ -1,0 +1,264 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>QueueIonic documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css" media="(prefers-color-scheme: dark)">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">QueueIonic documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/kevinmilly/QueueD">
+    <img src="readme-assets/nexttask.png" alt="Logo" width="200" height="200">
+  </a>
+
+  <h3 align="center">Queue-D</h3>
+
+  <p align="center">
+    An awesome way to manage tasks
+    <br />
+    <a href="https://github.com/kevinmilly/QueueD"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="readme-assets/nextaskdemo.gif">View Demo</a>
+    ·
+    <a href="https://github.com/kevinmilly/QueueD/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/kevinmilly/QueueD/issues">Request Feature</a>
+  </p>
+</p>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#generaluse">End User Setup</a></li>
+        <li><a href="#installation">Developer Setup</a></li>
+      </ul>
+    </li>
+          <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+
+
+<!-- ABOUT THE PROJECT -->
+<h2 id="about-the-project">About The Project</h2>
+<img src="readme-assets/nextaskdemo.gif" alt="screenshot">
+
+<p>I love the concept of productivity.  Task management to time is like budgeting to money; it helps you save and spend your resources.  There are a lot of great task management apps out there.  However, I found that there was room for an app that:</p>
+<ul>
+<li>Helped you focus on the most impactful tasks first</li>
+<li>Helped you schedule  your tasks more effectively</li>
+<li>Helped you see the metrics that mattered at a glance</li>
+</ul>
+<p>This project is an attempt to fulfill these needs.  It&#39;s inspired by the <a href="https://en.wikipedia.org/wiki/Time_management#The_Eisenhower_Method">Eisenhower Matrix method</a>, the &quot;Hardest task first&quot; mindset/method, and <a href="https://en.wikipedia.org/wiki/Timeblocking">&quot;Time-Blocking&quot;</a>. </p>
+<p>With Queue-D, when you create a task, you must choose the Importance, Difficulty, and Urgency.</p>
+<img src="readme-assets/nextask-matrix.png" alt="task-choice">
+
+<ul>
+<li>Importance: This is a measurement based on your peception of the gravity of such a task; How serious
+is it that you get this task done TODAY? </li>
+<li>Difficulty: This is a measurement based on how involved you feel  you will be in this task or how draining
+the task will be on your energy, time or patience.</li>
+<li>Urgency: This is a measurement taking into account the timing of this task&#39;s completion in relation to other tasks.  Do you need to get this done quickly or can it wait?</li>
+</ul>
+<p>As you can see from the screenshot above, these questiosn are presented in a brief manner and unimposing interface.  With a brief moment, an additional step of intentionality when &#39;jotting&#39; this task on your list; you give the app enough information to prioritize the task on your &#39;queue&#39;.  </p>
+<p>Tasks will arrange themselves vertically on your queue based on a summation of importance, difficulty, and urgency; the Most Urgent, the Most Difficult, and the Most Important will &#39;bubble&#39; to the top.  With that being said, you will work from the top to the bottom as you complete your tasks, assured that you are handling the most impactful tasks FIRST.</p>
+<p>You may notice that based on the level of &#39;Importance&#39;, &#39;Difficulty&#39;, and &#39;Urgency&#39;, the taks on the queue will vary in gradation of orange and thickness (height).  This helps identify tasks you need to hit in priority.</p>
+<h3 id="what-if-i-dont-get-to-a-task">What if I don&#39;t get to a task?</h3>
+<p>Another thing that affects the prioritization of a task is the duration of existence.  Naturally, a task that you don&#39;t get to over a duration of days would increase in priority; you can only procrastinate so much.  To reflect this, that task will eventually &quot;bubble up&quot; in priority, every day it remains on the queue.  No more losing track!</p>
+<p>By the way, are you trying to truncate your work day?  Why should work the tradition 8 hours/day.  You can set how many hours you want to work per day.  Based on this setting, and the amount of time you estimate per task, Queue-D will load the queue as much as you day will allow.  Any additional tasks you create beyond your daily limit, will overflow until the next day.</p>
+<h3 id="need-reminders">Need reminders?</h3>
+<p>Timeblocking allows you to use your calendar with task management.  By using the time-blocking feature you can integrate with your Google Calendar (based on the Google account  you signed in with).  The tasks will show up on your G-Cal based on the same order and color gradation.  Now you can take advantage of whatever defaults and settings you have set with your Google calendar (notifications, sharing, etc.)</p>
+<h3 id="additional-usage">Additional Usage</h3>
+<h4 id="goal-based-tasks">Goal-Based Tasks</h4>
+<p>Sometimes you have Goal-based tasks that are interspersed between simple ad-hoc tasks tha occur from day to day.  These goal-based tasks have a more long-term meaning, however usually, need to relate to your &#39;one off&#39; tasks.  In line with that, you can &#39;reverse-engineer&#39; a goal down to a milestone and then to a task with Queue-D; these tasks will be included on your day to day queue accordingly.</p>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Submitting Goal</th>
+<th>Goal-Based within Adhoc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="readme-assets/submitgoal.gif" alt="goal-based-entry"></td>
+<td><img src="readme-assets/withGoal.PNG" alt="goal-with-adhoc"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="metrics">Metrics</h4>
+<p>Have you ever wondered what tasks you tend to shy away from completing vs. the ones you hurry to complete?
+What are your most productive times in day?</p>
+<p>Having this insight will inform your future decisions!  Check out the &#39;Metrics&#39; section.</p>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Most Completions</th>
+<th>Top Completions</th>
+<th>Distributions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="readme-assets/metrics-view1.JPG" alt="first-metric-view"></td>
+<td><img src="readme-assets/metrics-view1.5.JPG" alt="second-metric-view"></td>
+<td><img src="readme-assets/metrics-view2.JPG" alt="third-metric-view"></td>
+</tr>
+</tbody>
+</table>
+<!-- ROADMAP -->
+<h2 id="roadmap">Roadmap</h2>
+<p>*It would be great to further flesh out the &#39;Metrics&#39; section, certaintly additonal information can be extracted from the data to benefit our productivity.</p>
+<p>*General UX is an ongoing project.</p>
+<p>*Testing is being conduced on task completion gamification and goal-based tasks.</p>
+<p>See the <a href="https://github.com/kevinmilly/QueueD/issues">open issues</a> for a list of proposed features (and known issues).</p>
+<!-- GETTING STARTED -->
+<h2 id="getting-started">Getting Started</h2>
+<p>Depending how you want to get involved, below are some steps if you want to help with development or step
+up your task management game!</p>
+<h3 id="end-user-setup">End User Setup</h3>
+<ol>
+<li>Visit the app at, <a href="https://queue-d-cloud.web.app/">https://queue-d-cloud.web.app/</a></li>
+<li>Sign in with Google</li>
+<li>Get to work!</li>
+</ol>
+<h3 id="developer-setup">Developer Setup</h3>
+<ol>
+<li>Clone the repo<div><pre class="line-numbers"><code class="language-sh">git clone https://github.com/kevinmilly/Queue-D.git</code></pre></div></li>
+<li>Install NPM packages<div><pre class="line-numbers"><code class="language-sh">npm install</code></pre></div></li>
+</ol>
+<h3 id="built-with">Built With</h3>
+<ul>
+<li><a href="https://ionicframework.com/docs/angular/your-first-app">Ionic Framework - Angular</a></li>
+<li><a href="https://firebase.google.com/">Firebase</a></li>
+</ul>
+<!-- CONTRIBUTING -->
+<h2 id="contributing">Contributing</h2>
+<p>Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are <strong>greatly appreciated</strong>.</p>
+<p>Please feel free to contribute through code or through theory.  Everyone has their own thoughts in regards to how we can all become more productivity.  If you have thoughts in regards to ideas, please feel free to &#39;Create an Issue&#39; or give feedback through a feature suggestion.</p>
+<ol>
+<li>Fork the Project</li>
+<li>Create your Feature Branch (<code>git checkout -b feature/AmazingFeature</code>)</li>
+<li>Commit your Changes (<code>git commit -m &#39;Add some AmazingFeature&#39;</code>)</li>
+<li>Push to the Branch (<code>git push origin feature/AmazingFeature</code>)</li>
+<li>Open a Pull Request</li>
+</ol>
+<!-- LICENSE -->
+<h2 id="license">License</h2>
+<p>Distributed under the MIT License. See <code>LICENSE</code> for more information.</p>
+<!-- CONTACT -->
+<h2 id="contact">Contact</h2>
+<p>Kevin Smith - <a href="https://www.linkedin.com/in/ksmithtech/">Connect with me on LinkedIn</a> - <a href="https://www.linkedin.com/in/ksmithtech/">https://www.linkedin.com/in/ksmithtech/</a></p>
+<p>Email me at: <a href="mailto:&#107;&#101;&#118;&#x69;&#x6e;&#x6d;&#x69;&#x6c;&#108;&#x79;&#x40;&#103;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#107;&#101;&#118;&#x69;&#x6e;&#x6d;&#x69;&#x6c;&#108;&#x79;&#x40;&#103;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       
+       <script type="module" src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
